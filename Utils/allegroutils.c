@@ -1,0 +1,61 @@
+#include "allegroutils.h"
+
+void Allegro_Init()
+{
+    assert(al_init());
+    assert(al_init_primitives_addon());
+    assert(al_install_keyboard());
+    assert(al_install_mouse());
+    assert(al_init_image_addon());
+    assert(al_install_keyboard());
+    al_init_font_addon();
+    al_init_ttf_addon();
+}
+
+ALLEGRO_EVENT_QUEUE* Init_Event(ALLEGRO_DISPLAY* _pDisplay, ALLEGRO_TIMER* _ptimer)
+{
+    ALLEGRO_EVENT_QUEUE* pEvq = al_create_event_queue();
+    al_register_event_source(pEvq, al_get_display_event_source(_pDisplay));
+    al_register_event_source(pEvq, al_get_keyboard_event_source());
+    al_register_event_source(pEvq, al_get_timer_event_source(_ptimer));
+    al_register_event_source(pEvq, al_get_mouse_event_source());
+    return pEvq;
+}
+
+int Get_Touch(ALLEGRO_EVENT* _pEvent, int _keycode, int _default, int _down, int _up, int _char)
+{
+    if (_pEvent->keyboard.keycode != _keycode)
+    {
+        return _default;
+    }
+    if (_pEvent->keyboard.type == ALLEGRO_EVENT_KEY_DOWN)
+    {
+        return _down;
+    }
+    if (_pEvent->keyboard.type == ALLEGRO_EVENT_KEY_UP)
+    {
+        return _up;
+    }
+
+    return _char;
+}
+
+PALLEGRO_MANAGER AllegroManager_Create(int _dw, int _dh, double _timeSpeed)
+{
+    PALLEGRO_MANAGER pAllegroManager = malloc(sizeof(ALLEGRO_MANAGER));
+    pAllegroManager->pDisplay =  al_create_display(_dw, _dh);
+    pAllegroManager->pTimer = al_create_timer(_timeSpeed);
+    al_start_timer(pAllegroManager->pTimer);
+    pAllegroManager->pEventQueue = Init_Event(pAllegroManager->pDisplay, pAllegroManager->pTimer);
+
+    return pAllegroManager;
+}
+
+void AllegroManager_Destroy(PALLEGRO_MANAGER _pAllegroManager)
+{
+    al_destroy_display(_pAllegroManager->pDisplay);
+    al_destroy_timer(_pAllegroManager->pTimer);
+    al_destroy_event_queue(_pAllegroManager->pEventQueue);
+}
+
+
