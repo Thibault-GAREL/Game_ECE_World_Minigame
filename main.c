@@ -1,4 +1,7 @@
-#include "Include.h"
+#include "Init.c"
+
+//Release of 06.04.2023
+
 
 int main(void) {
     ALLEGRO_DISPLAY* display = NULL;
@@ -6,7 +9,11 @@ int main(void) {
     ALLEGRO_TIMER *timer = NULL;
     ALLEGRO_EVENT event;
 
-    display = al_create_display(500,500);
+    Init_Allegro();
+
+    Init_Allegro_Display(&display, 500, 500, "ECE World");
+
+    Init_Allegro_Event(&queue,&display,&timer);
 
 
 }
