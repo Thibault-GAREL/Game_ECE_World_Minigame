@@ -1,6 +1,12 @@
-#include <stdio.h>
+#include "Include.h"
 
 int main(void) {
-    printf("Hello World!\n");
-    return 0;
+    ALLEGRO_DISPLAY* display = NULL;
+    ALLEGRO_EVENT_QUEUE* queue = NULL;
+    ALLEGRO_TIMER *timer = NULL;
+    ALLEGRO_EVENT event;
+
+    display = al_create_display(500,500);
+
+
 }
