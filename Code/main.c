@@ -15,10 +15,10 @@ int main()
     ALLEGRO_EVENT event;
 
     int currentGameId = GAME_NONE;
-
+    PPLAYER players[2];
     int gamesCount = 1;
     PGAME pGames[gamesCount];
-    pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event);
+    pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, players);
 
     int mouseX = 0;
     int mouseY = 0;

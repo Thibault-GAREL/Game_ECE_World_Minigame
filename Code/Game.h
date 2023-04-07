@@ -10,6 +10,13 @@ enum
     GAME_EXEMPLE = 1
 };
 
+typedef struct _PLAYER
+{
+    char name[100];
+    int tickets;
+}PLAYER, *PPLAYER;
+
+
 typedef struct _GAME
 {
     int gameId;
@@ -19,10 +26,10 @@ typedef struct _GAME
     
     int* pCurrentGameId;
     ALLEGRO_EVENT* pEvent;
-    //Player player;
+    PPLAYER* pPlayers;
 }GAME, *PGAME;
 
-PGAME Game_Init(int _gameId, void (*_Game_Update)(PGAME), void (*_Game_TimedUpdate)(PGAME), int* _pCurrentGameId, ALLEGRO_EVENT* _pEvent);
+PGAME Game_Init(int _gameId, void (*_Game_Update)(PGAME), void (*_Game_TimedUpdate)(PGAME), int* _pCurrentGameId, ALLEGRO_EVENT* _pEvent, PPLAYER* _pPlayers);
 
 void Games_Update(PGAME* _pGames, int _gamesCount,int _currentGameId);
 void Games_TimedUpdate(PGAME* _pGames, int _gamesCount, int _currentGameId);
