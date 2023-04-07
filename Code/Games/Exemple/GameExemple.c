@@ -16,7 +16,7 @@ void Exemple_Update(PGAME _pExemple)
 {
     printf("Exemple de fonction Update...\n");
     
-    if (!_pExemple->gameData)
+    if (_pExemple->gameData == NULL)
     {
         Exemple_Create(_pExemple);
     }
