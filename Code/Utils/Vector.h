@@ -6,11 +6,11 @@
 #include <math.h>
 
 
-/*typedef struct _VECTOR2D_INT
+typedef struct _VECTOR2D_INT
 {
     int x;
     int y;
-}VECTOR2D_INT, *PVECTOR2D_INT;*/
+}VECTOR2D_INT, *PVECTOR2D_INT;
 
 typedef struct VECTOR2D
 {
