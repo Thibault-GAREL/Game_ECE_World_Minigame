@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "Game.h"
-#include "Games/GameExemple.h"
+#include "Games/Exemple/GameExemple.h"
 #include "Utils/allegroutils.h"
 
 
