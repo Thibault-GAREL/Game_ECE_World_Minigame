@@ -6,13 +6,14 @@
 #include "Utils/allegroutils.h"
 
 
-
-
 int main() 
 {
     Allegro_Init();
     PALLEGRO_MANAGER pAlMan = AllegroManager_Create(1000, 1000, 0.01);
     ALLEGRO_EVENT event;
+
+
+    ALLEGRO_SAMPLE *test = NULL;
 
     int currentGameId = GAME_NONE;
     PPLAYER players[2];
@@ -63,6 +64,6 @@ int main()
             continue;
         }
     }
-    
+
     return 0;
 }

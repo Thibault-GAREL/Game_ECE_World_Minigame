@@ -10,6 +10,8 @@ void Allegro_Init()
     assert(al_install_keyboard());
     al_init_font_addon();
     al_init_ttf_addon();
+    al_init_acodec_addon();
+    al_install_audio();
 }
 
 ALLEGRO_EVENT_QUEUE* Init_Event(ALLEGRO_DISPLAY* _pDisplay, ALLEGRO_TIMER* _ptimer)
@@ -43,6 +45,7 @@ int Get_Touch(ALLEGRO_EVENT* _pEvent, int _keycode, int _default, int _down, int
 PALLEGRO_MANAGER AllegroManager_Create(int _dw, int _dh, double _timeSpeed)
 {
     PALLEGRO_MANAGER pAllegroManager = malloc(sizeof(ALLEGRO_MANAGER));
+    pAllegroManager->pSample = Allegro_Samples_Create(Audio_Samples_Count);
     pAllegroManager->pDisplay =  al_create_display(_dw, _dh);
     pAllegroManager->pTimer = al_create_timer(_timeSpeed);
     al_start_timer(pAllegroManager->pTimer);
@@ -56,6 +59,25 @@ void AllegroManager_Destroy(PALLEGRO_MANAGER _pAllegroManager)
     al_destroy_display(_pAllegroManager->pDisplay);
     al_destroy_timer(_pAllegroManager->pTimer);
     al_destroy_event_queue(_pAllegroManager->pEventQueue);
+    Allegro_Samples_Destroy(&(_pAllegroManager->pSample));
 }
 
+PALLEGRO_GAME_SAMPLE Allegro_Samples_Create(){
+    al_reserve_samples(Audio_Samples_Count);
+    PALLEGRO_GAME_SAMPLE pSample = malloc (sizeof (ALLEGRO_MANAGER));
 
+    pSample->walk = al_load_sample("Audio-Samples/18. Super Mario Bros 2 - Underworld.mp3");
+
+    return pSample;
+}
+
+void Allegro_Samples_Destroy(PALLEGRO_GAME_SAMPLE _pAllegroSample){
+    al_destroy_sample(_pAllegroSample->walk);
+    al_destroy_sample(_pAllegroSample->click);
+    al_destroy_sample(_pAllegroSample->shot);
+    al_destroy_sample(_pAllegroSample->duck);
+    al_destroy_sample(_pAllegroSample->car);
+    al_destroy_sample(_pAllegroSample->snake);
+    al_destroy_sample(_pAllegroSample->balloon);
+    free (_pAllegroSample);
+}
