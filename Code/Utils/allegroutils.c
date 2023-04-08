@@ -67,7 +67,7 @@ PALLEGRO_GAME_SAMPLE Allegro_Samples_Create(){
     al_reserve_samples(Audio_Samples_Count);
     PALLEGRO_GAME_SAMPLE pSample = malloc (sizeof (ALLEGRO_MANAGER));
 
-    pSample->walk = al_load_sample("Audio-Samples/18. Super Mario Bros 2 - Underworld.mp3");
+    pSample->walk = al_load_sample("..\\Audio-Samples\\Mario_sample.ogg");
 
     return pSample;
 }
@@ -81,4 +81,9 @@ void Allegro_Samples_Destroy(PALLEGRO_GAME_SAMPLE _pAllegroSample){
     al_destroy_sample(_pAllegroSample->snake);
     al_destroy_sample(_pAllegroSample->balloon);
     free (_pAllegroSample);
+}
+
+void Allegro_play_Sample (ALLEGRO_SAMPLE* _pSample){
+
+    al_play_sample(_pSample, 1, 0, 1, ALLEGRO_PLAYMODE_ONCE, NULL);
 }

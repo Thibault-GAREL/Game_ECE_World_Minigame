@@ -9,11 +9,11 @@
 int main() 
 {
     Allegro_Init();
-    PALLEGRO_MANAGER pAlMan = AllegroManager_Create(1000, 1000, 0.01);
+    PALLEGRO_MANAGER pAlManager = AllegroManager_Create(1000, 1000, 0.01);
     ALLEGRO_EVENT event;
 
+    Allegro_play_Sample(pAlManager->pSample->walk);
 
-    ALLEGRO_SAMPLE *test = NULL;
 
     int currentGameId = GAME_NONE;
     PPLAYER players[2];
@@ -26,7 +26,7 @@ int main()
 
     while (1)
     {
-        al_wait_for_event(pAlMan->pEventQueue, &event);
+        al_wait_for_event(pAlManager->pEventQueue, &event);
 
         if (event.display.type == ALLEGRO_EVENT_DISPLAY_CLOSE || Get_Touch(&event, ALLEGRO_KEY_ESCAPE, 0, 0, 1, 0))
         {

@@ -26,6 +26,7 @@ typedef struct _ALLEGRO_SAMPLES
     ALLEGRO_SAMPLE *car;
     ALLEGRO_SAMPLE *snake;
     ALLEGRO_SAMPLE *balloon;
+    ALLEGRO_SAMPLE_INSTANCE *SampleInstance;
 }ALLEGRO_GAME_SAMPLE, *PALLEGRO_GAME_SAMPLE;
 
 typedef struct _ALLEGRO_MANAGER
@@ -42,6 +43,6 @@ PALLEGRO_MANAGER AllegroManager_Create(int _dw, int _dh, double _timeSpeed);
 void AllegroManager_Destroy(PALLEGRO_MANAGER _pAllegroManager);
 PALLEGRO_GAME_SAMPLE Allegro_Samples_Create();
 void Allegro_Samples_Destroy(PALLEGRO_GAME_SAMPLE _pAllegroSample);
-
+void Allegro_play_Sample (ALLEGRO_SAMPLE* _pSample);
 
 #endif
