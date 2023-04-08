@@ -83,7 +83,16 @@ void Allegro_Samples_Destroy(PALLEGRO_GAME_SAMPLE _pAllegroSample){
     free (_pAllegroSample);
 }
 
-void Allegro_play_Sample (ALLEGRO_SAMPLE* _pSample){
+void InitSample (PALLEGRO_GAME_SAMPLES_ID _pSample){
 
-    al_play_sample(_pSample, 1, 0, 1, ALLEGRO_PLAYMODE_ONCE, NULL);
+}
+
+void Allegro_play_Sample (ALLEGRO_SAMPLE* _pSample){
+    al_play_sample(_pSample, 1, 1, 1, ALLEGRO_PLAYMODE_ONCE, NULL);
+
+
+}
+
+void Allegro_Stop_Sample (ALLEGRO_SAMPLE* _pSample){
+    al_stop_sample(_pSample);
 }

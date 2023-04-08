@@ -14,6 +14,8 @@ int main()
 
     Allegro_play_Sample(pAlManager->pSample->walk);
 
+    Allegro_Stop_Sample(pAlManager->pSample->walk);
+
 
     int currentGameId = GAME_NONE;
     PPLAYER players[2];
