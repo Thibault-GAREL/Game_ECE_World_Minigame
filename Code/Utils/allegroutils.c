@@ -59,7 +59,8 @@ void AllegroManager_Destroy(PALLEGRO_MANAGER _pAllegroManager)
     al_destroy_display(_pAllegroManager->pDisplay);
     al_destroy_timer(_pAllegroManager->pTimer);
     al_destroy_event_queue(_pAllegroManager->pEventQueue);
-    Allegro_Samples_Destroy(&(_pAllegroManager->pSample));
+    Allegro_Samples_Destroy(_pAllegroManager->pSample);
+    free(_pAllegroManager);
 }
 
 PALLEGRO_GAME_SAMPLE Allegro_Samples_Create(){
