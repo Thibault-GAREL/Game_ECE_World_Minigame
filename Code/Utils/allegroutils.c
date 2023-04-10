@@ -175,3 +175,6 @@ void HideCursor (PALLEGRO_MANAGER pAlManager){
     al_hide_mouse_cursor(pAlManager->pDisplay);
 }
 
+void DisplayCursor (PALLEGRO_MANAGER pAlManager){
+    al_show_mouse_cursor(pAlManager->pDisplay);
+}
