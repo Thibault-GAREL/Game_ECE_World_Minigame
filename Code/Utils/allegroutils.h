@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
@@ -17,6 +18,7 @@
 void Allegro_Init();
 ALLEGRO_EVENT_QUEUE* Init_Event(ALLEGRO_DISPLAY* _pDisplay, ALLEGRO_TIMER* _ptimer);
 int Get_Touch(ALLEGRO_EVENT* _pEvent, int _keycode, int _default, int _down, int _up, int _char);
+
 
 typedef struct _ALLEGRO_SAMPLES
 {
@@ -40,6 +42,17 @@ typedef struct _ALLEGRO_SAMPLES_INSTANCE
     ALLEGRO_SAMPLE_INSTANCE *balloon;
 }ALLEGRO_GAME_SAMPLES_INSTANCE, *PALLEGRO_GAME_SAMPLES_INSTANCE;
 
+typedef struct _ALLEGRO_MOUSE_CURSOR{
+    ALLEGRO_MOUSE_CURSOR *Cursor1;
+    ALLEGRO_MOUSE_CURSOR *Cursor2;
+    ALLEGRO_MOUSE_CURSOR *Cursor3;
+    ALLEGRO_MOUSE_CURSOR *Cursor4;
+    ALLEGRO_MOUSE_CURSOR *Cursor5;
+    ALLEGRO_MOUSE_CURSOR *Cursor6;
+    ALLEGRO_MOUSE_CURSOR *Cursor7;
+}ALLEGRO_CURSOR, *PALLEGRO_CURSOR;
+
+
 typedef struct _ALLEGRO_MANAGER
 {
     ALLEGRO_DISPLAY* pDisplay;
@@ -47,7 +60,9 @@ typedef struct _ALLEGRO_MANAGER
     ALLEGRO_EVENT_QUEUE* pEventQueue;
     ALLEGRO_GAME_SAMPLE* pSample;
     ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance;
+    ALLEGRO_CURSOR *pCursors;
 }ALLEGRO_MANAGER, *PALLEGRO_MANAGER;
+
 
 
 PALLEGRO_MANAGER AllegroManager_Create(int _dw, int _dh, double _timeSpeed);
@@ -57,7 +72,10 @@ void Allegro_Samples_Destroy(PALLEGRO_GAME_SAMPLE _pAllegroSample);
 void Allegro_Samples_Instance_Destroy(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance);
 void Allegro_play_Sample (ALLEGRO_SAMPLE_INSTANCE * _pSample);
 void Allegro_Stop_Sample (ALLEGRO_SAMPLE_INSTANCE * _pSample);
-PALLEGRO_GAME_SAMPLES_INSTANCE InitSample (ALLEGRO_GAME_SAMPLES_INSTANCE * pSample);
+PALLEGRO_GAME_SAMPLES_INSTANCE InitSample (ALLEGRO_GAME_SAMPLE * pSample);
 void SetSampleInstance(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance);
+PALLEGRO_CURSOR InitCursors();
+void ChangeCursor (PALLEGRO_MANAGER pAlManager, ALLEGRO_MOUSE_CURSOR *pMouseCursor);
+
 
 #endif

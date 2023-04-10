@@ -14,6 +14,8 @@ void Allegro_Init()
     al_install_audio();
 }
 
+
+
 ALLEGRO_EVENT_QUEUE* Init_Event(ALLEGRO_DISPLAY* _pDisplay, ALLEGRO_TIMER* _ptimer)
 {
     ALLEGRO_EVENT_QUEUE* pEvq = al_create_event_queue();
@@ -50,6 +52,8 @@ PALLEGRO_MANAGER AllegroManager_Create(int _dw, int _dh, double _timeSpeed)
 
     pAllegroManager->pSampleInstance = InitSample(pAllegroManager->pSample);
 
+    pAllegroManager->pCursors = InitCursors();
+
     SetSampleInstance(pAllegroManager->pSampleInstance);
     pAllegroManager->pDisplay =  al_create_display(_dw, _dh);
     pAllegroManager->pTimer = al_create_timer(_timeSpeed);
@@ -68,7 +72,7 @@ void AllegroManager_Destroy(PALLEGRO_MANAGER _pAllegroManager)
     Allegro_Samples_Destroy(_pAllegroManager->pSample);
     free(_pAllegroManager);
 }
-PALLEGRO_GAME_SAMPLES_INSTANCE InitSample (ALLEGRO_GAME_SAMPLES_INSTANCE * pSample){
+PALLEGRO_GAME_SAMPLES_INSTANCE InitSample (ALLEGRO_GAME_SAMPLE * pSample){
     PALLEGRO_GAME_SAMPLES_INSTANCE pSample_Instance = malloc(sizeof (ALLEGRO_GAME_SAMPLES_INSTANCE));
 
     pSample_Instance->walk = al_create_sample_instance(pSample->walk);
@@ -140,3 +144,31 @@ void Allegro_play_Sample (ALLEGRO_SAMPLE_INSTANCE * _pSample){
 void Allegro_Stop_Sample (ALLEGRO_SAMPLE_INSTANCE * _pSample){
     al_stop_sample_instance(_pSample);
 }
+
+PALLEGRO_CURSOR InitCursors(){
+    PALLEGRO_CURSOR pCursor = malloc(sizeof (ALLEGRO_CURSOR));
+
+    ALLEGRO_BITMAP *Cursor1 = al_load_bitmap("..\\Textures\\Cursors\\cursor--v1.png");
+    //ALLEGRO_BITMAP *Cursor2 = al_load_bitmap();
+    //ALLEGRO_BITMAP *Cursor3 = al_load_bitmap();
+    //ALLEGRO_BITMAP *Cursor4 = al_load_bitmap();
+    //ALLEGRO_BITMAP *Cursor5 = al_load_bitmap();
+    //ALLEGRO_BITMAP *Cursor6 = al_load_bitmap();
+    //ALLEGRO_BITMAP *Cursor7 = al_load_bitmap();
+
+    pCursor->Cursor1 = al_create_mouse_cursor(Cursor1, 0, 0);
+    //pCursor->Cursor2 = al_create_mouse_cursor();
+    //pCursor->Cursor3 = al_create_mouse_cursor();
+    //pCursor->Cursor4 = al_create_mouse_cursor();
+    //pCursor->Cursor5 = al_create_mouse_cursor();
+    //pCursor->Cursor6 = al_create_mouse_cursor();
+    //pCursor->Cursor7 = al_create_mouse_cursor();
+
+    return pCursor;
+}
+
+void ChangeCursor (PALLEGRO_MANAGER pAlManager, ALLEGRO_MOUSE_CURSOR *pMouseCursor){
+    //al_hide_mouse_cursor(pAlManager->pDisplay);
+    al_set_mouse_cursor(pAlManager->pDisplay, pMouseCursor);
+}
+
