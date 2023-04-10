@@ -76,6 +76,6 @@ PALLEGRO_GAME_SAMPLES_INSTANCE InitSample (ALLEGRO_GAME_SAMPLE * pSample);
 void SetSampleInstance(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance);
 PALLEGRO_CURSOR InitCursors();
 void ChangeCursor (PALLEGRO_MANAGER pAlManager, ALLEGRO_MOUSE_CURSOR *pMouseCursor);
-
+void HideCursor (PALLEGRO_MANAGER pAlManager);
 
 #endif

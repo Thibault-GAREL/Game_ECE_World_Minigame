@@ -168,7 +168,10 @@ PALLEGRO_CURSOR InitCursors(){
 }
 
 void ChangeCursor (PALLEGRO_MANAGER pAlManager, ALLEGRO_MOUSE_CURSOR *pMouseCursor){
-    //al_hide_mouse_cursor(pAlManager->pDisplay);
     al_set_mouse_cursor(pAlManager->pDisplay, pMouseCursor);
+}
+
+void HideCursor (PALLEGRO_MANAGER pAlManager){
+    al_hide_mouse_cursor(pAlManager->pDisplay);
 }
 
