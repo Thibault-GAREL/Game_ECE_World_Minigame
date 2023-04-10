@@ -27,10 +27,18 @@ typedef struct _ALLEGRO_SAMPLES
     ALLEGRO_SAMPLE *car;
     ALLEGRO_SAMPLE *snake;
     ALLEGRO_SAMPLE *balloon;
-    ALLEGRO_SAMPLE_INSTANCE *SampleInstance;
 }ALLEGRO_GAME_SAMPLE, *PALLEGRO_GAME_SAMPLE;
 
-
+typedef struct _ALLEGRO_SAMPLES_INSTANCE
+{
+    ALLEGRO_SAMPLE_INSTANCE *walk;
+    ALLEGRO_SAMPLE_INSTANCE *click;
+    ALLEGRO_SAMPLE_INSTANCE *shot;
+    ALLEGRO_SAMPLE_INSTANCE *duck;
+    ALLEGRO_SAMPLE_INSTANCE *car;
+    ALLEGRO_SAMPLE_INSTANCE *snake;
+    ALLEGRO_SAMPLE_INSTANCE *balloon;
+}ALLEGRO_GAME_SAMPLES_INSTANCE, *PALLEGRO_GAME_SAMPLES_INSTANCE;
 
 typedef struct _ALLEGRO_MANAGER
 {
@@ -38,25 +46,18 @@ typedef struct _ALLEGRO_MANAGER
     ALLEGRO_TIMER* pTimer;
     ALLEGRO_EVENT_QUEUE* pEventQueue;
     ALLEGRO_GAME_SAMPLE* pSample;
+    ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance;
 }ALLEGRO_MANAGER, *PALLEGRO_MANAGER;
-
-typedef struct _ALLEGRO_SAMPLES_ID
-{
-    ALLEGRO_SAMPLE_ID walk;
-    ALLEGRO_SAMPLE_ID click;
-    ALLEGRO_SAMPLE_ID shot;
-    ALLEGRO_SAMPLE_ID duck;
-    ALLEGRO_SAMPLE_ID car;
-    ALLEGRO_SAMPLE_ID snake;
-    ALLEGRO_SAMPLE_ID balloon;
-}ALLEGRO_GAME_SAMPLES_ID, *PALLEGRO_GAME_SAMPLES_ID;
 
 
 PALLEGRO_MANAGER AllegroManager_Create(int _dw, int _dh, double _timeSpeed);
 void AllegroManager_Destroy(PALLEGRO_MANAGER _pAllegroManager);
 PALLEGRO_GAME_SAMPLE Allegro_Samples_Create();
 void Allegro_Samples_Destroy(PALLEGRO_GAME_SAMPLE _pAllegroSample);
-void Allegro_play_Sample (ALLEGRO_SAMPLE* _pSample);
-void Allegro_Stop_Sample (ALLEGRO_SAMPLE* _pSample);
+void Allegro_Samples_Instance_Destroy(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance);
+void Allegro_play_Sample (ALLEGRO_SAMPLE_INSTANCE * _pSample);
+void Allegro_Stop_Sample (ALLEGRO_SAMPLE_INSTANCE * _pSample);
+PALLEGRO_GAME_SAMPLES_INSTANCE InitSample (ALLEGRO_GAME_SAMPLES_INSTANCE * pSample);
+void SetSampleInstance(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance);
 
 #endif
