@@ -12,7 +12,7 @@ void PAC_Create(PGAME _pPAC)
     printf("Jeu cree!\n");
 }
 
-void Exemple_Update(PGAME _pPAC)
+void PAC_Update(PGAME _pPAC)
 {
     printf("Exemple de fonction Update...\n");
 
@@ -60,3 +60,21 @@ void PAC_Destroy(PGAME _pPAC)
     printf("Etat du jeu actuel mis a GAME_NONE");
 }
 
+pGameData InitDuck (){
+    GameData *pPAC = malloc(sizeof (GameData));
+
+    pPAC->pDuckInfo1->IsDuckFished = false;
+    pPAC->pDuckInfo2->IsDuckFished = false;
+    pPAC->pDuckInfo3->IsDuckFished = false;
+    pPAC->pDuckInfo4->IsDuckFished = false;
+    pPAC->pDuckInfo5->IsDuckFished = false;
+    pPAC->pDuckInfo6->IsDuckFished = false;
+    pPAC->pDuckInfo7->IsDuckFished = false;
+    pPAC->pDuckInfo8->IsDuckFished = false;
+    pPAC->pDuckInfo9->IsDuckFished = false;
+    pPAC->pDuckInfo10->IsDuckFished = false;
+    pPAC->pDuckInfo11->IsDuckFished = false;
+    pPAC->pDuckInfo12->IsDuckFished = false;
+
+    pPAC->pDuckInfo1->x = srand()
+}

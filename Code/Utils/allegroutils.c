@@ -72,6 +72,7 @@ void AllegroManager_Destroy(PALLEGRO_MANAGER _pAllegroManager)
     Allegro_Samples_Destroy(_pAllegroManager->pSample);
     free(_pAllegroManager);
 }
+
 PALLEGRO_GAME_SAMPLES_INSTANCE InitSample (ALLEGRO_GAME_SAMPLE * pSample){
     PALLEGRO_GAME_SAMPLES_INSTANCE pSample_Instance = malloc(sizeof (ALLEGRO_GAME_SAMPLES_INSTANCE));
 
@@ -109,7 +110,7 @@ PALLEGRO_GAME_SAMPLE Allegro_Samples_Create(){
     PALLEGRO_GAME_SAMPLE pSample = malloc (sizeof (ALLEGRO_MANAGER));
 
     pSample->walk = al_load_sample("..\\Audio-Samples\\Mario_sample.ogg");
-    pSample->balloon = NULL;
+    //pSample->balloon = NULL;
 
     return pSample;
 }
