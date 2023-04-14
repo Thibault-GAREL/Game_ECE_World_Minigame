@@ -20,8 +20,8 @@ typedef struct _BALLON
 
 typedef struct _GAMEDATA
 {
-    ALLEGRO_BITMAP* image[20];
-    ALLEGRO_FONT* police[2];
+    ALLEGRO_BITMAP* image[25];
+    ALLEGRO_FONT* police[3];
     int gamemode;
     Vector2D mouse;
     int click;
@@ -47,6 +47,22 @@ typedef struct _GAMEDATA
     float pointsy3[2000];
     float pointsx4[2000];
     float pointsy4[2000];
+    int ballondetruit;
+    char score[100];
+    int timeur;
+    char timmeur[100];
+    int tempsrestant;
+    int tourfait;
+    int pointJ1;
+    int pointJ2;
+    int ticketJ1;
+    int ticketJ2;
+    char scoreJ1[100];
+    char scoreJ2[100];
+    int meilleurscore1;
+    int meilleurscore2;
+    int meilleurscore3;
+    int compteursauvegarde;
 }GameData;
 
 

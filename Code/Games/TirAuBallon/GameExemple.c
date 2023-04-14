@@ -5,6 +5,7 @@ void Exemple_Create(PGAME _pExemple)
     GameData* pGameData = malloc(sizeof (GameData));
     pGameData->police[0]= al_load_ttf_font(PATH"\\police.ttf",150,0);
     pGameData->police[1]= al_load_ttf_font(PATH"\\police.ttf",100,0);
+    pGameData->police[2]= al_load_ttf_font(PATH"\\police.ttf",30,0);
     pGameData->image[0]= al_load_bitmap(PATH"\\fondmenu.jpg");
     pGameData->image[1]= al_load_bitmap(PATH"\\sabrelaser.png");
     pGameData->image[2]= al_load_bitmap(PATH"\\boutonplay.png");
@@ -17,6 +18,15 @@ void Exemple_Create(PGAME _pExemple)
     pGameData->image[9]= al_load_bitmap(PATH"\\vaisseau.png");
     pGameData->image[10]= al_load_bitmap(PATH"\\vaisseaumenu.png");
     pGameData->image[11]= al_load_bitmap(PATH"\\vaisseaumenu2.png");
+    pGameData->image[12]= al_load_bitmap(PATH"\\viseur.png");
+    pGameData->image[13]= al_load_bitmap(PATH"\\horloge.png");
+    pGameData->image[14]= al_load_bitmap(PATH"\\ballonscore.png");
+    pGameData->image[15]= al_load_bitmap(PATH"\\fondtatawin.jpg");
+    pGameData->image[16]= al_load_bitmap(PATH"\\scorepartie.png");
+    pGameData->image[17]= al_load_bitmap(PATH"\\meilleurscore.png");
+    pGameData->image[18]= al_load_bitmap(PATH"\\ticket.png");
+    pGameData->image[19]= al_load_bitmap(PATH"\\chiffreun.png");
+    pGameData->image[20]= al_load_bitmap(PATH"\\chiffrezero.png");
     pGameData->gamemode = 0;
     pGameData->nbballon = 90;
     pGameData->compteurvaisseau=2000;
@@ -34,6 +44,13 @@ void Exemple_Create(PGAME _pExemple)
     _pExemple->gameData = pGameData;
     pGameData->compteurassignation=0;
     pGameData->compteurdroite=0;
+    pGameData->ballondetruit=0;
+    pGameData->timeur = 0;
+    pGameData->tempsrestant = 60;
+    pGameData->tourfait=0;
+    pGameData->ticketJ2=0;
+    pGameData->ticketJ1=0;
+    pGameData->compteursauvegarde=0;
     for (int i=0;i<pGameData->nbballon+1;i++){
         if (i%2 == 1){
             pGameData->pballon[i].vx=2;
@@ -156,8 +173,8 @@ void assigner_pos_ballon(PGAME _pExemple){
         if (posx>1600){
             posx-=100;
         }
-        if (posy>650){
-            posy-=80;
+        if (posy>600){
+            posy-=100;
         }
         if (posx<1400){
             posx += 50;
@@ -292,14 +309,69 @@ void mouvementballon(PGAME _pExemple){
 }
 
 
+void reset(PGAME _pExemple){
+    GameData* pGameData = _pExemple->gameData;
+    pGameData->nbballon = 90;
+    pGameData->compteurvaisseau=2000;
+    pGameData->yvaiseeau = 400;
+    pGameData->vaisseaumenu1x = -100;
+    pGameData->vaisseaumenu1y = -100;
+    pGameData->vaisseaumenu2x = 2000;
+    pGameData->vaisseaumenu2y = -100;
+    pGameData->vaisseaumenu3x = -100;
+    pGameData->vaisseaumenu3y = 900;
+    pGameData->vaisseaumenu4x = 2000;
+    pGameData->vaisseaumenu4y = 900;
+    pGameData->compteurassignation=0;
+    pGameData->compteurdroite=0;
+    pGameData->ballondetruit=0;
+    pGameData->timeur = 0;
+    pGameData->tempsrestant = 60;
+}
+
+
+void traitementmeilleurscore(PGAME _pExemple){
+    GameData* pGameData = _pExemple->gameData;
+    if (pGameData->pointJ1 >= pGameData->meilleurscore1){
+        pGameData->meilleurscore3=pGameData->meilleurscore2;
+        pGameData->meilleurscore2=pGameData->meilleurscore1;
+        pGameData->meilleurscore1=pGameData->pointJ1;
+    }
+    if (pGameData->pointJ2 >= pGameData->meilleurscore1){
+        pGameData->meilleurscore3=pGameData->meilleurscore2;
+        pGameData->meilleurscore2=pGameData->meilleurscore1;
+        pGameData->meilleurscore1=pGameData->pointJ2;
+    }
+    else if (pGameData->pointJ1 >= pGameData->meilleurscore2 && pGameData->pointJ1 <= pGameData->meilleurscore1){
+        pGameData->meilleurscore3 = pGameData->meilleurscore2 ;
+        pGameData->meilleurscore2 = pGameData->pointJ1;
+    }
+    else if (pGameData->pointJ2 >= pGameData->meilleurscore2 && pGameData->pointJ2 <= pGameData->meilleurscore1){
+        pGameData->meilleurscore3 = pGameData->meilleurscore2 ;
+        pGameData->meilleurscore2 = pGameData->pointJ2;
+    }
+    else if (pGameData->pointJ1 >= pGameData->meilleurscore3 && pGameData->pointJ1 <= pGameData->meilleurscore2){
+        pGameData->meilleurscore3=pGameData->pointJ1;
+    }
+    else if (pGameData->pointJ2 >= pGameData->meilleurscore3 && pGameData->pointJ2 <= pGameData->meilleurscore2){
+        pGameData->meilleurscore3=pGameData->pointJ2;
+    }
+}
+
+
 void Exemple_TimedUpdate(PGAME _pExemple)
 {
     char nomjeu[] = "Tir Au Jeday";
     char nomJ1[] = "Joueur 1";
     char nomJ2[] = "Joueur 2";
+    char ecriturescore[] = "Score : ";
+    char deuxpoint[] = " : ";
+    char tour[] = "turn";
 
     GameData* pGameData = _pExemple->gameData;
     if (pGameData->gamemode==0){
+        ALLEGRO_DISPLAY * ecran=al_get_current_display();
+        al_show_mouse_cursor(ecran);
         al_draw_bitmap(pGameData->image[0],0,0,0);
         al_draw_bitmap(pGameData->image[10],pGameData->vaisseaumenu1x,pGameData->vaisseaumenu1y,0);
         al_draw_bitmap(pGameData->image[11],pGameData->vaisseaumenu2x,pGameData->vaisseaumenu2y,0);
@@ -330,6 +402,8 @@ void Exemple_TimedUpdate(PGAME _pExemple)
     }
     if (pGameData->gamemode==1){
         al_draw_bitmap(pGameData->image[3],0,0,0);
+        ALLEGRO_DISPLAY*ecran= al_get_current_display();
+        al_hide_mouse_cursor(ecran);
         if (pGameData->compteurvaisseau > 320 && pGameData->compteurvaisseau+80 < 1720){
             if((pGameData->compteurvaisseau > 1280 || pGameData->compteurvaisseau+80 < 1220) && (pGameData->compteurvaisseau > 780 || pGameData->compteurvaisseau+80 < 700)){
                 al_draw_bitmap(pGameData->image[9],pGameData->compteurvaisseau,pGameData->yvaiseeau,0);
@@ -360,14 +434,125 @@ void Exemple_TimedUpdate(PGAME _pExemple)
             pGameData->compteurvaisseau=2000;
             pGameData->yvaiseeau = 400;
         }
-
-
-
-
-
+        al_draw_bitmap(pGameData->image[12],pGameData->mouse.x,pGameData->mouse.y,0);
+        for (int i=0;i<pGameData->nbballon+1;i++){
+            if (pGameData->mouse.x+26 >= pGameData->pballon[i].x+5 && pGameData->mouse.x+26 <= pGameData->pballon[i].x+48 && pGameData->mouse.y+24 >= pGameData->pballon[i].y+2 && pGameData->mouse.y+24 <= pGameData->pballon[i].y+47 && pGameData->click == 1){
+                pGameData->pballon[i].x = -100000;
+                pGameData->pballon[i].y = -100000;
+                pGameData->click=0;
+                pGameData->ballondetruit++;
+            }
+        }
+        pGameData->timeur++;
+        if (pGameData->timeur%100==1){
+            pGameData->tempsrestant-=1;
+        }
+        sprintf(pGameData->score,"%d",(int)pGameData->ballondetruit);
+        sprintf(pGameData->timmeur,"%d",(int)pGameData->tempsrestant);
+        al_draw_text(pGameData->police[1], al_map_rgb(27,52,100),100,800,0,ecriturescore);
+        al_draw_text(pGameData->police[1], al_map_rgb(234,231,39),650,800,0,pGameData->score);
+        al_draw_bitmap(pGameData->image[13],1300,100,0);
+        al_draw_text(pGameData->police[0], al_map_rgb(0,0,0),1450,100,0,deuxpoint);
+        al_draw_text(pGameData->police[0], al_map_rgb(255,255,255),1550,100,0,pGameData->timmeur);
+        if (pGameData->tempsrestant <= 0 && pGameData->tourfait==0){
+            pGameData->gamemode=2;
+            pGameData->pointJ1=pGameData->ballondetruit;
+        }
+        if (pGameData->tempsrestant <= 0 && pGameData->tourfait==1){
+            pGameData->gamemode=3;
+            pGameData->pointJ2=pGameData->ballondetruit;
+        }
+    }
+    if (pGameData->gamemode==2){
+        ALLEGRO_DISPLAY * ecran=al_get_current_display();
+        al_show_mouse_cursor(ecran);
+        al_draw_bitmap(pGameData->image[0],0,0,0);
+        al_draw_scaled_bitmap(pGameData->image[2],0,0,288,89,600,750,700,150,0);
+        al_draw_text(pGameData->police[0], al_map_rgb(216,236,53),200,200,0,nomJ1);
+        al_draw_text(pGameData->police[0], al_map_rgb(216,236,53),1150,200,0,deuxpoint);
+        al_draw_bitmap(pGameData->image[14],1500,200,0);
+        al_draw_text(pGameData->police[0], al_map_rgb(0,0,0),1350,200,0,pGameData->score);
+        al_draw_text(pGameData->police[1], al_map_rgb(255,0,0),400,600,0,nomJ2);
+        al_draw_text(pGameData->police[1], al_map_rgb(255,0,0),1100,600,0,tour);
+        pGameData->tourfait=1;
+        if (Point_In_Rectangle(pGameData->mouse, (Vector2D){600,750}, (Vector2D){1300,900}) == 1 && pGameData->click==1)
+        {
+            pGameData->gamemode=1;
+            pGameData->click=0;
+            reset(_pExemple);
+        }
+    }
+    if (pGameData->gamemode==3){
+        al_draw_bitmap(pGameData->image[15],0,0,0);
+        FILE* fichier=NULL;
+        fichier= fopen(PATH"\\sauvegarde.txt","r");
+        fscanf(fichier,"%d\n%d\n%d\n",&pGameData->meilleurscore1,&pGameData->meilleurscore2,&pGameData->meilleurscore3);
+        fclose(fichier);
+        if (pGameData->compteursauvegarde==0){
+            printf("aa");
+            traitementmeilleurscore(_pExemple);
+            pGameData->compteursauvegarde=1;
+        }
+        fichier = fopen(PATH"\\sauvegarde.txt","w");
+        fprintf(fichier,"%d\n%d\n%d",pGameData->meilleurscore1,pGameData->meilleurscore2,pGameData->meilleurscore3);
+        fclose(fichier);
+        fichier=NULL;
+        sprintf(pGameData->scoreJ1,"%d",pGameData->pointJ1);
+        sprintf(pGameData->scoreJ2,"%d",pGameData->pointJ2);
+        if (pGameData->pointJ1 > pGameData->pointJ2){
+            ALLEGRO_DISPLAY * ecran=al_get_current_display();
+            al_show_mouse_cursor(ecran);
+            al_draw_bitmap(pGameData->image[16],0,0,0);
+            al_draw_text(pGameData->police[2], al_map_rgb(255,0,0),450,280,0,nomJ1);
+            al_draw_text(pGameData->police[2], al_map_rgb(255,0,0),450,510,0,nomJ2);
+            al_draw_text(pGameData->police[2], al_map_rgb(0,0,0),450,375,0,pGameData->scoreJ1);
+            al_draw_text(pGameData->police[2], al_map_rgb(0,0,0),450,610,0,pGameData->scoreJ2);
+            al_draw_text(pGameData->police[1], al_map_rgb(216,236,53),900,200,0,nomJ1);
+            al_draw_text(pGameData->police[1], al_map_rgb(216,236,53),900,600,0,nomJ2);
+            al_draw_bitmap(pGameData->image[18],1200,300,0);
+            al_draw_bitmap(pGameData->image[18],1200,700,0);
+            al_draw_bitmap(pGameData->image[19],900,300,0);
+            al_draw_bitmap(pGameData->image[20],900,700,0);
+            pGameData->ticketJ1=1;
+            pGameData->ticketJ2=0;
+        }
+        else if (pGameData->pointJ2 > pGameData->pointJ1){
+            ALLEGRO_DISPLAY * ecran=al_get_current_display();
+            al_show_mouse_cursor(ecran);
+            al_draw_bitmap(pGameData->image[16],0,0,0);
+            al_draw_text(pGameData->police[2], al_map_rgb(255,0,0),450,280,0,nomJ2);
+            al_draw_text(pGameData->police[2], al_map_rgb(255,0,0),450,510,0,nomJ1);
+            al_draw_text(pGameData->police[2], al_map_rgb(0,0,0),450,375,0,pGameData->scoreJ2);
+            al_draw_text(pGameData->police[2], al_map_rgb(0,0,0),450,610,0,pGameData->scoreJ1);
+            al_draw_text(pGameData->police[1], al_map_rgb(216,236,53),900,200,0,nomJ2);
+            al_draw_text(pGameData->police[1], al_map_rgb(216,236,53),900,600,0,nomJ1);
+            al_draw_bitmap(pGameData->image[18],1200,300,0);
+            al_draw_bitmap(pGameData->image[18],1200,700,0);
+            al_draw_bitmap(pGameData->image[20],900,700,0);
+            al_draw_bitmap(pGameData->image[19],900,300,0);
+            pGameData->ticketJ1=0;
+            pGameData->ticketJ2=1;
+        }
+        else {
+            ALLEGRO_DISPLAY * ecran=al_get_current_display();
+            al_show_mouse_cursor(ecran);
+            al_draw_bitmap(pGameData->image[16],0,0,0);
+            al_draw_text(pGameData->police[2], al_map_rgb(255,0,0),450,280,0,nomJ1);
+            al_draw_text(pGameData->police[2], al_map_rgb(255,0,0),450,510,0,nomJ2);
+            al_draw_text(pGameData->police[2], al_map_rgb(0,0,0),450,375,0,pGameData->scoreJ1);
+            al_draw_text(pGameData->police[2], al_map_rgb(0,0,0),450,610,0,pGameData->scoreJ2);
+            al_draw_text(pGameData->police[1], al_map_rgb(216,236,53),900,200,0,nomJ1);
+            al_draw_text(pGameData->police[1], al_map_rgb(216,236,53),900,600,0,nomJ2);
+            al_draw_bitmap(pGameData->image[18],1200,300,0);
+            al_draw_bitmap(pGameData->image[18],1200,700,0);
+            al_draw_bitmap(pGameData->image[19],900,300,0);
+            al_draw_bitmap(pGameData->image[19],900,700,0);
+            pGameData->ticketJ1=1;
+            pGameData->ticketJ2=1;
+        }
     }
 }
-
+///////////////////////////////////////////////////FAIRE SAUVEGARDE SCORE  // ANIMATION BALLON DETRUIT
 void Exemple_Destroy(PGAME _pExemple)
 {
     printf("Destruction du jeu...\n");
