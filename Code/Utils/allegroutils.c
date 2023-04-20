@@ -89,8 +89,6 @@ void InitSample (PALLEGRO_GAME_SAMPLES_ID _pSample){
 
 void Allegro_play_Sample (ALLEGRO_SAMPLE* _pSample){
     al_play_sample(_pSample, 1, 1, 1, ALLEGRO_PLAYMODE_ONCE, NULL);
-
-
 }
 
 void Allegro_Stop_Sample (ALLEGRO_SAMPLE* _pSample){
