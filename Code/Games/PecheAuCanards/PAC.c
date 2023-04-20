@@ -61,20 +61,34 @@ void PAC_Destroy(PGAME _pPAC)
 }
 
 pGameData InitDuck (){
-    GameData *pPAC = malloc(sizeof (GameData));
+    pGameData pPAC = malloc(sizeof (GameData));
 
-    pPAC->pDuckInfo1->IsDuckFished = false;
-    pPAC->pDuckInfo2->IsDuckFished = false;
-    pPAC->pDuckInfo3->IsDuckFished = false;
-    pPAC->pDuckInfo4->IsDuckFished = false;
-    pPAC->pDuckInfo5->IsDuckFished = false;
-    pPAC->pDuckInfo6->IsDuckFished = false;
-    pPAC->pDuckInfo7->IsDuckFished = false;
-    pPAC->pDuckInfo8->IsDuckFished = false;
-    pPAC->pDuckInfo9->IsDuckFished = false;
-    pPAC->pDuckInfo10->IsDuckFished = false;
-    pPAC->pDuckInfo11->IsDuckFished = false;
-    pPAC->pDuckInfo12->IsDuckFished = false;
+    for (int i = 0; i <DuckCount ; ++i) {
+        pPAC->DuckInfos[i]->IsDuckFished = false;
+    }
+    pPAC = PAC_Coordinates_create(pPAC);
 
-    pPAC->pDuckInfo1->x = srand()
+    return pPAC;
 }
+
+pGameData PAC_Coordinates_create(pGameData gamedata){
+    srand(time(NULL));
+
+    gamedata->DuckInfos[0]->x = (rand() % MAX_POS_X) * DuckThreshold;
+    gamedata->DuckInfos[0]->y = (rand() % MAX_POS_Y) * DuckThreshold;
+
+    for (int x = 1; x < DuckCount; x++) {
+        do {
+            gamedata->DuckInfos[x]->x = (rand() % MAX_POS_X) * DuckThreshold;
+        }while(gamedata->DuckInfos[x-1]->x < gamedata->DuckInfos[x]->x + DuckThreshold || gamedata->DuckInfos[x-1]->x > gamedata->DuckInfos[x]->x - DuckThreshold);
+    }
+
+    for (int y = 1; y < DuckCount ; y++) {
+        do {
+            gamedata->DuckInfos[y]->y = (rand() % MAX_POS_Y) * DuckThreshold;
+        }while(gamedata->DuckInfos[y-1]->y < gamedata->DuckInfos[y]->y + DuckThreshold || gamedata->DuckInfos[y-1]->y > gamedata->DuckInfos[y]->y - DuckThreshold);
+    }
+
+    return gamedata;
+}
+
