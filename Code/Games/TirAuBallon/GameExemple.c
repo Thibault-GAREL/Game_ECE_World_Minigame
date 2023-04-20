@@ -30,7 +30,7 @@ void Exemple_Create(PGAME _pExemple)
     pGameData->image[21]= al_load_bitmap(PATH"\\boutonscore.png");
     pGameData->image[22]= al_load_bitmap(PATH"\\fondscore.jpg");
     pGameData->image[23]= al_load_bitmap(PATH"\\croix.png");
-    /*
+
     pGameData->image[24]= al_load_bitmap(PATH"\\hit1.png");
     pGameData->image[25]= al_load_bitmap(PATH"\\hit2.png");
     pGameData->image[26]= al_load_bitmap(PATH"\\hit3.png");
@@ -75,7 +75,8 @@ void Exemple_Create(PGAME _pExemple)
     pGameData->image[65]= al_load_bitmap(PATH"\\hit42.png");
     pGameData->image[66]= al_load_bitmap(PATH"\\hit43.png");
     pGameData->image[67]= al_load_bitmap(PATH"\\hit44.png");
-    pGameData->image[68]= al_load_bitmap(PATH"\\hit45.png");*/
+    pGameData->image[68]= al_load_bitmap(PATH"\\hit45.png");
+
     pGameData->gamemode = 0;
     pGameData->nbballon = 90;
     pGameData->compteurvaisseau=2000;
@@ -101,6 +102,8 @@ void Exemple_Create(PGAME _pExemple)
     pGameData->ticketJ1=0;
     pGameData->compteursauvegarde=0;
     pGameData->compteurimage=24;
+    pGameData->animation_x=-100;
+    pGameData->animation_y=-100;
     for (int i=0;i<pGameData->nbballon+1;i++){
         if (i%2 == 1){
             pGameData->pballon[i].vx=2;
@@ -409,6 +412,8 @@ void traitementmeilleurscore(PGAME _pExemple){
 }
 
 
+
+
 void Exemple_TimedUpdate(PGAME _pExemple)
 {
     char nomjeu[] = "Tir Au Jeday";
@@ -488,6 +493,8 @@ void Exemple_TimedUpdate(PGAME _pExemple)
         al_draw_bitmap(pGameData->image[12],pGameData->mouse.x,pGameData->mouse.y,0);
         for (int i=0;i<pGameData->nbballon+1;i++){
             if (pGameData->mouse.x+26 >= pGameData->pballon[i].x+5 && pGameData->mouse.x+26 <= pGameData->pballon[i].x+48 && pGameData->mouse.y+24 >= pGameData->pballon[i].y+2 && pGameData->mouse.y+24 <= pGameData->pballon[i].y+47 && pGameData->click == 1){
+                pGameData->animation_x=pGameData->pballon[i].x;
+                pGameData->animation_y=pGameData->pballon[i].y;
                 pGameData->pballon[i].x = -100000;
                 pGameData->pballon[i].y = -100000;
                 pGameData->click=0;
@@ -513,19 +520,21 @@ void Exemple_TimedUpdate(PGAME _pExemple)
             pGameData->gamemode=3;
             pGameData->pointJ2=pGameData->ballondetruit;
         }
-        /*if (pGameData->click == 2){   //regler probleme animation                         // SI LE JOUEUR CASSE TOUT LES BALLONS AVANT LE TEMPS
-            for (int i=0;i<10*45;i++){
-                if (i%10 == 1){
-                    pGameData->compteurimage++;
-                    if (pGameData->compteurimage >= 67){
-                        pGameData->compteurimage=67;
-                    }
-                }
-                al_draw_bitmap(pGameData->image[pGameData->compteurimage],500,500,0);
-            }
-            pGameData->click=0;
+        if (pGameData->ballondetruit == 91 && pGameData->tourfait==0){
+            pGameData->gamemode=2;
+            pGameData->pointJ1=pGameData->ballondetruit;
+        }
+        if (pGameData->ballondetruit == 91 && pGameData->tourfait==1){
+            pGameData->gamemode=2;
+            pGameData->pointJ2=pGameData->ballondetruit;
+        }
+        al_draw_scaled_bitmap(pGameData->image[pGameData->compteurimage],0,0,50,28,pGameData->animation_x-2,pGameData->animation_y+2,100,48,0);
+        pGameData->compteurimage++;
+        if (pGameData->compteurimage >= 67){
             pGameData->compteurimage=24;
-        }*/
+            pGameData->animation_y=-1000;
+            pGameData->animation_x=-1000;
+        }
     }
     if (pGameData->gamemode==2){
         ALLEGRO_DISPLAY * ecran=al_get_current_display();
@@ -535,7 +544,7 @@ void Exemple_TimedUpdate(PGAME _pExemple)
         al_draw_text(pGameData->police[0], al_map_rgb(216,236,53),200,200,0,nomJ1);
         al_draw_text(pGameData->police[0], al_map_rgb(216,236,53),1150,200,0,deuxpoint);
         al_draw_bitmap(pGameData->image[14],1500,200,0);
-        al_draw_text(pGameData->police[0], al_map_rgb(0,0,0),1350,200,0,pGameData->score);
+        al_draw_text(pGameData->police[0], al_map_rgb(0,0,0),1270,200,0,pGameData->score);
         al_draw_text(pGameData->police[1], al_map_rgb(255,0,0),400,600,0,nomJ2);
         al_draw_text(pGameData->police[1], al_map_rgb(255,0,0),1100,600,0,tour);
         pGameData->tourfait=1;
