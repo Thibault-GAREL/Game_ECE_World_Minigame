@@ -8,10 +8,10 @@ void Snake_Create(PGAME _pSnake)
 {
     printf("Creation du jeu...\n");
 
-    int* gameData = (int*)malloc(sizeof(int) * 2);
-    gameData[0] = 0;
-    gameData[1] = 0;
-    _pSnake->gameData = gameData;
+    PSNAKE_DATA pSnakeData = malloc(sizeof(SNAKE_DATA));
+    _pSnake->gameData = pSnakeData;
+
+    pSnakeData->pClone = al_load_bitmap("..\\Textures\\Snake\\Clone.png");
 
     printf("Jeu cree!\n");
 }
@@ -25,9 +25,9 @@ void Snake_Update(PGAME _pSnake)
         Snake_Create(_pSnake);
     }
 
-    int* gameData = _pSnake->gameData;
+    //int* gameData = _pSnake->gameData;
 
-    printf("%d\n", gameData[0]++);
+    //printf("%d\n", gameData[0]++);
 
     if (Get_Touch(_pSnake->pEvent, ALLEGRO_KEY_W, 0, 0, 1, 0))
     {
@@ -43,9 +43,10 @@ void Snake_TimedUpdate(PGAME _pSnake)
 {
     printf("Exemple de fonction TimedUpdate...\n");
 
-    int* gameData = _pSnake->gameData;
+    PSNAKE_DATA pSnakeData = (PSNAKE_DATA)_pSnake->gameData;
 
-    printf("%d\n", gameData[1]++);
+    //printf("%d\n", gameData[1]++);
+    al_draw_bitmap(pSnakeData->pClone, 0,0,0);
 
     printf("\n");
 }

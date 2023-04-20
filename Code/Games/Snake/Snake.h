@@ -8,7 +8,7 @@
 
 typedef struct _SNAKE_DATA
 {
-    
+    ALLEGRO_BITMAP* pClone;
 }SNAKE_DATA, *PSNAKE_DATA;
 
 
