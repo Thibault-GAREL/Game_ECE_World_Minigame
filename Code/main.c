@@ -3,6 +3,7 @@
 #include <time.h>
 #include "Game.h"
 #include "Games/Exemple/GameExemple.h"
+#include "Games/Snake/Snake.h"
 #include "Utils/allegroutils.h"
 
 
@@ -20,9 +21,10 @@ int main()
 
     int currentGameId = GAME_NONE;
     PPLAYER players[2];
-    int gamesCount = 1;
+    int gamesCount = 2;
     PGAME pGames[gamesCount];
     pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, players);
+    pGames[1] = Game_Init(GAME_SNAKE, Snake_Update, Snake_TimedUpdate, &currentGameId, &event, players);
 
     int mouseX = 0;
     int mouseY = 0;
@@ -53,9 +55,9 @@ int main()
 
         if (currentGameId == GAME_NONE)
         {
-            if (Get_Touch(&event, ALLEGRO_KEY_E, 0, 1, 0, 0))
+            if (Get_Touch(&event, ALLEGRO_KEY_S, 0, 1, 0, 0))
             {
-                currentGameId = GAME_EXEMPLE;
+                currentGameId = GAME_SNAKE;
             }
         }
         
