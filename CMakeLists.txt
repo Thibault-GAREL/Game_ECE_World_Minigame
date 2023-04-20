@@ -3,5 +3,5 @@ project(PROJET C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(PROJET Code/main.c Code/Game.c Code/Games/Exemple/GameExemple.c Code/Utils/allegroutils.c Code/Games/PecheAuCanards/PAC.c)
+add_executable(PROJET Code/main.c Code/Game.c Code/Games/Exemple/GameExemple.c Code/Utils/allegroutils.c Code/Games/Traverse_de_la_riviere/Traverse_code.c Code/Games/Traverse_de_la_riviere/Traverse_code.h)
 target_link_libraries(PROJET -lmingw32 -lallegro-5.0.10-monolith-md-debug)
