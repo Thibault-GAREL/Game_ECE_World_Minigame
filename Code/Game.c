@@ -29,7 +29,6 @@ void Games_Update(PGAME* _pGames, int _gamesCount, int _currentGameId)
         {
             continue;
         }
-        printf("Test\n");
 
         if (_pGames[i]->Game_Update == NULL)
         {
