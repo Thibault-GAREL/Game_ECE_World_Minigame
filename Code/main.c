@@ -13,10 +13,11 @@ int main()
     PALLEGRO_MANAGER pAlManager = AllegroManager_Create(1000, 1000, 0.01);
     ALLEGRO_EVENT event;
 
-    /*Allegro_play_Sample(pAlManager->pSample->walk);
+    Allegro_play_Sample(pAlManager->pSampleInstance->walk);
 
-    Allegro_Stop_Sample(pAlManager->pSample->walk);*/
+    //Allegro_Stop_Sample(pAlManager->pSampleInstance->walk);
 
+    ChangeCursor(pAlManager, pAlManager->pCursors->Cursor1);
 
     int currentGameId = GAME_NONE;
     PPLAYER players[2];

@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
@@ -18,6 +19,7 @@ void Allegro_Init();
 ALLEGRO_EVENT_QUEUE* Init_Event(ALLEGRO_DISPLAY* _pDisplay, ALLEGRO_TIMER* _ptimer);
 int Get_Touch(ALLEGRO_EVENT* _pEvent, int _keycode, int _default, int _down, int _up, int _char);
 
+
 typedef struct _ALLEGRO_SAMPLES
 {
     ALLEGRO_SAMPLE *walk;
@@ -27,9 +29,28 @@ typedef struct _ALLEGRO_SAMPLES
     ALLEGRO_SAMPLE *car;
     ALLEGRO_SAMPLE *snake;
     ALLEGRO_SAMPLE *balloon;
-    ALLEGRO_SAMPLE_INSTANCE *SampleInstance;
 }ALLEGRO_GAME_SAMPLE, *PALLEGRO_GAME_SAMPLE;
 
+typedef struct _ALLEGRO_SAMPLES_INSTANCE
+{
+    ALLEGRO_SAMPLE_INSTANCE *walk;
+    ALLEGRO_SAMPLE_INSTANCE *click;
+    ALLEGRO_SAMPLE_INSTANCE *shot;
+    ALLEGRO_SAMPLE_INSTANCE *duck;
+    ALLEGRO_SAMPLE_INSTANCE *car;
+    ALLEGRO_SAMPLE_INSTANCE *snake;
+    ALLEGRO_SAMPLE_INSTANCE *balloon;
+}ALLEGRO_GAME_SAMPLES_INSTANCE, *PALLEGRO_GAME_SAMPLES_INSTANCE;
+
+typedef struct _ALLEGRO_MOUSE_CURSOR{
+    ALLEGRO_MOUSE_CURSOR *Cursor1;
+    ALLEGRO_MOUSE_CURSOR *Cursor2;
+    ALLEGRO_MOUSE_CURSOR *Cursor3;
+    ALLEGRO_MOUSE_CURSOR *Cursor4;
+    ALLEGRO_MOUSE_CURSOR *Cursor5;
+    ALLEGRO_MOUSE_CURSOR *Cursor6;
+    ALLEGRO_MOUSE_CURSOR *Cursor7;
+}ALLEGRO_CURSOR, *PALLEGRO_CURSOR;
 
 
 typedef struct _ALLEGRO_MANAGER
@@ -38,25 +59,23 @@ typedef struct _ALLEGRO_MANAGER
     ALLEGRO_TIMER* pTimer;
     ALLEGRO_EVENT_QUEUE* pEventQueue;
     ALLEGRO_GAME_SAMPLE* pSample;
+    ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance;
+    ALLEGRO_CURSOR *pCursors;
 }ALLEGRO_MANAGER, *PALLEGRO_MANAGER;
 
-typedef struct _ALLEGRO_SAMPLES_ID
-{
-    ALLEGRO_SAMPLE_ID walk;
-    ALLEGRO_SAMPLE_ID click;
-    ALLEGRO_SAMPLE_ID shot;
-    ALLEGRO_SAMPLE_ID duck;
-    ALLEGRO_SAMPLE_ID car;
-    ALLEGRO_SAMPLE_ID snake;
-    ALLEGRO_SAMPLE_ID balloon;
-}ALLEGRO_GAME_SAMPLES_ID, *PALLEGRO_GAME_SAMPLES_ID;
 
 
 PALLEGRO_MANAGER AllegroManager_Create(int _dw, int _dh, double _timeSpeed);
 void AllegroManager_Destroy(PALLEGRO_MANAGER _pAllegroManager);
 PALLEGRO_GAME_SAMPLE Allegro_Samples_Create();
 void Allegro_Samples_Destroy(PALLEGRO_GAME_SAMPLE _pAllegroSample);
-void Allegro_play_Sample (ALLEGRO_SAMPLE* _pSample);
-void Allegro_Stop_Sample (ALLEGRO_SAMPLE* _pSample);
+void Allegro_Samples_Instance_Destroy(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance);
+void Allegro_play_Sample (ALLEGRO_SAMPLE_INSTANCE * _pSample);
+void Allegro_Stop_Sample (ALLEGRO_SAMPLE_INSTANCE * _pSample);
+PALLEGRO_GAME_SAMPLES_INSTANCE InitSample (ALLEGRO_GAME_SAMPLE * pSample);
+void SetSampleInstance(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance);
+PALLEGRO_CURSOR InitCursors();
+void ChangeCursor (PALLEGRO_MANAGER pAlManager, ALLEGRO_MOUSE_CURSOR *pMouseCursor);
+void HideCursor (PALLEGRO_MANAGER pAlManager);
 
 #endif
