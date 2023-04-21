@@ -6,7 +6,6 @@
 #include "..\\..\\Utils\\allegroutils.h"
 #include "..\\..\Utils\\Vector.h"
 
-//test
 
 #define MAX_POS_X 1920
 #define MAX_POS_Y 1080
