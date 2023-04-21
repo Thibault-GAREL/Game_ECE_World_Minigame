@@ -4,12 +4,14 @@
 #include <stdlib.h>
 #include "..\\..\\Game.h"
 #include "..\\..\\Utils\\allegroutils.h"
+#include "..\\..\Utils\\Vector.h"
 
 
 #define MAX_POS_X 1920
 #define MAX_POS_Y 1080
 #define DuckThreshold 50           //defines the minimum distance between two ducks
 #define DuckCount 12
+#define MaxDuckSpeed 30
 
 typedef struct _DuckInfos{
     int x, y;
@@ -22,6 +24,7 @@ typedef struct _GAMEDATA
     ALLEGRO_BITMAP* textures[15];
     ALLEGRO_FONT* police;
     DuckInfos *DuckInfos[DuckCount];
+    ALLEGRO_BITMAP *DuckTextures[DuckCount];
 }GameData, *pGameData;
 
 void PAC_Create(PGAME _pExemple);

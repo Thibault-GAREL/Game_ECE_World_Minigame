@@ -68,6 +68,20 @@ pGameData InitDuck (){
     }
     pPAC = PAC_Coordinates_create(pPAC);
 
+    pPAC->DuckTextures[0] = al_load_bitmap("Textures/PAC/Spaceship_texture_1.png");
+    pPAC->DuckTextures[1] = al_load_bitmap("Textures/PAC/Spaceship_texture_2.png");
+    pPAC->DuckTextures[2] = al_load_bitmap("Textures/PAC/Spaceship_texture_3.png");
+    pPAC->DuckTextures[3] = al_load_bitmap("Textures/PAC/Spaceship_texture_2.png");
+    pPAC->DuckTextures[4] = al_load_bitmap("Textures/PAC/Spaceship_texture_1.png");
+    pPAC->DuckTextures[5] = al_load_bitmap("Textures/PAC/Spaceship_texture_3.png");
+    pPAC->DuckTextures[6] = al_load_bitmap("Textures/PAC/Spaceship_texture_2.png");
+    pPAC->DuckTextures[7] = al_load_bitmap("Textures/PAC/Spaceship_texture_1.png");
+    pPAC->DuckTextures[8] = al_load_bitmap("Textures/PAC/Spaceship_texture_1.png");
+    pPAC->DuckTextures[9] = al_load_bitmap("Textures/PAC/Spaceship_texture_1.png");
+    pPAC->DuckTextures[10] = al_load_bitmap("Textures/PAC/Spaceship_texture_3.png");
+    pPAC->DuckTextures[11] = al_load_bitmap("Textures/PAC/Spaceship_texture_3.png");
+    pPAC->DuckTextures[12] = al_load_bitmap("Textures/PAC/Spaceship_texture_EasterEgg.png");
+
     return pPAC;
 }
 
@@ -89,6 +103,31 @@ pGameData PAC_Coordinates_create(pGameData gamedata){
         }while(gamedata->DuckInfos[y-1]->y < gamedata->DuckInfos[y]->y + DuckThreshold || gamedata->DuckInfos[y-1]->y > gamedata->DuckInfos[y]->y - DuckThreshold);
     }
 
+    for (int SpeedInit = 0; SpeedInit < DuckCount ; SpeedInit++){
+        gamedata->DuckInfos[SpeedInit]->vx = (rand() % MaxDuckSpeed);
+        gamedata->DuckInfos[SpeedInit]->vy = (rand() % MaxDuckSpeed);
+    }
+
     return gamedata;
 }
 
+pGameData Check_Duck_Colisions(pGameData gamedata){
+
+    for (int i = 0; i < DuckCount-1; i++){
+        if (Point_In_Rectangle((Vector2D){gamedata->DuckInfos[i]->x,gamedata->DuckInfos[i]->y}, (Vector2D){gamedata->DuckInfos[i+1]->x,gamedata->DuckInfos[i+1]->y}, (Vector2D){gamedata->DuckInfos[i+1]->x,gamedata->DuckInfos[i+1]->y}))
+        {
+            gamedata->DuckInfos[i]->vx*=-1;
+            gamedata->DuckInfos[i]->vy*=-1;
+            gamedata->DuckInfos[i+1]->vx*=-1;
+            gamedata->DuckInfos[i+1]->vy*=-1;
+        }
+        else {
+            gamedata->DuckInfos[i]->x += gamedata->DuckInfos[i]->vx;
+            gamedata->DuckInfos[i]->y += gamedata->DuckInfos[i]->vy;
+
+            gamedata->DuckInfos[i+1]->x += gamedata->DuckInfos[i+1]->vx;
+            gamedata->DuckInfos[i+1]->y += gamedata->DuckInfos[i+1]->vy;
+        }
+    }
+    return gamedata;
+}
