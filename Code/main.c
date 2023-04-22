@@ -22,10 +22,10 @@ int main()
 
     int currentGameId = GAME_NONE;
     PPLAYER players[2];
-    int gamesCount = 2;
+    int gamesCount = 3;
     PGAME pGames[gamesCount];
     pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, players);
-    pGames[1] = Game_Init(GAME_SNAKE, Snake_Update, Snake_TimedUpdate, &currentGameId, &event, players);
+    pGames[1] = Game_Init(GAME_SNAKE, SnakeGame_TimedUpdate, SnakeGame_TimedUpdate, &currentGameId, &event, players);
     pGames [2] = Game_Init(GAME_TDLR, TDLR_Update, TDLR_TimedUpdate, &currentGameId, &event, players);
 
     int mouseX = 0;

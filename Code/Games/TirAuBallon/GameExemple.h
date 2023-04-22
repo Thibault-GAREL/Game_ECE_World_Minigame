@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "Game.h"
+#include "Code/Game.h"
 #include "allegroutils.h"
 #include "vector.h"
 
