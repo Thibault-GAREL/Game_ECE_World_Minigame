@@ -8,7 +8,8 @@ enum
 {
     GAME_NONE = 0,
     GAME_EXEMPLE = 1,
-    GAME_SNAKE
+    GAME_SNAKE,
+    GAME_TDLR
 };
 
 typedef struct _PLAYER

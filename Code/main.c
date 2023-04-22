@@ -5,9 +5,10 @@
 #include "Games/Exemple/GameExemple.h"
 #include "Games/Snake/Snake.h"
 #include "Utils/allegroutils.h"
+#include "Games/Traverse_de_la_riviere/Traverse_code.h"
 
 
-int main() 
+int main()
 {
     Allegro_Init();
     PALLEGRO_MANAGER pAlManager = AllegroManager_Create(1000, 1000, 0.01);
@@ -25,6 +26,7 @@ int main()
     PGAME pGames[gamesCount];
     pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, players);
     pGames[1] = Game_Init(GAME_SNAKE, Snake_Update, Snake_TimedUpdate, &currentGameId, &event, players);
+    pGames [2] = Game_Init(GAME_TDLR, TDLR_Update, TDLR_TimedUpdate, &currentGameId, &event, players);
 
     int mouseX = 0;
     int mouseY = 0;
@@ -39,7 +41,7 @@ int main()
         }
 
         Games_Update(pGames, gamesCount, currentGameId);
-        
+
         if (event.mouse.type == ALLEGRO_EVENT_MOUSE_AXES)
         {
             mouseX = event.mouse.x;
@@ -59,8 +61,12 @@ int main()
             {
                 currentGameId = GAME_SNAKE;
             }
+            if (Get_Touch(&event, ALLEGRO_KEY_T, 0, 1, 0, 0))
+            {
+                currentGameId = GAME_TDLR;
+            }
         }
-        
+
         if (event.type == ALLEGRO_EVENT_TIMER)
         {
         	al_clear_to_color(al_map_rgb(255,255,255));
