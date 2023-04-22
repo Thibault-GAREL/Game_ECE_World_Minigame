@@ -61,20 +61,73 @@ void PAC_Destroy(PGAME _pPAC)
 }
 
 pGameData InitDuck (){
-    GameData *pPAC = malloc(sizeof (GameData));
+    pGameData pPAC = malloc(sizeof (GameData));
 
-    pPAC->pDuckInfo1->IsDuckFished = false;
-    pPAC->pDuckInfo2->IsDuckFished = false;
-    pPAC->pDuckInfo3->IsDuckFished = false;
-    pPAC->pDuckInfo4->IsDuckFished = false;
-    pPAC->pDuckInfo5->IsDuckFished = false;
-    pPAC->pDuckInfo6->IsDuckFished = false;
-    pPAC->pDuckInfo7->IsDuckFished = false;
-    pPAC->pDuckInfo8->IsDuckFished = false;
-    pPAC->pDuckInfo9->IsDuckFished = false;
-    pPAC->pDuckInfo10->IsDuckFished = false;
-    pPAC->pDuckInfo11->IsDuckFished = false;
-    pPAC->pDuckInfo12->IsDuckFished = false;
+    for (int i = 0; i <DuckCount ; ++i) {
+        pPAC->DuckInfos[i]->IsDuckFished = false;
+    }
+    pPAC = PAC_Coordinates_create(pPAC);
 
-    pPAC->pDuckInfo1->x = srand()
+    pPAC->DuckTextures[0] = al_load_bitmap("Textures/PAC/Spaceship_texture_1.png");
+    pPAC->DuckTextures[1] = al_load_bitmap("Textures/PAC/Spaceship_texture_2.png");
+    pPAC->DuckTextures[2] = al_load_bitmap("Textures/PAC/Spaceship_texture_3.png");
+    pPAC->DuckTextures[3] = al_load_bitmap("Textures/PAC/Spaceship_texture_2.png");
+    pPAC->DuckTextures[4] = al_load_bitmap("Textures/PAC/Spaceship_texture_1.png");
+    pPAC->DuckTextures[5] = al_load_bitmap("Textures/PAC/Spaceship_texture_3.png");
+    pPAC->DuckTextures[6] = al_load_bitmap("Textures/PAC/Spaceship_texture_2.png");
+    pPAC->DuckTextures[7] = al_load_bitmap("Textures/PAC/Spaceship_texture_1.png");
+    pPAC->DuckTextures[8] = al_load_bitmap("Textures/PAC/Spaceship_texture_1.png");
+    pPAC->DuckTextures[9] = al_load_bitmap("Textures/PAC/Spaceship_texture_1.png");
+    pPAC->DuckTextures[10] = al_load_bitmap("Textures/PAC/Spaceship_texture_3.png");
+    pPAC->DuckTextures[11] = al_load_bitmap("Textures/PAC/Spaceship_texture_3.png");
+    pPAC->DuckTextures[12] = al_load_bitmap("Textures/PAC/Spaceship_texture_EasterEgg.png");
+
+    return pPAC;
+}
+
+pGameData PAC_Coordinates_create(pGameData gamedata){
+    srand(time(NULL));
+
+    gamedata->DuckInfos[0]->x = (rand() % MAX_POS_X) * DuckThreshold;
+    gamedata->DuckInfos[0]->y = (rand() % MAX_POS_Y) * DuckThreshold;
+
+    for (int x = 1; x < DuckCount; x++) {
+        do {
+            gamedata->DuckInfos[x]->x = (rand() % MAX_POS_X) * DuckThreshold;
+        }while(gamedata->DuckInfos[x-1]->x < gamedata->DuckInfos[x]->x + DuckThreshold || gamedata->DuckInfos[x-1]->x > gamedata->DuckInfos[x]->x - DuckThreshold);
+    }
+
+    for (int y = 1; y < DuckCount ; y++) {
+        do {
+            gamedata->DuckInfos[y]->y = (rand() % MAX_POS_Y) * DuckThreshold;
+        }while(gamedata->DuckInfos[y-1]->y < gamedata->DuckInfos[y]->y + DuckThreshold || gamedata->DuckInfos[y-1]->y > gamedata->DuckInfos[y]->y - DuckThreshold);
+    }
+
+    for (int SpeedInit = 0; SpeedInit < DuckCount ; SpeedInit++){
+        gamedata->DuckInfos[SpeedInit]->vx = (rand() % MaxDuckSpeed);
+        gamedata->DuckInfos[SpeedInit]->vy = (rand() % MaxDuckSpeed);
+    }
+
+    return gamedata;
+}
+
+pGameData Check_Duck_Colisions(pGameData gamedata){
+
+    for (int i = 0; i < DuckCount-1; i++){
+        if (Point_In_Rectangle((Vector2D){gamedata->DuckInfos[i]->x,gamedata->DuckInfos[i]->y}, (Vector2D){gamedata->DuckInfos[i+1]->x,gamedata->DuckInfos[i+1]->y}, (Vector2D){gamedata->DuckInfos[i+1]->x,gamedata->DuckInfos[i+1]->y}))
+        {
+            gamedata->DuckInfos[i]->vx*=-1;
+            gamedata->DuckInfos[i]->vy*=-1;
+            gamedata->DuckInfos[i+1]->vx*=-1;
+            gamedata->DuckInfos[i+1]->vy*=-1;
+        }
+        else {
+            gamedata->DuckInfos[i]->x += gamedata->DuckInfos[i]->vx;
+            gamedata->DuckInfos[i]->y += gamedata->DuckInfos[i]->vy;
+
+            gamedata->DuckInfos[i+1]->x += gamedata->DuckInfos[i+1]->vx;
+            gamedata->DuckInfos[i+1]->y += gamedata->DuckInfos[i+1]->vy;
+        }
+    }
+    return gamedata;
 }

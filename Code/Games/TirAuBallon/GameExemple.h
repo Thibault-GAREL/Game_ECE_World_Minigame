@@ -67,6 +67,8 @@ typedef struct _GAMEDATA
     char score2[100];
     char score3[100];
     int compteurimage;
+    float animation_x;
+    float animation_y;
 }GameData;
 
 

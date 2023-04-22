@@ -66,7 +66,7 @@ int main()
                 currentGameId = GAME_TDLR;
             }
         }
-
+        
         if (event.type == ALLEGRO_EVENT_TIMER)
         {
         	al_clear_to_color(al_map_rgb(255,255,255));
