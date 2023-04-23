@@ -8,7 +8,8 @@ enum
 {
     GAME_NONE = 0,
     GAME_EXEMPLE = 1,
-    GAME_SNAKE
+    GAME_SNAKE,
+    GAME_TDLR
 };
 
 typedef struct _PLAYER
@@ -20,12 +21,12 @@ typedef struct _PLAYER
 
 typedef struct _GAME
 {
-    int gameId;
+    int gameId; //nb du jeu
     void* gameData;
     void (*Game_Update)(struct _GAME*);
     void (*Game_TimedUpdate)(struct _GAME*);
     
-    int* pCurrentGameId;
+    int* pCurrentGameId; //jeu en cours
     ALLEGRO_EVENT* pEvent;
     PPLAYER* pPlayers;
 }GAME, *PGAME;
