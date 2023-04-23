@@ -15,7 +15,7 @@ void SnakeGame_Create(PGAME _pSnake)
 }
 
 void SnakeGame_Update(PGAME _pSnake)
-{ 
+{
     if (_pSnake->gameData == NULL)
     {
         SnakeGame_Create(_pSnake);

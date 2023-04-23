@@ -6,28 +6,32 @@
 
 void TDLR_Create(PGAME _pExemple)
 {
-    printf("Creation du jeu...\n");
+    /*printf("Creation du jeu...\n");
 
     int* gameData = (int*)malloc(sizeof(int) * 2);
     gameData[0] = 0;
     gameData[1] = 0;
-    _pExemple->gameData = gameData;
+    _pExemple->gameData = gameData;*/
+
+    GameData* pGameData = malloc(sizeof (GameData));
+    _pExemple->gameData = pGameData;
+    pGameData->image [0] = al_load_bitmap(PATH "\\Textures\\TDLR\\vache2.jpg");
 
     printf("Jeu cree!\n");
 }
 
 void TDLR_Update(PGAME _pExemple)
 {
-    printf("Exemple de fonction Update...\n");
+    //printf("Exemple de fonction Update...\n");
 
-    if (_pExemple->gameData == NULL)
+    if (_pExemple->gameData == NULL)  //voir si le programme est lancé
     {
         TDLR_Create(_pExemple);
     }
 
-    int* gameData = _pExemple->gameData;
+    //int* gameData = _pExemple->gameData;
 
-    printf("%d\n", gameData[0]++);
+    //printf("%d\n", gameData[0]++);
 
     if (Get_Touch(_pExemple->pEvent, ALLEGRO_KEY_W, 0, 0, 1, 0))
     {
@@ -36,26 +40,34 @@ void TDLR_Update(PGAME _pExemple)
         TDLR_Destroy(_pExemple);
     }
 
-    printf("\n");
 }
 
-void TDLR_TimedUpdate(PGAME _pExemple)
+void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
 {
-    printf("Exemple de fonction TimedUpdate...\n");
+    /*printf("Exemple de fonction TimedUpdate...\n");
 
     int* gameData = _pExemple->gameData;
 
     printf("%d\n", gameData[1]++);
 
-    printf("\n");
+    printf("\n");*/
+    GameData* pGameData = _pExemple->gameData;
+
+    if (Get_Touch(_pExemple->pEvent, ALLEGRO_KEY_SPACE, 0, 1, 0, 0)){
+        printf("touche espace");
+        al_draw_bitmap(pGameData->image [0], 0, 0, 0);
+
+    }
 }
 
 void TDLR_Destroy(PGAME _pExemple)
 {
     printf("Destruction du jeu...\n");
 
-    free(_pExemple->gameData);
+    free(_pExemple->gameData); //Pour chaque structure / alocation
     _pExemple->gameData = NULL;
+
+                                    //Ne pas oublier de destroy
 
     printf("Jeu detruit\n");
 

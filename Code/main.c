@@ -25,7 +25,7 @@ int main()
     int gamesCount = 3;
     PGAME pGames[gamesCount];
     pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, players);
-    pGames[1] = Game_Init(GAME_SNAKE, SnakeGame_TimedUpdate, SnakeGame_TimedUpdate, &currentGameId, &event, players);
+    pGames[1] = Game_Init(GAME_SNAKE, SnakeGame_Update, SnakeGame_TimedUpdate, &currentGameId, &event, players);
     pGames [2] = Game_Init(GAME_TDLR, TDLR_Update, TDLR_TimedUpdate, &currentGameId, &event, players);
 
     int mouseX = 0;

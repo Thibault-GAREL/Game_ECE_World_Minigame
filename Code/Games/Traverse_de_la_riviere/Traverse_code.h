@@ -10,6 +10,23 @@
 #include "..\\..\\Game.h"
 #include "..\\..\\Utils\\allegroutils.h"
 
+#define CL_PATH ".."
+#define PATH CL_PATH
+
+typedef struct Obstacle
+{
+    float x;
+    float y;
+    float vx;
+    float vy;
+    bool vient_droite;
+}Obstacle;
+
+
+typedef struct GameData {
+    ALLEGRO_BITMAP* image [1];
+}GameData;
+
 
 void TDLR_Create(PGAME _pExemple);
 void TDLR_Update(PGAME _pExemple);
