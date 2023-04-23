@@ -4,6 +4,26 @@
 
 #include "Traverse_code.h"
 
+void ajouterfinLSC (Maillion** p, int numero){
+    Maillion* new = malloc (sizeof (Maillion));
+    new->numero = numero;
+    if (*p = NULL){
+        *p = new;
+    }
+    else {
+        new->next = *p;
+    }
+}
+
+void liberation (Maillion** m){
+    if (*m = NULL){
+        return;
+    }
+    liberation(&((*m)->next));
+    free (*m);
+    *m = NULL;
+}
+
 void TDLR_Create(PGAME _pExemple)
 {
     /*printf("Creation du jeu...\n");
@@ -16,6 +36,10 @@ void TDLR_Create(PGAME _pExemple)
     GameData* pGameData = malloc(sizeof (GameData));
     _pExemple->gameData = pGameData;
     pGameData->image [0] = al_load_bitmap(PATH "\\Textures\\TDLR\\vache2.jpg");
+
+    pGameData->liste = NULL;
+    ajouterfinLSC(&(pGameData->liste), 1);      //Ici ajouter les première zone sans obstacles
+
 
     printf("Jeu cree!\n");
 }
@@ -30,7 +54,6 @@ void TDLR_Update(PGAME _pExemple)
     }
 
     //int* gameData = _pExemple->gameData;
-
     //printf("%d\n", gameData[0]++);
 
     if (Get_Touch(_pExemple->pEvent, ALLEGRO_KEY_W, 0, 0, 1, 0))
@@ -39,35 +62,32 @@ void TDLR_Update(PGAME _pExemple)
 
         TDLR_Destroy(_pExemple);
     }
+    if (Get_Touch(_pExemple->pEvent, ALLEGRO_KEY_SPACE, 0, 1, 0, 0)){
+        printf("touche espace");
 
+    }
+
+    /////////////////////////////ajouterfinLSC(&(pGameData->liste), 1); // ajouter au fur et à mesure des maillions AVEC obstacles
 }
 
 void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
 {
-    /*printf("Exemple de fonction TimedUpdate...\n");
-
-    int* gameData = _pExemple->gameData;
-
-    printf("%d\n", gameData[1]++);
-
-    printf("\n");*/
     GameData* pGameData = _pExemple->gameData;
+    al_draw_bitmap(pGameData->image [0], 0, 0, 0);
 
-    if (Get_Touch(_pExemple->pEvent, ALLEGRO_KEY_SPACE, 0, 1, 0, 0)){
-        printf("touche espace");
-        al_draw_bitmap(pGameData->image [0], 0, 0, 0);
-
-    }
 }
 
 void TDLR_Destroy(PGAME _pExemple)
 {
     printf("Destruction du jeu...\n");
 
-    free(_pExemple->gameData); //Pour chaque structure / alocation
+    GameData* pGameData = _pExemple->gameData;
+    liberation(&(pGameData->liste));
+
+    free(_pExemple->gameData); //Pour chaque structure / allocation
     _pExemple->gameData = NULL;
 
-                                    //Ne pas oublier de destroy
+    //Ne pas oublier de destroy
 
     printf("Jeu detruit\n");
 

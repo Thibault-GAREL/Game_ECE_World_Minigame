@@ -13,6 +13,12 @@
 #define CL_PATH ".."
 #define PATH CL_PATH
 
+typedef struct Maillion {
+    int numero;
+    //indication des obstacles ici
+    struct Maillion* next;
+}Maillion;
+
 typedef struct Obstacle
 {
     float x;
@@ -25,8 +31,11 @@ typedef struct Obstacle
 
 typedef struct GameData {
     ALLEGRO_BITMAP* image [1];
+    Maillion* liste;
 }GameData;
 
+void ajouterfinLSC (Maillion** p, int numero);
+void liberation (Maillion** m);
 
 void TDLR_Create(PGAME _pExemple);
 void TDLR_Update(PGAME _pExemple);
