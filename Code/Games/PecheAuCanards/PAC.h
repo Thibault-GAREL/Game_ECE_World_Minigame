@@ -6,7 +6,7 @@
 #include "..\\..\\Utils\\allegroutils.h"
 #include "..\\..\Utils\\Vector.h"
 
-
+//
 #define MAX_POS_X 1920
 #define MAX_POS_Y 1080
 #define DuckThreshold 50           //defines the minimum distance between two ducks
