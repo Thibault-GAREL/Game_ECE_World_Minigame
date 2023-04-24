@@ -79,7 +79,7 @@ void Animation_Enable_PositionTarget(PANIMATION _pAnimation, PVECTOR2D_INT _posi
     _pAnimation->isPositionTargetEnabled = 1;
 }
 
-void Animation_Enable_ScaleFactor(PANIMATION _pAnimation, VECTOR2D_FLOAT _scaleFactor)
+void Animation_Enable_ScaleFactor(PANIMATION _pAnimation, Vector2D _scaleFactor)
 {
     _pAnimation->scaleFactor = _scaleFactor;
     _pAnimation->isScaleFactorEnabled = 1;
