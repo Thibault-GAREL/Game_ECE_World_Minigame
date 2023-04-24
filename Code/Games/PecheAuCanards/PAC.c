@@ -55,7 +55,6 @@ void PAC_TimedUpdate(PGAME _pPAC)
     printf("\n");
 }
 
-
 void PAC_Destroy(PGAME _pPAC)
 {
     printf("Destruction du jeu...\n");
