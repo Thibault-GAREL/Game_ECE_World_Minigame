@@ -2,14 +2,24 @@
 
 void PAC_Create(PGAME _pPAC)
 {
-    printf("Creation du jeu...\n");
+    pPacGameData pPAC = malloc(sizeof (pPacGameData));
 
-    int* gameData = (int*)malloc(sizeof(int) * 2);
-    gameData[0] = 0;
-    gameData[1] = 0;
-    _pPAC->gameData = gameData;
+    pPAC->DuckTextures[0] = al_load_bitmap("Textures/PAC/Spaceship_texture_1.png");
+    pPAC->DuckTextures[1] = al_load_bitmap("Textures/PAC/Spaceship_texture_2.png");
+    pPAC->DuckTextures[2] = al_load_bitmap("Textures/PAC/Spaceship_texture_3.png");
+    pPAC->DuckTextures[3] = al_load_bitmap("Textures/PAC/Spaceship_texture_2.png");
+    pPAC->DuckTextures[4] = al_load_bitmap("Textures/PAC/Spaceship_texture_1.png");
+    pPAC->DuckTextures[5] = al_load_bitmap("Textures/PAC/Spaceship_texture_3.png");
+    pPAC->DuckTextures[6] = al_load_bitmap("Textures/PAC/Spaceship_texture_2.png");
+    pPAC->DuckTextures[7] = al_load_bitmap("Textures/PAC/Spaceship_texture_1.png");
+    pPAC->DuckTextures[8] = al_load_bitmap("Textures/PAC/Spaceship_texture_1.png");
+    pPAC->DuckTextures[9] = al_load_bitmap("Textures/PAC/Spaceship_texture_1.png");
+    pPAC->DuckTextures[10] = al_load_bitmap("Textures/PAC/Spaceship_texture_3.png");
+    pPAC->DuckTextures[11] = al_load_bitmap("Textures/PAC/Spaceship_texture_3.png");
+    pPAC->DuckTextures[12] = al_load_bitmap("Textures/PAC/Spaceship_texture_EasterEgg.png");
+    InitDuck(pPAC);
 
-    printf("Jeu cree!\n");
+    _pPAC->gameData = pPAC;     //envoi des données du jeu dans la structure globale
 }
 
 void PAC_Update(PGAME _pPAC)
@@ -21,9 +31,7 @@ void PAC_Update(PGAME _pPAC)
         PAC_Create(_pPAC);
     }
 
-    int* gameData = _pPAC->gameData;
-
-    printf("%d\n", gameData[0]++);
+    pPacGameData gameData = _pPAC->gameData;
 
     if (Get_Touch(_pPAC->pEvent, ALLEGRO_KEY_W, 0, 0, 1, 0))
     {
@@ -39,9 +47,10 @@ void PAC_TimedUpdate(PGAME _pPAC)
 {
     printf("Exemple de fonction TimedUpdate...\n");
 
-    int* gameData = _pPAC->gameData;
+    pPacGameData  gameData = _pPAC->gameData;
 
-    printf("%d\n", gameData[1]++);
+    Check_Duck_Colisions(gameData);
+
 
     printf("\n");
 }
@@ -60,32 +69,15 @@ void PAC_Destroy(PGAME _pPAC)
     printf("Etat du jeu actuel mis a GAME_NONE");
 }
 
-pGameData InitDuck (){
-    pGameData pPAC = malloc(sizeof (GameData));
+void InitDuck (pPacGameData pPAC){
 
     for (int i = 0; i <DuckCount ; ++i) {
         pPAC->DuckInfos[i]->IsDuckFished = false;
     }
-    pPAC = PAC_Coordinates_create(pPAC);
-
-    pPAC->DuckTextures[0] = al_load_bitmap("Textures/PAC/Spaceship_texture_1.png");
-    pPAC->DuckTextures[1] = al_load_bitmap("Textures/PAC/Spaceship_texture_2.png");
-    pPAC->DuckTextures[2] = al_load_bitmap("Textures/PAC/Spaceship_texture_3.png");
-    pPAC->DuckTextures[3] = al_load_bitmap("Textures/PAC/Spaceship_texture_2.png");
-    pPAC->DuckTextures[4] = al_load_bitmap("Textures/PAC/Spaceship_texture_1.png");
-    pPAC->DuckTextures[5] = al_load_bitmap("Textures/PAC/Spaceship_texture_3.png");
-    pPAC->DuckTextures[6] = al_load_bitmap("Textures/PAC/Spaceship_texture_2.png");
-    pPAC->DuckTextures[7] = al_load_bitmap("Textures/PAC/Spaceship_texture_1.png");
-    pPAC->DuckTextures[8] = al_load_bitmap("Textures/PAC/Spaceship_texture_1.png");
-    pPAC->DuckTextures[9] = al_load_bitmap("Textures/PAC/Spaceship_texture_1.png");
-    pPAC->DuckTextures[10] = al_load_bitmap("Textures/PAC/Spaceship_texture_3.png");
-    pPAC->DuckTextures[11] = al_load_bitmap("Textures/PAC/Spaceship_texture_3.png");
-    pPAC->DuckTextures[12] = al_load_bitmap("Textures/PAC/Spaceship_texture_EasterEgg.png");
-
-    return pPAC;
+    PAC_Coordinates_create(pPAC);
 }
 
-pGameData PAC_Coordinates_create(pGameData gamedata){
+void PAC_Coordinates_create(pPacGameData gamedata){
     srand(time(NULL));
 
     gamedata->DuckInfos[0]->x = (rand() % MAX_POS_X) * DuckThreshold;
@@ -107,11 +99,9 @@ pGameData PAC_Coordinates_create(pGameData gamedata){
         gamedata->DuckInfos[SpeedInit]->vx = (rand() % MaxDuckSpeed);
         gamedata->DuckInfos[SpeedInit]->vy = (rand() % MaxDuckSpeed);
     }
-
-    return gamedata;
 }
 
-pGameData Check_Duck_Colisions(pGameData gamedata){
+void Check_Duck_Colisions(pPacGameData gamedata){
 
     for (int i = 0; i < DuckCount-1; i++){
         if (Point_In_Rectangle((Vector2D){gamedata->DuckInfos[i]->x,gamedata->DuckInfos[i]->y}, (Vector2D){gamedata->DuckInfos[i+1]->x,gamedata->DuckInfos[i+1]->y}, (Vector2D){gamedata->DuckInfos[i+1]->x,gamedata->DuckInfos[i+1]->y}))
@@ -129,5 +119,4 @@ pGameData Check_Duck_Colisions(pGameData gamedata){
             gamedata->DuckInfos[i+1]->y += gamedata->DuckInfos[i+1]->vy;
         }
     }
-    return gamedata;
 }

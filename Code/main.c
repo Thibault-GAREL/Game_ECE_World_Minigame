@@ -6,7 +6,7 @@
 #include "Games/Snake/Snake.h"
 #include "Utils/allegroutils.h"
 #include "Games/Traverse_de_la_riviere/Traverse_code.h"
-
+#include "Games/PecheAuCanards/PAC.h"
 
 int main()
 {
@@ -26,7 +26,8 @@ int main()
     PGAME pGames[gamesCount];
     pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, players);
     pGames[1] = Game_Init(GAME_SNAKE, SnakeGame_Update, SnakeGame_TimedUpdate, &currentGameId, &event, players);
-    pGames [2] = Game_Init(GAME_TDLR, TDLR_Update, TDLR_TimedUpdate, &currentGameId, &event, players);
+    pGames[2] = Game_Init(GAME_TDLR, TDLR_Update, TDLR_TimedUpdate, &currentGameId, &event, players);
+    pGames[3] = Game_Init(GAME_PAC,PAC_Update, PAC_TimedUpdate, &currentGameId, &event, players);
 
     int mouseX = 0;
     int mouseY = 0;
@@ -64,6 +65,10 @@ int main()
             if (Get_Touch(&event, ALLEGRO_KEY_T, 0, 1, 0, 0))
             {
                 currentGameId = GAME_TDLR;
+            }
+            if(Get_Touch(&event, ALLEGRO_KEY_P, 0,1,0,0))
+            {
+                currentGameId = GAME_PAC;
             }
         }
         

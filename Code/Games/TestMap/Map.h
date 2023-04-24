@@ -2,9 +2,9 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "Game.h"
-#include "allegroutils.h"
-#include "vector.h"
+#include "..\\..\\Game.h"
+#include "..\\..\\Utils\\allegroutils.h"
+#include "..\\..\\Utils\\vector.h"
 
 #define CL_PATH ".."
 #define PATH CL_PATH
