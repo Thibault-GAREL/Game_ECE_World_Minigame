@@ -14,7 +14,7 @@ int main()
     PALLEGRO_MANAGER pAlManager = AllegroManager_Create(1000, 1000, 0.01);
     ALLEGRO_EVENT event;
 
-    Allegro_play_Sample(pAlManager->pSampleInstance->walk);
+    //Allegro_play_Sample(pAlManager->pSampleInstance->walk);
 
     //Allegro_Stop_Sample(pAlManager->pSampleInstance->walk);
 
@@ -22,7 +22,7 @@ int main()
 
     int currentGameId = GAME_NONE;
     PPLAYER players[2];
-    int gamesCount = 3;
+    int gamesCount = 4;
     PGAME pGames[gamesCount];
     pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, players);
     pGames[1] = Game_Init(GAME_SNAKE, SnakeGame_Update, SnakeGame_TimedUpdate, &currentGameId, &event, players);
@@ -66,7 +66,7 @@ int main()
             {
                 currentGameId = GAME_TDLR;
             }
-            if(Get_Touch(&event, ALLEGRO_KEY_P, 0,1,0,0))
+            if(Get_Touch(&event, ALLEGRO_KEY_E, 0,1,0,0))
             {
                 currentGameId = GAME_PAC;
             }
