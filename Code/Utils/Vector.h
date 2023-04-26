@@ -26,6 +26,4 @@ float Vector2D_Get_Norm(Vector2D _v);
 
 char Point_In_Rectangle(Vector2D point, Vector2D r1, Vector2D r2);
 
-
-
 #endif

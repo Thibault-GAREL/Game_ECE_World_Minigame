@@ -7,10 +7,11 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include "Vector.h"
 
 
 
-typedef struct _VECTOR2D_FLOAT
+/*typedef struct _VECTOR2D_FLOAT
 {
     float x;
     float y;
@@ -20,7 +21,7 @@ typedef struct _VECTOR2D_INT
 {
     int x;
     int y;
-}VECTOR2D_INT, *PVECTOR2D_INT;
+}VECTOR2D_INT, *PVECTOR2D_INT;*/
 
 typedef struct _ANIMATION
 {
@@ -40,7 +41,7 @@ typedef struct _ANIMATION
     PVECTOR2D_INT positionTarget;
     char isPositionTargetEnabled;
 
-    VECTOR2D_FLOAT scaleFactor;
+    Vector2D scaleFactor;
     char isScaleFactorEnabled;
 
 }ANIMATION, *PANIMATION;
@@ -52,4 +53,4 @@ void Animation_Draw(PANIMATION _pAnimation);
 void Animation_Update_Step(PANIMATION _pAnimation);
 
 void Animation_Enable_PositionTarget(PANIMATION _pAnimation, PVECTOR2D_INT _positionTarget);
-void Animation_Enable_ScaleFactor(PANIMATION _pAnimation, VECTOR2D_FLOAT _scaleFactor);
+void Animation_Enable_ScaleFactor(PANIMATION _pAnimation, Vector2D _scaleFactor);
