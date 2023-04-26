@@ -34,6 +34,8 @@ typedef struct GameData {
     ALLEGRO_BITMAP* image [4];
     int Strat [1000];
     int compteur_strat;
+    int pixel_avance;
+    int strat_affiche;
 }GameData;
 
 //void ajouterfinLSC (Maillion** p, int numero);

@@ -42,7 +42,13 @@ void generation_strat (PGAME _pExemple){
 
 void affichage_strat (PGAME _pExemple){ //affiche de compteur -6 à compteur
     GameData* pGameData = _pExemple->gameData;
-
+    if (pGameData->Strat[pGameData->strat_affiche] == 1){
+        al_draw_bitmap(pGameData->image [2], pGameData->compteur_strat, pGameData->pixel_avance, 0);
+    }
+    if (pGameData->Strat [pGameData->strat_affiche] == 2){
+        al_draw_bitmap(pGameData->image [3], pGameData->compteur_strat, pGameData->pixel_avance, 0);
+    }
+    printf("%d", pGameData->compteur_strat);
 }
 
 void TDLR_Create(PGAME _pExemple)
@@ -62,10 +68,12 @@ void TDLR_Create(PGAME _pExemple)
     pGameData->image [3] = al_load_bitmap(PATH "\\Textures\\TDLR\\Chasseur_TIE.png");
 
     pGameData->compteur_strat =0;
+    pGameData->strat_affiche = 0;
+    pGameData->pixel_avance = 0;
 
     pGameData->Strat [0] = 0;
     pGameData->Strat [1] = 0;
-    for (int i = 0; i < 6; ++i) {
+    for (int i = 0; i < 5; ++i) {
         generation_strat(_pExemple);
     }
     /*pGameData->liste = NULL;
@@ -94,8 +102,9 @@ void TDLR_Update(PGAME _pExemple)
         TDLR_Destroy(_pExemple);
     }
     if (Get_Touch(_pExemple->pEvent, ALLEGRO_KEY_SPACE, 0, 1, 0, 0)){
-        printf("touche espace");
+        printf("touche espace \n");
         generation_strat (_pExemple);
+        pGameData->pixel_avance +=180;
     }
 
     //ajouterfinLSC(&(pGameData->liste), 1); // ajouter au fur et à mesure des maillions AVEC obstacles
@@ -105,10 +114,8 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
 {
     GameData* pGameData = _pExemple->gameData;
     //al_draw_bitmap(pGameData->image [0], 0, 0, 0);
-    al_clear_to_color(al_map_rgb(0, 0, 0));
+    al_clear_to_color(al_map_rgb(50, 50, 50));
     al_draw_bitmap(pGameData->image [1], 910, 720, 0);
-    al_draw_bitmap(pGameData->image [2], 0, 0, 0);
-    al_draw_bitmap(pGameData->image [3], 500, 0, 0);
     affichage_strat(_pExemple);
 }
 
