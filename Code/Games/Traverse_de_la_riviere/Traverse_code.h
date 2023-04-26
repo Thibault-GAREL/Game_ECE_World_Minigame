@@ -30,12 +30,18 @@ typedef struct Obstacle
 
 
 typedef struct GameData {
-    ALLEGRO_BITMAP* image [1];
-    Maillion* liste;
+    //Maillion* liste;
+    ALLEGRO_BITMAP* image [4];
+    int Strat [1000];
+    int compteur_strat;
 }GameData;
 
-void ajouterfinLSC (Maillion** p, int numero);
-void liberation (Maillion** m);
+//void ajouterfinLSC (Maillion** p, int numero);
+//void afficherLSC (Maillion* liste_debut);
+//void liberation (Maillion** m);
+
+void generation_strat (PGAME _pExemple);
+void affichage_strat (PGAME _pExemple);
 
 void TDLR_Create(PGAME _pExemple);
 void TDLR_Update(PGAME _pExemple);

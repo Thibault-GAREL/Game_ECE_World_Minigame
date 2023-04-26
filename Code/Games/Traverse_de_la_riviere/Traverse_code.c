@@ -4,7 +4,7 @@
 
 #include "Traverse_code.h"
 
-void ajouterfinLSC (Maillion** p, int numero){
+/*void ajouterfinLSC (Maillion** p, int numero){
     Maillion* new = malloc (sizeof (Maillion));
     new->numero = numero;
     if (*p = NULL){
@@ -15,6 +15,15 @@ void ajouterfinLSC (Maillion** p, int numero){
     }
 }
 
+void afficherLSC (Maillion* liste_debut){
+    if (liste_debut != NULL){
+        Maillion * parcours = liste_debut;
+        do {
+            printf("Liste : %d", liste_debut->numero);
+        } while (parcours != liste_debut);
+    }
+}
+
 void liberation (Maillion** m){
     if (*m = NULL){
         return;
@@ -22,6 +31,18 @@ void liberation (Maillion** m){
     liberation(&((*m)->next));
     free (*m);
     *m = NULL;
+}*/
+
+void generation_strat (PGAME _pExemple){
+    srand(time(NULL));
+    GameData* pGameData = _pExemple->gameData;
+    pGameData->Strat [pGameData->compteur_strat] = rand()%3;  //0 "paix", 1 "chasseur TIE", 2 "X-wings"
+    pGameData->compteur_strat += 1;
+}
+
+void affichage_strat (PGAME _pExemple){ //affiche de compteur -6 à compteur
+    GameData* pGameData = _pExemple->gameData;
+
 }
 
 void TDLR_Create(PGAME _pExemple)
@@ -36,23 +57,33 @@ void TDLR_Create(PGAME _pExemple)
     GameData* pGameData = malloc(sizeof (GameData));
     _pExemple->gameData = pGameData;
     pGameData->image [0] = al_load_bitmap(PATH "\\Textures\\TDLR\\vache2.jpg");
+    pGameData->image [1] = al_load_bitmap(PATH "\\Textures\\TDLR\\Standtooper.png");
+    pGameData->image [2] = al_load_bitmap(PATH "\\Textures\\TDLR\\X-wing.png");
+    pGameData->image [3] = al_load_bitmap(PATH "\\Textures\\TDLR\\Chasseur_TIE.png");
 
-    pGameData->liste = NULL;
+    pGameData->compteur_strat =0;
+
+    pGameData->Strat [0] = 0;
+    pGameData->Strat [1] = 0;
+    for (int i = 0; i < 6; ++i) {
+        generation_strat(_pExemple);
+    }
+    /*pGameData->liste = NULL;
     ajouterfinLSC(&(pGameData->liste), 1);      //Ici ajouter les première zone sans obstacles
+    ajouterfinLSC(&(pGameData->liste), 2);
+    ajouterfinLSC(&(pGameData->liste), 3);
 
-
+    afficherLSC(pGameData->liste);*/
     printf("Jeu cree!\n");
 }
 
 void TDLR_Update(PGAME _pExemple)
 {
-    //printf("Exemple de fonction Update...\n");
-
     if (_pExemple->gameData == NULL)  //voir si le programme est lancé
     {
         TDLR_Create(_pExemple);
     }
-
+    GameData* pGameData = _pExemple->gameData;
     //int* gameData = _pExemple->gameData;
     //printf("%d\n", gameData[0]++);
 
@@ -64,17 +95,21 @@ void TDLR_Update(PGAME _pExemple)
     }
     if (Get_Touch(_pExemple->pEvent, ALLEGRO_KEY_SPACE, 0, 1, 0, 0)){
         printf("touche espace");
-
+        generation_strat (_pExemple);
     }
 
-    /////////////////////////////ajouterfinLSC(&(pGameData->liste), 1); // ajouter au fur et à mesure des maillions AVEC obstacles
+    //ajouterfinLSC(&(pGameData->liste), 1); // ajouter au fur et à mesure des maillions AVEC obstacles
 }
 
 void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
 {
     GameData* pGameData = _pExemple->gameData;
-    al_draw_bitmap(pGameData->image [0], 0, 0, 0);
-
+    //al_draw_bitmap(pGameData->image [0], 0, 0, 0);
+    al_clear_to_color(al_map_rgb(0, 0, 0));
+    al_draw_bitmap(pGameData->image [1], 910, 720, 0);
+    al_draw_bitmap(pGameData->image [2], 0, 0, 0);
+    al_draw_bitmap(pGameData->image [3], 500, 0, 0);
+    affichage_strat(_pExemple);
 }
 
 void TDLR_Destroy(PGAME _pExemple)
@@ -82,7 +117,7 @@ void TDLR_Destroy(PGAME _pExemple)
     printf("Destruction du jeu...\n");
 
     GameData* pGameData = _pExemple->gameData;
-    liberation(&(pGameData->liste));
+    //liberation(&(pGameData->liste));
 
     free(_pExemple->gameData); //Pour chaque structure / allocation
     _pExemple->gameData = NULL;

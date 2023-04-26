@@ -11,7 +11,7 @@
 int main()
 {
     Allegro_Init();
-    PALLEGRO_MANAGER pAlManager = AllegroManager_Create(1000, 1000, 0.01);
+    PALLEGRO_MANAGER pAlManager = AllegroManager_Create(1920, 1080, 0.01);
     ALLEGRO_EVENT event;
 
     Allegro_play_Sample(pAlManager->pSampleInstance->walk);
