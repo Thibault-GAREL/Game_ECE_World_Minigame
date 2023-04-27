@@ -6,7 +6,6 @@
 #include "..\\..\\Utils\\allegroutils.h"
 #include "..\\..\Utils\\Vector.h"
 
-
 #define DuckCount 12
 
 typedef struct _DuckInfos{
