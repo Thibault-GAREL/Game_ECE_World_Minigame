@@ -8,11 +8,10 @@
 
 
 #define DuckCount 12
-#define MaxDuckSpeed 30
 
 typedef struct _DuckInfos{
-    int x, y;
-    int vx, vy;
+    float x, y;
+    float vx, vy;
 }DuckInfos, *pDuckInfos;
 
 typedef struct _GAMEDATA
@@ -30,6 +29,5 @@ void PAC_Create(PGAME _pExemple);
 void PAC_Update(PGAME _pExemple);
 void PAC_TimedUpdate(PGAME _pExemple);
 void PAC_Destroy(PGAME _pExemple);
-void InitDuck(PGAME _pPAC );
 void PAC_Coordinates_create(PGAME _pPAC);
 void Check_Duck_Colisions(PGAME _pPAC);
