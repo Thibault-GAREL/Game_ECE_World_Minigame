@@ -1,7 +1,7 @@
 #include "Snake.h"
 
 /*
-gcc -g -Wall *.c .\Utils\*.c .\Games\Exemple\*.c .\Games\Snake\*.c -lallegro -lallegro_primitives -lallegro_image -lallegro_font -lallegro_ttf -lallegro_acodec -lallegro_audio  -oExemple
+gcc -g -Wall *.c .\Utils\*.c .\Games\Exemple\*.c .\Games\PecheAuCanards\*.c .\Games\Snake\*.c .\Games\Traverse_de_la_riviere\*.c  -lallegro -lallegro_primitives -lallegro_image -lallegro_font -lallegro_ttf -lallegro_acodec -lallegro_audio  -oExemple
 */
 
 void SnakeGame_Create(PGAME _pSnake)
@@ -10,8 +10,10 @@ void SnakeGame_Create(PGAME _pSnake)
     _pSnake->gameData = pSnakeData;
     pSnakeData->pSnake = calloc(1, sizeof(SNAKE));
     Snake_Add_Part(&pSnakeData->pSnake->pHead, &pSnakeData->pSnake->size);
-    pSnakeData->pSnake->speed = 1;
+    pSnakeData->pSnake->speed = 10;
+    pSnakeData->pSnake->direction = (VECTOR2D_INT) {1,0};
     pSnakeData->pSnake->pClone = al_load_bitmap("..\\Textures\\Snake\\Clone.png");
+    pSnakeData->foodCount = 0;
 }
 
 void SnakeGame_Update(PGAME _pSnake)
@@ -20,6 +22,37 @@ void SnakeGame_Update(PGAME _pSnake)
     {
         SnakeGame_Create(_pSnake);
     }
+
+    PSNAKE_DATA pSnakeData = (PSNAKE_DATA)_pSnake->gameData;
+
+    if (Get_Touch(_pSnake->pEvent, ALLEGRO_KEY_Q,0, 1, 0, 0))
+    {
+        pSnakeData->pSnake->direction.x = -1;
+        pSnakeData->pSnake->direction.y = 0;
+    }
+
+    if (Get_Touch(_pSnake->pEvent, ALLEGRO_KEY_D,0, 1, 0, 0))
+    {
+        pSnakeData->pSnake->direction.x = 1;
+        pSnakeData->pSnake->direction.y = 0;
+    }
+     
+    if (Get_Touch(_pSnake->pEvent, ALLEGRO_KEY_Z, 0, 1, 0, 0))
+    {
+        pSnakeData->pSnake->direction.x = 0;
+        pSnakeData->pSnake->direction.y = -1;
+    }
+
+    if (Get_Touch(_pSnake->pEvent, ALLEGRO_KEY_S,0, 1, 0, 0))
+    {
+        pSnakeData->pSnake->direction.x = 0;
+        pSnakeData->pSnake->direction.y = 1;
+    }
+    
+    
+    Food_CheckCollision(_pSnake);
+    Food_Generation(_pSnake);
+
 
     if (Get_Touch(_pSnake->pEvent, ALLEGRO_KEY_W, 0, 0, 1, 0))
     {
@@ -31,9 +64,27 @@ void SnakeGame_TimedUpdate(PGAME _pSnake)
 {
     PSNAKE_DATA pSnakeData = (PSNAKE_DATA)_pSnake->gameData;
 
-    Snake_Move(pSnakeData->pSnake->pHead, pSnakeData->pSnake->speed, pSnakeData->pSnake->step);
-    pSnakeData->pSnake->step = (pSnakeData->pSnake->step >= PART_SIZE)? 0 : pSnakeData->pSnake->step + 1;
+    pSnakeData->pSnake->step += pSnakeData->pSnake->speed;
+    if (pSnakeData->pSnake->step > 100)
+    {
+        VECTOR2D_INT newPos;
+        newPos.x = pSnakeData->pSnake->pHead->position.x + pSnakeData->pSnake->direction.x * CLONE_SIZE;
+        newPos.y = pSnakeData->pSnake->pHead->position.y + pSnakeData->pSnake->direction.y * CLONE_SIZE;
+        Snake_Move(pSnakeData->pSnake->pHead, newPos);
+        pSnakeData->pSnake->step = 0;
+    }
+
     Snake_Draw(pSnakeData->pSnake->pHead, pSnakeData->pSnake);
+
+    for (int i = 0; i < pSnakeData->foodCount; i++)
+    {
+        Vector2D foodPos1 = {pSnakeData->foods[i].foodPos.x - FOOD_SIZE / 2, pSnakeData->foods[i].foodPos.y - FOOD_SIZE / 2};
+        Vector2D foodPos2 = {pSnakeData->foods[i].foodPos.x + FOOD_SIZE / 2, pSnakeData->foods[i].foodPos.y + FOOD_SIZE / 2};
+
+        al_draw_rectangle(foodPos1.x, foodPos1.y, foodPos2.x, foodPos2.y, al_map_rgb(255, 0, 0), 5);
+    }
+    
+    al_draw_circle(pSnakeData->pSnake->pHead->position.x, pSnakeData->pSnake->pHead->position.y, 8, al_map_rgb(0, 255, 0), 3);
 }
 
 void SnakeGame_Destroy(PGAME _pSnake)
@@ -57,7 +108,6 @@ void Snake_Add_Part(PSNAKE_PART* _ppSnakePart, int* _pSize)
     else
     {
         *_ppSnakePart = (PSNAKE_PART)calloc(1, sizeof(SNAKE_PART));
-        (*_ppSnakePart)->direction.x = 1;
         (*_pSize)++;
     }
 }
@@ -74,32 +124,69 @@ void Snake_Destroy_AllParts(PSNAKE_PART _pSnakePart)
 
 void Snake_Draw(PSNAKE_PART _pSnakePart, PSNAKE _pSnake)
 {
-    al_draw_bitmap(_pSnake->pClone, _pSnakePart->position.x, _pSnakePart->position.y, 0);
-
+    al_draw_scaled_bitmap(_pSnake->pClone, 0, 0, CLONE_ORIGINAL_SIZE, CLONE_ORIGINAL_SIZE, _pSnakePart->position.x, _pSnakePart->position.y, CLONE_SIZE, CLONE_SIZE, 0);
+    
     if (_pSnakePart->previous)
     {
         Snake_Draw(_pSnakePart->previous, _pSnake);
     }
 }
 
-void Snake_Move(PSNAKE_PART _pSnakePart, int _speed, int _step)
+void Snake_Move(PSNAKE_PART _pSnakePart, VECTOR2D_INT _position)
 {
     if (!_pSnakePart)
     {
         return;
     }
-    
-    if (_step * _speed >= PART_SIZE)
+
+    if (_pSnakePart->previous)
     {
-        if (_pSnakePart->previous)
-        {
-            Snake_Move(_pSnakePart->previous, _speed, _step);
-            _pSnakePart->previous->direction = _pSnakePart->direction;
-        }
+            Snake_Move(_pSnakePart->previous, _pSnakePart->position);
     }
-    else
+
+    _pSnakePart->position.x = _position.x;
+    _pSnakePart->position.y = _position.y;
+}
+
+void Food_Generation(PGAME _pSnake)
+{
+    PSNAKE_DATA pSnakeData = (PSNAKE_DATA)_pSnake->gameData;
+
+    if (pSnakeData->foodCount >= FOOD_COUNT_MAX)
     {
-        _pSnakePart->position.x += _speed * _pSnakePart->direction.x;
-        _pSnakePart->position.y += _speed * _pSnakePart->direction.y;
+        return;
+    }
+    
+    if (rand() % FOOD_PROBA)
+    {
+        return;
+    }
+    
+    pSnakeData->foodCount++;
+    pSnakeData->foods[pSnakeData->foodCount - 1].foodPos.x = rand() % 1500 + FOOD_SIZE / 2;
+    pSnakeData->foods[pSnakeData->foodCount - 1].foodPos.y = rand() % 600 + FOOD_SIZE / 2;
+}
+
+void Food_CheckCollision(PGAME _pSnake)
+{
+    PSNAKE_DATA pSnakeData = (PSNAKE_DATA)_pSnake->gameData;
+
+    for (int i = 0; i < pSnakeData->foodCount; i++)
+    {
+        Vector2D foodPos1 = {pSnakeData->foods[i].foodPos.x - FOOD_SIZE / 2, pSnakeData->foods[i].foodPos.y - FOOD_SIZE / 2};
+        Vector2D foodPos2 = {pSnakeData->foods[i].foodPos.x + FOOD_SIZE / 2, pSnakeData->foods[i].foodPos.y + FOOD_SIZE / 2};
+
+        if (Point_In_Rectangle((Vector2D){pSnakeData->pSnake->pHead->position.x, pSnakeData->pSnake->pHead->position.y}, foodPos1, foodPos2))
+        {
+            Snake_Add_Part(&pSnakeData->pSnake->pHead, &pSnakeData->pSnake->size);
+            pSnakeData->foodCount--;
+            
+            for (int j = i; j < pSnakeData->foodCount; j++)
+            {
+                pSnakeData->foods[j] = pSnakeData->foods[j + 1];
+            }
+            
+            return;
+        }
     }
 }

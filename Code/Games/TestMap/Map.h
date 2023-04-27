@@ -42,7 +42,7 @@ typedef struct _MAPDATA
     int sensbonhommey;
 }MapData;
 
-
+/*
 
 void Map_Create(PMAP _pMap);
 void Map_Update(PMAP _pMap);
@@ -54,3 +54,4 @@ void affichagebonhomme(PMAP _pMap);
 void Map_TimedUpdate(PMAP _pMap);
 void Map_Destroy(PMAP _pMap);
 
+*/
