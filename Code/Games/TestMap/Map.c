@@ -1,7 +1,7 @@
 #include "map.h"
 
 
-enum
+/*enum
 {
     PAC = 1,
     TAB = 2,
@@ -319,7 +319,7 @@ void rect(PMAP _pMap,float x,float y,float taillex,float tailley,int i){
                 }
             }
         }*/
-    }
+    /*}
 }
 
 void gestioncolision(PMAP _pMap){
@@ -469,4 +469,4 @@ void Map_Destroy(PMAP _pMap)
 
     printf("Etat du jeu actuel mis a GAME_NONE");
 }
-
+*/

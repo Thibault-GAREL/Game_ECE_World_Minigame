@@ -81,5 +81,6 @@ int main()
         }
     }
 
+    printf("Correctly quit");
     return 0;
 }
