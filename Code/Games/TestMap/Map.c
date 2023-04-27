@@ -33,6 +33,14 @@ void Map_Create(PMAP _pMap)                               // ECHELLE = 1.25 POUR
     pMapData->image[14]= al_load_bitmap(PATH"\\ping.png");
     pMapData->image[15]= al_load_bitmap(PATH"\\bonhommegauche.png");
     pMapData->image[16]= al_load_bitmap(PATH"\\bonhommedroite.png");
+    pMapData->image[17]= al_load_bitmap(PATH"\\fumeegauche.png");
+    pMapData->image[18]= al_load_bitmap(PATH"\\fumeedroite.png");
+    pMapData->image[19]= al_load_bitmap(PATH"\\panneaumetal.png");
+    pMapData->image[20]= al_load_bitmap(PATH"\\teteville.png");
+    pMapData->image[21]= al_load_bitmap(PATH"\\ville1.png");
+    pMapData->image[22]= al_load_bitmap(PATH"\\ville2.png");
+    pMapData->image[23]= al_load_bitmap(PATH"\\ville3.png");
+    pMapData->image[24]= al_load_bitmap(PATH"\\ville4.png");
 
     pMapData->pimages[0].x = 0;
     pMapData->pimages[0].y = -3240;
@@ -77,9 +85,16 @@ void Map_Create(PMAP _pMap)                               // ECHELLE = 1.25 POUR
     pMapData->c=0;
     pMapData->d=0;
 
-    pMapData->jeusuivant = TDR ;
+    pMapData->jeusuivant = TAB ;
     pMapData->sensbonhommex = 0;
     pMapData->sensbonhommey = 0;
+    pMapData->compteurfumme =0;
+    pMapData->fumeea=0;
+    pMapData->fumeeb=0;
+    pMapData->fumeec=0;
+    pMapData->fumeed=0;
+    pMapData->vetofumee=0;
+
 }
 
 void Map_Update(PMAP _pMap)
@@ -390,6 +405,7 @@ void affichageminimap(PMAP _pMap){
     if (pMapData->jeusuivant == TAB){
         if (pMapData->pimages[0].x-pMapData->x+1496 >= 0 && pMapData->pimages[0].x-pMapData->x+1496 <=1920 && pMapData->pimages[0].y-pMapData->y+100 <= 1080 && pMapData->pimages[0].y-pMapData->y+108 >= 0 && pMapData->bonhommey>pMapData->pimages[0].y-pMapData->y+392 && pMapData->bonhommey<pMapData->pimages[0].y+392-pMapData->y+108 && pMapData->bonhommex>pMapData->pimages[0].x+1496-pMapData->x && pMapData->bonhommex<pMapData->pimages[0].x+1496+100-pMapData->x) {
             // QUAND ON RENTRE DANS LA MAISON
+
         }
         else {
             al_draw_bitmap(pMapData->image[14],1565,750,0);
@@ -424,18 +440,98 @@ void affichageminimap(PMAP _pMap){
 
 void affichagebonhomme(PMAP _pMap){
     MapData* pMapData = _pMap->MapData;
+    pMapData->fumeea=0;pMapData->fumeeb=0;pMapData->fumeec=0;pMapData->fumeed=0;
+    srand(time(NULL));
+    if (pMapData->compteurfumme%20==1){
+        pMapData->fumeea=rand()%4;pMapData->fumeeb=rand()%4;pMapData->fumeec=rand()%4;pMapData->fumeed=rand()%4;
+    }
     if (pMapData->sensbonhommey==0 && pMapData->sensbonhommex==1){
         al_draw_bitmap(pMapData->image[16],pMapData->bonhommex-40,pMapData->bonhommey-50,0);
+        if (pMapData->vetofumee==0){
+            if(pMapData->compteurfumme%25 != 1){
+                al_draw_bitmap(pMapData->image[18],pMapData->bonhommex-60,pMapData->bonhommey+20,0);
+            }
+            if(pMapData->compteurfumme%24 != 1){
+                al_draw_bitmap(pMapData->image[18],pMapData->bonhommex-65,pMapData->bonhommey+30,0);
+            }
+            if (pMapData->compteurfumme%23 != 1){
+                al_draw_bitmap(pMapData->image[18],pMapData->bonhommex-70,pMapData->bonhommey+10,0);
+            }
+            if (pMapData->compteurfumme%22 != 1){
+                al_draw_bitmap(pMapData->image[18],pMapData->bonhommex-75,pMapData->bonhommey+15,0);
+            }
+        }
     }
     if (pMapData->sensbonhommey==1 && pMapData->sensbonhommex==0) {
         al_draw_bitmap(pMapData->image[15],pMapData->bonhommex-60,pMapData->bonhommey-50,0);
+        if (pMapData->vetofumee==0){
+            if(pMapData->compteurfumme%25 != 1){
+                al_draw_bitmap(pMapData->image[17],pMapData->bonhommex+40,pMapData->bonhommey+10,0);
+            }
+            if(pMapData->compteurfumme%24 != 1){
+                al_draw_bitmap(pMapData->image[17],pMapData->bonhommex+45,pMapData->bonhommey+30,0);
+            }
+            if (pMapData->compteurfumme%23 != 1){
+                al_draw_bitmap(pMapData->image[17],pMapData->bonhommex+45,pMapData->bonhommey+15,0);
+            }
+            if (pMapData->compteurfumme%22 != 1){
+                al_draw_bitmap(pMapData->image[17],pMapData->bonhommex+30,pMapData->bonhommey+20,0);
+            }
+        }
     }
     if (pMapData->sensbonhommex == 0){
         al_draw_bitmap(pMapData->image[15],pMapData->bonhommex-60,pMapData->bonhommey-50,0);
+        if (pMapData->vetofumee==0){
+            if(pMapData->compteurfumme%25 != 1){
+                al_draw_bitmap(pMapData->image[17],pMapData->bonhommex+40,pMapData->bonhommey+10,0);
+            }
+            if(pMapData->compteurfumme%24 != 1){
+                al_draw_bitmap(pMapData->image[17],pMapData->bonhommex+45,pMapData->bonhommey+30,0);
+            }
+            if (pMapData->compteurfumme%23 != 1){
+                al_draw_bitmap(pMapData->image[17],pMapData->bonhommex+45,pMapData->bonhommey+15,0);
+            }
+            if (pMapData->compteurfumme%22 != 1){
+                al_draw_bitmap(pMapData->image[17],pMapData->bonhommex+30,pMapData->bonhommey+20,0);
+            }
+        }
     }
     if (pMapData->sensbonhommex == 1){
         al_draw_bitmap(pMapData->image[16],pMapData->bonhommex-40,pMapData->bonhommey-50,0);
+        if (pMapData->vetofumee==0){
+            if(pMapData->compteurfumme%25 != 1){
+                al_draw_bitmap(pMapData->image[18],pMapData->bonhommex-60,pMapData->bonhommey+20,0);
+            }
+            if(pMapData->compteurfumme%24 != 1){
+                al_draw_bitmap(pMapData->image[18],pMapData->bonhommex-65,pMapData->bonhommey+30,0);
+            }
+            if (pMapData->compteurfumme%23 != 1){
+                al_draw_bitmap(pMapData->image[18],pMapData->bonhommex-70,pMapData->bonhommey+10,0);
+            }
+            if (pMapData->compteurfumme%22 != 1){
+                al_draw_bitmap(pMapData->image[18],pMapData->bonhommex-75,pMapData->bonhommey+15,0);
+            }
+        }
     }
+    if (pMapData->a==0 && pMapData->b==0 && pMapData->c==0 && pMapData->d==0){
+        pMapData->vetofumee=1;
+    }
+    else {
+        pMapData->vetofumee=0;
+    }
+    pMapData->compteurfumme++;
+}
+
+
+void affichageville(PMAP _pMap){
+    MapData* pMapData = _pMap->MapData;
+    al_draw_bitmap(pMapData->image[19],0,0,0);
+    al_draw_bitmap(pMapData->image[20],120,100,0);
+    al_draw_bitmap(pMapData->image[21],230,120,0);  //ZONE 1
+    al_draw_bitmap(pMapData->image[22],230,120,0);  //ZONE 2
+    al_draw_bitmap(pMapData->image[23],230,120,0);  //ZONE 3
+    al_draw_bitmap(pMapData->image[24],230,120,0);  //ZONE 4
+
 }
 
 
@@ -452,8 +548,7 @@ void Map_TimedUpdate(PMAP _pMap)
     }
     affichageminimap(_pMap);
     affichagebonhomme(_pMap);
-    //printf("%f %f\n",pMapData->bonhommex,pMapData->bonhommey);
-    //printf("%f %f\n",pMapData->x,pMapData->y);
+    affichageville(_pMap);
 }
 
 void Map_Destroy(PMAP _pMap)
