@@ -11,6 +11,7 @@
 typedef struct _DuckInfos{
     float x, y;
     float vx, vy;
+    int click;
 }DuckInfos, *pDuckInfos;
 
 typedef struct _GAMEDATA
@@ -19,6 +20,7 @@ typedef struct _GAMEDATA
     ALLEGRO_FONT* police;
     DuckInfos *DuckInfos[DuckCount];
     ALLEGRO_BITMAP *DuckTextures[DuckCount];
+    ALLEGRO_BITMAP *background;
     Vector2D mouse;
     int click;
     int Fishingstate[DuckCount];
@@ -30,3 +32,4 @@ void PAC_TimedUpdate(PGAME _pExemple);
 void PAC_Destroy(PGAME _pExemple);
 void PAC_Coordinates_create(PGAME _pPAC);
 void Check_Duck_Colisions(PGAME _pPAC);
+void Check_Click_on_Duck();
