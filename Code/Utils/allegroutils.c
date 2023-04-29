@@ -14,8 +14,6 @@ void Allegro_Init()
     al_install_audio();
 }
 
-
-
 ALLEGRO_EVENT_QUEUE* Init_Event(ALLEGRO_DISPLAY* _pDisplay, ALLEGRO_TIMER* _ptimer)
 {
     ALLEGRO_EVENT_QUEUE* pEvq = al_create_event_queue();
@@ -150,7 +148,7 @@ PALLEGRO_CURSOR InitCursors(){
     PALLEGRO_CURSOR pCursor = malloc(sizeof (ALLEGRO_CURSOR));
 
     ALLEGRO_BITMAP *Cursor1 = al_load_bitmap("..\\Textures\\Cursors\\cursor--v1.png");
-    //ALLEGRO_BITMAP *Cursor2 = al_load_bitmap();
+    ALLEGRO_BITMAP *PAC = al_load_bitmap("..\\Textures\\Cursors\\PAC Sight (Personnalisé).png");
     //ALLEGRO_BITMAP *Cursor3 = al_load_bitmap();
     //ALLEGRO_BITMAP *Cursor4 = al_load_bitmap();
     //ALLEGRO_BITMAP *Cursor5 = al_load_bitmap();
@@ -158,7 +156,7 @@ PALLEGRO_CURSOR InitCursors(){
     //ALLEGRO_BITMAP *Cursor7 = al_load_bitmap();
 
     pCursor->Cursor1 = al_create_mouse_cursor(Cursor1, 0, 0);
-    //pCursor->Cursor2 = al_create_mouse_cursor();
+    pCursor->Cursor2 = al_create_mouse_cursor(PAC, al_get_bitmap_width(PAC)/2, 0);
     //pCursor->Cursor3 = al_create_mouse_cursor();
     //pCursor->Cursor4 = al_create_mouse_cursor();
     //pCursor->Cursor5 = al_create_mouse_cursor();

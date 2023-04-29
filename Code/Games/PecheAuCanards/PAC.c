@@ -1,23 +1,25 @@
 #include "PAC.h"
+int Collisions = 0;
 
 void PAC_Create(PGAME _pPAC)
 {
-    pPacGameData pPAC = malloc(sizeof (pPacGameData));
+    pPacGameData pPAC = malloc(sizeof (PacGameData));
 
     _pPAC->gameData = pPAC;
 
-    pPAC->DuckTextures[0] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_1.png");
-    pPAC->DuckTextures[1] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_2.png");
-    pPAC->DuckTextures[2] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_3.png");
-    pPAC->DuckTextures[3] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_2.png");
-    pPAC->DuckTextures[4] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_1.png");
-    pPAC->DuckTextures[5] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_3.png");
-    pPAC->DuckTextures[6] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_2.png");
-    pPAC->DuckTextures[7] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_1.png");
-    pPAC->DuckTextures[8] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_1.png");
-    pPAC->DuckTextures[9] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_1.png");
-    pPAC->DuckTextures[10] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_3.png");
-    pPAC->DuckTextures[11] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_3.png");
+    pPAC->background = al_load_bitmap("..\\Textures/Animations/Allegro-loading/0001.png");
+    pPAC->DuckTextures[0] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_1 (Personnalisé).png");
+    pPAC->DuckTextures[1] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_2 (Personnalisé).png");
+    pPAC->DuckTextures[2] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_3 (Personnalisé).png");
+    pPAC->DuckTextures[3] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_2 (Personnalisé).png");
+    pPAC->DuckTextures[4] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_1 (Personnalisé).png");
+    pPAC->DuckTextures[5] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_3 (Personnalisé).png");
+    pPAC->DuckTextures[6] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_2 (Personnalisé).png");
+    pPAC->DuckTextures[7] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_1 (Personnalisé).png");
+    pPAC->DuckTextures[8] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_1 (Personnalisé).png");
+    pPAC->DuckTextures[9] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_1 (Personnalisé).png");
+    pPAC->DuckTextures[10] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_3 (Personnalisé).png");
+    pPAC->DuckTextures[11] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_3 (Personnalisé).png");
 
     pPAC->Fishingstate[0] = 0;
     pPAC->Fishingstate[1] = 0;
@@ -45,9 +47,7 @@ void PAC_Create(PGAME _pPAC)
     pPAC->DuckInfos[10] = malloc(sizeof (DuckInfos));
     pPAC->DuckInfos[11] = malloc(sizeof (DuckInfos));
 
-    InitDuck(_pPAC);
-
-    _pPAC->gameData = pPAC;     //envoi des données du jeu dans la structure globale
+    PAC_Coordinates_create(_pPAC);
 }
 
 void PAC_Update(PGAME _pPAC)
@@ -68,17 +68,16 @@ void PAC_Update(PGAME _pPAC)
     if ( _pPAC->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
     {
         gameData->click=1;
+        printf("click \n");
+        printf("%d \n", gameData->click);
     }
     if (_pPAC->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
     {
         gameData->click=0;
     }
-}
-
-void InitDuck (PGAME _pPAC){
-    pPacGameData gamedata = _pPAC->gameData;
-
-    PAC_Coordinates_create(_pPAC);
+    if (Get_Touch( _pPAC->pEvent, ALLEGRO_KEY_W,0,0,1,0)){
+        PAC_Destroy(_pPAC);
+    }
 
 }
 
@@ -88,35 +87,15 @@ void PAC_Coordinates_create(PGAME _pPAC){
 
     pPacGameData gamedata = _pPAC->gameData;
 
-    gamedata->DuckInfos[0]->x = 300;
-    gamedata->DuckInfos[1]->x = 425;
-    gamedata->DuckInfos[2]->x = 550;
-    gamedata->DuckInfos[3]->x = 675;
-    gamedata->DuckInfos[4]->x = 800;
-    gamedata->DuckInfos[5]->x = 925;
-    gamedata->DuckInfos[6]->x = 1050;
-    gamedata->DuckInfos[7]->x = 1175;
-    gamedata->DuckInfos[8]->x = 1300;
-    gamedata->DuckInfos[9]->x = 1425;
-    gamedata->DuckInfos[10]->x = 1550;
-    gamedata->DuckInfos[11]->x = 1675;
+    for (int i = 0; i < 12; i++)
+    {
+        gamedata->DuckInfos[i]->vx = rand() % 3+1;
+        gamedata->DuckInfos[i]->vy = rand() % 3+1;
+    }
 
-    gamedata->DuckInfos[0]->y = 900 + (rand() % 25);
-    gamedata->DuckInfos[1]->y = 840 + (rand() % 25);
-    gamedata->DuckInfos[2]->y = 780 + (rand() % 25);
-    gamedata->DuckInfos[3]->y = 720 + (rand() % 25);
-    gamedata->DuckInfos[4]->y = 660 + (rand() % 25);
-    gamedata->DuckInfos[5]->y = 600 + (rand() % 25);
-    gamedata->DuckInfos[6]->y = 540 + (rand() % 25);
-    gamedata->DuckInfos[7]->y = 480 + (rand() % 25);
-    gamedata->DuckInfos[8]->y = 420 + (rand() % 25);
-    gamedata->DuckInfos[9]->y = 360 + (rand() % 25);
-    gamedata->DuckInfos[10]->y = 300 + (rand() % 25);
-    gamedata->DuckInfos[11]->y = 240 + (rand() % 25);
-
-    for (int SpeedInit = 0; SpeedInit < DuckCount ; SpeedInit++){
-        gamedata->DuckInfos[SpeedInit]->vx = (rand() % MaxDuckSpeed);
-        gamedata->DuckInfos[SpeedInit]->vy = (rand() % MaxDuckSpeed);
+    for (int i = 0; i < 12; ++i) {
+        gamedata->DuckInfos[i]->x = rand() % 1700 +100;
+        gamedata->DuckInfos[i]->y = rand() % 900 + 100;
     }
 }
 
@@ -124,15 +103,67 @@ void Check_Duck_Colisions(PGAME _pPAC){
 
     pPacGameData gamedata = _pPAC->gameData;
 
-    for (int i = 0; i < DuckCount-1; i++){
-        if (Point_In_Rectangle((Vector2D){gamedata->DuckInfos[i]->x,gamedata->DuckInfos[i]->y}, (Vector2D){gamedata->DuckInfos[i+1]->x,gamedata->DuckInfos[i+1]->y}, (Vector2D){gamedata->DuckInfos[i+1]->x,gamedata->DuckInfos[i+1]->y}))
-        {
-            gamedata->DuckInfos[i]->vx*=-1;
-            gamedata->DuckInfos[i]->vy*=-1;
-            gamedata->DuckInfos[i+1]->vx*=-1;
-            gamedata->DuckInfos[i+1]->vy*=-1;
+    for (int i = 0; i < 11; i++) {
+        for (int j = 1; j < 11; j++) {
+            if (Point_In_Rectangle((Vector2D){gamedata->DuckInfos[i]->x,gamedata->DuckInfos[i]->y}, (Vector2D){gamedata->DuckInfos[j]->x ,gamedata->DuckInfos[j]->y }, (Vector2D){gamedata->DuckInfos[j]->x + al_get_bitmap_width(gamedata->DuckTextures[j]),gamedata->DuckInfos[j]->y+al_get_bitmap_height(gamedata->DuckTextures[j])}))
+            {
+                gamedata->DuckInfos[i]->vx*=-1;
+                gamedata->DuckInfos[i]->vy*=-1;
+                gamedata->DuckInfos[i]->x +=(gamedata->DuckInfos[i]->vx)*2;
+                gamedata->DuckInfos[i]->y +=(gamedata->DuckInfos[i]->vy)*2;
+                gamedata->DuckInfos[j]->vx*=-1;
+                gamedata->DuckInfos[j]->vy*=-1;
+                gamedata->DuckInfos[j]->x +=(gamedata->DuckInfos[j]->vx)*2;
+                gamedata->DuckInfos[j]->y +=(gamedata->DuckInfos[j]->vy)*2;
+            }
+            if (Point_In_Rectangle((Vector2D){gamedata->DuckInfos[i]->x + al_get_bitmap_width(gamedata->DuckTextures[i]),gamedata->DuckInfos[i]->y}, (Vector2D){gamedata->DuckInfos[j]->x ,gamedata->DuckInfos[j]->y }, (Vector2D){gamedata->DuckInfos[j]->x + al_get_bitmap_width(gamedata->DuckTextures[j]),gamedata->DuckInfos[j]->y+al_get_bitmap_height(gamedata->DuckTextures[j])}))
+            {
+                gamedata->DuckInfos[i]->vx*=-1;
+                //gamedata->DuckInfos[i]->vy*=-1;
+                gamedata->DuckInfos[i]->x +=(gamedata->DuckInfos[i]->vx)*3;
+                gamedata->DuckInfos[i]->y +=(gamedata->DuckInfos[i]->vy)*3;
+                gamedata->DuckInfos[j]->vx*=-1;
+                //gamedata->DuckInfos[j]->vy*=-1;
+                gamedata->DuckInfos[j]->x +=(gamedata->DuckInfos[j]->vx)*3;
+                gamedata->DuckInfos[j]->y +=(gamedata->DuckInfos[j]->vy)*3;
+            }
+            if (Point_In_Rectangle((Vector2D){gamedata->DuckInfos[i]->x,gamedata->DuckInfos[i]->y+ al_get_bitmap_height(gamedata->DuckTextures[i])}, (Vector2D){gamedata->DuckInfos[j]->x ,gamedata->DuckInfos[j]->y }, (Vector2D){gamedata->DuckInfos[j]->x + al_get_bitmap_width(gamedata->DuckTextures[j]),gamedata->DuckInfos[j]->y+al_get_bitmap_height(gamedata->DuckTextures[j])}))
+            {
+                //gamedata->DuckInfos[i]->vx*=-1;
+                gamedata->DuckInfos[i]->vy*=-1;
+                gamedata->DuckInfos[i]->x +=(gamedata->DuckInfos[i]->vx)*3;
+                gamedata->DuckInfos[i]->y +=(gamedata->DuckInfos[i]->vy)*3;
+                //gamedata->DuckInfos[j]->vx*=-1;
+                gamedata->DuckInfos[j]->vy*=-1;
+                gamedata->DuckInfos[j]->x +=(gamedata->DuckInfos[j]->vx)*3;
+                gamedata->DuckInfos[j]->y +=(gamedata->DuckInfos[j]->vy)*3;
+            }
+            if (Point_In_Rectangle((Vector2D){gamedata->DuckInfos[i]->x + al_get_bitmap_width(gamedata->DuckTextures[i]),gamedata->DuckInfos[i]->y+ al_get_bitmap_height(gamedata->DuckTextures[i])}, (Vector2D){gamedata->DuckInfos[j]->x ,gamedata->DuckInfos[j]->y }, (Vector2D){gamedata->DuckInfos[j]->x + al_get_bitmap_width(gamedata->DuckTextures[j]),gamedata->DuckInfos[j]->y+al_get_bitmap_height(gamedata->DuckTextures[j])}))
+            {
+                gamedata->DuckInfos[i]->vx*=-1;
+                gamedata->DuckInfos[i]->vy*=-1;
+                gamedata->DuckInfos[i]->x +=(gamedata->DuckInfos[i]->vx)*3;
+                gamedata->DuckInfos[i]->y +=(gamedata->DuckInfos[i]->vy)*3;
+                gamedata->DuckInfos[j]->vx*=-1;
+                gamedata->DuckInfos[j]->vy*=-1;
+                gamedata->DuckInfos[j]->x +=(gamedata->DuckInfos[j]->vx)*3;
+                gamedata->DuckInfos[j]->y +=(gamedata->DuckInfos[j]->vy)*3;
+            }
         }
-        else {
+    }
+
+
+    for (int i = 0; i < 11; i++){
+        if(gamedata->DuckInfos[i]->y <= 0 || gamedata->DuckInfos[i]->y >= 930){
+
+            gamedata->DuckInfos[i]->vy*=-1;
+            gamedata->DuckInfos[i]->y +=gamedata->DuckInfos[i]->vy;
+        }
+        if(gamedata->DuckInfos[i]->x <= 0 || gamedata->DuckInfos[i]->x >= 1780){
+            gamedata->DuckInfos[i]->vx*=-1;
+            gamedata->DuckInfos[i]->x +=gamedata->DuckInfos[i]->vx;
+        }
+        else{
             gamedata->DuckInfos[i]->x += gamedata->DuckInfos[i]->vx;
             gamedata->DuckInfos[i]->y += gamedata->DuckInfos[i]->vy;
 
@@ -142,24 +173,63 @@ void Check_Duck_Colisions(PGAME _pPAC){
     }
 }
 
-void PAC_TimedUpdate(PGAME _pPAC)
-{
-    printf("Exemple de fonction TimedUpdate...\n");
-
+void Check_Click_on_Duck(PGAME _pPAC){
     pPacGameData gameData = _pPAC->gameData;
-
-    ALLEGRO_DISPLAY * display = al_get_current_display();
-
-    al_draw_bitmap(gameData->DuckTextures[1],50,50,0);
-
-    //Check_Duck_Colisions(gameData);
-
+    if (gameData->click == 1){
+        printf("condit valide");
+        for (int i = 0; i < 12; ++i) {
+            if (Point_In_Rectangle((Vector2D){gameData->mouse.x, gameData->mouse.y}, (Vector2D){gameData->DuckInfos[i]->x ,gameData->DuckInfos[i]->y }, (Vector2D){gameData->DuckInfos[i]->x + al_get_bitmap_width(gameData->DuckTextures[i]),gameData->DuckInfos[i]->y+al_get_bitmap_height(gameData->DuckTextures[i])})){
+                gameData->Fishingstate[i] = 1;
+                printf("canard attrape");
+            }
+        }
+    }
 }
 
+void PAC_TimedUpdate(PGAME _pPAC)
+{
+    pPacGameData gameData = _pPAC->gameData;
+
+    //ALLEGRO_DISPLAY * display = al_get_current_display();
+
+    Check_Click_on_Duck(_pPAC);
+
+    al_draw_bitmap(gameData->background, 0,0,0);
+    for (int i = 0; i < 12; ++i) {
+        if (gameData->Fishingstate[i] == 0){
+            al_draw_bitmap(gameData->DuckTextures[i],gameData->DuckInfos[i]->x,gameData->DuckInfos[i]->y,0);
+        }
+    }
+
+    //al_draw_bitmap(gameData->DuckTextures[0],gameData->DuckInfos[0]->x,gameData->DuckInfos[0]->y,0);
+    //al_draw_bitmap(gameData->DuckTextures[1],gameData->DuckInfos[1]->x,gameData->DuckInfos[1]->y,0);
+    //al_draw_bitmap(gameData->DuckTextures[2],gameData->DuckInfos[2]->x,gameData->DuckInfos[2]->y,0);
+    //al_draw_bitmap(gameData->DuckTextures[3],gameData->DuckInfos[3]->x,gameData->DuckInfos[3]->y,0);
+    //al_draw_bitmap(gameData->DuckTextures[4],gameData->DuckInfos[4]->x,gameData->DuckInfos[4]->y,0);
+    //al_draw_bitmap(gameData->DuckTextures[5],gameData->DuckInfos[5]->x,gameData->DuckInfos[5]->y,0);
+    //al_draw_bitmap(gameData->DuckTextures[6],gameData->DuckInfos[6]->x,gameData->DuckInfos[6]->y,0);
+    //al_draw_bitmap(gameData->DuckTextures[7],gameData->DuckInfos[7]->x,gameData->DuckInfos[7]->y,0);
+    //al_draw_bitmap(gameData->DuckTextures[8],gameData->DuckInfos[8]->x,gameData->DuckInfos[8]->y,0);
+    //al_draw_bitmap(gameData->DuckTextures[9],gameData->DuckInfos[9]->x,gameData->DuckInfos[9]->y,0);
+    //al_draw_bitmap(gameData->DuckTextures[10],gameData->DuckInfos[10]->x,gameData->DuckInfos[10]->y,0);
+    //al_draw_bitmap(gameData->DuckTextures[11],gameData->DuckInfos[11]->x,gameData->DuckInfos[11]->y,0);
+
+    Check_Duck_Colisions(_pPAC);
+
+
+
+}
 
 void PAC_Destroy(PGAME _pPAC)
 {
     printf("Destruction du jeu...\n");
+
+    pPacGameData pPAC = _pPAC->gameData;
+
+    for (int i = 0; i < 12; ++i) {
+        al_destroy_bitmap(pPAC->DuckTextures[i]);
+        free(pPAC->DuckInfos[i]);
+    }
 
     free(_pPAC->gameData);
     _pPAC->gameData = NULL;
@@ -170,7 +240,3 @@ void PAC_Destroy(PGAME _pPAC)
 
     printf("Etat du jeu actuel mis a GAME_NONE");
 }
-
-
-
-//release 24/04/23

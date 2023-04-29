@@ -1,7 +1,7 @@
 #include "map.h"
 
 
-enum
+/*enum
 {
     PAC = 1,
     TAB = 2,
@@ -31,6 +31,8 @@ void Map_Create(PMAP _pMap)                               // ECHELLE = 1.25 POUR
     pMapData->image[12]= al_load_bitmap(PATH"\\minimap.png");
     pMapData->image[13]= al_load_bitmap(PATH"\\teteluke.png");
     pMapData->image[14]= al_load_bitmap(PATH"\\ping.png");
+    pMapData->image[15]= al_load_bitmap(PATH"\\bonhommegauche.png");
+    pMapData->image[16]= al_load_bitmap(PATH"\\bonhommedroite.png");
 
     pMapData->pimages[0].x = 0;
     pMapData->pimages[0].y = -3240;
@@ -75,7 +77,9 @@ void Map_Create(PMAP _pMap)                               // ECHELLE = 1.25 POUR
     pMapData->c=0;
     pMapData->d=0;
 
-    pMapData->jeusuivant = PAC ;
+    pMapData->jeusuivant = TDR ;
+    pMapData->sensbonhommex = 0;
+    pMapData->sensbonhommey = 0;
 }
 
 void Map_Update(PMAP _pMap)
@@ -104,6 +108,19 @@ void Map_Update(PMAP _pMap)
     pMapData->b= Get_Touch(_pMap->pEvent,ALLEGRO_KEY_C,pMapData->deplacementhori,-1,0,pMapData->deplacementhori);
     pMapData->c=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_V, pMapData->deplacementverti, 1, 0, pMapData->deplacementverti);
     pMapData->d= Get_Touch(_pMap->pEvent,ALLEGRO_KEY_B,pMapData->deplacementhori,1,0,pMapData->deplacementhori);
+
+    if (_pMap->pEvent->keyboard.keycode == ALLEGRO_KEY_F){
+        pMapData->sensbonhommey = 0;
+    }
+    if (_pMap->pEvent->keyboard.keycode == ALLEGRO_KEY_C){
+        pMapData->sensbonhommex = 0;
+    }
+    if (_pMap->pEvent->keyboard.keycode == ALLEGRO_KEY_V){
+        pMapData->sensbonhommey = 1;
+    }
+    if (_pMap->pEvent->keyboard.keycode == ALLEGRO_KEY_B){
+        pMapData->sensbonhommex = 1;
+    }
     if (_pMap->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
     {
         pMapData->click=0;
@@ -302,7 +319,7 @@ void rect(PMAP _pMap,float x,float y,float taillex,float tailley,int i){
                 }
             }
         }*/
-    }
+    /*}
 }
 
 void gestioncolision(PMAP _pMap){
@@ -358,17 +375,69 @@ void affichageminimap(PMAP _pMap){
     MapData* pMapData = _pMap->MapData;
     pMapData->i++;
     al_draw_bitmap(pMapData->image[12],1300,650,0);
-    al_draw_bitmap(pMapData->image[13],pMapData->x /20 + 1530,pMapData->y / 20 + 930,0);
     if (pMapData->jeusuivant == PAC){
-        if (pMapData->pimages[10].x-pMapData->x+198 >= 0 && pMapData->pimages[10].x-pMapData->x+198 <=1920 && pMapData->pimages[10].y-pMapData->y+323 <= 1080 && pMapData->pimages[10].y-pMapData->y+319 >= 0 && pMapData->bonhommey>pMapData->pimages[10].y-pMapData->y+490 && pMapData->bonhommey<pMapData->pimages[10].y+490-pMapData->y+319 && pMapData->bonhommex>pMapData->pimages[10].x+198-pMapData->x && pMapData->bonhommex<pMapData->pimages[10].x+198+323-pMapData->x) {
+        if (pMapData->pimages[10].x-pMapData->x+348 >= 0 && pMapData->pimages[10].x-pMapData->x+348 <=1920 && pMapData->pimages[10].y-pMapData->y+40 <= 1080 && pMapData->pimages[10].y-pMapData->y+59 >= 0 && pMapData->bonhommey>pMapData->pimages[10].y-pMapData->y+752 && pMapData->bonhommey<pMapData->pimages[10].y+752-pMapData->y+59 && pMapData->bonhommex>pMapData->pimages[10].x+348-pMapData->x && pMapData->bonhommex<pMapData->pimages[10].x+348+40-pMapData->x) {
             // QUAND ON RENTRE DANS LA MAISON
         }
         else {
             al_draw_bitmap(pMapData->image[14],1600,900,0);
+            al_draw_rectangle(1535+(pMapData->x)/19,930,1610,932, al_map_rgb(0,255,228),2);
+            if (pMapData->y < 0){
+                al_draw_rectangle(1535+(pMapData->x)/19,930+(pMapData->y)/20,1535+(pMapData->x)/19+2,932, al_map_rgb(0,255,228),2);
+            }
         }
-        al_draw_rectangle(1530,930,1610,932, al_map_rgb(0,255,228),2);
+    }
+    if (pMapData->jeusuivant == TAB){
+        if (pMapData->pimages[0].x-pMapData->x+1496 >= 0 && pMapData->pimages[0].x-pMapData->x+1496 <=1920 && pMapData->pimages[0].y-pMapData->y+100 <= 1080 && pMapData->pimages[0].y-pMapData->y+108 >= 0 && pMapData->bonhommey>pMapData->pimages[0].y-pMapData->y+392 && pMapData->bonhommey<pMapData->pimages[0].y+392-pMapData->y+108 && pMapData->bonhommex>pMapData->pimages[0].x+1496-pMapData->x && pMapData->bonhommex<pMapData->pimages[0].x+1496+100-pMapData->x) {
+            // QUAND ON RENTRE DANS LA MAISON
+        }
+        else {
+            al_draw_bitmap(pMapData->image[14],1565,750,0);
+            if (pMapData->y > -3240+350 ){
+                al_draw_rectangle(1535+(pMapData->x)/19,930+(pMapData->y)/20,1535+(pMapData->x)/19+2,780,al_map_rgb(0,255,228),2);
+            }
+            al_draw_rectangle(1573,782,1535+(pMapData->x)/19,784, al_map_rgb(0,255,228),2);
+        }
+    }
+    if (pMapData->jeusuivant == SNAK){
+        if (pMapData->pimages[8].x-pMapData->x+998 >= 0 && pMapData->pimages[8].x-pMapData->x+998 <=1920 && pMapData->pimages[8].y-pMapData->y+98 <= 1080 && pMapData->pimages[8].y-pMapData->y+90 >= 0 && pMapData->bonhommey>pMapData->pimages[8].y-pMapData->y+0 && pMapData->bonhommey<pMapData->pimages[8].y+0-pMapData->y+90 && pMapData->bonhommex>pMapData->pimages[8].x+998-pMapData->x && pMapData->bonhommex<pMapData->pimages[8].x+998+98-pMapData->x) {
+            // QUAND ON RENTRE DANS LA MAISON
+        }
+        else {
+            al_draw_bitmap(pMapData->image[14],1735,822,0);
+            al_draw_rectangle(1535+(pMapData->x)/19,850,1745,852, al_map_rgb(0,255,228),2);
+            al_draw_rectangle(1535+(pMapData->x)/19,930+(pMapData->y)/20,1535+(pMapData->x)/19+2,850, al_map_rgb(0,255,228),2);
+        }
+    }
+    if (pMapData->jeusuivant == TDR){
+        if (pMapData->bonhommex > pMapData->pimages[5].x-pMapData->x+233 && pMapData->bonhommex < pMapData->pimages[5].x-pMapData->x+233+50 && pMapData->bonhommey > pMapData->pimages[5].y-pMapData->y+682 && pMapData->bonhommey < pMapData->pimages[5].y-pMapData->y+682+61){
+            // QUAND ON RENTRE DANS LA MAISON
+        }
+        else {
+            al_draw_bitmap(pMapData->image[14],1695,805,0);
+            al_draw_rectangle(1535+(pMapData->x)/19,930+(pMapData->y)/20,1535+(pMapData->x)/19+2,838, al_map_rgb(0,255,228),2);
+            al_draw_rectangle(1535+(pMapData->x)/19,838,1707,840, al_map_rgb(0,255,228),2);
+        }
+    }
+    al_draw_bitmap(pMapData->image[13],pMapData->x /20 + 1530,pMapData->y / 20 + 920,0);
+}
+
+void affichagebonhomme(PMAP _pMap){
+    MapData* pMapData = _pMap->MapData;
+    if (pMapData->sensbonhommey==0 && pMapData->sensbonhommex==1){
+        al_draw_bitmap(pMapData->image[16],pMapData->bonhommex-40,pMapData->bonhommey-50,0);
+    }
+    if (pMapData->sensbonhommey==1 && pMapData->sensbonhommex==0) {
+        al_draw_bitmap(pMapData->image[15],pMapData->bonhommex-60,pMapData->bonhommey-50,0);
+    }
+    if (pMapData->sensbonhommex == 0){
+        al_draw_bitmap(pMapData->image[15],pMapData->bonhommex-60,pMapData->bonhommey-50,0);
+    }
+    if (pMapData->sensbonhommex == 1){
+        al_draw_bitmap(pMapData->image[16],pMapData->bonhommex-40,pMapData->bonhommey-50,0);
     }
 }
+
 
 void Map_TimedUpdate(PMAP _pMap)
 {
@@ -379,11 +448,12 @@ void Map_TimedUpdate(PMAP _pMap)
     gestionbordure(_pMap);
     for (int i=0;i<pMapData->nbimages;i++){
         al_draw_bitmap(pMapData->image[i],pMapData->pimages[i].x-pMapData->x,pMapData->pimages[i].y-pMapData->y,0);
-        al_draw_rectangle(pMapData->bonhommex,pMapData->bonhommey,pMapData->bonhommex+5,pMapData->bonhommey+5, al_map_rgb(255,0,0),5);
+        al_draw_rectangle(-10000,-10000,-10000,-10000, al_map_rgb(0,0,0),2);      // obligé de l'avoir pour faire afficher le bonhomme ????
     }
     affichageminimap(_pMap);
-    printf("%f %f\n",pMapData->bonhommex,pMapData->bonhommey);
-    printf("%f %f\n",pMapData->x,pMapData->y);
+    affichagebonhomme(_pMap);
+    //printf("%f %f\n",pMapData->bonhommex,pMapData->bonhommey);
+    //printf("%f %f\n",pMapData->x,pMapData->y);
 }
 
 void Map_Destroy(PMAP _pMap)
@@ -399,4 +469,4 @@ void Map_Destroy(PMAP _pMap)
 
     printf("Etat du jeu actuel mis a GAME_NONE");
 }
-
+*/
