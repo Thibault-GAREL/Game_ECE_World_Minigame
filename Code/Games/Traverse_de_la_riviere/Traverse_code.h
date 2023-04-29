@@ -22,9 +22,9 @@ typedef struct Maillion {
 typedef struct Obstacle
 {
     float x;
-    float y;
+    float x_transi;
     float vx;
-    float vy;
+    float vx_ajout;
     bool vient_droite;
 }Obstacle;
 
@@ -35,15 +35,17 @@ typedef struct GameData {
     int Strat [1000];
     int compteur_strat;
     int pixel_avance;
-    int strat_affiche;
+    Obstacle position_obstacle [1000];
 }GameData;
 
 //void ajouterfinLSC (Maillion** p, int numero);
 //void afficherLSC (Maillion* liste_debut);
 //void liberation (Maillion** m);
 
+int inverse (int num, int pixel_avance);
 void generation_strat (PGAME _pExemple);
-void affichage_strat (PGAME _pExemple);
+void position_alleatoire (PGAME _pExemple);
+void affichage_strat (PGAME _pExemple, int numero);
 
 void TDLR_Create(PGAME _pExemple);
 void TDLR_Update(PGAME _pExemple);
