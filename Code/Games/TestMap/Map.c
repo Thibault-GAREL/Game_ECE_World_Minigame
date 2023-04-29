@@ -1,7 +1,7 @@
 #include "map.h"
+#include <string.h>
 
-
-/*enum
+enum
 {
     PAC = 1,
     TAB = 2,
@@ -33,6 +33,29 @@ void Map_Create(PMAP _pMap)                               // ECHELLE = 1.25 POUR
     pMapData->image[14]= al_load_bitmap(PATH"\\ping.png");
     pMapData->image[15]= al_load_bitmap(PATH"\\bonhommegauche.png");
     pMapData->image[16]= al_load_bitmap(PATH"\\bonhommedroite.png");
+    pMapData->image[17]= al_load_bitmap(PATH"\\fumeegauche.png");
+    pMapData->image[18]= al_load_bitmap(PATH"\\fumeedroite.png");
+    pMapData->image[19]= al_load_bitmap(PATH"\\panneaumetal.png");
+    pMapData->image[20]= al_load_bitmap(PATH"\\teteville.png");
+    pMapData->image[21]= al_load_bitmap(PATH"\\ville1.png");
+    pMapData->image[22]= al_load_bitmap(PATH"\\ville2.png");
+    pMapData->image[23]= al_load_bitmap(PATH"\\ville3.png");
+    pMapData->image[24]= al_load_bitmap(PATH"\\ville4.png");
+    pMapData->image[25]= al_load_bitmap(PATH"\\testvaisseau.png");
+    pMapData->image[26]= al_load_bitmap(PATH"\\vaisseaubondroite.png");
+    pMapData->image[27]= al_load_bitmap(PATH"\\vaisseaubongauche.png");
+    pMapData->image[28]= al_load_bitmap(PATH"\\MAP1COLI.png");
+    pMapData->image[29]= al_load_bitmap(PATH"\\MAP2COLI.png");
+    pMapData->image[30]= al_load_bitmap(PATH"\\MAP3COLI.png");
+    pMapData->image[31]= al_load_bitmap(PATH"\\MAP4COLI.png");
+    pMapData->image[32]= al_load_bitmap(PATH"\\MAP5COLI.png");
+    pMapData->image[33]= al_load_bitmap(PATH"\\MAP6COLI.png");
+    pMapData->image[34]= al_load_bitmap(PATH"\\MAP7COLI.png");
+    pMapData->image[35]= al_load_bitmap(PATH"\\MAP8COLI.png");
+    pMapData->image[36]= al_load_bitmap(PATH"\\MAP9COLI.png");
+    pMapData->image[37]= al_load_bitmap(PATH"\\MAP10COLI.png");
+    pMapData->image[38]= al_load_bitmap(PATH"\\MAP11COLI.png");
+    pMapData->image[39]= al_load_bitmap(PATH"\\MAP12COLI.png");
 
     pMapData->pimages[0].x = 0;
     pMapData->pimages[0].y = -3240;
@@ -59,6 +82,8 @@ void Map_Create(PMAP _pMap)                               // ECHELLE = 1.25 POUR
     pMapData->pimages[11].x = 3840;
     pMapData->pimages[11].y = 0;
 
+
+
     pMapData->x = 0;
     pMapData->y = 0;
 
@@ -80,6 +105,31 @@ void Map_Create(PMAP _pMap)                               // ECHELLE = 1.25 POUR
     pMapData->jeusuivant = TDR ;
     pMapData->sensbonhommex = 0;
     pMapData->sensbonhommey = 0;
+    pMapData->compteurfumme =0;
+    pMapData->fumeea=0;
+    pMapData->fumeeb=0;
+    pMapData->fumeec=0;
+    pMapData->fumeed=0;
+    pMapData->vetofumee=0;
+
+    pMapData->compteurville=0;
+    pMapData->zone1=0;
+    pMapData->zone2=0;
+    pMapData->zone3=0;
+    pMapData->zone4=0;
+
+    pMapData->compteurvaisseaubon=0;
+    pMapData->imagebondroite = 16;
+    pMapData->imagebongauche =15;
+    pMapData->compteurcooldownvaiss=0;
+    pMapData->compteurcooldownvaiss2=0;
+
+    pMapData->compteurcolision=0;
+    pMapData->vetoF=0;
+    pMapData->vetoV=0;
+    pMapData->vetoB=0;
+    pMapData->vetoC=0;
+    pMapData->compteurcolision2=0;
 }
 
 void Map_Update(PMAP _pMap)
@@ -100,10 +150,35 @@ void Map_Update(PMAP _pMap)
     {
         pMapData->click=1;
     }
-    pMapData->deplacementverti=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_F, pMapData->deplacementverti, -1, 0, pMapData->deplacementverti);
-    pMapData->deplacementhori= Get_Touch(_pMap->pEvent,ALLEGRO_KEY_C,pMapData->deplacementhori,-1,0,pMapData->deplacementhori);
-    pMapData->deplacementverti=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_V, pMapData->deplacementverti, 1, 0, pMapData->deplacementverti);
-    pMapData->deplacementhori= Get_Touch(_pMap->pEvent,ALLEGRO_KEY_B,pMapData->deplacementhori,1,0,pMapData->deplacementhori);
+
+
+
+    if (pMapData->compteurvaisseaubon==0){
+        if (pMapData->vetoF==0 && pMapData->deplacementverti==-1){
+            pMapData->deplacementverti=0;
+        }
+        if (pMapData->vetoV==0 && pMapData->deplacementverti==1){
+            pMapData->deplacementverti=0;
+        }
+        pMapData->deplacementverti=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_F, pMapData->deplacementverti, -pMapData->vetoF, 0, pMapData->deplacementverti);
+        pMapData->deplacementverti=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_V, pMapData->deplacementverti, pMapData->vetoV, 0,pMapData->deplacementverti);
+
+        if (pMapData->vetoC==0 && pMapData->deplacementhori==-1){
+            pMapData->deplacementhori=0;
+        }
+        if (pMapData->vetoB==0 && pMapData->deplacementhori==1){
+            pMapData->deplacementhori=0;
+        }
+        pMapData->deplacementhori=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_C, pMapData->deplacementhori, -pMapData->vetoC, 0, pMapData->deplacementhori);
+        pMapData->deplacementhori=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_B, pMapData->deplacementhori, pMapData->vetoB, 0,pMapData->deplacementhori);
+    }
+    if (pMapData->compteurvaisseaubon==1){
+        pMapData->deplacementverti=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_F, pMapData->deplacementverti, -1, 0, pMapData->deplacementverti);
+        pMapData->deplacementhori= Get_Touch(_pMap->pEvent,ALLEGRO_KEY_C,pMapData->deplacementhori,-1,0,pMapData->deplacementhori);
+        pMapData->deplacementverti=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_V, pMapData->deplacementverti, 1, 0, pMapData->deplacementverti);
+        pMapData->deplacementhori= Get_Touch(_pMap->pEvent,ALLEGRO_KEY_B,pMapData->deplacementhori,1,0,pMapData->deplacementhori);
+    }
+
     pMapData->a=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_F, pMapData->deplacementverti, -1, 0, pMapData->deplacementverti);
     pMapData->b= Get_Touch(_pMap->pEvent,ALLEGRO_KEY_C,pMapData->deplacementhori,-1,0,pMapData->deplacementhori);
     pMapData->c=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_V, pMapData->deplacementverti, 1, 0, pMapData->deplacementverti);
@@ -166,211 +241,6 @@ void gestionbordure(PMAP _pMap){
     }
 }
 
-void rect(PMAP _pMap,float x,float y,float taillex,float tailley,int i){
-    MapData* pMapData = _pMap->MapData;
-    if (pMapData->pimages[i].x-pMapData->x+x >= 0 && pMapData->pimages[i].x-pMapData->x+x <=1920 && pMapData->pimages[i].y-pMapData->y+y <= 1080 && pMapData->pimages[i].y-pMapData->y+y >= 0){
-        if(pMapData->y <= -3240){
-            if (pMapData->bonhommey>pMapData->pimages[i].y-pMapData->y+y && pMapData->bonhommey<pMapData->pimages[i].y+y-pMapData->y+tailley){
-                if (pMapData->bonhommex >= pMapData->pimages[i].x+x-pMapData->x && pMapData->bonhommex < pMapData->pimages[i].x+x+10-pMapData->x){
-                    pMapData->bonhommex=pMapData->pimages[i].x+x-pMapData->x;
-                    pMapData->x-=pMapData->speedhori*pMapData->d;
-                }
-                else if (pMapData->bonhommex <= pMapData->pimages[i].x+x+taillex-pMapData->x && pMapData->bonhommex > pMapData->pimages[i].x+x+taillex-10-pMapData->x){
-                    pMapData->bonhommex=pMapData->pimages[i].x+x+taillex-pMapData->x;
-                    pMapData->x-=pMapData->speedhori*pMapData->b;
-                }
-            }
-            if (pMapData->bonhommex>pMapData->pimages[i].x+x-pMapData->x && pMapData->bonhommex<pMapData->pimages[i].x+x+taillex-pMapData->x){
-                if (pMapData->bonhommey >= pMapData->pimages[i].y+y-pMapData->y && pMapData->bonhommey < pMapData->pimages[i].y+y+10-pMapData->y){
-                    if (pMapData->bonhommey < 450){
-                        pMapData->bonhommey=pMapData->pimages[i].y+y-pMapData->y;
-                        pMapData->y-=pMapData->speedverti*pMapData->c;
-                    }
-                    else if (pMapData->bonhommey >= 450){
-                        pMapData->bonhommey = 450;
-                    }
-                }
-                else if (pMapData->bonhommey <= pMapData->pimages[i].y+y+tailley-pMapData->y && pMapData->bonhommey > pMapData->pimages[i].y+y+tailley-10-pMapData->y){
-                    if (pMapData->bonhommey < 450){
-                        pMapData->bonhommey=pMapData->pimages[i].y+y+tailley-pMapData->y;
-                        pMapData->y-=pMapData->speedverti*pMapData->a;
-                    }
-                    else if (pMapData->bonhommey >= 450){
-                        pMapData->bonhommey = 450;
-                    }
-                }
-            }
-        }
-        if(pMapData->x >= 3840){
-            if (pMapData->bonhommey>pMapData->pimages[i].y-pMapData->y+y && pMapData->bonhommey<pMapData->pimages[i].y+y-pMapData->y+tailley){
-                if (pMapData->bonhommex >= pMapData->pimages[i].x+x-pMapData->x && pMapData->bonhommex < pMapData->pimages[i].x+x+10-pMapData->x){
-                    if (pMapData->bonhommex > 960){
-                        pMapData->bonhommex=pMapData->pimages[i].x+x-pMapData->x;
-                        pMapData->x-=pMapData->speedhori*pMapData->d;
-                    }
-                    else if (pMapData->bonhommex <= 960){
-                        pMapData->bonhommex = 960;
-                    }
-                }
-                else if (pMapData->bonhommex <= pMapData->pimages[i].x+x+taillex-pMapData->x && pMapData->bonhommex > pMapData->pimages[i].x+x+taillex-10-pMapData->x){
-                    if (pMapData->bonhommex > 960){
-                        pMapData->bonhommex=pMapData->pimages[i].x+x+taillex-pMapData->x;
-                        pMapData->x-=pMapData->speedhori*pMapData->b;
-                    }
-                    else if (pMapData->bonhommex <= 960){
-                        pMapData->bonhommex = 960;
-                    }
-                }
-            }
-            if (pMapData->bonhommex>pMapData->pimages[i].x+x-pMapData->x && pMapData->bonhommex<pMapData->pimages[i].x+x+taillex-pMapData->x){
-                if (pMapData->bonhommey >= pMapData->pimages[i].y+y-pMapData->y && pMapData->bonhommey < pMapData->pimages[i].y+y+10-pMapData->y){
-                    pMapData->bonhommey=pMapData->pimages[i].y+y-pMapData->y;
-                    pMapData->y-=pMapData->speedverti*pMapData->c;
-                }
-                else if (pMapData->bonhommey <= pMapData->pimages[i].y+y+tailley-pMapData->y && pMapData->bonhommey > pMapData->pimages[i].y+y+tailley-10-pMapData->y){
-                    pMapData->bonhommey=pMapData->pimages[i].y+y+tailley-pMapData->y;
-                    pMapData->y-=pMapData->speedverti*pMapData->a;
-                }
-            }
-        }
-        if (pMapData->y >= 0){
-            if (pMapData->bonhommey>pMapData->pimages[i].y-pMapData->y+y && pMapData->bonhommey<pMapData->pimages[i].y+y-pMapData->y+tailley){
-                if (pMapData->bonhommex >= pMapData->pimages[i].x+x-pMapData->x && pMapData->bonhommex < pMapData->pimages[i].x+x+10-pMapData->x){
-                    pMapData->bonhommex=pMapData->pimages[i].x+x-pMapData->x;
-                    pMapData->x-=pMapData->speedhori*pMapData->d;
-                }
-                else if (pMapData->bonhommex <= pMapData->pimages[i].x+x+taillex-pMapData->x && pMapData->bonhommex > pMapData->pimages[i].x+x+taillex-10-pMapData->x){
-                    pMapData->bonhommex=pMapData->pimages[i].x+x+taillex-pMapData->x;
-                    pMapData->x-=pMapData->speedhori*pMapData->b;
-                }
-            }
-            if (pMapData->bonhommex>pMapData->pimages[i].x+x-pMapData->x && pMapData->bonhommex<pMapData->pimages[i].x+x+taillex-pMapData->x){
-                if (pMapData->bonhommey >= pMapData->pimages[i].y+y-pMapData->y && pMapData->bonhommey < pMapData->pimages[i].y+y+10-pMapData->y){
-                    if (pMapData->bonhommey > 540){
-                        pMapData->bonhommey=pMapData->pimages[i].y+y-pMapData->y;
-                        pMapData->y-=pMapData->speedverti*pMapData->c;
-                    }
-                    else if (pMapData->bonhommey <= 540){
-                        pMapData->bonhommey = 540;
-                    }
-                }
-                else if (pMapData->bonhommey <= pMapData->pimages[i].y+y+tailley-pMapData->y && pMapData->bonhommey > pMapData->pimages[i].y+y+tailley-10-pMapData->y){
-                    if (pMapData->bonhommey > 540){
-                        pMapData->bonhommey=pMapData->pimages[i].y+y+tailley-pMapData->y;
-                        pMapData->y-=pMapData->speedverti*pMapData->a;
-                    }
-                    else if (pMapData->bonhommey <= 540){
-                        pMapData->bonhommey = 540;
-                    }
-                }
-            }
-        }
-        if (pMapData->x <= 0){
-            if (pMapData->bonhommey>pMapData->pimages[i].y-pMapData->y+y && pMapData->bonhommey<pMapData->pimages[i].y+y-pMapData->y+tailley){
-                if (pMapData->bonhommex >= pMapData->pimages[i].x+x-pMapData->x && pMapData->bonhommex < pMapData->pimages[i].x+x+10-pMapData->x){
-                    if (pMapData->bonhommex < 960){
-                        pMapData->bonhommex=pMapData->pimages[i].x+x-pMapData->x;
-                        pMapData->x-=pMapData->speedhori*pMapData->d;
-                    }
-                    else if (pMapData->bonhommex >= 960){
-                        pMapData->bonhommex = 960;
-                    }
-                }
-                else if (pMapData->bonhommex <= pMapData->pimages[i].x+x+taillex-pMapData->x && pMapData->bonhommex > pMapData->pimages[i].x+x+taillex-10-pMapData->x){
-                    if (pMapData->bonhommex < 960){
-                        pMapData->bonhommex=pMapData->pimages[i].x+x+taillex-pMapData->x;
-                        pMapData->x-=pMapData->speedhori*pMapData->b;
-                    }
-                    else if (pMapData->bonhommex >= 960){
-                        pMapData->bonhommex = 960;
-                    }
-                }
-            }
-            if (pMapData->bonhommex>pMapData->pimages[i].x+x-pMapData->x && pMapData->bonhommex<pMapData->pimages[i].x+x+taillex-pMapData->x){
-                if (pMapData->bonhommey >= pMapData->pimages[i].y+y-pMapData->y && pMapData->bonhommey < pMapData->pimages[i].y+y+10-pMapData->y){
-                    pMapData->bonhommey=pMapData->pimages[i].y+y-pMapData->y;
-                    pMapData->y-=pMapData->speedverti*pMapData->c;
-                }
-                else if (pMapData->bonhommey <= pMapData->pimages[i].y+y+tailley-pMapData->y && pMapData->bonhommey > pMapData->pimages[i].y+y+tailley-10-pMapData->y){
-                    pMapData->bonhommey=pMapData->pimages[i].y+y+tailley-pMapData->y;
-                    pMapData->y-=pMapData->speedverti*pMapData->a;
-                }
-            }
-        }
-        /*if(pMapData->y > -3240 && pMapData->y <0 && pMapData->x > 0 && pMapData->x <3840){
-            if (pMapData->bonhommey>pMapData->pimages[i].y-pMapData->y+y && pMapData->bonhommey<pMapData->pimages[i].y+y-pMapData->y+tailley){
-                if (pMapData->bonhommex >= pMapData->pimages[i].x+x-pMapData->x && pMapData->bonhommex < pMapData->pimages[i].x+x+10-pMapData->x){
-                    pMapData->bonhommex=pMapData->pimages[i].x+x-pMapData->x;
-                    pMapData->x-=pMapData->speedhori*pMapData->d;
-                }
-                else if (pMapData->bonhommex <= pMapData->pimages[i].x+x+taillex-pMapData->x && pMapData->bonhommex > pMapData->pimages[i].x+x+taillex-10-pMapData->x){
-                    pMapData->bonhommex=pMapData->pimages[i].x+x+taillex-pMapData->x;
-                    pMapData->x-=pMapData->speedhori*pMapData->b;
-                }
-            }
-            if (pMapData->bonhommex>pMapData->pimages[i].x+x-pMapData->x && pMapData->bonhommex<pMapData->pimages[i].x+x+taillex-pMapData->x){
-                if (pMapData->bonhommey >= pMapData->pimages[i].y+y-pMapData->y && pMapData->bonhommey < pMapData->pimages[i].y+y+10-pMapData->y){
-                    pMapData->bonhommey=pMapData->pimages[i].y+y-pMapData->y;
-                    pMapData->y-=pMapData->speedverti*pMapData->c;
-                }
-                else if (pMapData->bonhommey <= pMapData->pimages[i].y+y+tailley-pMapData->y && pMapData->bonhommey > pMapData->pimages[i].y+y+tailley-10-pMapData->y){
-                    pMapData->bonhommey=pMapData->pimages[i].y+y+tailley-pMapData->y;
-                    pMapData->y-=pMapData->speedverti*pMapData->a;
-                }
-            }
-        }*/
-    /*}
-}
-
-void gestioncolision(PMAP _pMap){
-    MapData* pMapData = _pMap->MapData;
-    rect(_pMap,32,28,152,99,0);
-    rect(_pMap,1,73,53,117,0);
-    rect(_pMap,177,4,168,59,0);
-    rect(_pMap,324,34,258,87,0);
-    rect(_pMap,269,71,30,94,0);
-    rect(_pMap,559,0,308,63,0);
-    rect(_pMap,857,0,195,9,0);
-    rect(_pMap,890,37,221,33,0);
-    rect(_pMap,110,0,62,77,0);
-    rect(_pMap,971,72,142,58,0);
-    rect(_pMap,1360,0,186,19,0);
-    rect(_pMap,1550,0,27,49,0);
-    rect(_pMap,7,222,42,84,0);
-    rect(_pMap,50,278,106,41,0);
-    rect(_pMap,222,222,29,81,0);
-    rect(_pMap,257,159,36,82,0);
-    rect(_pMap,298,218,48,31,0);
-    rect(_pMap,296,155,340,37,0);
-    rect(_pMap,611,93,27,57,0);
-    rect(_pMap,635,93,282,33,0);
-    rect(_pMap,375,220,283,171,0);
-    rect(_pMap,670,282,134,109,0);
-    rect(_pMap,7,572,137,110,0);
-    rect(_pMap,220,571,77,103,0);
-    rect(_pMap,274,457,75,104,0);
-    rect(_pMap,321,405,116,47,0);
-    rect(_pMap,303,622,144,37,0);
-    rect(_pMap,0,934,44,101,0);
-    rect(_pMap,44,995,100,58,0);
-    rect(_pMap,291,719,140,172,0);
-    rect(_pMap,366,890,71,144,0);
-    rect(_pMap,458,410,647,91,0);
-    rect(_pMap,1004,510,39,48,0);
-    rect(_pMap,453,509,30,546,0);
-    rect(_pMap,500,557,78,167,0);
-    rect(_pMap,498,730,29,71,0);
-    rect(_pMap,501,917,61,132,0);
-    rect(_pMap,594,628,235,293,0);
-    rect(_pMap,449,1050,663,30,0);
-    rect(_pMap,926,933,39,47,0);
-    rect(_pMap,929,632,38,48,0);
-    rect(_pMap,1078,504,35,155,0);
-    rect(_pMap,1074,858,39,191,0);
-    rect(_pMap,1116,989,41,55,0);
-    rect(_pMap,1127,861,25,81,0);
-}
-
 void affichageminimap(PMAP _pMap){
     MapData* pMapData = _pMap->MapData;
     pMapData->i++;
@@ -390,6 +260,7 @@ void affichageminimap(PMAP _pMap){
     if (pMapData->jeusuivant == TAB){
         if (pMapData->pimages[0].x-pMapData->x+1496 >= 0 && pMapData->pimages[0].x-pMapData->x+1496 <=1920 && pMapData->pimages[0].y-pMapData->y+100 <= 1080 && pMapData->pimages[0].y-pMapData->y+108 >= 0 && pMapData->bonhommey>pMapData->pimages[0].y-pMapData->y+392 && pMapData->bonhommey<pMapData->pimages[0].y+392-pMapData->y+108 && pMapData->bonhommex>pMapData->pimages[0].x+1496-pMapData->x && pMapData->bonhommex<pMapData->pimages[0].x+1496+100-pMapData->x) {
             // QUAND ON RENTRE DANS LA MAISON
+
         }
         else {
             al_draw_bitmap(pMapData->image[14],1565,750,0);
@@ -424,19 +295,210 @@ void affichageminimap(PMAP _pMap){
 
 void affichagebonhomme(PMAP _pMap){
     MapData* pMapData = _pMap->MapData;
+    pMapData->fumeea=0;pMapData->fumeeb=0;pMapData->fumeec=0;pMapData->fumeed=0;
+    srand(time(NULL));
+    pMapData->compteurcooldownvaiss2++;
+    if (pMapData->imagebondroite==16){
+        pMapData->compteurcooldownvaiss=0;
+    }
+    if (pMapData->compteurvaisseaubon == 1){
+        pMapData->imagebongauche=27;
+        pMapData->imagebondroite=26;
+        pMapData->compteurcooldownvaiss++;
+        pMapData->vetofumee=1;
+        if (pMapData->pimages[3].x+690-pMapData->x <= pMapData->bonhommex && pMapData->pimages[3].x+690-pMapData->x+220 >= pMapData->bonhommex && pMapData->pimages[3].y+1070-pMapData->y<= pMapData->bonhommey && pMapData->pimages[3].y+1070-pMapData->y+127 >= pMapData->bonhommey && pMapData->compteurcooldownvaiss>100){
+            pMapData->compteurvaisseaubon=0;
+            pMapData->imagebongauche=15;
+            pMapData->imagebondroite=16;
+            pMapData->compteurcooldownvaiss2=0;
+        }
+    }
+    if (pMapData->compteurfumme%20==1){
+        pMapData->fumeea=rand()%4;pMapData->fumeeb=rand()%4;pMapData->fumeec=rand()%4;pMapData->fumeed=rand()%4;
+    }
     if (pMapData->sensbonhommey==0 && pMapData->sensbonhommex==1){
-        al_draw_bitmap(pMapData->image[16],pMapData->bonhommex-40,pMapData->bonhommey-50,0);
+        al_draw_bitmap(pMapData->image[pMapData->imagebondroite],pMapData->bonhommex-40,pMapData->bonhommey-50,0);
+        if (pMapData->vetofumee==0){
+            if(pMapData->compteurfumme%25 != 1){
+                al_draw_bitmap(pMapData->image[18],pMapData->bonhommex-60,pMapData->bonhommey+20,0);
+            }
+            if(pMapData->compteurfumme%24 != 1){
+                al_draw_bitmap(pMapData->image[18],pMapData->bonhommex-65,pMapData->bonhommey+30,0);
+            }
+            if (pMapData->compteurfumme%23 != 1){
+                al_draw_bitmap(pMapData->image[18],pMapData->bonhommex-70,pMapData->bonhommey+10,0);
+            }
+            if (pMapData->compteurfumme%22 != 1){
+                al_draw_bitmap(pMapData->image[18],pMapData->bonhommex-75,pMapData->bonhommey+15,0);
+            }
+        }
     }
     if (pMapData->sensbonhommey==1 && pMapData->sensbonhommex==0) {
-        al_draw_bitmap(pMapData->image[15],pMapData->bonhommex-60,pMapData->bonhommey-50,0);
+        al_draw_bitmap(pMapData->image[pMapData->imagebongauche],pMapData->bonhommex-60,pMapData->bonhommey-50,0);
+        if (pMapData->vetofumee==0){
+            if(pMapData->compteurfumme%25 != 1){
+                al_draw_bitmap(pMapData->image[17],pMapData->bonhommex+40,pMapData->bonhommey+10,0);
+            }
+            if(pMapData->compteurfumme%24 != 1){
+                al_draw_bitmap(pMapData->image[17],pMapData->bonhommex+45,pMapData->bonhommey+30,0);
+            }
+            if (pMapData->compteurfumme%23 != 1){
+                al_draw_bitmap(pMapData->image[17],pMapData->bonhommex+45,pMapData->bonhommey+15,0);
+            }
+            if (pMapData->compteurfumme%22 != 1){
+                al_draw_bitmap(pMapData->image[17],pMapData->bonhommex+30,pMapData->bonhommey+20,0);
+            }
+        }
     }
     if (pMapData->sensbonhommex == 0){
-        al_draw_bitmap(pMapData->image[15],pMapData->bonhommex-60,pMapData->bonhommey-50,0);
+        al_draw_bitmap(pMapData->image[pMapData->imagebongauche],pMapData->bonhommex-60,pMapData->bonhommey-50,0);
+        if (pMapData->vetofumee==0){
+            if(pMapData->compteurfumme%25 != 1){
+                al_draw_bitmap(pMapData->image[17],pMapData->bonhommex+40,pMapData->bonhommey+10,0);
+            }
+            if(pMapData->compteurfumme%24 != 1){
+                al_draw_bitmap(pMapData->image[17],pMapData->bonhommex+45,pMapData->bonhommey+30,0);
+            }
+            if (pMapData->compteurfumme%23 != 1){
+                al_draw_bitmap(pMapData->image[17],pMapData->bonhommex+45,pMapData->bonhommey+15,0);
+            }
+            if (pMapData->compteurfumme%22 != 1){
+                al_draw_bitmap(pMapData->image[17],pMapData->bonhommex+30,pMapData->bonhommey+20,0);
+            }
+        }
     }
     if (pMapData->sensbonhommex == 1){
-        al_draw_bitmap(pMapData->image[16],pMapData->bonhommex-40,pMapData->bonhommey-50,0);
+        al_draw_bitmap(pMapData->image[pMapData->imagebondroite],pMapData->bonhommex-40,pMapData->bonhommey-50,0);
+        if (pMapData->vetofumee==0){
+            if(pMapData->compteurfumme%25 != 1){
+                al_draw_bitmap(pMapData->image[18],pMapData->bonhommex-60,pMapData->bonhommey+20,0);
+            }
+            if(pMapData->compteurfumme%24 != 1){
+                al_draw_bitmap(pMapData->image[18],pMapData->bonhommex-65,pMapData->bonhommey+30,0);
+            }
+            if (pMapData->compteurfumme%23 != 1){
+                al_draw_bitmap(pMapData->image[18],pMapData->bonhommex-70,pMapData->bonhommey+10,0);
+            }
+            if (pMapData->compteurfumme%22 != 1){
+                al_draw_bitmap(pMapData->image[18],pMapData->bonhommex-75,pMapData->bonhommey+15,0);
+            }
+        }
+    }
+    if (pMapData->a==0 && pMapData->b==0 && pMapData->c==0 && pMapData->d==0){
+        pMapData->vetofumee=1;
+    }
+    else {
+        pMapData->vetofumee=0;
+    }
+    pMapData->compteurfumme++;
+}
+
+
+void affichageville(PMAP _pMap){
+    MapData* pMapData = _pMap->MapData;
+    if (pMapData->x < 1920 && pMapData->y<-1080 && pMapData->zone1==0){
+        al_draw_bitmap(pMapData->image[19],0,0,0);
+        al_draw_bitmap(pMapData->image[20],120,100,0);
+        al_draw_bitmap(pMapData->image[21],230,120,0);
+        pMapData->compteurville++;
+        pMapData->zone2=0;
+        pMapData->zone3=0;
+        pMapData->zone4=0;
+        if (pMapData->compteurville >= 200){
+            pMapData->compteurville=0;
+            pMapData->zone1=1;
+        }
+    }
+    if (pMapData->x > 1920 && pMapData->y <-1080  && pMapData->zone2==0){
+        al_draw_bitmap(pMapData->image[19],0,0,0);
+        al_draw_bitmap(pMapData->image[20],120,100,0);
+        al_draw_bitmap(pMapData->image[22],230,120,0);
+        pMapData->compteurville++;
+        pMapData->zone1=0;
+        pMapData->zone3=0;
+        pMapData->zone4=0;
+        if (pMapData->compteurville >= 200){
+            pMapData->compteurville=0;
+            pMapData->zone2=1;
+        }
+    }
+    if (pMapData->x < 1920 && pMapData->y >-1080 && pMapData->zone3==0){
+        al_draw_bitmap(pMapData->image[19],0,0,0);
+        al_draw_bitmap(pMapData->image[20],120,100,0);
+        al_draw_bitmap(pMapData->image[23],230,120,0);
+        pMapData->compteurville++;
+        pMapData->zone1=0;
+        pMapData->zone2=0;
+        pMapData->zone4=0;
+        if (pMapData->compteurville >= 200){
+            pMapData->compteurville=0;
+            pMapData->zone3=1;
+        }
+    }
+    if (pMapData->x > 1920 && pMapData->y > -1080 && pMapData->zone4==0){
+        al_draw_bitmap(pMapData->image[19],0,0,0);
+        al_draw_bitmap(pMapData->image[20],120,100,0);
+        al_draw_bitmap(pMapData->image[24],230,120,0);
+        pMapData->compteurville++;
+        pMapData->zone1=0;
+        pMapData->zone2=0;
+        pMapData->zone3=0;
+        if (pMapData->compteurville >= 200){
+            pMapData->compteurville=0;
+            pMapData->zone4=1;
+        }
+    }
+
+}
+
+void gestionvaisseau(PMAP _pMap){
+    MapData* pMapData = _pMap->MapData;
+    if(pMapData->compteurvaisseaubon==0){
+        al_draw_bitmap(pMapData->image[25],pMapData->pimages[3].x+635-pMapData->x,pMapData->pimages[3].y+955-pMapData->y,0);
+        pMapData->speedverti=6;
+        pMapData->speedhori=5;
+    }
+    if (pMapData->compteurvaisseaubon==0 && pMapData->pimages[3].x+690-pMapData->x <= pMapData->bonhommex && pMapData->pimages[3].x+690-pMapData->x+220 >= pMapData->bonhommex && pMapData->pimages[3].y+1070-pMapData->y<= pMapData->bonhommey && pMapData->pimages[3].y+1070-pMapData->y+127 >= pMapData->bonhommey && pMapData->compteurcooldownvaiss2>=200){
+        pMapData->compteurvaisseaubon=1;
     }
 }
+
+void gestioncolision(PMAP _pMap,float x,float y,int indice){
+    MapData* pMapData = _pMap->MapData;
+    for (int i=0;i<12;i++){
+        if (pMapData->pimages[i].x-pMapData->x >-1920 && pMapData->pimages[i].x-pMapData->x < 1920 && pMapData->pimages[i].y-pMapData->y > -1080 && pMapData->pimages[i].y-pMapData->y < 1080){
+            if (al_get_pixel(pMapData->image[i+28],0-pMapData->pimages[i].x+pMapData->x+pMapData->bonhommex+x,0-pMapData->pimages[i].y+pMapData->y+pMapData->bonhommey+y).r>=0.929411 && al_get_pixel(pMapData->image[i+28],0-pMapData->pimages[i].x+pMapData->x+pMapData->bonhommex+x,0-pMapData->pimages[i].y+pMapData->y+pMapData->bonhommey+y).r<0.92942){
+                pMapData->compteurcolision2++;
+                if (indice==0){
+                    pMapData->vetoF=0;
+                }
+                else if (indice==1){
+                    pMapData->vetoV=0;
+                }
+                else if(indice==2){
+                    pMapData->vetoB=0;
+                }
+                else if (indice==3) {
+                    pMapData->vetoC=0;
+                }
+            }
+        }
+    }
+    if (pMapData->compteurcolision2==0 && indice==0){
+        pMapData->vetoF=1;
+    }
+    if (pMapData->compteurcolision2==0 && indice==1){
+        pMapData->vetoV=1;
+    }
+    if (pMapData->compteurcolision2==0 && indice==2){
+        pMapData->vetoB=1;
+    }
+    if (pMapData->compteurcolision2==0 && indice==3){
+        pMapData->vetoC=1;
+    }
+    pMapData->compteurcolision2=0;
+}
+
 
 
 void Map_TimedUpdate(PMAP _pMap)
@@ -444,16 +506,27 @@ void Map_TimedUpdate(PMAP _pMap)
     MapData* pMapData = _pMap->MapData;
     pMapData->x+=pMapData->speedhori*pMapData->deplacementhori;
     pMapData->y+=pMapData->speedverti*pMapData->deplacementverti;
-    //gestioncolision(_pMap);
     gestionbordure(_pMap);
+    for (int j=28;j<40;j++){
+        al_draw_bitmap(pMapData->image[j],pMapData->pimages[j-28].x-pMapData->x,pMapData->pimages[j-28].y-pMapData->y,0);
+    }
     for (int i=0;i<pMapData->nbimages;i++){
         al_draw_bitmap(pMapData->image[i],pMapData->pimages[i].x-pMapData->x,pMapData->pimages[i].y-pMapData->y,0);
         al_draw_rectangle(-10000,-10000,-10000,-10000, al_map_rgb(0,0,0),2);      // obligé de l'avoir pour faire afficher le bonhomme ????
     }
     affichageminimap(_pMap);
+    gestionvaisseau(_pMap);
     affichagebonhomme(_pMap);
-    //printf("%f %f\n",pMapData->bonhommex,pMapData->bonhommey);
-    //printf("%f %f\n",pMapData->x,pMapData->y);
+    affichageville(_pMap);
+    if (pMapData->compteurcolision%6==1){
+        gestioncolision(_pMap,5,-45,0);
+        gestioncolision(_pMap,-35,40,3);
+    }
+    if (pMapData->compteurcolision%8==1 && pMapData->compteurcolision%6!=1){
+        gestioncolision(_pMap,40,40,2);
+        gestioncolision(_pMap,5,50,1);
+    }
+    pMapData->compteurcolision++;
 }
 
 void Map_Destroy(PMAP _pMap)
@@ -469,4 +542,4 @@ void Map_Destroy(PMAP _pMap)
 
     printf("Etat du jeu actuel mis a GAME_NONE");
 }
-*/
+
