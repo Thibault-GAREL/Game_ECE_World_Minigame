@@ -25,17 +25,20 @@ typedef struct Obstacle
     float x_transi;
     float vx;
     float vx_ajout;
-    bool vient_droite;
+    float x2;
+    float x_transi2;
+    float vx2;
 }Obstacle;
 
 
 typedef struct GameData {
     //Maillion* liste;
-    ALLEGRO_BITMAP* image [4];
+    ALLEGRO_BITMAP* image [6];
     int Strat [1000];
     int compteur_strat;
     int pixel_avance;
     Obstacle position_obstacle [1000];
+    int life;
 }GameData;
 
 //void ajouterfinLSC (Maillion** p, int numero);
@@ -46,6 +49,7 @@ int inverse (int num, int pixel_avance);
 void generation_strat (PGAME _pExemple);
 void position_alleatoire (PGAME _pExemple);
 void affichage_strat (PGAME _pExemple, int numero);
+bool colision (PGAME _pExemple, int numero);
 
 void TDLR_Create(PGAME _pExemple);
 void TDLR_Update(PGAME _pExemple);
