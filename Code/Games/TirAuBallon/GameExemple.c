@@ -1,6 +1,6 @@
 #include "GameExemple.h"
 
-void Exemple_Create(PGAME _pExemple)
+void Exemple_Create(PGAME _pExemple)                               // ECHELLE = 1.25 POUR LE MOMENT
 {
     GameData* pGameData = malloc(sizeof (GameData));
     pGameData->police[0]= al_load_ttf_font(PATH"\\police.ttf",150,0);
@@ -30,7 +30,6 @@ void Exemple_Create(PGAME _pExemple)
     pGameData->image[21]= al_load_bitmap(PATH"\\boutonscore.png");
     pGameData->image[22]= al_load_bitmap(PATH"\\fondscore.jpg");
     pGameData->image[23]= al_load_bitmap(PATH"\\croix.png");
-
     pGameData->image[24]= al_load_bitmap(PATH"\\hit1.png");
     pGameData->image[25]= al_load_bitmap(PATH"\\hit2.png");
     pGameData->image[26]= al_load_bitmap(PATH"\\hit3.png");
@@ -76,6 +75,14 @@ void Exemple_Create(PGAME _pExemple)
     pGameData->image[66]= al_load_bitmap(PATH"\\hit43.png");
     pGameData->image[67]= al_load_bitmap(PATH"\\hit44.png");
     pGameData->image[68]= al_load_bitmap(PATH"\\hit45.png");
+
+
+    pGameData->soninstance=NULL;
+    al_reserve_samples(5);
+    pGameData->sons[0]= al_load_sample(PATH"\\blaster.ogg");
+    pGameData->soninstance= al_create_sample_instance(pGameData->sons[0]);
+    al_set_sample_instance_playmode(pGameData->soninstance,ALLEGRO_PLAYMODE_ONCE);
+    al_attach_sample_instance_to_mixer(pGameData->soninstance,al_get_default_mixer());
 
     pGameData->gamemode = 0;
     pGameData->nbballon = 90;
@@ -135,7 +142,7 @@ void Exemple_Update(PGAME _pExemple)
 
     if (_pExemple->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {
-        pGameData->mouse.x = _pExemple->pEvent->mouse.x*1.25;   // METTRE UNE ECHELLE APRES
+        pGameData->mouse.x = _pExemple->pEvent->mouse.x*1.25;
         pGameData->mouse.y = _pExemple->pEvent->mouse.y*1.25;
     }
     if ( _pExemple->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
@@ -357,8 +364,6 @@ void mouvementballon(PGAME _pExemple){
         pGameData->pballon[i].x+=pGameData->pballon[i].vx;
         pGameData->pballon[i].y+=pGameData->pballon[i].vy;
     }
-
-
 }
 
 
@@ -412,8 +417,6 @@ void traitementmeilleurscore(PGAME _pExemple){
 }
 
 
-
-
 void Exemple_TimedUpdate(PGAME _pExemple)
 {
     char nomjeu[] = "Tir Au Jeday";
@@ -425,7 +428,7 @@ void Exemple_TimedUpdate(PGAME _pExemple)
 
     GameData* pGameData = _pExemple->gameData;
     if (pGameData->gamemode==0){
-        ALLEGRO_DISPLAY * ecran=();
+        ALLEGRO_DISPLAY * ecran=al_get_current_display();
         al_show_mouse_cursor(ecran);
         al_draw_bitmap(pGameData->image[0],0,0,0);
         al_draw_bitmap(pGameData->image[10],pGameData->vaisseaumenu1x,pGameData->vaisseaumenu1y,0);
@@ -460,6 +463,9 @@ void Exemple_TimedUpdate(PGAME _pExemple)
         al_draw_bitmap(pGameData->image[3],0,0,0);
         ALLEGRO_DISPLAY*ecran= al_get_current_display();
         al_hide_mouse_cursor(ecran);
+        if (pGameData->click==1){
+            al_play_sample_instance(pGameData->soninstance);
+        }
         if (pGameData->compteurvaisseau > 320 && pGameData->compteurvaisseau+80 < 1720){
             if((pGameData->compteurvaisseau > 1280 || pGameData->compteurvaisseau+80 < 1220) && (pGameData->compteurvaisseau > 780 || pGameData->compteurvaisseau+80 < 700)){
                 al_draw_bitmap(pGameData->image[9],pGameData->compteurvaisseau,pGameData->yvaiseeau,0);
@@ -649,14 +655,14 @@ void Exemple_TimedUpdate(PGAME _pExemple)
         }
     }
     if (pGameData->gamemode==5){
+        Exemple_Destroy(_pExemple);
         exit(0);
     }
 }
-//////////////////////////////////////////////////   // ANIMATION BALLON DETRUIT
+
 void Exemple_Destroy(PGAME _pExemple)
 {
     printf("Destruction du jeu...\n");
-
     free(_pExemple->gameData);
     _pExemple->gameData = NULL;
 

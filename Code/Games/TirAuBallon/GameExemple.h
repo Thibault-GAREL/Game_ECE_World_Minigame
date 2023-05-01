@@ -2,9 +2,11 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "Code/Game.h"
+#include "Game.h"
 #include "allegroutils.h"
 #include "vector.h"
+#include <allegro5/allegro_acodec.h>
+#include <allegro5/allegro_audio.h>
 
 #define CL_PATH ".."
 #define PATH CL_PATH
@@ -22,6 +24,8 @@ typedef struct _GAMEDATA
 {
     ALLEGRO_BITMAP* image[70];
     ALLEGRO_FONT* police[3];
+    ALLEGRO_SAMPLE* sons[1];
+    ALLEGRO_SAMPLE_INSTANCE* soninstance;
     int gamemode;
     Vector2D mouse;
     int click;
