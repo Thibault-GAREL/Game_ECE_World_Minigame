@@ -10,19 +10,23 @@
 #define CLONE_ORIGINAL_SIZE 400
 #define CLONE_SIZE 40
 
-
 #define FOOD_ORIGINAL_SIZE 600
 #define FOOD_SIZE 50
-#define FOOD_COUNT_MAX 2
+#define FOOD_COUNT_MAX 10
 #define FOOD_PROBA 100
 
 #define GAME_STATE_RUNNING 0
 #define GAME_STATE_GO 1
 
+#define SNAKE_SPEED_START 10
+#define SNAKE_SPEED_INCREASE 0.1f
+#define SNAKE_STEP_TIME 100
+
 typedef struct _SNAKE_PART
 {
     struct _SNAKE_PART* previous;
     VECTOR2D_INT position;
+    float directionAngle;
 }SNAKE_PART, *PSNAKE_PART;
 
 typedef struct _SNAKE

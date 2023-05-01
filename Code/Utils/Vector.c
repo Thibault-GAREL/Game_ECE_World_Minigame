@@ -29,3 +29,8 @@ char Point_In_Rectangle(Vector2D point, Vector2D r1, Vector2D r2)
 {
     return ((point.x < r1.x ) != (point.x < r2.x )) && ((point.y < r1.y ) != (point.y < r2.y ));
 }
+
+float Vector2D_Get_Angle(Vector2D _v)
+{   
+    return _v.x >= 0 ? atanf(_v.y / _v.x) : atanf(_v.y / _v.x) + PI;
+}
