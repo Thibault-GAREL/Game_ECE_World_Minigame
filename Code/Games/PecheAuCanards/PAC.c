@@ -40,6 +40,7 @@ void PAC_Create(PGAME _pPAC)
 
     _pPAC->gameData = gameData;
 
+    gameData->Menu = al_load_bitmap("..\\Textures/PAC/Menu (Grand).png");
     gameData->background = al_load_bitmap("..\\Textures/PAC/Background.png");
     gameData->End = al_load_bitmap("..\\Textures/PAC/PAC End (Grand).png");
     gameData->DuckTextures[0] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_1 (Personnalisé).png");
@@ -88,6 +89,7 @@ void PAC_Create(PGAME _pPAC)
     }
 
     gameData->CurrentDuckFished =  -1;
+    gameData->GameLaunched = 0;
     gameData->score1 = 0;
     gameData->score2 = 0;
 
@@ -100,6 +102,7 @@ void PAC_Create(PGAME _pPAC)
         gameData->DuckInfos[i]->Points = (gameData->DuckInfos[i]->vx) * (gameData->DuckInfos[i]->vy);
         printf ("Les points valent %d \n", gameData->DuckInfos[i]->Points);
     }
+    al_set_mouse_cursor((_pPAC->SampleAlManager)->pDisplay, (_pPAC->SampleAlManager)->pCursors->PACSight);
 }
 
 void PAC_Update(PGAME _pPAC)
@@ -130,6 +133,9 @@ void PAC_Update(PGAME _pPAC)
     }
     if (Get_Touch( _pPAC->pEvent, ALLEGRO_KEY_W,0,0,1,0)){
         PAC_Destroy(_pPAC);
+    }
+    if (Get_Touch( _pPAC->pEvent, ALLEGRO_KEY_ENTER,0,0,1,0)){
+        gameData->GameLaunched = 1;
     }
 
     if (gameData->CurrentDuckFished >= 0) {
@@ -248,6 +254,7 @@ void Was_Key_Pressed(PGAME _pPAC, int DuckID){
             gameData->score1 += gameData->DuckInfos[DuckID]->Points;
             sprintf(gameData->Score1, "%d", (int) gameData->score1);
             printf("valeur passée à 2 \n");
+            Allegro_play_Sample((_pPAC->SampleAlManager)->pSampleInstance->PACEXplode);
         }
     }
     if (gameData->PlayerID == 2){
@@ -256,10 +263,10 @@ void Was_Key_Pressed(PGAME _pPAC, int DuckID){
             gameData->score2 += gameData->DuckInfos[DuckID]->Points;
             sprintf(gameData->Score2, "%d", (int) gameData->score2);
             printf("valeur passée à 2 \n");
+            Allegro_play_Sample((_pPAC->SampleAlManager)->pSampleInstance->PACEXplode);
         }
     }
 }
-
 
 void Check_Click_on_Duck(PGAME _pPAC){
     pPacGameData gameData = _pPAC->gameData;
@@ -279,58 +286,29 @@ void PAC_TimedUpdate(PGAME _pPAC)
 
     //ALLEGRO_DISPLAY * display = al_get_current_display();
 
-    Check_Click_on_Duck(_pPAC);
+    if (gameData->GameLaunched == 0){
+        al_draw_bitmap(gameData->Menu, 0, 0, 0);
+        Allegro_play_Sample((_pPAC->SampleAlManager)->pSampleInstance->PACMenu);
+    }
+    else {
+        Check_Click_on_Duck(_pPAC);
 
-    if (gameData->Player1_Timer <= 3000){
-        al_draw_bitmap(gameData->background, 0,0,0);
-        gameData->Player1_Timer++;
-        for (int i = 0; i < 12; ++i) {
-            if (gameData->Fishingstate[i] != 2){
-                al_draw_bitmap(gameData->DuckTextures[i],gameData->DuckInfos[i]->x,gameData->DuckInfos[i]->y,0);
-            }
-            /*if (gameData->Fishingstate[i] == 1){
-                al_draw_text(gameData->font, gameData->fontColor, 960, 540, 1, KeyEquivalent[gameData->DuckInfos[i]->KEYCodeDuck]);
-                //printf("%c \n", gameData->KeyPress[i]);
-            }*/
-            if (gameData->timer <= 200 && gameData->Fishingstate[i] == 1){
-                gameData->timer ++;
-                al_draw_text(gameData->font, gameData->fontColor, 960, 540, 1, KeyEquivalent[gameData->DuckInfos[i]->KEYCodeDuck]);
-                //printf("entree dans le timer \n");
-            }
-            if (gameData->timer >200){
-                gameData->timer = 0;
-                gameData->Fishingstate[i] = 0;
-                //printf("sorti du timer");
-            }
-            sprintf(gameData->RemainingTime,"%d",(int)(3000 - gameData->Player1_Timer) / 100);
-            al_draw_text(gameData->font, gameData->fontColor, 1920, 10, 2, (const char *)(gameData->RemainingTime));
-            al_draw_text(gameData->font, gameData->fontColor, 1900, 50, 2, "Player 1");
-            al_draw_text(gameData->font, gameData->fontColor, 10, 50, 0, (const char *)(gameData->Score1));
-            al_draw_text(gameData->font,gameData->fontColor, 10, 10, 0, "Score");
+        if (gameData->Player1_Timer == 0) {
+            Allegro_Stop_Sample((_pPAC->SampleAlManager)->pSampleInstance->PACMenu);
+            Allegro_play_Sample((_pPAC->SampleAlManager)->pSampleInstance->PACGame);
         }
-    }
 
-    if (gameData->Player1_Timer == 3000) {
-        PAC_Reinit(_pPAC);
-        gameData->Player1_Timer = 3001;
-        gameData->PlayerID = 2;
-    }
-    if (gameData->Player1_Timer >= 3000) {
-        if (gameData->Player2_Timer <= 3000) {
-            al_draw_bitmap(gameData->background, 0,0,0);
-            gameData->Player2_Timer++;
+        if (gameData->Player1_Timer <= 3000) {
+            al_draw_bitmap(gameData->background, 0, 0, 0);
+            gameData->Player1_Timer++;
             for (int i = 0; i < 12; ++i) {
                 if (gameData->Fishingstate[i] != 2) {
                     al_draw_bitmap(gameData->DuckTextures[i], gameData->DuckInfos[i]->x, gameData->DuckInfos[i]->y, 0);
+                    //al_draw_rotated_bitmap(gameData->DuckTextures[i], al_get_bitmap_width(gameData->DuckTextures[i])/2,al_get_bitmap_height(gameData->DuckTextures[i])/2, gameData->DuckInfos[i]->x, gameData->DuckInfos[i]->y,(atan((gameData->DuckInfos[i]->vx)/(gameData->DuckInfos[i]->vy)))*(180/3.14), 0);
                 }
-                /*if (gameData->Fishingstate[i] == 1){
-                    al_draw_text(gameData->font, gameData->fontColor, 960, 540, 1, KeyEquivalent[gameData->DuckInfos[i]->KEYCodeDuck]);
-                    //printf("%c \n", gameData->KeyPress[i]);
-                }*/
                 if (gameData->timer <= 200 && gameData->Fishingstate[i] == 1) {
                     gameData->timer++;
-                    al_draw_text(gameData->font, gameData->fontColor, 960, 540, 1,
-                                 KeyEquivalent[gameData->DuckInfos[i]->KEYCodeDuck]);
+                    al_draw_text(gameData->font, gameData->fontColor, 960, 540, 1,KeyEquivalent[gameData->DuckInfos[i]->KEYCodeDuck]);
                     //printf("entree dans le timer \n");
                 }
                 if (gameData->timer > 200) {
@@ -338,25 +316,70 @@ void PAC_TimedUpdate(PGAME _pPAC)
                     gameData->Fishingstate[i] = 0;
                     //printf("sorti du timer");
                 }
-                sprintf(gameData->RemainingTime, "%d", (int) (3000 - gameData->Player2_Timer) / 100);
-                al_draw_text(gameData->font, gameData->fontColor, 1920, 10, 2,(const char *) (gameData->RemainingTime));
-                al_draw_text(gameData->font, gameData->fontColor, 1900, 50, 2, "Player 2");
-                al_draw_text(gameData->font, gameData->fontColor, 10, 50, 0, (const char *) (gameData->Score2));
-                al_draw_text(gameData->font,gameData->fontColor, 10, 10, 0, "Score");
+                sprintf(gameData->RemainingTime, "%d", (int) (3000 - gameData->Player1_Timer) / 100);
+                al_draw_text(gameData->font, gameData->fontColor, 1920, 10, 2,
+                             (const char *) (gameData->RemainingTime));
+                al_draw_text(gameData->font, gameData->fontColor, 1900, 50, 2, "Player 1");
+                al_draw_text(gameData->font, gameData->fontColor, 10, 50, 0, (const char *) (gameData->Score1));
+                al_draw_text(gameData->font, gameData->fontColor, 10, 10, 0, "Score");
             }
         }
-    }
 
-    if (gameData->Player2_Timer >= 3000){
-        gameData->Player2_Timer++;
-        al_draw_bitmap(gameData->End, 0, 0, 0);
-        al_draw_text(gameData->font,gameData->fontColor, 900, 500, 1, "Player 1");
-        al_draw_text(gameData->font, gameData->fontColor, 1060, 500, 1, (const char *) (gameData->Score1));
-        al_draw_text(gameData->font,gameData->fontColor, 900, 600, 1, "Player 2");
-        al_draw_text(gameData->font, gameData->fontColor, 1060, 600, 1, (const char *) (gameData->Score2));
-    }
+        if (gameData->Player1_Timer == 3000) {
+            PAC_Reinit(_pPAC);
+            gameData->Player1_Timer = 3001;
+            gameData->PlayerID = 2;
+        }
+        if (gameData->Player1_Timer >= 3000) {
+            if (gameData->Player2_Timer <= 3000) {
+                al_draw_bitmap(gameData->background, 0, 0, 0);
+                gameData->Player2_Timer++;
+                for (int i = 0; i < 12; ++i) {
+                    if (gameData->Fishingstate[i] != 2) {
+                        al_draw_bitmap(gameData->DuckTextures[i], gameData->DuckInfos[i]->x, gameData->DuckInfos[i]->y,
+                                       0);
+                    }
+                    /*if (gameData->Fishingstate[i] == 1){
+                        al_draw_text(gameData->font, gameData->fontColor, 960, 540, 1, KeyEquivalent[gameData->DuckInfos[i]->KEYCodeDuck]);
+                        //printf("%c \n", gameData->KeyPress[i]);
+                    }*/
+                    if (gameData->timer <= 200 && gameData->Fishingstate[i] == 1) {
+                        gameData->timer++;
+                        al_draw_text(gameData->font, gameData->fontColor, 960, 540, 1,
+                                     KeyEquivalent[gameData->DuckInfos[i]->KEYCodeDuck]);
+                        //printf("entree dans le timer \n");
+                    }
+                    if (gameData->timer > 200) {
+                        gameData->timer = 0;
+                        gameData->Fishingstate[i] = 0;
+                        //printf("sorti du timer");
+                    }
+                    sprintf(gameData->RemainingTime, "%d", (int) (3000 - gameData->Player2_Timer) / 100);
+                    al_draw_text(gameData->font, gameData->fontColor, 1920, 10, 2,
+                                 (const char *) (gameData->RemainingTime));
+                    al_draw_text(gameData->font, gameData->fontColor, 1900, 50, 2, "Player 2");
+                    al_draw_text(gameData->font, gameData->fontColor, 10, 50, 0, (const char *) (gameData->Score2));
+                    al_draw_text(gameData->font, gameData->fontColor, 10, 10, 0, "Score");
+                }
+            }
+        }
 
-    Check_Duck_Collisions(_pPAC);
+        if (gameData->Player2_Timer == 3000) {
+            Allegro_Stop_Sample((_pPAC->SampleAlManager)->pSampleInstance->PACGame);
+            Allegro_play_Sample((_pPAC->SampleAlManager)->pSampleInstance->PACCredits);
+        }
+
+        if (gameData->Player2_Timer >= 3000) {
+            gameData->Player2_Timer++;
+            al_draw_bitmap(gameData->End, 0, 0, 0);
+            al_draw_text(gameData->font, gameData->fontColor, 900, 500, 1, "Player 1");
+            al_draw_text(gameData->font, gameData->fontColor, 1060, 500, 1, (const char *) (gameData->Score1));
+            al_draw_text(gameData->font, gameData->fontColor, 900, 600, 1, "Player 2");
+            al_draw_text(gameData->font, gameData->fontColor, 1060, 600, 1, (const char *) (gameData->Score2));
+        }
+
+        Check_Duck_Collisions(_pPAC);
+    }
 }
 
 void PAC_Destroy(PGAME _pPAC)

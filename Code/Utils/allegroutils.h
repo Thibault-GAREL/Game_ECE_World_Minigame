@@ -13,7 +13,7 @@
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_audio.h>
 
-#define Audio_Samples_Count 10
+#define Audio_Samples_Count 20
 
 void Allegro_Init();
 ALLEGRO_EVENT_QUEUE* Init_Event(ALLEGRO_DISPLAY* _pDisplay, ALLEGRO_TIMER* _ptimer);
@@ -22,6 +22,12 @@ int Get_Touch(ALLEGRO_EVENT* _pEvent, int _keycode, int _default, int _down, int
 
 typedef struct _ALLEGRO_SAMPLES
 {
+    ALLEGRO_SAMPLE *PACMenu;
+    ALLEGRO_SAMPLE *PACGame;
+    ALLEGRO_SAMPLE *PACEXplode;
+    ALLEGRO_SAMPLE *PACEasterEgg;
+    ALLEGRO_SAMPLE *PACCredits;
+
     ALLEGRO_SAMPLE *walk;
     ALLEGRO_SAMPLE *click;
     ALLEGRO_SAMPLE *shot;
@@ -33,6 +39,12 @@ typedef struct _ALLEGRO_SAMPLES
 
 typedef struct _ALLEGRO_SAMPLES_INSTANCE
 {
+    ALLEGRO_SAMPLE_INSTANCE *PACMenu;
+    ALLEGRO_SAMPLE_INSTANCE *PACGame;
+    ALLEGRO_SAMPLE_INSTANCE *PACEXplode;
+    ALLEGRO_SAMPLE_INSTANCE *PACEasterEgg;
+    ALLEGRO_SAMPLE_INSTANCE *PACCredits;
+
     ALLEGRO_SAMPLE_INSTANCE *walk;
     ALLEGRO_SAMPLE_INSTANCE *click;
     ALLEGRO_SAMPLE_INSTANCE *shot;
@@ -43,6 +55,8 @@ typedef struct _ALLEGRO_SAMPLES_INSTANCE
 }ALLEGRO_GAME_SAMPLES_INSTANCE, *PALLEGRO_GAME_SAMPLES_INSTANCE;
 
 typedef struct _ALLEGRO_MOUSE_CURSOR{
+    ALLEGRO_MOUSE_CURSOR *PACSight;
+
     ALLEGRO_MOUSE_CURSOR *Cursor1;
     ALLEGRO_MOUSE_CURSOR *Cursor2;
     ALLEGRO_MOUSE_CURSOR *Cursor3;

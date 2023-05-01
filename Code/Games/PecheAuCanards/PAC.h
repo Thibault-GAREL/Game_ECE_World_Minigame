@@ -5,6 +5,7 @@
 #include "..\\..\\Game.h"
 #include "..\\..\\Utils\\allegroutils.h"
 #include "..\\..\Utils\\Vector.h"
+#include "math.h"
 
 #define DuckCount 12
 
@@ -20,6 +21,7 @@ typedef struct _GAMEDATA
     ALLEGRO_FONT* font;
     ALLEGRO_COLOR fontColor;
     DuckInfos *DuckInfos[DuckCount];
+    ALLEGRO_BITMAP *Menu;
     ALLEGRO_BITMAP *DuckTextures[DuckCount];
     ALLEGRO_BITMAP *background;
     ALLEGRO_BITMAP *End;
@@ -37,6 +39,8 @@ typedef struct _GAMEDATA
     int Player1_Timer;
     int Player2_Timer;
     char RemainingTime[100];
+    int GameLaunched;
+    int IntervalTime;
 }PacGameData, *pPacGameData;
 
 void PAC_Create(PGAME _pPAC);
