@@ -122,7 +122,7 @@ bool collision (PGAME _pExemple, int numero){
 
 
     else {
-        return FALSE;
+        return false;
     }
 }
 
