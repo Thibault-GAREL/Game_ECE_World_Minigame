@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include "..\\..\\Game.h"
 #include "..\\..\\Utils\\allegroutils.h"
+#include "..\\..\\Utils\\Vector.h"
 
 #define CL_PATH ".."
 #define PATH CL_PATH
@@ -32,7 +33,7 @@ typedef struct Obstacle
 
 
 typedef struct GameData {
-    ALLEGRO_BITMAP* image [6];
+    ALLEGRO_BITMAP* image [8];
     ALLEGRO_FONT* police[3];
     int Strat [1000];
     int compteur_strat;
@@ -43,11 +44,17 @@ typedef struct GameData {
     int score_player1;
     int score_player2;
     int gagnant;
+    char* nom_player1;
+    char* nom_player2;
+
+    Vector2D mouse_position;
+    int click;
 }GameData;
 
 //void ajouterfinLSC (Maillion** p, int numero);
 //void afficherLSC (Maillion* liste_debut);
 //void liberation (Maillion** m);
+
 
 int inverse (int num, int pixel_avance);
 void generation_strat (PGAME _pExemple);

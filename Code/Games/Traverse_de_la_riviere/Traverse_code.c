@@ -113,11 +113,11 @@ bool collision (PGAME _pExemple, int numero){
     GameData* pGameData = (GameData*) _pExemple->gameData;
 
     if (pGameData->position_obstacle [numero].x_transi <= (X_player + 50) && (X_player + 50) <= (pGameData->position_obstacle [numero].x_transi +180) ){
-        return TRUE;
+        return true;
     }
 
         if (pGameData->position_obstacle [numero].x_transi2 <= (X_player + 50) && (X_player + 50) <= (pGameData->position_obstacle [numero].x_transi2 +180)){
-            return TRUE;
+            return true;
         }
 
 
@@ -144,9 +144,11 @@ void TDLR_Create(PGAME _pExemple)
     pGameData->image [4] = al_load_bitmap(PATH "\\Textures\\TDLR\\X-wing_droite.png");
     pGameData->image [5] = al_load_bitmap(PATH "\\Textures\\TDLR\\Chasseur_TIE_droite.png");
 
-    pGameData->police[0]= al_load_ttf_font(PATH"\\police.ttf",150,0);
-    pGameData->police[1]= al_load_ttf_font(PATH"\\police.ttf",100,0);
-    pGameData->police[2]= al_load_ttf_font(PATH"\\police.ttf",30,0);
+    pGameData->image [7] = al_load_bitmap(PATH "\\Textures\\TDLR\\boutonplay.png");
+
+    pGameData->police[0]= al_load_ttf_font(PATH"\\Textures\\Fonts\\police.ttf",150,0);
+    pGameData->police[1]= al_load_ttf_font(PATH"\\Textures\\Fonts\\police.ttf",100,0);
+    pGameData->police[2]= al_load_ttf_font(PATH"\\Textures\\Fonts\\police.ttf",50,0);
 
     pGameData->compteur_strat = 3;
     pGameData->pixel_avance = 0;
@@ -202,6 +204,20 @@ void TDLR_Update(PGAME _pExemple)
         generation_strat(_pExemple);
     }
 
+    if (_pExemple->pEvent->mouse.type == ALLEGRO_EVENT_MOUSE_AXES)
+    {
+        pGameData->mouse_position.x = _pExemple->pEvent->mouse.x;
+        pGameData->mouse_position.y = _pExemple->pEvent->mouse.y;
+    }
+
+    if (_pExemple->pEvent->mouse.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && _pExemple->pEvent->mouse.button == 1){
+        pGameData->click =1;
+    }
+    if (_pExemple->pEvent->mouse.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP && _pExemple->pEvent->mouse.button == 1){
+        pGameData->click =0;
+    }
+
+
     //ajouterfinLSC(&(pGameData->liste), 1); // ajouter au fur et à mesure des maillions AVEC obstacles
 }
 
@@ -211,19 +227,34 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
     //al_draw_bitmap(pGameData->image [0], 0, 0, 0);
     if (pGameData->gamemode == 0) {
         al_draw_bitmap(pGameData->image [0], 0, 0, 0);
+        al_draw_filled_rectangle(255, 90, 1665, 310, al_map_rgba(50, 50, 50, 255));
+        al_draw_text(pGameData->police[1], al_map_rgb(255, 255, 255),265,100,0,"Traversé du champ");
+        al_draw_text(pGameData->police[1], al_map_rgb(255, 255, 255),550,200,0,"de bataille");
+        al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),300,480,0,"Player 1");  //mettre ensuite _pExemple->pPlayers[0]->name
+        //al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),1350,480,0,"Player 2"); //_pExemple->pPlayers[1]->name
+
+        if (Point_In_Rectangle(pGameData->mouse_position, (Vector2D){816,800}, (Vector2D){1104,889}) == 1 && pGameData->click==1)
+        {
+            pGameData->gamemode=1;
+            pGameData->click=0;
+        }
+        //  tif (Point_In_Rectangle())
+        al_draw_bitmap(pGameData->image [7], 816, 800, 0);
+        //printf("X: %f, Y: %f \n", pGameData->mouse_position.x,  pGameData->mouse_position.y);
+        //al_draw_filled_rectangle(816, 800, 1104, 889, al_map_rgb(255, 0, 0));
     }
     if (pGameData->gamemode == 1) {
         al_clear_to_color(al_map_rgb(50, 50, 50));
         al_draw_bitmap(pGameData->image [1], X_player, Y_player, 0);
 
-        if (collision(_pExemple, pGameData->pixel_avance + 2) == TRUE){
+        if (collision(_pExemple, pGameData->pixel_avance + 2) == true){
             al_clear_to_color(al_map_rgba(255, 0, 0, 245));
             pGameData->life -=1;
         }
 
         if (pGameData->life <= 0){
             //al_clear_to_color(al_map_rgb(255, 255, 255));
-            al_rest(20);
+            pGameData->gamemode = 0;
         }
 
         for (int i = pGameData->pixel_avance; i < pGameData->pixel_avance + 7 ; ++i) {
@@ -288,5 +319,5 @@ void TDLR_Destroy(PGAME _pExemple)
 }
 
 
-// Manque ajout des 2 joueurs +
+// Menu + eclairé le bouton + affichage vie + affichage point + affichage timer + faire fiche explicative sur le jeu + son
 
