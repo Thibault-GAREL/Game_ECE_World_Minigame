@@ -137,16 +137,21 @@ void TDLR_Create(PGAME _pExemple)
 
     GameData* pGameData = (GameData*) malloc (sizeof (GameData));
     _pExemple->gameData = pGameData;
-    pGameData->image [0] = al_load_bitmap(PATH "\\Textures\\TDLR\\vache2.jpg");
+    pGameData->image [0] = al_load_bitmap(PATH "\\Textures\\TDLR\\Fond_d-ecran-Bataille_spatiale.jpg");
     pGameData->image [1] = al_load_bitmap(PATH "\\Textures\\TDLR\\Standtooper.png");
     pGameData->image [2] = al_load_bitmap(PATH "\\Textures\\TDLR\\X-wing_gauche.png");
     pGameData->image [3] = al_load_bitmap(PATH "\\Textures\\TDLR\\Chasseur_TIE_gauche.png");
     pGameData->image [4] = al_load_bitmap(PATH "\\Textures\\TDLR\\X-wing_droite.png");
     pGameData->image [5] = al_load_bitmap(PATH "\\Textures\\TDLR\\Chasseur_TIE_droite.png");
 
+    pGameData->police[0]= al_load_ttf_font(PATH"\\police.ttf",150,0);
+    pGameData->police[1]= al_load_ttf_font(PATH"\\police.ttf",100,0);
+    pGameData->police[2]= al_load_ttf_font(PATH"\\police.ttf",30,0);
+
     pGameData->compteur_strat = 3;
     pGameData->pixel_avance = 0;
     pGameData->life = 30;
+    pGameData->gamemode = 0;
     srand(time(NULL));
 
     pGameData->Strat [0] = 0;
@@ -204,59 +209,62 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
 {
     GameData* pGameData = (GameData*) _pExemple->gameData;
     //al_draw_bitmap(pGameData->image [0], 0, 0, 0);
-    al_clear_to_color(al_map_rgb(50, 50, 50));
-    al_draw_bitmap(pGameData->image [1], X_player, Y_player, 0);
-
-    if (collision(_pExemple, pGameData->pixel_avance + 2) == TRUE){
-        al_clear_to_color(al_map_rgba(255, 0, 0, 245));
-        pGameData->life -=1;
+    if (pGameData->gamemode == 0) {
+        al_draw_bitmap(pGameData->image [0], 0, 0, 0);
     }
+    if (pGameData->gamemode == 1) {
+        al_clear_to_color(al_map_rgb(50, 50, 50));
+        al_draw_bitmap(pGameData->image [1], X_player, Y_player, 0);
 
-    if (pGameData->life <= 0){
-        //al_clear_to_color(al_map_rgb(255, 255, 255));
-        al_rest(20);
-    }
-
-    for (int i = pGameData->pixel_avance; i < pGameData->pixel_avance + 7 ; ++i) {
-
-        if (pGameData->position_obstacle [i].vx_ajout > 0 && pGameData->position_obstacle[i].x_transi >= Largeur){
-            pGameData->position_obstacle[i].x = -150;
-            pGameData->position_obstacle[i].x_transi = -10;
-            pGameData->position_obstacle[i].vx = 0;
-
-        }
-        if (pGameData->position_obstacle [i].vx_ajout > 0 && pGameData->position_obstacle [i].x_transi2 >= Largeur){
-            pGameData->position_obstacle[i].x2 = -150;
-            pGameData->position_obstacle[i].x_transi2 = -10;
-            pGameData->position_obstacle[i].vx2 = 0;
+        if (collision(_pExemple, pGameData->pixel_avance + 2) == TRUE){
+            al_clear_to_color(al_map_rgba(255, 0, 0, 245));
+            pGameData->life -=1;
         }
 
-        if (pGameData->position_obstacle [i].vx_ajout < 0 && pGameData->position_obstacle [i].x_transi <= -150){
-            pGameData->position_obstacle[i].x = Largeur + 150;
-            pGameData->position_obstacle[i].x_transi = 10;
-            pGameData->position_obstacle[i].vx = 0;
-
-        }
-        if (pGameData->position_obstacle [i].vx_ajout < 0 && pGameData->position_obstacle [i].x_transi2 <= -150){
-            pGameData->position_obstacle[i].x2 = Largeur + 150;
-            pGameData->position_obstacle[i].x_transi2 = 10;
-            pGameData->position_obstacle[i].vx2 = 0;
+        if (pGameData->life <= 0){
+            //al_clear_to_color(al_map_rgb(255, 255, 255));
+            al_rest(20);
         }
 
-        pGameData->position_obstacle [i].vx = pGameData->position_obstacle [i].vx + pGameData->position_obstacle [i].vx_ajout;
-        pGameData->position_obstacle [i].x_transi = pGameData->position_obstacle [i].x + pGameData->position_obstacle [i].vx;
+        for (int i = pGameData->pixel_avance; i < pGameData->pixel_avance + 7 ; ++i) {
 
-        if ((pGameData->Strat [i] == 3) || (pGameData->Strat [i] == 4) || (pGameData->Strat [i] == 7) || (pGameData->Strat [i] == 8)) {
-            pGameData->position_obstacle[i].vx2 =
-                    pGameData->position_obstacle[i].vx2 + pGameData->position_obstacle[i].vx_ajout;
-            pGameData->position_obstacle[i].x_transi2 =
-                    pGameData->position_obstacle[i].x2 + pGameData->position_obstacle[i].vx2;
+            if (pGameData->position_obstacle [i].vx_ajout > 0 && pGameData->position_obstacle[i].x_transi >= Largeur){
+                pGameData->position_obstacle[i].x = -150;
+                pGameData->position_obstacle[i].x_transi = -10;
+                pGameData->position_obstacle[i].vx = 0;
+
+            }
+            if (pGameData->position_obstacle [i].vx_ajout > 0 && pGameData->position_obstacle [i].x_transi2 >= Largeur){
+                pGameData->position_obstacle[i].x2 = -150;
+                pGameData->position_obstacle[i].x_transi2 = -10;
+                pGameData->position_obstacle[i].vx2 = 0;
+            }
+
+            if (pGameData->position_obstacle [i].vx_ajout < 0 && pGameData->position_obstacle [i].x_transi <= -150){
+                pGameData->position_obstacle[i].x = Largeur + 150;
+                pGameData->position_obstacle[i].x_transi = 10;
+                pGameData->position_obstacle[i].vx = 0;
+
+            }
+            if (pGameData->position_obstacle [i].vx_ajout < 0 && pGameData->position_obstacle [i].x_transi2 <= -150){
+                pGameData->position_obstacle[i].x2 = Largeur + 150;
+                pGameData->position_obstacle[i].x_transi2 = 10;
+                pGameData->position_obstacle[i].vx2 = 0;
+            }
+
+            pGameData->position_obstacle [i].vx = pGameData->position_obstacle [i].vx + pGameData->position_obstacle [i].vx_ajout;
+            pGameData->position_obstacle [i].x_transi = pGameData->position_obstacle [i].x + pGameData->position_obstacle [i].vx;
+
+            if ((pGameData->Strat [i] == 3) || (pGameData->Strat [i] == 4) || (pGameData->Strat [i] == 7) || (pGameData->Strat [i] == 8)) {
+                pGameData->position_obstacle[i].vx2 =
+                        pGameData->position_obstacle[i].vx2 + pGameData->position_obstacle[i].vx_ajout;
+                pGameData->position_obstacle[i].x_transi2 =
+                        pGameData->position_obstacle[i].x2 + pGameData->position_obstacle[i].vx2;
+            }
+            affichage_strat(_pExemple, i);      //affiche de compteur -6 à compteur
+            printf("position de %d : %f\n", pGameData->pixel_avance + 2, pGameData->position_obstacle[pGameData->pixel_avance + 2].x_transi);
+            printf("life : %d", pGameData->life);
         }
-        affichage_strat(_pExemple, i);      //affiche de compteur -6 à compteur
-        printf("position de %d : %f\n", pGameData->pixel_avance + 2, pGameData->position_obstacle[pGameData->pixel_avance + 2].x_transi);
-        printf("life : %d", pGameData->life);
-
-
     }
 }
 
