@@ -34,6 +34,9 @@ int main()
     pGames[2] = Game_Init(GAME_TDLR, TDLR_Update, TDLR_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
     pGames[3] = Game_Init(GAME_PAC,PAC_Update, PAC_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
 
+    pGames[3]->SampleAlManager = pAlManager;
+
+
     int mouseX = 0;
     int mouseY = 0;
 

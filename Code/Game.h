@@ -26,6 +26,7 @@ typedef struct _GAME
 {
     int gameId; //nb du jeu
     void* gameData;
+    PALLEGRO_MANAGER SampleAlManager;
     void (*Game_Update)(struct _GAME*);
     void (*Game_TimedUpdate)(struct _GAME*);
     

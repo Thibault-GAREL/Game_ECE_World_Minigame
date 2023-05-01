@@ -32,13 +32,17 @@ typedef struct Obstacle
 
 
 typedef struct GameData {
-    //Maillion* liste;
     ALLEGRO_BITMAP* image [6];
+    ALLEGRO_FONT* police[3];
     int Strat [1000];
     int compteur_strat;
     int pixel_avance;
     Obstacle position_obstacle [1000];
     int life;
+    int gamemode;
+    int score_player1;
+    int score_player2;
+    int gagnant;
 }GameData;
 
 //void ajouterfinLSC (Maillion** p, int numero);
