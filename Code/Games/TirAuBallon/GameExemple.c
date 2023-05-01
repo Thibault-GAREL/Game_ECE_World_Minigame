@@ -425,7 +425,7 @@ void Exemple_TimedUpdate(PGAME _pExemple)
 
     GameData* pGameData = _pExemple->gameData;
     if (pGameData->gamemode==0){
-        ALLEGRO_DISPLAY * ecran=al_get_current_display();
+        ALLEGRO_DISPLAY * ecran=();
         al_show_mouse_cursor(ecran);
         al_draw_bitmap(pGameData->image[0],0,0,0);
         al_draw_bitmap(pGameData->image[10],pGameData->vaisseaumenu1x,pGameData->vaisseaumenu1y,0);
