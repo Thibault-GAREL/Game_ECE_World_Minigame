@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include "Utils\\allegroutils.h"
 
+#define TICKET_START 5
+
 enum
 {
     GAME_NONE = 0,
@@ -38,3 +40,5 @@ PGAME Game_Init(int _gameId, void (*_Game_Update)(PGAME), void (*_Game_TimedUpda
 
 void Games_Update(PGAME* _pGames, int _gamesCount,int _currentGameId);
 void Games_TimedUpdate(PGAME* _pGames, int _gamesCount, int _currentGameId);
+
+void Players_Init(PPLAYER* _pPlayers, int _count);

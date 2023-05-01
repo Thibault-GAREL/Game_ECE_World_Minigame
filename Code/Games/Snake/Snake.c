@@ -12,10 +12,11 @@ void SnakeGame_Create(PGAME _pSnake)
     pSnakeData->pSnake = calloc(1, sizeof(SNAKE));
 
     Snake_Add_Part(&pSnakeData->pSnake->pHead, &pSnakeData->pSnake->size);
+    
     pSnakeData->pSnake->pHead->position.x = 1920 / 2;
     pSnakeData->pSnake->pHead->position.y = 1080 / 2;
 
-    pSnakeData->pSnake->speed = 10;
+    pSnakeData->pSnake->speed = SNAKE_SPEED_START;
     pSnakeData->pSnake->direction = (VECTOR2D_INT) {1,0};
     pSnakeData->pSnake->pClone = al_load_bitmap("..\\Textures\\Snake\\Clone.png");
 
@@ -72,15 +73,10 @@ void SnakeGame_TimedUpdate(PGAME _pSnake)
 {
     PSNAKE_DATA pSnakeData = (PSNAKE_DATA)_pSnake->gameData;
 
-    /*if (pSnakeData->gameState == GAME_STATE_GO)
-    {
-        printf("Game Over\n");
-        SnakeGame_Destroy(_pSnake);
-        return;
-    }*/
-
     pSnakeData->pSnake->step += pSnakeData->pSnake->speed;
-    if (pSnakeData->pSnake->step > 100)
+    pSnakeData->pSnake->speed = SNAKE_SPEED_START + pSnakeData->pSnake->size * SNAKE_SPEED_INCREASE;
+    
+    if (pSnakeData->pSnake->step > SNAKE_STEP_TIME)
     {
         VECTOR2D_INT newPos;
         newPos.x = pSnakeData->pSnake->pHead->position.x + pSnakeData->pSnake->direction.x * CLONE_SIZE;
@@ -95,8 +91,8 @@ void SnakeGame_TimedUpdate(PGAME _pSnake)
     {
         al_draw_scaled_bitmap(pSnakeData->pFood1, 0, 0, FOOD_ORIGINAL_SIZE, FOOD_ORIGINAL_SIZE, pSnakeData->foods[i].foodPos.x, pSnakeData->foods[i].foodPos.y, FOOD_SIZE, FOOD_SIZE, 0);
         
-        /*Vector2D foodPos1 = {pSnakeData->foods[i].foodPos.x - FOOD_SIZE / 2, pSnakeData->foods[i].foodPos.y - FOOD_SIZE / 2};
-        Vector2D foodPos2 = {pSnakeData->foods[i].foodPos.x + FOOD_SIZE / 2, pSnakeData->foods[i].foodPos.y + FOOD_SIZE / 2};
+        /*Vector2D foodPos1 = {pSnakeData->foods[i].foodPos.x, pSnakeData->foods[i].foodPos.y};
+        Vector2D foodPos2 = {pSnakeData->foods[i].foodPos.x + FOOD_SIZE, pSnakeData->foods[i].foodPos.y + FOOD_SIZE};
 
         al_draw_rectangle(foodPos1.x, foodPos1.y, foodPos2.x, foodPos2.y, al_map_rgb(255, 0, 0), 5);*/
     }
@@ -155,8 +151,9 @@ void Snake_Destroy_AllParts(PSNAKE_PART _pSnakePart)
 
 void Snake_Draw(PSNAKE_PART _pSnakePart, PSNAKE _pSnake)
 {
-    al_draw_scaled_bitmap(_pSnake->pClone, 0, 0, CLONE_ORIGINAL_SIZE, CLONE_ORIGINAL_SIZE, _pSnakePart->position.x, _pSnakePart->position.y, CLONE_SIZE, CLONE_SIZE, 0);
-    
+    float scaleFactor = (float)CLONE_SIZE / CLONE_ORIGINAL_SIZE;
+    al_draw_scaled_rotated_bitmap(_pSnake->pClone, CLONE_ORIGINAL_SIZE / 2, CLONE_ORIGINAL_SIZE / 2, _pSnakePart->position.x, _pSnakePart->position.y, scaleFactor, scaleFactor, _pSnakePart->directionAngle, 0);
+
     if (_pSnakePart->previous)
     {
         Snake_Draw(_pSnakePart->previous, _pSnake);
@@ -172,9 +169,13 @@ void Snake_Move(PSNAKE_PART _pSnakePart, VECTOR2D_INT _position)
 
     if (_pSnakePart->previous)
     {
-            Snake_Move(_pSnakePart->previous, _pSnakePart->position);
+        Snake_Move(_pSnakePart->previous, _pSnakePart->position);
     }
 
+    VECTOR2D_INT deltaPosition = {_position.x - _pSnakePart->position.x, _position.y - _pSnakePart->position.y};
+    _pSnakePart->directionAngle = Vector2D_Get_Angle((Vector2D){deltaPosition.x, deltaPosition.y});
+    //printf("(%d;%d) angle=%f\n", deltaPosition.x, deltaPosition.y, _pSnakePart->directionAngle);
+    
     _pSnakePart->position.x = _position.x;
     _pSnakePart->position.y = _position.y;
 }
@@ -209,8 +210,8 @@ void Food_Generation(PGAME _pSnake)
     }
     
     pSnakeData->foodCount++;
-    pSnakeData->foods[pSnakeData->foodCount - 1].foodPos.x = rand() % 1500 + FOOD_SIZE / 2;
-    pSnakeData->foods[pSnakeData->foodCount - 1].foodPos.y = rand() % 600 + FOOD_SIZE / 2;
+    pSnakeData->foods[pSnakeData->foodCount - 1].foodPos.x = rand() % (1870 - 2 * FOOD_SIZE) + 2 * FOOD_SIZE;
+    pSnakeData->foods[pSnakeData->foodCount - 1].foodPos.y = rand() % (1030 - 2 * FOOD_SIZE) + 2 * FOOD_SIZE;
 }
 
 void Food_CheckCollision(PGAME _pSnake)
@@ -219,8 +220,8 @@ void Food_CheckCollision(PGAME _pSnake)
 
     for (int i = 0; i < pSnakeData->foodCount; i++)
     {
-        Vector2D foodPos1 = {pSnakeData->foods[i].foodPos.x - FOOD_SIZE / 2, pSnakeData->foods[i].foodPos.y - FOOD_SIZE / 2};
-        Vector2D foodPos2 = {pSnakeData->foods[i].foodPos.x + FOOD_SIZE / 2, pSnakeData->foods[i].foodPos.y + FOOD_SIZE / 2};
+        Vector2D foodPos1 = {pSnakeData->foods[i].foodPos.x, pSnakeData->foods[i].foodPos.y};
+        Vector2D foodPos2 = {pSnakeData->foods[i].foodPos.x + FOOD_SIZE, pSnakeData->foods[i].foodPos.y + FOOD_SIZE};
 
         if (Point_In_Rectangle((Vector2D){pSnakeData->pSnake->pHead->position.x, pSnakeData->pSnake->pHead->position.y}, foodPos1, foodPos2))
         {

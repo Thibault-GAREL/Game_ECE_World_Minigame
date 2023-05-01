@@ -8,6 +8,8 @@
 #include "Games/Traverse_de_la_riviere/Traverse_code.h"
 #include "Games/PecheAuCanards/PAC.h"
 
+#define PLAYER_COUNT 10
+
 int main()
 {
     Allegro_Init();
@@ -21,13 +23,16 @@ int main()
     ChangeCursor(pAlManager, pAlManager->pCursors->Cursor1);
 
     int currentGameId = GAME_NONE;
-    PPLAYER players[2];
+    
+    PPLAYER players;
+    Players_Init(&players, PLAYER_COUNT);
+
     int gamesCount = 4;
     PGAME pGames[gamesCount];
-    pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, 2, players);
-    pGames[1] = Game_Init(GAME_SNAKE, SnakeGame_Update, SnakeGame_TimedUpdate, &currentGameId, &event, 2, players);
-    pGames[2] = Game_Init(GAME_TDLR, TDLR_Update, TDLR_TimedUpdate, &currentGameId, &event, 2, players);
-    pGames[3] = Game_Init(GAME_PAC,PAC_Update, PAC_TimedUpdate, &currentGameId, &event, 2, players);
+    pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[1] = Game_Init(GAME_SNAKE, SnakeGame_Update, SnakeGame_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[2] = Game_Init(GAME_TDLR, TDLR_Update, TDLR_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[3] = Game_Init(GAME_PAC,PAC_Update, PAC_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
 
     pGames[3]->SampleAlManager = pAlManager;
 
@@ -55,7 +60,7 @@ int main()
 
         if (event.mouse.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
         {
-            printf("mouseX=%d, mouseY=%d\n", mouseX, mouseY);
+            printf("[%d] mouseX=%d, mouseY=%d\n", event.mouse.button, mouseX, mouseY);
             continue;
         }
 
