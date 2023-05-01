@@ -8,7 +8,7 @@
 #include "Games/Traverse_de_la_riviere/Traverse_code.h"
 #include "Games/PecheAuCanards/PAC.h"
 
-#define PLAYER_COUNT 10
+#define PLAYER_COUNT 2
 
 int main()
 {
