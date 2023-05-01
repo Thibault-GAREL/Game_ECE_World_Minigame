@@ -1,6 +1,6 @@
 #include "Game.h"
 
-PGAME Game_Init(int _gameId, void (*_Game_Update)(PGAME), void (*_Game_TimedUpdate)(PGAME), int* _pCurrentGameId, ALLEGRO_EVENT* _pEvent, PPLAYER* _pPlayers)
+PGAME Game_Init(int _gameId, void (*_Game_Update)(PGAME), void (*_Game_TimedUpdate)(PGAME), int* _pCurrentGameId, ALLEGRO_EVENT* _pEvent, int _playersCount, PPLAYER* _pPlayers)
 {
     PGAME pGame = malloc(sizeof(GAME));
 
@@ -11,6 +11,7 @@ PGAME Game_Init(int _gameId, void (*_Game_Update)(PGAME), void (*_Game_TimedUpda
 
     pGame->pCurrentGameId = _pCurrentGameId;
     pGame->pEvent = _pEvent;
+    pGame->playersCount = _playersCount;
     pGame->pPlayers = _pPlayers;
 
     return pGame;
