@@ -61,6 +61,8 @@ void PAC_Create(PGAME _pPAC)
     gameData->timer = 0;
     gameData->PlayerID = 1;
 
+    gameData->PickedColor = al_map_rgb(175,0,0);
+
     gameData->KeyPress[0] = ALLEGRO_KEY_A;
     gameData->KeyPress[1] = ALLEGRO_KEY_B;
     gameData->KeyPress[2] = ALLEGRO_KEY_C;
@@ -108,13 +110,12 @@ void PAC_Create(PGAME _pPAC)
 void PAC_Update(PGAME _pPAC)
 {
 
-
     if (_pPAC->gameData == NULL)
     {
         PAC_Create(_pPAC);
     }
-
     pPacGameData gameData = _pPAC->gameData;
+
 
     if (_pPAC->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {
@@ -275,6 +276,7 @@ void Check_Click_on_Duck(PGAME _pPAC){
             if (Point_In_Rectangle((Vector2D){gameData->mouse.x, gameData->mouse.y}, (Vector2D){gameData->DuckInfos[i]->x ,gameData->DuckInfos[i]->y }, (Vector2D){gameData->DuckInfos[i]->x + al_get_bitmap_width(gameData->DuckTextures[i]),gameData->DuckInfos[i]->y+al_get_bitmap_height(gameData->DuckTextures[i])})){
                 gameData->Fishingstate[i] = 1;
                 gameData->CurrentDuckFished = i;
+                gameData->DuckInfos[i]->Picked = 1;
             }
         }
     }

@@ -2,12 +2,15 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "Code/Game.h"
-#include "allegroutils.h"
-#include "vector.h"
+#include <allegro5/allegro_acodec.h>
+#include <allegro5/allegro_audio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "..\\..\\Game.h"
+#include "..\\..\\Utils\\allegroutils.h"
+#include "..\\..\Utils\\Vector.h"
 
-#define CL_PATH ".."
-#define PATH CL_PATH
+
 
 typedef struct _BALLON
 {
@@ -18,10 +21,12 @@ typedef struct _BALLON
     float vy;
 }Ballon;
 
-typedef struct _GAMEDATA
+typedef struct _TABGAMEDATA
 {
     ALLEGRO_BITMAP* image[70];
     ALLEGRO_FONT* police[3];
+    ALLEGRO_SAMPLE* sons[1];
+    ALLEGRO_SAMPLE_INSTANCE* soninstance;
     int gamemode;
     Vector2D mouse;
     int click;
@@ -69,7 +74,7 @@ typedef struct _GAMEDATA
     int compteurimage;
     float animation_x;
     float animation_y;
-}GameData;
+}TABGameData;
 
 
 
@@ -80,4 +85,3 @@ void dessinerballon(PGAME _pExemple);
 void pointsdroite(float x1,float y1,float x2,float y2,int xpoint,int ypoint,PGAME _pExemple,int indice);
 void Exemple_TimedUpdate(PGAME _pExemple);
 void Exemple_Destroy(PGAME _pExemple);
-
