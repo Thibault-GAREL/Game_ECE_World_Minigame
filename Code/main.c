@@ -43,10 +43,10 @@ int main()
 
     int mouseX = 0;
     int mouseY = 0;
-
     while (1)
     {
         al_wait_for_event(pAlManager->pEventQueue, &event);
+        currentGameId=
 
         if (event.display.type == ALLEGRO_EVENT_DISPLAY_CLOSE || Get_Touch(&event, ALLEGRO_KEY_ESCAPE, 0, 0, 1, 0))
         {
@@ -69,7 +69,7 @@ int main()
 
         if (event.mouse.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
         {
-            printf("[%d] mouseX=%d, mouseY=%d\n", event.mouse.button, mouseX, mouseY);
+            //printf("[%d] mouseX=%d, mouseY=%d\n", event.mouse.button, mouseX, mouseY);
             continue;
         }
 
@@ -109,6 +109,7 @@ int main()
             al_flip_display();
             continue;
         }
+        printf("%d\n",currentGameId);
     }
 
     printf("Correctly quit");
