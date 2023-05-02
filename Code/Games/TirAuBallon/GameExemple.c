@@ -418,6 +418,10 @@ void traitementmeilleurscore(PGAME _pExemple){
 }
 
 
+void danse(PGAME _pExemple){
+
+}
+
 void Exemple_TimedUpdate(PGAME _pExemple)
 {
     char nomjeu[] = "Tir Au Jeday";
@@ -466,7 +470,7 @@ void Exemple_TimedUpdate(PGAME _pExemple)
         ALLEGRO_DISPLAY*ecran= al_get_current_display();
         al_hide_mouse_cursor(ecran);
         if (pGameData->click==1){
-            al_play_sample_instance(pGameData->soninstance);
+            //al_play_sample_instance(pGameData->soninstance);
         }
         if (pGameData->compteurvaisseau > 320 && pGameData->compteurvaisseau+80 < 1720){
             if((pGameData->compteurvaisseau > 1280 || pGameData->compteurvaisseau+80 < 1220) && (pGameData->compteurvaisseau > 780 || pGameData->compteurvaisseau+80 < 700)){
@@ -645,6 +649,7 @@ void Exemple_TimedUpdate(PGAME _pExemple)
         al_draw_bitmap(pGameData->image[22],0,0,0);
         al_draw_bitmap(pGameData->image[17],500,-100,0);
         al_draw_bitmap(pGameData->image[23],1800,0,0);
+        danse(_pExemple);
         sprintf(pGameData->score1,"%d",pGameData->meilleurscore1);
         sprintf(pGameData->score2,"%d",pGameData->meilleurscore2);
         sprintf(pGameData->score3,"%d",pGameData->meilleurscore3);
