@@ -8,13 +8,18 @@
 #include "Games/Traverse_de_la_riviere/Traverse_code.h"
 #include "Games/PecheAuCanards/PAC.h"
 #include "Games/TestMap/Map.h"
+#include "Menu/Menu.h"
 
 #define PLAYER_COUNT 2
 #define MAP_EXEMPLE 6
+
 int main()
 {
     Allegro_Init();
     PALLEGRO_MANAGER pAlManager = AllegroManager_Create(1920, 1080, 0.01);
+
+    pAlManager->pMenu = Init_Game_Loading();
+
     ALLEGRO_EVENT event;
 
     //Allegro_play_Sample(pAlManager->pSampleInstance->walk);

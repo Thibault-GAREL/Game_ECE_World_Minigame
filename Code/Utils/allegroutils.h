@@ -79,6 +79,7 @@ typedef struct _ALLEGRO_MANAGER
     ALLEGRO_GAME_SAMPLE* pSample;
     ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance;
     ALLEGRO_CURSOR *pCursors;
+    void* pMenu;
 }ALLEGRO_MANAGER, *PALLEGRO_MANAGER;
 
 

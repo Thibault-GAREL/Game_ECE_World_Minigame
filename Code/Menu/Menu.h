@@ -2,13 +2,16 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <allegro5/allegro_acodec.h>
-#include <allegro5/allegro_audio.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "..\\Game.h"
+#include "..\\Utils\\allegroutils.h"
+#include "..\Utils\\Vector.h"
 
 typedef struct _MenuAnimation{
     ALLEGRO_BITMAP *LoadingTextures[120];
-    char *LoadingCount;
+    char LoadingCount[100];
 
 }Menu_Animation, *pMenu_Animation;
+
+Menu_Animation* Init_Game_Loading();
