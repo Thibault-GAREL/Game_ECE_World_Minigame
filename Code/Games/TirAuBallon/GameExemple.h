@@ -84,4 +84,3 @@ void dessinerballon(PGAME _pExemple);
 void pointsdroite(float x1,float y1,float x2,float y2,int xpoint,int ypoint,PGAME _pExemple,int indice);
 void Exemple_TimedUpdate(PGAME _pExemple);
 void Exemple_Destroy(PGAME _pExemple);
-
