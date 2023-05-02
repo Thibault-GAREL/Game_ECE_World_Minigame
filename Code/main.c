@@ -107,7 +107,6 @@ int main()
             al_flip_display();
             continue;
         }
-        printf("%d\n",currentGameId);
     }
 
     printf("Correctly quit");

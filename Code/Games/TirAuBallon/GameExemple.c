@@ -77,11 +77,10 @@ void Exemple_Create(PGAME _pExemple)                               // ECHELLE = 
     pGameData->image[67]= al_load_bitmap("..\\Textures/Map/hit44.png");
     pGameData->image[68]= al_load_bitmap("..\\Textures/Map/hit45.png");
 
-    /*pGameData->chiffre[10] = "darkvador";
     for (int i=0;i<60;i++){
-        sprintf(pGameData->chiffre,"%d",i);
-        pGameData->image[i]= al_load_bitmap("..\\Textures/Map/);
-    }*/
+        sprintf(pGameData->chiffre, "..\\Textures/Map/darkvador%d.png", i);
+        pGameData->danse[i]= al_load_bitmap(pGameData->chiffre);
+    }
 
 
     pGameData->soninstance=NULL;
@@ -118,6 +117,8 @@ void Exemple_Create(PGAME _pExemple)                               // ECHELLE = 
     pGameData->compteurimage=24;
     pGameData->animation_x=-100;
     pGameData->animation_y=-100;
+
+    pGameData->compteurmusique=0;
     for (int i=0;i<pGameData->nbballon+1;i++){
         if (i%2 == 1){
             pGameData->pballon[i].vx=2;
@@ -425,7 +426,14 @@ void traitementmeilleurscore(PGAME _pExemple){
 
 
 void danse(PGAME _pExemple){
-    Allegro_play_Sample((_pExemple->SampleAlManager)->pSampleInstance->mj);
+    TABGameData* pGameData = _pExemple->gameData;
+    if (pGameData->compteurmusique==0){
+        Allegro_play_Sample((_pExemple->SampleAlManager)->pSampleInstance->mj);
+    }
+    if (pGameData->compteurmusique<60){
+        al_draw_bitmap(pGameData->danse[pGameData->compteurmusique],500,500,0);
+    }
+    pGameData->compteurmusique++;
 }
 
 void Exemple_TimedUpdate(PGAME _pExemple)
@@ -442,7 +450,6 @@ void Exemple_TimedUpdate(PGAME _pExemple)
         ALLEGRO_DISPLAY * ecran=al_get_current_display();
         al_show_mouse_cursor(ecran);
         al_draw_bitmap(pGameData->image[0],0,0,0);
-        printf("pas derreur");
         al_draw_bitmap(pGameData->image[10],pGameData->vaisseaumenu1x,pGameData->vaisseaumenu1y,0);
         al_draw_bitmap(pGameData->image[11],pGameData->vaisseaumenu2x,pGameData->vaisseaumenu2y,0);
         al_draw_bitmap(pGameData->image[10],pGameData->vaisseaumenu3x,pGameData->vaisseaumenu3y,0);
@@ -476,7 +483,7 @@ void Exemple_TimedUpdate(PGAME _pExemple)
         ALLEGRO_DISPLAY*ecran= al_get_current_display();
         al_hide_mouse_cursor(ecran);
         if (pGameData->click==1){
-            //al_play_sample_instance(pGameData->soninstance);
+            al_play_sample_instance(pGameData->soninstance);
         }
         if (pGameData->compteurvaisseau > 320 && pGameData->compteurvaisseau+80 < 1720){
             if((pGameData->compteurvaisseau > 1280 || pGameData->compteurvaisseau+80 < 1220) && (pGameData->compteurvaisseau > 780 || pGameData->compteurvaisseau+80 < 700)){
@@ -577,6 +584,7 @@ void Exemple_TimedUpdate(PGAME _pExemple)
         al_draw_bitmap(pGameData->image[15],0,0,0);
         al_draw_bitmap(pGameData->image[21],350,900,0);
         al_draw_bitmap(pGameData->image[23],1800,0,0);
+        danse(_pExemple);
         if (Point_In_Rectangle(pGameData->mouse, (Vector2D){1800,0}, (Vector2D){1872,82}) == 1 && pGameData->click==1){
             pGameData->click=0;
             pGameData->gamemode=5;
@@ -655,7 +663,6 @@ void Exemple_TimedUpdate(PGAME _pExemple)
         al_draw_bitmap(pGameData->image[22],0,0,0);
         al_draw_bitmap(pGameData->image[17],500,-100,0);
         al_draw_bitmap(pGameData->image[23],1800,0,0);
-        danse(_pExemple);
         sprintf(pGameData->score1,"%d",pGameData->meilleurscore1);
         sprintf(pGameData->score2,"%d",pGameData->meilleurscore2);
         sprintf(pGameData->score3,"%d",pGameData->meilleurscore3);
