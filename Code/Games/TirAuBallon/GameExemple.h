@@ -24,6 +24,7 @@ typedef struct _BALLON
 typedef struct _TABGAMEDATA
 {
     ALLEGRO_BITMAP* image[70];
+    ALLEGRO_BITMAP* danse[60];
     ALLEGRO_FONT* police[3];
     ALLEGRO_SAMPLE* sons[1];
     ALLEGRO_SAMPLE_INSTANCE* soninstance;
@@ -74,6 +75,7 @@ typedef struct _TABGAMEDATA
     int compteurimage;
     float animation_x;
     float animation_y;
+    char chiffre[100];
 }TABGameData;
 
 

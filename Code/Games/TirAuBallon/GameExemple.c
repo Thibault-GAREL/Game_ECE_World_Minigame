@@ -77,6 +77,12 @@ void Exemple_Create(PGAME _pExemple)                               // ECHELLE = 
     pGameData->image[67]= al_load_bitmap("..\\Textures/Map/hit44.png");
     pGameData->image[68]= al_load_bitmap("..\\Textures/Map/hit45.png");
 
+    /*pGameData->chiffre[10] = "darkvador";
+    for (int i=0;i<60;i++){
+        sprintf(pGameData->chiffre,"%d",i);
+        pGameData->image[i]= al_load_bitmap("..\\Textures/Map/);
+    }*/
+
 
     pGameData->soninstance=NULL;
     al_reserve_samples(5);
@@ -419,7 +425,7 @@ void traitementmeilleurscore(PGAME _pExemple){
 
 
 void danse(PGAME _pExemple){
-
+    Allegro_play_Sample((_pExemple->SampleAlManager)->pSampleInstance->mj);
 }
 
 void Exemple_TimedUpdate(PGAME _pExemple)

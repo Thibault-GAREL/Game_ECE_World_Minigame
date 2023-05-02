@@ -39,6 +39,7 @@ int main()
     pMaps[0] = Map_Init(MAP_EXEMPLE, Map_Update, Map_TimedUpdate, &currentGameId, &event);
 
     pGames[3]->SampleAlManager = pAlManager;
+    pGames[4]->SampleAlManager = pAlManager;
 
 
     int mouseX = 0;
