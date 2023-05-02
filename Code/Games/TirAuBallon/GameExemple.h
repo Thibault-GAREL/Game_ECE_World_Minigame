@@ -2,13 +2,15 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "Game.h"
-#include "allegroutils.h"
-#include "vector.h"
 #include <allegro5/allegro_acodec.h>
 #include <allegro5/allegro_audio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "..\\..\\Game.h"
+#include "..\\..\\Utils\\allegroutils.h"
+#include "..\\..\Utils\\Vector.h"
 
-#define CL_PATH ".."
+#define CL_PATH "..\\..\\Textures\\Map"
 #define PATH CL_PATH
 
 typedef struct _BALLON
