@@ -18,7 +18,7 @@ typedef struct _DuckInfos{
     ALLEGRO_COLOR DuckColor;
 }DuckInfos, *pDuckInfos;
 
-typedef struct _GAMEDATA
+typedef struct _PACGAMEDATA
 {
     ALLEGRO_FONT* font;
     ALLEGRO_COLOR fontColor;

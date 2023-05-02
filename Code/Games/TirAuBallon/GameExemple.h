@@ -10,8 +10,7 @@
 #include "..\\..\\Utils\\allegroutils.h"
 #include "..\\..\Utils\\Vector.h"
 
-#define CL_PATH "..\\..\\Textures\\Map"
-#define PATH CL_PATH
+
 
 typedef struct _BALLON
 {
@@ -22,7 +21,7 @@ typedef struct _BALLON
     float vy;
 }Ballon;
 
-typedef struct _GAMEDATA
+typedef struct _TABGAMEDATA
 {
     ALLEGRO_BITMAP* image[70];
     ALLEGRO_FONT* police[3];
@@ -75,7 +74,7 @@ typedef struct _GAMEDATA
     int compteurimage;
     float animation_x;
     float animation_y;
-}GameData;
+}TABGameData;
 
 
 

@@ -110,13 +110,12 @@ void PAC_Create(PGAME _pPAC)
 void PAC_Update(PGAME _pPAC)
 {
 
-
     if (_pPAC->gameData == NULL)
     {
         PAC_Create(_pPAC);
     }
-
     pPacGameData gameData = _pPAC->gameData;
+
 
     if (_pPAC->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {

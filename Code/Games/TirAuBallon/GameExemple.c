@@ -2,7 +2,7 @@
 
 void Exemple_Create(PGAME _pExemple)                               // ECHELLE = 1.25 POUR LE MOMENT
 {
-    GameData* pGameData = malloc(sizeof (GameData));
+    TABGameData* pGameData = malloc(sizeof (TABGameData));
     pGameData->police[0]= al_load_ttf_font("..\\Textures/Map/police.ttf",150,0);
     pGameData->police[1]= al_load_ttf_font("..\\Textures/Map/police.ttf",100,0);
     pGameData->police[2]= al_load_ttf_font("..\\Textures/Map/police.ttf",30,0);
@@ -139,7 +139,7 @@ void Exemple_Update(PGAME _pExemple)
         Exemple_Create(_pExemple);
     }
 
-    GameData* pGameData = _pExemple->gameData;
+    TABGameData* pGameData = _pExemple->gameData;
 
     if (_pExemple->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {
@@ -157,7 +157,7 @@ void Exemple_Update(PGAME _pExemple)
 }
 
 void assigner_pos_ballon(PGAME _pExemple){
-    GameData* pGameData = _pExemple->gameData;
+    TABGameData* pGameData = _pExemple->gameData;
     pGameData->compteurassignation++;
     srand(time(NULL));
     float posx=0;
@@ -249,14 +249,14 @@ void assigner_pos_ballon(PGAME _pExemple){
 
 
 void dessinerballon(PGAME _pExemple){
-    GameData* pGameData = _pExemple->gameData;
+    TABGameData* pGameData = _pExemple->gameData;
     for (int i=0;i<pGameData->nbballon+1;i++){
         al_draw_bitmap(pGameData->image[4+pGameData->pballon[i].numimg],pGameData->pballon[i].x,pGameData->pballon[i].y,0);
     }
 }
 
 void pointsdroite(float x1,float y1,float x2,float y2,int xpoint,int ypoint,PGAME _pExemple,int indice){
-    GameData* pGameData = _pExemple->gameData;
+    TABGameData* pGameData = _pExemple->gameData;
     if (indice==1){
         for (int i=x1;i<x2+1;i++){
             pGameData->pointsx1[i]=i;
@@ -286,7 +286,7 @@ void pointsdroite(float x1,float y1,float x2,float y2,int xpoint,int ypoint,PGAM
 
 
 void mouvementballon(PGAME _pExemple){
-    GameData* pGameData = _pExemple->gameData;
+    TABGameData* pGameData = _pExemple->gameData;
     pGameData->compteurdroite++;
     for (int i=0;i<pGameData->nbballon/3;i++) {
         for (int j = 580; j < 716; j++) {
@@ -369,7 +369,7 @@ void mouvementballon(PGAME _pExemple){
 
 
 void reset(PGAME _pExemple){
-    GameData* pGameData = _pExemple->gameData;
+    TABGameData* pGameData = _pExemple->gameData;
     pGameData->nbballon = 90;
     pGameData->compteurvaisseau=2000;
     pGameData->yvaiseeau = 400;
@@ -390,7 +390,7 @@ void reset(PGAME _pExemple){
 
 
 void traitementmeilleurscore(PGAME _pExemple){
-    GameData* pGameData = _pExemple->gameData;
+    TABGameData* pGameData = _pExemple->gameData;
     if (pGameData->pointJ1 >= pGameData->meilleurscore1){
         pGameData->meilleurscore3=pGameData->meilleurscore2;
         pGameData->meilleurscore2=pGameData->meilleurscore1;
@@ -427,7 +427,7 @@ void Exemple_TimedUpdate(PGAME _pExemple)
     char deuxpoint[] = " : ";
     char tour[] = "turn";
 
-    GameData* pGameData = _pExemple->gameData;
+    TABGameData* pGameData = _pExemple->gameData;
     if (pGameData->gamemode==0){
         ALLEGRO_DISPLAY * ecran=al_get_current_display();
         al_show_mouse_cursor(ecran);
