@@ -119,6 +119,7 @@ void Exemple_Create(PGAME _pExemple)                               // ECHELLE = 
     pGameData->animation_y=-100;
 
     pGameData->compteurmusique=0;
+    pGameData->compteurmusique2=0;
     for (int i=0;i<pGameData->nbballon+1;i++){
         if (i%2 == 1){
             pGameData->pballon[i].vx=2;
@@ -429,11 +430,18 @@ void danse(PGAME _pExemple){
     TABGameData* pGameData = _pExemple->gameData;
     if (pGameData->compteurmusique==0){
         Allegro_play_Sample((_pExemple->SampleAlManager)->pSampleInstance->mj);
+        pGameData->compteurmusique+=1;
     }
     if (pGameData->compteurmusique<60){
-        al_draw_bitmap(pGameData->danse[pGameData->compteurmusique],500,500,0);
+        al_draw_bitmap(pGameData->danse[pGameData->compteurmusique],1420,500,0);
     }
-    pGameData->compteurmusique++;
+    if (pGameData->compteurmusique2 % 17 ==1){
+        pGameData->compteurmusique++;
+    }
+    pGameData->compteurmusique2++;
+    if (pGameData->compteurmusique>=59){
+        Allegro_Stop_Sample((_pExemple->SampleAlManager)->pSampleInstance->mj);
+    }
 }
 
 void Exemple_TimedUpdate(PGAME _pExemple)

@@ -77,6 +77,7 @@ typedef struct _TABGAMEDATA
     float animation_y;
     char chiffre[100];
     int compteurmusique;
+    int compteurmusique2;
 }TABGameData;
 
 
