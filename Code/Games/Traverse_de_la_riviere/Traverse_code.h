@@ -13,6 +13,10 @@
 
 #define CL_PATH ".."
 #define PATH CL_PATH
+#define Largeur 1920
+#define  X_player 910
+#define Y_player 720
+#define LIFE 30
 
 typedef struct Maillion {
     int numero;
@@ -47,6 +51,8 @@ typedef struct GameData {
     char* nom_player1;
     char* nom_player2;
 
+    int player_en_cours;
+
     Vector2D mouse_position;
     int click;
 }GameData;
@@ -61,6 +67,7 @@ void generation_strat (PGAME _pExemple);
 void position_alleatoire (PGAME _pExemple);
 void affichage_strat (PGAME _pExemple, int numero);
 bool colision (PGAME _pExemple, int numero);
+void next_joueur (PGAME _pExemple);
 
 void TDLR_Create(PGAME _pExemple);
 void TDLR_Update(PGAME _pExemple);
