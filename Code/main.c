@@ -46,7 +46,6 @@ int main()
     while (1)
     {
         al_wait_for_event(pAlManager->pEventQueue, &event);
-        currentGameId=
 
         if (event.display.type == ALLEGRO_EVENT_DISPLAY_CLOSE || Get_Touch(&event, ALLEGRO_KEY_ESCAPE, 0, 0, 1, 0))
         {
@@ -97,13 +96,11 @@ int main()
             }
         }
         
-        if (event.type == ALLEGRO_EVENT_TIMER)
-        {
-        	al_clear_to_color(al_map_rgb(255,255,255));
-            if (currentGameId==6){
-                Maps_TimedUpdate(pMaps , 1 , currentGameId);
-            }
-            else {
+        if (event.type == ALLEGRO_EVENT_TIMER) {
+            al_clear_to_color(al_map_rgb(255, 255, 255));
+            if (currentGameId == 6) {
+                Maps_TimedUpdate(pMaps, 1, currentGameId);
+            } else {
                 Games_TimedUpdate(pGames, gamesCount, currentGameId);
             }
             al_flip_display();

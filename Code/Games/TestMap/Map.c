@@ -102,7 +102,7 @@ void Map_Create(PMAP _pMap)                               // ECHELLE = 1.25 POUR
     pMapData->c=0;
     pMapData->d=0;
 
-    pMapData->jeusuivant = TDR ;
+    pMapData->jeusuivant = SNAK ;
     pMapData->sensbonhommex = 0;
     pMapData->sensbonhommey = 0;
     pMapData->compteurfumme =0;
@@ -248,6 +248,7 @@ void affichageminimap(PMAP _pMap){
     if (pMapData->jeusuivant == PAC){
         if (pMapData->pimages[10].x-pMapData->x+348 >= 0 && pMapData->pimages[10].x-pMapData->x+348 <=1920 && pMapData->pimages[10].y-pMapData->y+40 <= 1080 && pMapData->pimages[10].y-pMapData->y+59 >= 0 && pMapData->bonhommey>pMapData->pimages[10].y-pMapData->y+752 && pMapData->bonhommey<pMapData->pimages[10].y+752-pMapData->y+59 && pMapData->bonhommex>pMapData->pimages[10].x+348-pMapData->x && pMapData->bonhommex<pMapData->pimages[10].x+348+40-pMapData->x) {
             Map_Destroy(_pMap);
+            return ;
         }
         else {
             al_draw_bitmap(pMapData->image[14],1600,900,0);
@@ -260,6 +261,7 @@ void affichageminimap(PMAP _pMap){
     if (pMapData->jeusuivant == TAB){
         if (pMapData->pimages[0].x-pMapData->x+1496 >= 0 && pMapData->pimages[0].x-pMapData->x+1496 <=1920 && pMapData->pimages[0].y-pMapData->y+100 <= 1080 && pMapData->pimages[0].y-pMapData->y+108 >= 0 && pMapData->bonhommey>pMapData->pimages[0].y-pMapData->y+392 && pMapData->bonhommey<pMapData->pimages[0].y+392-pMapData->y+108 && pMapData->bonhommex>pMapData->pimages[0].x+1496-pMapData->x && pMapData->bonhommex<pMapData->pimages[0].x+1496+100-pMapData->x) {
             Map_Destroy(_pMap);
+            return ;
         }
         else {
             al_draw_bitmap(pMapData->image[14],1565,750,0);
@@ -272,6 +274,7 @@ void affichageminimap(PMAP _pMap){
     if (pMapData->jeusuivant == SNAK){
         if (pMapData->pimages[8].x-pMapData->x+998 >= 0 && pMapData->pimages[8].x-pMapData->x+998 <=1920 && pMapData->pimages[8].y-pMapData->y+98 <= 1080 && pMapData->pimages[8].y-pMapData->y+90 >= 0 && pMapData->bonhommey>pMapData->pimages[8].y-pMapData->y+0 && pMapData->bonhommey<pMapData->pimages[8].y+0-pMapData->y+90 && pMapData->bonhommex>pMapData->pimages[8].x+998-pMapData->x && pMapData->bonhommex<pMapData->pimages[8].x+998+98-pMapData->x) {
             Map_Destroy(_pMap);
+            return ;
         }
         else {
             al_draw_bitmap(pMapData->image[14],1735,822,0);
@@ -282,6 +285,7 @@ void affichageminimap(PMAP _pMap){
     if (pMapData->jeusuivant == TDR){
         if (pMapData->bonhommex > pMapData->pimages[5].x-pMapData->x+233 && pMapData->bonhommex < pMapData->pimages[5].x-pMapData->x+233+50 && pMapData->bonhommey > pMapData->pimages[5].y-pMapData->y+682 && pMapData->bonhommey < pMapData->pimages[5].y-pMapData->y+682+61){
             Map_Destroy(_pMap);
+            return ;
         }
         else {
             al_draw_bitmap(pMapData->image[14],1695,805,0);
@@ -534,7 +538,7 @@ void Map_Destroy(PMAP _pMap)
 {
     MapData* pMapData = _pMap->MapData;
     *_pMap->pCurrentGameId = pMapData->jeusuivant;
-    free(_pMap->MapData);
     _pMap->MapData = NULL;
+    free(_pMap->MapData);
 }
 

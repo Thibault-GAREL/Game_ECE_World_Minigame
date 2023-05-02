@@ -143,8 +143,8 @@ void Exemple_Update(PGAME _pExemple)
 
     if (_pExemple->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {
-        pGameData->mouse.x = _pExemple->pEvent->mouse.x*1.25;
-        pGameData->mouse.y = _pExemple->pEvent->mouse.y*1.25;
+        pGameData->mouse.x = _pExemple->pEvent->mouse.x*1.00;
+        pGameData->mouse.y = _pExemple->pEvent->mouse.y*1.00;
     }
     if ( _pExemple->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
     {
@@ -658,7 +658,7 @@ void Exemple_TimedUpdate(PGAME _pExemple)
     }
     if (pGameData->gamemode==5){
         Exemple_Destroy(_pExemple);
-        exit(0);
+        return ;
     }
 }
 
@@ -670,7 +670,7 @@ void Exemple_Destroy(PGAME _pExemple)
 
     printf("Jeu detruit\n");
 
-    *_pExemple->pCurrentGameId = GAME_NONE;
+    *_pExemple->pCurrentGameId = 6;
 
     printf("Etat du jeu actuel mis a GAME_NONE");
 }
