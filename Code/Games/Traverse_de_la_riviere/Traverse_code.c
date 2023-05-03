@@ -263,6 +263,7 @@ void TDLR_Create(PGAME _pExemple)
     pGameData->police[1]= al_load_ttf_font(PATH"\\Textures\\Fonts\\police.ttf",100,0);
     pGameData->police[2]= al_load_ttf_font(PATH"\\Textures\\Fonts\\police.ttf",50,0);
 
+
     pGameData->compteur_strat = 3;
     pGameData->pixel_avance = 0;
     pGameData->life = LIFE;
@@ -321,10 +322,20 @@ void TDLR_Update(PGAME _pExemple)
 
         TDLR_Destroy(_pExemple);
     }
-    if (Get_Touch(_pExemple->pEvent, ALLEGRO_KEY_SPACE, 0, 1, 0, 0) && pGameData->gamemode == 1){
+    if (Get_Touch(_pExemple->pEvent, ALLEGRO_KEY_UP, 0, 1, 0, 0) && pGameData->gamemode == 1){
         //printf("touche espace \n");
         pGameData->pixel_avance += 1;
         generation_strat(_pExemple);
+    }
+
+    if (Get_Touch(_pExemple->pEvent, ALLEGRO_KEY_RIGHT, 0, 0, 0, 1) && pGameData->gamemode == 1){
+        //printf("touche espace \n");
+        pGameData->X_player = pGameData->X_player + 20;
+    }
+
+    if (Get_Touch(_pExemple->pEvent, ALLEGRO_KEY_LEFT, 0, 0, 0, 1) && pGameData->gamemode == 1){
+        //printf("touche espace \n");
+        pGameData->X_player = pGameData->X_player - 20;
     }
 
     if (_pExemple->pEvent->mouse.type == ALLEGRO_EVENT_MOUSE_AXES)
@@ -349,6 +360,8 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
     GameData* pGameData = (GameData*) _pExemple->gameData;
     //al_draw_bitmap(pGameData->image [0], 0, 0, 0);
     if (pGameData->gamemode == 0) {
+        Allegro_Stop_Sample((_pExemple->SampleAlManager)->pSampleInstance->TDLR_Fin);
+        Allegro_play_Sample((_pExemple->SampleAlManager)->pSampleInstance->TDLR_Menu);
         al_draw_bitmap(pGameData->image [0], 0, 0, 0);
         //al_draw_bitmap(pGameData->image [8], 0, 0, 0);
         al_draw_filled_rectangle(255, 90, 1665, 310, al_map_rgba(50, 50, 50, 255));
@@ -375,6 +388,8 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
         //al_draw_filled_rectangle(816, 800, 1104, 889, al_map_rgb(255, 0, 0));
     }
     else if (pGameData->gamemode == 1) {
+        Allegro_Stop_Sample((_pExemple->SampleAlManager)->pSampleInstance->TDLR_Menu);
+        Allegro_play_Sample((_pExemple->SampleAlManager)->pSampleInstance->TDLR_Fin);
         /*if (pGameData->player_en_cours == 2 ) {
             next_joueur(_pExemple);
             //pGameData->nb_jouer =2;&& pGameData->nb_jouer == 1
@@ -397,14 +412,17 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
 
         if (collision(_pExemple, pGameData->pixel_avance + 2) == true){
             al_clear_to_color(al_map_rgba(255, 0, 0, 245));
+            Allegro_play_Sample((_pExemple->SampleAlManager)->pSampleInstance->TDLR_Degats);
             pGameData->life -=1;
         }
 
         if ((0>pGameData->X_player) ){ ///||
             pGameData->life = pGameData->life -1;
+            Allegro_play_Sample((_pExemple->SampleAlManager)->pSampleInstance->TDLR_Degats);
         }
         if ((pGameData->X_player > Largeur)) {
             pGameData->life = pGameData->life -1;
+            Allegro_play_Sample((_pExemple->SampleAlManager)->pSampleInstance->TDLR_Degats);
         }
 
         if (pGameData->life <= 0 || pGameData->temps_restant <=0){                                   //changer ici si + de 2 joueurs
@@ -486,6 +504,7 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
         al_draw_bitmap(pGameData->image [1], pGameData->X_player, Y_player, 0);
     }
     else if (pGameData->gamemode == 2) {
+        Allegro_play_Sample((_pExemple->SampleAlManager)->pSampleInstance->TDLR_Fin);
         al_draw_bitmap(pGameData->image [8], 0, 0, 0);
         al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),100,480,0,"Score du joueur 1 :");
         al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),1100,480,0,"Score du jouuer 2 :");

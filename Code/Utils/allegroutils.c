@@ -80,6 +80,10 @@ PALLEGRO_GAME_SAMPLES_INSTANCE InitSample (ALLEGRO_GAME_SAMPLE* pSample){
     pSample_Instance->PACEasterEgg = al_create_sample_instance(pSample->PACEasterEgg);
     pSample_Instance->PACCredits = al_create_sample_instance(pSample->PACCredits);
 
+    pSample_Instance->TDLR_Menu = al_create_sample_instance(pSample->TDLR_Menu);
+    pSample_Instance->TDLR_Degats = al_create_sample_instance(pSample->TDLR_Degats);
+    pSample_Instance->TDLR_Fin = al_create_sample_instance(pSample->TDLR_Fin);
+
     pSample_Instance->mj= al_create_sample_instance(pSample->mj);
 
     pSample_Instance->walk = al_create_sample_instance(pSample->walk);
@@ -102,6 +106,10 @@ void SetSampleInstance(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance){
 
     al_set_sample_instance_playmode(pSampleInstance->walk, ALLEGRO_PLAYMODE_ONCE);
 
+    al_set_sample_instance_playmode(pSampleInstance->TDLR_Menu, ALLEGRO_PLAYMODE_LOOP);
+    al_set_sample_instance_playmode(pSampleInstance->TDLR_Fin, ALLEGRO_PLAYMODE_LOOP);
+    al_set_sample_instance_playmode(pSampleInstance->TDLR_Degats, ALLEGRO_PLAYMODE_ONCE);
+
     al_set_sample_instance_playmode(pSampleInstance->mj,ALLEGRO_PLAYMODE_ONCE);
     //al_set_sample_instance_playmode(pSampleInstance->click, ALLEGRO_PLAYMODE_ONCE);
     //al_set_sample_instance_playmode(pSampleInstance->shot, ALLEGRO_PLAYMODE_ONCE);
@@ -116,6 +124,10 @@ void SetSampleInstance(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance){
     al_attach_sample_instance_to_mixer(pSampleInstance->PACEXplode, al_get_default_mixer());
     al_attach_sample_instance_to_mixer(pSampleInstance->PACEasterEgg, al_get_default_mixer());
     al_attach_sample_instance_to_mixer(pSampleInstance->PACCredits, al_get_default_mixer());
+
+    al_attach_sample_instance_to_mixer(pSampleInstance->TDLR_Menu, al_get_default_mixer());
+    al_attach_sample_instance_to_mixer(pSampleInstance->TDLR_Fin, al_get_default_mixer());
+    al_attach_sample_instance_to_mixer(pSampleInstance->TDLR_Degats, al_get_default_mixer());
 
     al_attach_sample_instance_to_mixer(pSampleInstance->walk, al_get_default_mixer());
     //al_attach_sample_instance_to_mixer(pSampleInstance->click, al_get_default_mixer());
@@ -137,6 +149,10 @@ PALLEGRO_GAME_SAMPLE Allegro_Samples_Create(){
     pSample->PACEXplode = al_load_sample("..\\Audio-Samples\\PAC\\Explode.ogg");
     pSample->PACEasterEgg = al_load_sample("..\\Audio-Samples\\PAC\\Easter Egg.ogg");
     pSample->PACCredits = al_load_sample("..\\Audio-Samples\\PAC\\Credits.ogg");
+
+    pSample->TDLR_Menu = al_load_sample("..\\Audio-Samples\\TDLR\\Musique_Menu.ogg");
+    pSample->TDLR_Fin = al_load_sample("..\\Audio-Samples\\TDLR\\Musique_Fin.ogg");
+    pSample->TDLR_Degats = al_load_sample("..\\Audio-Samples\\TDLR\\Musique_Degat.ogg");
 
     pSample->walk = al_load_sample("..\\Audio-Samples\\Mario_sample.ogg");
 
