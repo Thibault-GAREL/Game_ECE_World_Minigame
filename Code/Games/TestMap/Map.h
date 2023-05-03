@@ -66,6 +66,7 @@ typedef struct _MAPDATA
     int compteurcolision2;
     char ticketJ1[sizeof (int)];
     char ticketJ2[sizeof (int)];
+    int compteurfin;
 }MapData;
 
 
