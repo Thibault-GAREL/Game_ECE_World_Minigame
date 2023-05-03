@@ -1,4 +1,4 @@
-#include "map.h"
+#include "Map.h"
 #include <string.h>
 
 enum
@@ -57,6 +57,9 @@ void Map_Create(PMAP _pMap)                               // ECHELLE = 1.25 POUR
     pMapData->image[37]= al_load_bitmap("..\\Textures/Map/MAP10COLI.png");
     pMapData->image[38]= al_load_bitmap("..\\Textures/Map/MAP11COLI.png");
     pMapData->image[39]= al_load_bitmap("..\\Textures/Map/MAP12COLI.png");
+    pMapData->image[40]= al_load_bitmap("..\\Textures/Map/scoreboard.png");
+    pMapData->image[41]= al_load_bitmap("..\\Textures/Map/Scoreboardtext.png");
+    pMapData->image[42]= al_load_bitmap("..\\Textures/Map/ticket.png");
 
     pMapData->pimages[0].x = 0;
     pMapData->pimages[0].y = -3240;
@@ -82,6 +85,7 @@ void Map_Create(PMAP _pMap)                               // ECHELLE = 1.25 POUR
     pMapData->pimages[10].y = 0;
     pMapData->pimages[11].x = 3840;
     pMapData->pimages[11].y = 0;
+
 
 
 
@@ -131,6 +135,8 @@ void Map_Create(PMAP _pMap)                               // ECHELLE = 1.25 POUR
     pMapData->vetoB=0;
     pMapData->vetoC=0;
     pMapData->compteurcolision2=0;
+
+    pMapData->imageactuelle=0;
 }
 
 void Map_Update(PMAP _pMap)
@@ -152,6 +158,7 @@ void Map_Update(PMAP _pMap)
         pMapData->click=1;
     }
 
+    pMapData->imageactuelle = Get_Touch(_pMap->pEvent, ALLEGRO_KEY_TAB, pMapData->imageactuelle, 1, 0, pMapData->imageactuelle);
 
 
     if (pMapData->compteurvaisseaubon==0){
@@ -514,7 +521,12 @@ void gestioncolision(PMAP _pMap,float x,float y,int indice){
     pMapData->compteurcolision2=0;
 }
 
+void tableaudescore(PMAP _pMap){
+    MapData* pMapData = _pMap->MapData;
+    al_draw_bitmap(pMapData->image[40],750,380,0);
+    al_draw_bitmap(pMapData->image[41],900,410,0);
 
+}
 
 void Map_TimedUpdate(PMAP _pMap)
 {
@@ -544,6 +556,9 @@ void Map_TimedUpdate(PMAP _pMap)
         gestioncolision(_pMap,5,50,1);
     }
     pMapData->compteurcolision++;
+    if (pMapData->imageactuelle==1){
+        tableaudescore(_pMap);
+    }
 }
 
 void Map_Destroy(PMAP _pMap)
