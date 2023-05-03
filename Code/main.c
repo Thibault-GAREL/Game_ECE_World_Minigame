@@ -13,6 +13,7 @@
 
 #define PLAYER_COUNT 2
 #define MAP_EXEMPLE 6
+
 int main()
 {
     Allegro_Init();
@@ -40,6 +41,7 @@ int main()
     pGames[4] = Game_Init(GAME_DP,DarkPiano_Update, DarkPiano_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
     pGames[5]= Game_Init(GAME_MAP,Map_Update,Map_TimedUpdate,&currentGameId,&event,PLAYER_COUNT,&players);
 
+    pGames[1]->SampleAlManager = pAlManager;
     pGames[2]->SampleAlManager = pAlManager;
     pGames[3]->SampleAlManager = pAlManager;
 
