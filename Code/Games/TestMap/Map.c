@@ -7,6 +7,7 @@ enum
     TAB = 5,
     SNAK = 2,
     TDR = 3,
+    DP = 6,
 };
 
 
@@ -102,7 +103,7 @@ void Map_Create(PMAP _pMap)                               // ECHELLE = 1.25 POUR
     pMapData->c=0;
     pMapData->d=0;
 
-    pMapData->jeusuivant = SNAK ;
+    pMapData->jeusuivant = DP ;
     pMapData->sensbonhommex = 0;
     pMapData->sensbonhommey = 0;
     pMapData->compteurfumme =0;
@@ -291,6 +292,17 @@ void affichageminimap(PMAP _pMap){
             al_draw_bitmap(pMapData->image[14],1695,805,0);
             al_draw_rectangle(1535+(pMapData->x)/19,930+(pMapData->y)/20,1535+(pMapData->x)/19+2,838, al_map_rgb(0,255,228),2);
             al_draw_rectangle(1535+(pMapData->x)/19,838,1707,840, al_map_rgb(0,255,228),2);
+        }
+    }
+    if (pMapData->jeusuivant == DP){
+        if (pMapData->bonhommex > pMapData->pimages[6].x-pMapData->x+873 && pMapData->bonhommex < pMapData->pimages[6].x-pMapData->x+927 && pMapData->bonhommey > pMapData->pimages[6].y-pMapData->y+618 && pMapData->bonhommey < pMapData->pimages[6].y-pMapData->y+690){
+            Map_Destroy(_pMap);
+            return ;
+        }
+        else {
+            al_draw_bitmap(pMapData->image[14],1530,845,0);
+            al_draw_rectangle(1535+(pMapData->x)/19,930+(pMapData->y)/20,1535+(pMapData->x)/19+2,880,al_map_rgb(0,255,228),2);
+            al_draw_rectangle(1550,880,1535+(pMapData->x)/19,882, al_map_rgb(0,255,228),2);
         }
     }
     al_draw_bitmap(pMapData->image[13],pMapData->x /20 + 1530,pMapData->y / 20 + 920,0);

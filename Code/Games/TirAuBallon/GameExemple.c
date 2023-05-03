@@ -151,8 +151,8 @@ void Exemple_Update(PGAME _pExemple)
 
     if (_pExemple->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {
-        pGameData->mouse.x = _pExemple->pEvent->mouse.x*1.00;
-        pGameData->mouse.y = _pExemple->pEvent->mouse.y*1.00;
+        pGameData->mouse.x = _pExemple->pEvent->mouse.x*1.25;
+        pGameData->mouse.y = _pExemple->pEvent->mouse.y*1.25;
     }
     if ( _pExemple->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
     {
