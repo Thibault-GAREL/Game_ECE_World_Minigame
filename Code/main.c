@@ -97,7 +97,6 @@ int main()
 
             continue;
         }
-        printf("%d\n",currentGameId);
     }
 
     printf("Correctly quit");

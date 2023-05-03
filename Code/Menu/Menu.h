@@ -9,8 +9,8 @@
 #include "..\Utils\\Vector.h"
 
 typedef struct _MenuAnimation{
-    ALLEGRO_BITMAP *LoadingTextures[120];
-    char LoadingCount[100];
+    ALLEGRO_BITMAP *LoadingTextures[140];
+    char LoadingCount[140];
 
 }Menu_Animation, *pMenu_Animation;
 
