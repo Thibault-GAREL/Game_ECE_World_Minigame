@@ -19,9 +19,6 @@ int main()
     Allegro_Init();
     PALLEGRO_MANAGER pAlManager = AllegroManager_Create(1920, 1080, 0.01);
     ALLEGRO_EVENT event;
-    
-    //pMenu_Animation pAnimation_for_Menu = Init_Game_Loading();
-
 
     //Allegro_play_Sample(pAlManager->pSampleInstance->walk);
 
@@ -34,19 +31,19 @@ int main()
     PPLAYER players;
     Players_Init(&players, PLAYER_COUNT);
 
-    int gamesCount = 5;
+    int gamesCount = 6;
     PGAME pGames[gamesCount];
-    PMAP pMaps[1];
     //pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pGames[GAME_SNAKE] = Game_Init(GAME_SNAKE, SnakeGame_Update, SnakeGame_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pGames[GAME_TDLR] = Game_Init(GAME_TDLR, TDLR_Update, TDLR_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pGames[GAME_PAC] = Game_Init(GAME_PAC, PAC_Update, PAC_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pGames[GAME_TAB] = Game_Init(GAME_TAB, TAB_Update, TAB_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pGames[GAME_DP] = Game_Init(GAME_DP, DarkPiano_Update, DarkPiano_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pMaps[0] = Map_Init(MAP_EXEMPLE, Map_Update, Map_TimedUpdate, &currentGameId, &event);
+    pGames[0] = Game_Init(GAME_SNAKE, SnakeGame_Update, SnakeGame_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[1] = Game_Init(GAME_TDLR, TDLR_Update, TDLR_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[2] = Game_Init(GAME_PAC,PAC_Update, PAC_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[3] = Game_Init(GAME_TAB,TAB_Update, TAB_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[4] = Game_Init(GAME_DP,DarkPiano_Update, DarkPiano_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[5]= Game_Init(GAME_MAP,Map_Update,Map_TimedUpdate,&currentGameId,&event,PLAYER_COUNT,&players);
 
-    pGames[GAME_PAC]->SampleAlManager = pAlManager;
-    pGames[GAME_TAB]->SampleAlManager = pAlManager;
+    pGames[1]->SampleAlManager = pAlManager;
+    pGames[2]->SampleAlManager = pAlManager;
+    pGames[3]->SampleAlManager = pAlManager;
 
     while (1)
     {
@@ -56,13 +53,7 @@ int main()
         {
             break;
         }
-
-        if (currentGameId!=6){
-            Games_Update(pGames, gamesCount, currentGameId);
-        }
-        else {
-            Maps_Update(pMaps , 1 , currentGameId);
-        }
+        Games_Update(pGames, gamesCount, currentGameId);
 
         if (event.mouse.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
         {
@@ -93,7 +84,7 @@ int main()
             }
             if (Get_Touch(&event, ALLEGRO_KEY_V, 0, 1, 0, 0))
             {
-                currentGameId = MAP_EXEMPLE;
+                currentGameId = GAME_MAP;
             }
         }
 
@@ -101,14 +92,7 @@ int main()
         {
             al_clear_to_color(al_map_rgb(255, 255, 255));
 
-            if (currentGameId == 6) 
-            {
-                Maps_TimedUpdate(pMaps, 1, currentGameId);
-            } 
-            else 
-            {
-                Games_TimedUpdate(pGames, gamesCount, currentGameId);
-            }
+            Games_TimedUpdate(pGames, gamesCount, currentGameId);
 
             al_flip_display();
 

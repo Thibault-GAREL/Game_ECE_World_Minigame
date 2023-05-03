@@ -4,12 +4,15 @@
 
 
 
-void Map_Create(PMAP _pMap)                               // ECHELLE = 1.25 POUR LE MOMENT
+void Map_Create(PGAME _pMap)                               // ECHELLE = 1.25 POUR LE MOMENT
 {
     MapData* pMapData = malloc(sizeof (MapData));
     Images PositionImage[1000];
     pMapData->pimages=PositionImage;
-    _pMap->MapData = pMapData;
+    _pMap->gameData = pMapData;
+
+    pMapData->police[0]= al_load_ttf_font("..\\Textures/Map/police.ttf",150,0);
+
     pMapData->image[0]= al_load_bitmap("..\\Textures/Map/MAP1.png");
     pMapData->image[1]= al_load_bitmap("..\\Textures/Map/MAP2.png");
     pMapData->image[2]= al_load_bitmap("..\\Textures/Map/MAP3.png");
@@ -53,6 +56,11 @@ void Map_Create(PMAP _pMap)                               // ECHELLE = 1.25 POUR
     pMapData->image[40]= al_load_bitmap("..\\Textures/Map/scoreboard.png");
     pMapData->image[41]= al_load_bitmap("..\\Textures/Map/Scoreboardtext.png");
     pMapData->image[42]= al_load_bitmap("..\\Textures/Map/ticket.png");
+    pMapData->image[43]= al_load_bitmap("..\\Textures/Map/chiffre1.png");
+    pMapData->image[44]= al_load_bitmap("..\\Textures/Map/chiffre2.png");
+    pMapData->image[45]= al_load_bitmap("..\\Textures/Map/chiffre3.png");
+    pMapData->image[46]= al_load_bitmap("..\\Textures/Map/chiffre4.png");
+    pMapData->image[47]= al_load_bitmap("..\\Textures/Map/chiffre5.png");
 
     pMapData->pimages[0].x = 0;
     pMapData->pimages[0].y = -3240;
@@ -100,7 +108,7 @@ void Map_Create(PMAP _pMap)                               // ECHELLE = 1.25 POUR
     pMapData->c=0;
     pMapData->d=0;
 
-    pMapData->jeusuivant = GAME_DP ;
+    pMapData->jeusuivant = GAME_TAB ;
     pMapData->sensbonhommex = 0;
     pMapData->sensbonhommey = 0;
     pMapData->compteurfumme =0;
@@ -130,16 +138,18 @@ void Map_Create(PMAP _pMap)                               // ECHELLE = 1.25 POUR
     pMapData->compteurcolision2=0;
 
     pMapData->imageactuelle=0;
+
+
 }
 
-void Map_Update(PMAP _pMap)
+void Map_Update(PGAME _pMap)
 {
-    if (!_pMap->MapData)
+    if (!_pMap->gameData)
     {
         Map_Create(_pMap);
     }
 
-    MapData* pMapData = _pMap->MapData;
+    MapData* pMapData = _pMap->gameData;
 
     if (_pMap->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {
@@ -204,8 +214,8 @@ void Map_Update(PMAP _pMap)
 }
 
 
-void gestionbordure(PMAP _pMap){
-    MapData* pMapData = _pMap->MapData;
+void gestionbordure(PGAME _pMap){
+    MapData* pMapData = _pMap->gameData;
     if (pMapData->x <= 0 || pMapData->bonhommex < 960){
         pMapData->x = 0;
         pMapData->bonhommex+=pMapData->speedhori*pMapData->deplacementhori;
@@ -242,8 +252,8 @@ void gestionbordure(PMAP _pMap){
     }
 }
 
-void affichageminimap(PMAP _pMap){
-    MapData* pMapData = _pMap->MapData;
+void affichageminimap(PGAME _pMap){
+    MapData* pMapData = _pMap->gameData;
     pMapData->i++;
     al_draw_bitmap(pMapData->image[12],1300,650,0);
     if (pMapData->jeusuivant == GAME_PAC){
@@ -308,8 +318,8 @@ void affichageminimap(PMAP _pMap){
     al_draw_bitmap(pMapData->image[13],pMapData->x /20 + 1530,pMapData->y / 20 + 920,0);
 }
 
-void affichagebonhomme(PMAP _pMap){
-    MapData* pMapData = _pMap->MapData;
+void affichagebonhomme(PGAME _pMap){
+    MapData* pMapData = _pMap->gameData;
     pMapData->fumeea=0;pMapData->fumeeb=0;pMapData->fumeec=0;pMapData->fumeed=0;
     srand(time(NULL));
     pMapData->compteurcooldownvaiss2++;
@@ -409,8 +419,8 @@ void affichagebonhomme(PMAP _pMap){
 }
 
 
-void affichageville(PMAP _pMap){
-    MapData* pMapData = _pMap->MapData;
+void affichageville(PGAME _pMap){
+    MapData* pMapData = _pMap->gameData;
     if (pMapData->x < 1920 && pMapData->y<-1080 && pMapData->zone1==0){
         al_draw_bitmap(pMapData->image[19],0,0,0);
         al_draw_bitmap(pMapData->image[20],120,100,0);
@@ -466,8 +476,8 @@ void affichageville(PMAP _pMap){
 
 }
 
-void gestionvaisseau(PMAP _pMap){
-    MapData* pMapData = _pMap->MapData;
+void gestionvaisseau(PGAME _pMap){
+    MapData* pMapData = _pMap->gameData;
     if(pMapData->compteurvaisseaubon==0){
         al_draw_bitmap(pMapData->image[25],pMapData->pimages[3].x+635-pMapData->x,pMapData->pimages[3].y+955-pMapData->y,0);
         pMapData->speedverti=6;
@@ -478,8 +488,8 @@ void gestionvaisseau(PMAP _pMap){
     }
 }
 
-void gestioncolision(PMAP _pMap,float x,float y,int indice){
-    MapData* pMapData = _pMap->MapData;
+void gestioncolision(PGAME _pMap,float x,float y,int indice){
+    MapData* pMapData = _pMap->gameData;
     for (int i=0;i<12;i++){
         if (pMapData->pimages[i].x-pMapData->x >-1920 && pMapData->pimages[i].x-pMapData->x < 1920 && pMapData->pimages[i].y-pMapData->y > -1080 && pMapData->pimages[i].y-pMapData->y < 1080){
             if (al_get_pixel(pMapData->image[i+28],0-pMapData->pimages[i].x+pMapData->x+pMapData->bonhommex+x,0-pMapData->pimages[i].y+pMapData->y+pMapData->bonhommey+y).r>=0.929411 && al_get_pixel(pMapData->image[i+28],0-pMapData->pimages[i].x+pMapData->x+pMapData->bonhommex+x,0-pMapData->pimages[i].y+pMapData->y+pMapData->bonhommey+y).r<0.92942){
@@ -514,17 +524,56 @@ void gestioncolision(PMAP _pMap,float x,float y,int indice){
     pMapData->compteurcolision2=0;
 }
 
-void tableaudescore(PMAP _pMap){
-    MapData* pMapData = _pMap->MapData;
+void tableaudescore(PGAME _pMap){
+    MapData* pMapData = _pMap->gameData;
     al_draw_bitmap(pMapData->image[40],750,380,0);
     al_draw_bitmap(pMapData->image[41],900,410,0);
     al_draw_scaled_bitmap(pMapData->image[42],0,0,250,250,1140,490,80,80,0);
     al_draw_scaled_bitmap(pMapData->image[42],0,0,250,250,1140,560,80,80,0);
+    //al_draw_text(pMapData->police[0], al_map_rgb(0,0,0),200,200,0,_pMap->pPlayers[0]->name);
+    //al_draw_text(pMapData->police[0], al_map_rgb(0,0,0),300,300,0,_pMap->pPlayers[1]->name);
+    //sprintf(pMapData->ticketJ1,"%d",_pMap->pPlayers[0]->tickets);
+    //sprintf(pMapData->ticketJ2,"%d",_pMap->pPlayers[1]->tickets);
+    //al_draw_text(pMapData->police[0], al_map_rgb(0,0,0),500,500,0,pMapData->ticketJ1);
+    //al_draw_text(pMapData->police[0], al_map_rgb(0,0,0),600,600,0,pMapData->ticketJ2);
+
+    if (_pMap->pPlayers[0]->tickets == 5){
+        al_draw_bitmap(pMapData->image[47],1000,460,0);
+    }
+    if (_pMap->pPlayers[0]->tickets == 4){
+        al_draw_bitmap(pMapData->image[46],1000,460,0);
+    }
+    if (_pMap->pPlayers[0]->tickets == 3){
+        al_draw_bitmap(pMapData->image[45],1000,460,0);
+    }
+    if (_pMap->pPlayers[0]->tickets == 2){
+        al_draw_bitmap(pMapData->image[44],1000,460,0);
+    }
+    if (_pMap->pPlayers[0]->tickets == 1){
+        al_draw_bitmap(pMapData->image[43],1000,460,0);
+    }
+
+    /*
+    if (_pMap->pPlayers[1]->tickets == 5){
+        al_draw_bitmap(pMapData->image[47],1000,530,0);
+    }
+    if (_pMap->pPlayers[1]->tickets == 4){
+        al_draw_bitmap(pMapData->image[46],1000,530,0);
+    }
+    if (_pMap->pPlayers[1]->tickets == 3){
+        al_draw_bitmap(pMapData->image[45],1000,530,0);
+    }
+    if (_pMap->pPlayers[1]->tickets == 2){
+        al_draw_bitmap(pMapData->image[44],1000,530,0);
+    }
+    if (_pMap->pPlayers[1]->tickets == 1){
+        al_draw_bitmap(pMapData->image[43],1000,530,0);
+    }*/
 }
 
-void Map_TimedUpdate(PMAP _pMap)
+void Map_TimedUpdate(PGAME _pMap)
 {
-    MapData* pMapData = _pMap->MapData;
+    MapData* pMapData = _pMap->gameData;
     ALLEGRO_DISPLAY* ecran=al_get_current_display();
     al_hide_mouse_cursor(ecran);
     pMapData->x+=pMapData->speedhori*pMapData->deplacementhori;
@@ -556,11 +605,13 @@ void Map_TimedUpdate(PMAP _pMap)
     }
 }
 
-void Map_Destroy(PMAP _pMap)
+void Map_Destroy(PGAME _pMap)
 {
-    MapData* pMapData = _pMap->MapData;
-    *_pMap->pCurrentGameId = pMapData->jeusuivant;
-    _pMap->MapData = NULL;
-    free(_pMap->MapData);
+    MapData* pMapData = _pMap->gameData;
+    int a = pMapData->jeusuivant;
+    free(_pMap->gameData);
+    _pMap->gameData = NULL;
+    *_pMap->pCurrentGameId = a;
+    printf("%d\n",*_pMap->pCurrentGameId);
 }
 
