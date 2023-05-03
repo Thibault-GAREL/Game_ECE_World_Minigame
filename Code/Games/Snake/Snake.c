@@ -314,6 +314,7 @@ void NextPlayer(PGAME _pSnake)
     if (++pSnakeData->currentPlayer >= _pSnake->playersCount)
     {
         SnakeGame_Destroy(_pSnake);
+        return;
     }
     else
     {

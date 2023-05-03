@@ -13,6 +13,7 @@
 
 #define PLAYER_COUNT 2
 #define MAP_EXEMPLE 6
+
 int main()
 {
     Allegro_Init();
