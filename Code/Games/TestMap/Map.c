@@ -542,7 +542,8 @@ void Map_TimedUpdate(PGAME _pMap)
     gestionvaisseau(_pMap);
     affichagebonhomme(_pMap);
     affichageville(_pMap);
-    if (pMapData->compteurcolision%6==1){
+    if (pMapData->compteurcolision%6==1)
+    {
         gestioncolision(_pMap,5,-45,0);
         gestioncolision(_pMap,-35,40,3);
     }

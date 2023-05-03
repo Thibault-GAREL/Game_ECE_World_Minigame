@@ -490,6 +490,7 @@ void TAB_TimedUpdate(PGAME _pExemple)
         al_draw_bitmap(pGameData->image[3],0,0,0);
         ALLEGRO_DISPLAY*ecran= al_get_current_display();
         al_hide_mouse_cursor(ecran);
+        
         if (pGameData->click==1){
             al_play_sample_instance(pGameData->soninstance);
         }
