@@ -525,7 +525,8 @@ void tableaudescore(PMAP _pMap){
     MapData* pMapData = _pMap->MapData;
     al_draw_bitmap(pMapData->image[40],750,380,0);
     al_draw_bitmap(pMapData->image[41],900,410,0);
-
+    al_draw_scaled_bitmap(pMapData->image[42],0,0,250,250,1140,490,80,80,0);
+    al_draw_scaled_bitmap(pMapData->image[42],0,0,250,250,1140,560,80,80,0);
 }
 
 void Map_TimedUpdate(PMAP _pMap)
