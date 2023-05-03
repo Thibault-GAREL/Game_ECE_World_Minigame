@@ -1,6 +1,6 @@
 #include "GameExemple.h"
 
-void Exemple_Create(PGAME _pExemple)                               // ECHELLE = 1.25 POUR LE MOMENT
+void TAB_Create(PGAME _pExemple)                               // ECHELLE = 1.25 POUR LE MOMENT
 {
     TABGameData* pGameData = malloc(sizeof (TABGameData));
     pGameData->police[0]= al_load_ttf_font("..\\Textures/Map/police.ttf",150,0);
@@ -140,11 +140,11 @@ void Exemple_Create(PGAME _pExemple)                               // ECHELLE = 
     }
 }
 
-void DarkPiano_Update(PGAME _pExemple)
+void TAB_Update(PGAME _pExemple)
 {
     if (!_pExemple->gameData)
     {
-        DarkPiano_Create(_pExemple);
+        TAB_Create(_pExemple);
     }
 
     TABGameData* pGameData = _pExemple->gameData;
@@ -444,7 +444,7 @@ void danse(PGAME _pExemple){
     }
 }
 
-void DarkPiano_TimedUpdate(PGAME _pExemple)
+void TAB_TimedUpdate(PGAME _pExemple)
 {
     char nomjeu[] = "Tir Au Jeday";
     char nomJ1[] = "Joueur 1";
@@ -683,12 +683,12 @@ void DarkPiano_TimedUpdate(PGAME _pExemple)
         }
     }
     if (pGameData->gamemode==5){
-        Exemple_Destroy(_pExemple);
+        TAB_Destroy(_pExemple);
         return ;
     }
 }
 
-void Exemple_Destroy(PGAME _pExemple)
+void TAB_Destroy(PGAME _pExemple)
 {
     printf("Destruction du jeu...\n");
     free(_pExemple->gameData);
