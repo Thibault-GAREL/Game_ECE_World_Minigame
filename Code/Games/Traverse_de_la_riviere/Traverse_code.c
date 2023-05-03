@@ -3,9 +3,7 @@
 //
 
 #include "Traverse_code.h"
-#define Largeur 1920
-#define  X_player 910
-#define Y_player 720
+
 
 /*void ajouterfinLSC (Maillion** p, int numero){
     Maillion* new = malloc (sizeof (Maillion));
@@ -67,7 +65,7 @@ void position_alleatoire (PGAME _pExemple){
     else{
         pGameData->position_obstacle[pGameData->compteur_strat].x = rand()%1120 + 10;
         //printf("position x : %f", pGameData->position_obstacle [pGameData->compteur_strat].x);
-        pGameData->position_obstacle[pGameData->compteur_strat].vx_ajout = rand()%5 + 3;
+        pGameData->position_obstacle[pGameData->compteur_strat].vx_ajout = rand()%5 + 4;
         //printf("position x : %f", pGameData->position_obstacle [pGameData->compteur_strat].vx);
     }
 }
@@ -126,6 +124,24 @@ bool collision (PGAME _pExemple, int numero){
     }
 }
 
+void next_joueur (PGAME _pExemple){
+    GameData* pGameData = (GameData*) _pExemple->gameData;
+    pGameData->life = LIFE;
+    pGameData->compteur_strat = 3;
+    pGameData->pixel_avance = 0;
+    pGameData->player_en_cours = 3;
+
+    pGameData->Strat [0] = 0;
+    pGameData->Strat [1] = 0;
+    pGameData->Strat [2] = 0;
+
+    //pGameData->nb_jouer = 1;
+
+    for (int i = 3; i < 7; ++i) {
+        generation_strat(_pExemple);
+    }
+}
+
 void TDLR_Create(PGAME _pExemple)
 {
     /*printf("Creation du jeu...\n");
@@ -152,13 +168,16 @@ void TDLR_Create(PGAME _pExemple)
 
     pGameData->compteur_strat = 3;
     pGameData->pixel_avance = 0;
-    pGameData->life = 30;
+    pGameData->life = LIFE;
     pGameData->gamemode = 0;
+    pGameData->player_en_cours = 1;
     srand(time(NULL));
 
     pGameData->Strat [0] = 0;
     pGameData->Strat [1] = 0;
     pGameData->Strat [2] = 0;
+
+
 
     /*pGameData->Strat [3] = 1;
     pGameData->Strat [4] = 1;
@@ -170,7 +189,7 @@ void TDLR_Create(PGAME _pExemple)
     pGameData->Strat [10] = 1;
     pGameData->Strat [11] = 1;*/
 
-    for (int i = 2; i < 7; ++i) {
+    for (int i = 3; i < 7; ++i) {
         generation_strat(_pExemple);
     }
     /*pGameData->liste = NULL;
@@ -230,8 +249,15 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
         al_draw_filled_rectangle(255, 90, 1665, 310, al_map_rgba(50, 50, 50, 255));
         al_draw_text(pGameData->police[1], al_map_rgb(255, 255, 255),265,100,0,"Traversé du champ");
         al_draw_text(pGameData->police[1], al_map_rgb(255, 255, 255),550,200,0,"de bataille");
-        al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),300,480,0,"Player 1");  //mettre ensuite _pExemple->pPlayers[0]->name
-        //al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),1350,480,0,"Player 2"); //_pExemple->pPlayers[1]->name
+
+        if (pGameData->player_en_cours == 1) {
+            al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),300,480,0,"Player 1");  //mettre ensuite _pExemple->pPlayers[0]->name
+            //al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),1350,480,0,"Player 2"); //_pExemple->pPlayers[1]->name
+        }
+        if (pGameData->player_en_cours == 2) {
+            al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),300,480,0,"Player 2");  //mettre ensuite _pExemple->pPlayers[0]->name
+            //al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),1350,480,0,"Player 2"); //_pExemple->pPlayers[1]->name
+        }
 
         if (Point_In_Rectangle(pGameData->mouse_position, (Vector2D){816,800}, (Vector2D){1104,889}) == 1 && pGameData->click==1)
         {
@@ -243,7 +269,11 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
         //printf("X: %f, Y: %f \n", pGameData->mouse_position.x,  pGameData->mouse_position.y);
         //al_draw_filled_rectangle(816, 800, 1104, 889, al_map_rgb(255, 0, 0));
     }
-    if (pGameData->gamemode == 1) {
+    else if (pGameData->gamemode == 1) {
+        /*if (pGameData->player_en_cours == 2 ) {
+            next_joueur(_pExemple);
+            //pGameData->nb_jouer =2;&& pGameData->nb_jouer == 1
+        }*/
         al_clear_to_color(al_map_rgb(50, 50, 50));
         al_draw_bitmap(pGameData->image [1], X_player, Y_player, 0);
 
@@ -252,9 +282,30 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
             pGameData->life -=1;
         }
 
-        if (pGameData->life <= 0){
+        if (pGameData->life <= 0){                                   //changer ici si + de 2 joueurs
             //al_clear_to_color(al_map_rgb(255, 255, 255));
-            pGameData->gamemode = 0;
+            if (pGameData->player_en_cours == 1){
+                pGameData->gamemode = 0;
+                pGameData->player_en_cours = 2;
+            }
+            else if (pGameData->player_en_cours == 2){
+                pGameData->gamemode = 1;
+                next_joueur(_pExemple);
+            }
+            else if (pGameData->player_en_cours == 3){
+                pGameData->gamemode = 2;
+            }
+
+        }
+        if (pGameData->player_en_cours == 1) {
+           pGameData->score_player1 = pGameData->pixel_avance;
+           //printf("%d \n", pGameData->score_player1 );
+           //printf("AAA");
+        }
+        else  {
+            pGameData->score_player2 = pGameData->pixel_avance;
+            //printf("%d \n", pGameData->pixel_avance);
+            //printf("AAA");
         }
 
         for (int i = pGameData->pixel_avance; i < pGameData->pixel_avance + 7 ; ++i) {
@@ -293,9 +344,35 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
                         pGameData->position_obstacle[i].x2 + pGameData->position_obstacle[i].vx2;
             }
             affichage_strat(_pExemple, i);      //affiche de compteur -6 à compteur
-            printf("position de %d : %f\n", pGameData->pixel_avance + 2, pGameData->position_obstacle[pGameData->pixel_avance + 2].x_transi);
-            printf("life : %d", pGameData->life);
+            //printf("position de %d : %f\n", pGameData->pixel_avance + 2, pGameData->position_obstacle[pGameData->pixel_avance + 2].x_transi);
+            //printf("life : %d", pGameData->life);
         }
+    }
+    else if (pGameData->gamemode == 2) {
+        al_draw_bitmap(pGameData->image [0], 0, 0, 0);
+        al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),100,480,0,"Score du joueur 1 :");
+        al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),1100,480,0,"Score du jouuer 2 :");
+        printf("1 : %d / 2 : %d \n", pGameData->score_player1, pGameData->score_player2);
+        al_draw_filled_rectangle(100, 900,  100 + pGameData->score_player1*2, 950, al_map_rgb(100, 0, 0));
+
+        int score1 = pGameData->score_player1;
+
+        int scoreDec[4] = {0, 0, 0, 0};
+        scoreDec[0] = score1 / 1000;
+        scoreDec[1] = (score1 - scoreDec[0] * 1000) / 100;
+        scoreDec[2] = (score1 - scoreDec[0] * 1000 - scoreDec[1]  * 100) / 10;
+        scoreDec[3] = (score1 - scoreDec[0] * 1000 - scoreDec[1] * 100 - scoreDec[2] * 10);
+
+        char zero = '0';
+        char scoreStr[5] = "0000\0";
+
+        for (size_t i = 0; i < 4; i++)
+        {
+            scoreStr[i] = scoreDec[i] + zero;
+        }
+
+        al_draw_text(pGameData->police [2], al_map_rgb(100, 0, 0), 100, 580, 0, scoreStr);
+
     }
 }
 
@@ -319,5 +396,5 @@ void TDLR_Destroy(PGAME _pExemple)
 }
 
 
-// Menu + eclairé le bouton + affichage vie + affichage point + affichage timer + faire fiche explicative sur le jeu + son
+// Menu + eclairé le bouton + affichage vie + affichage point + affichage timer + faire fiche explicative sur le jeu + son + Dark vador + changer si plus de 2 joueurs
 

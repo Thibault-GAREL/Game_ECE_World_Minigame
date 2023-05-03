@@ -14,9 +14,11 @@ typedef struct _DuckInfos{
     float vx, vy;
     char KEYCodeDuck;
     int Points;
+    int Picked;
+    ALLEGRO_COLOR DuckColor;
 }DuckInfos, *pDuckInfos;
 
-typedef struct _GAMEDATA
+typedef struct _PACGAMEDATA
 {
     ALLEGRO_FONT* font;
     ALLEGRO_COLOR fontColor;
@@ -41,6 +43,8 @@ typedef struct _GAMEDATA
     char RemainingTime[100];
     int GameLaunched;
     int IntervalTime;
+    ALLEGRO_COLOR PickedColor;
+    ALLEGRO_COLOR NormalColor;
 }PacGameData, *pPacGameData;
 
 void PAC_Create(PGAME _pPAC);

@@ -3,10 +3,10 @@
 
 enum
 {
-    PAC = 1,
-    TAB = 2,
-    SNAK = 3,
-    TDR = 4,
+    PAC = 4,
+    TAB = 5,
+    SNAK = 2,
+    TDR = 3,
 };
 
 
@@ -16,46 +16,46 @@ void Map_Create(PMAP _pMap)                               // ECHELLE = 1.25 POUR
     Images PositionImage[1000];
     pMapData->pimages=PositionImage;
     _pMap->MapData = pMapData;
-    pMapData->image[0]= al_load_bitmap(PATH"\\MAP1.png");
-    pMapData->image[1]= al_load_bitmap(PATH"\\MAP2.png");
-    pMapData->image[2]= al_load_bitmap(PATH"\\MAP3.png");
-    pMapData->image[3]= al_load_bitmap(PATH"\\MAP4.png");
-    pMapData->image[4]= al_load_bitmap(PATH"\\MAP5.png");
-    pMapData->image[5]= al_load_bitmap(PATH"\\MAP6.png");
-    pMapData->image[6]= al_load_bitmap(PATH"\\MAP7.png");
-    pMapData->image[7]= al_load_bitmap(PATH"\\MAP8.png");
-    pMapData->image[8]= al_load_bitmap(PATH"\\MAP9.png");
-    pMapData->image[9]= al_load_bitmap(PATH"\\MAP10.png");
-    pMapData->image[10]= al_load_bitmap(PATH"\\MAP11.png");
-    pMapData->image[11]= al_load_bitmap(PATH"\\MAP12.png");
-    pMapData->image[12]= al_load_bitmap(PATH"\\minimap.png");
-    pMapData->image[13]= al_load_bitmap(PATH"\\teteluke.png");
-    pMapData->image[14]= al_load_bitmap(PATH"\\ping.png");
-    pMapData->image[15]= al_load_bitmap(PATH"\\bonhommegauche.png");
-    pMapData->image[16]= al_load_bitmap(PATH"\\bonhommedroite.png");
-    pMapData->image[17]= al_load_bitmap(PATH"\\fumeegauche.png");
-    pMapData->image[18]= al_load_bitmap(PATH"\\fumeedroite.png");
-    pMapData->image[19]= al_load_bitmap(PATH"\\panneaumetal.png");
-    pMapData->image[20]= al_load_bitmap(PATH"\\teteville.png");
-    pMapData->image[21]= al_load_bitmap(PATH"\\ville1.png");
-    pMapData->image[22]= al_load_bitmap(PATH"\\ville2.png");
-    pMapData->image[23]= al_load_bitmap(PATH"\\ville3.png");
-    pMapData->image[24]= al_load_bitmap(PATH"\\ville4.png");
-    pMapData->image[25]= al_load_bitmap(PATH"\\testvaisseau.png");
-    pMapData->image[26]= al_load_bitmap(PATH"\\vaisseaubondroite.png");
-    pMapData->image[27]= al_load_bitmap(PATH"\\vaisseaubongauche.png");
-    pMapData->image[28]= al_load_bitmap(PATH"\\MAP1COLI.png");
-    pMapData->image[29]= al_load_bitmap(PATH"\\MAP2COLI.png");
-    pMapData->image[30]= al_load_bitmap(PATH"\\MAP3COLI.png");
-    pMapData->image[31]= al_load_bitmap(PATH"\\MAP4COLI.png");
-    pMapData->image[32]= al_load_bitmap(PATH"\\MAP5COLI.png");
-    pMapData->image[33]= al_load_bitmap(PATH"\\MAP6COLI.png");
-    pMapData->image[34]= al_load_bitmap(PATH"\\MAP7COLI.png");
-    pMapData->image[35]= al_load_bitmap(PATH"\\MAP8COLI.png");
-    pMapData->image[36]= al_load_bitmap(PATH"\\MAP9COLI.png");
-    pMapData->image[37]= al_load_bitmap(PATH"\\MAP10COLI.png");
-    pMapData->image[38]= al_load_bitmap(PATH"\\MAP11COLI.png");
-    pMapData->image[39]= al_load_bitmap(PATH"\\MAP12COLI.png");
+    pMapData->image[0]= al_load_bitmap("..\\Textures/Map/MAP1.png");
+    pMapData->image[1]= al_load_bitmap("..\\Textures/Map/MAP2.png");
+    pMapData->image[2]= al_load_bitmap("..\\Textures/Map/MAP3.png");
+    pMapData->image[3]= al_load_bitmap("..\\Textures/Map/MAP4.png");
+    pMapData->image[4]= al_load_bitmap("..\\Textures/Map/MAP5.png");
+    pMapData->image[5]= al_load_bitmap("..\\Textures/Map/MAP6.png");
+    pMapData->image[6]= al_load_bitmap("..\\Textures/Map/MAP7.png");
+    pMapData->image[7]= al_load_bitmap("..\\Textures/Map/MAP8.png");
+    pMapData->image[8]= al_load_bitmap("..\\Textures/Map/MAP9.png");
+    pMapData->image[9]= al_load_bitmap("..\\Textures/Map/MAP10.png");
+    pMapData->image[10]= al_load_bitmap("..\\Textures/Map/MAP11.png");
+    pMapData->image[11]= al_load_bitmap("..\\Textures/Map/MAP12.png");
+    pMapData->image[12]= al_load_bitmap("..\\Textures/Map/minimap.png");
+    pMapData->image[13]= al_load_bitmap("..\\Textures/Map/teteluke.png");
+    pMapData->image[14]= al_load_bitmap("..\\Textures/Map/ping.png");
+    pMapData->image[15]= al_load_bitmap("..\\Textures/Map/bonhommegauche.png");
+    pMapData->image[16]= al_load_bitmap("..\\Textures/Map/bonhommedroite.png");
+    pMapData->image[17]= al_load_bitmap("..\\Textures/Map/fumeegauche.png");
+    pMapData->image[18]= al_load_bitmap("..\\Textures/Map/fumeedroite.png");
+    pMapData->image[19]= al_load_bitmap("..\\Textures/Map/panneaumetal.png");
+    pMapData->image[20]= al_load_bitmap("..\\Textures/Map/teteville.png");
+    pMapData->image[21]= al_load_bitmap("..\\Textures/Map/ville1.png");
+    pMapData->image[22]= al_load_bitmap("..\\Textures/Map/ville2.png");
+    pMapData->image[23]= al_load_bitmap("..\\Textures/Map/ville3.png");
+    pMapData->image[24]= al_load_bitmap("..\\Textures/Map/ville4.png");
+    pMapData->image[25]= al_load_bitmap("..\\Textures/Map/testvaisseau.png");
+    pMapData->image[26]= al_load_bitmap("..\\Textures/Map/vaisseaubondroite.png");
+    pMapData->image[27]= al_load_bitmap("..\\Textures/Map/vaisseaubongauche.png");
+    pMapData->image[28]= al_load_bitmap("..\\Textures/Map/MAP1COLI.png");
+    pMapData->image[29]= al_load_bitmap("..\\Textures/Map/MAP2COLI.png");
+    pMapData->image[30]= al_load_bitmap("..\\Textures/Map/MAP3COLI.png");
+    pMapData->image[31]= al_load_bitmap("..\\Textures/Map/MAP4COLI.png");
+    pMapData->image[32]= al_load_bitmap("..\\Textures/Map/MAP5COLI.png");
+    pMapData->image[33]= al_load_bitmap("..\\Textures/Map/MAP6COLI.png");
+    pMapData->image[34]= al_load_bitmap("..\\Textures/Map/MAP7COLI.png");
+    pMapData->image[35]= al_load_bitmap("..\\Textures/Map/MAP8COLI.png");
+    pMapData->image[36]= al_load_bitmap("..\\Textures/Map/MAP9COLI.png");
+    pMapData->image[37]= al_load_bitmap("..\\Textures/Map/MAP10COLI.png");
+    pMapData->image[38]= al_load_bitmap("..\\Textures/Map/MAP11COLI.png");
+    pMapData->image[39]= al_load_bitmap("..\\Textures/Map/MAP12COLI.png");
 
     pMapData->pimages[0].x = 0;
     pMapData->pimages[0].y = -3240;
@@ -102,7 +102,7 @@ void Map_Create(PMAP _pMap)                               // ECHELLE = 1.25 POUR
     pMapData->c=0;
     pMapData->d=0;
 
-    pMapData->jeusuivant = TDR ;
+    pMapData->jeusuivant = SNAK ;
     pMapData->sensbonhommex = 0;
     pMapData->sensbonhommey = 0;
     pMapData->compteurfumme =0;
@@ -247,7 +247,8 @@ void affichageminimap(PMAP _pMap){
     al_draw_bitmap(pMapData->image[12],1300,650,0);
     if (pMapData->jeusuivant == PAC){
         if (pMapData->pimages[10].x-pMapData->x+348 >= 0 && pMapData->pimages[10].x-pMapData->x+348 <=1920 && pMapData->pimages[10].y-pMapData->y+40 <= 1080 && pMapData->pimages[10].y-pMapData->y+59 >= 0 && pMapData->bonhommey>pMapData->pimages[10].y-pMapData->y+752 && pMapData->bonhommey<pMapData->pimages[10].y+752-pMapData->y+59 && pMapData->bonhommex>pMapData->pimages[10].x+348-pMapData->x && pMapData->bonhommex<pMapData->pimages[10].x+348+40-pMapData->x) {
-            // QUAND ON RENTRE DANS LA MAISON
+            Map_Destroy(_pMap);
+            return ;
         }
         else {
             al_draw_bitmap(pMapData->image[14],1600,900,0);
@@ -259,8 +260,8 @@ void affichageminimap(PMAP _pMap){
     }
     if (pMapData->jeusuivant == TAB){
         if (pMapData->pimages[0].x-pMapData->x+1496 >= 0 && pMapData->pimages[0].x-pMapData->x+1496 <=1920 && pMapData->pimages[0].y-pMapData->y+100 <= 1080 && pMapData->pimages[0].y-pMapData->y+108 >= 0 && pMapData->bonhommey>pMapData->pimages[0].y-pMapData->y+392 && pMapData->bonhommey<pMapData->pimages[0].y+392-pMapData->y+108 && pMapData->bonhommex>pMapData->pimages[0].x+1496-pMapData->x && pMapData->bonhommex<pMapData->pimages[0].x+1496+100-pMapData->x) {
-            // QUAND ON RENTRE DANS LA MAISON
-
+            Map_Destroy(_pMap);
+            return ;
         }
         else {
             al_draw_bitmap(pMapData->image[14],1565,750,0);
@@ -272,7 +273,8 @@ void affichageminimap(PMAP _pMap){
     }
     if (pMapData->jeusuivant == SNAK){
         if (pMapData->pimages[8].x-pMapData->x+998 >= 0 && pMapData->pimages[8].x-pMapData->x+998 <=1920 && pMapData->pimages[8].y-pMapData->y+98 <= 1080 && pMapData->pimages[8].y-pMapData->y+90 >= 0 && pMapData->bonhommey>pMapData->pimages[8].y-pMapData->y+0 && pMapData->bonhommey<pMapData->pimages[8].y+0-pMapData->y+90 && pMapData->bonhommex>pMapData->pimages[8].x+998-pMapData->x && pMapData->bonhommex<pMapData->pimages[8].x+998+98-pMapData->x) {
-            // QUAND ON RENTRE DANS LA MAISON
+            Map_Destroy(_pMap);
+            return ;
         }
         else {
             al_draw_bitmap(pMapData->image[14],1735,822,0);
@@ -282,7 +284,8 @@ void affichageminimap(PMAP _pMap){
     }
     if (pMapData->jeusuivant == TDR){
         if (pMapData->bonhommex > pMapData->pimages[5].x-pMapData->x+233 && pMapData->bonhommex < pMapData->pimages[5].x-pMapData->x+233+50 && pMapData->bonhommey > pMapData->pimages[5].y-pMapData->y+682 && pMapData->bonhommey < pMapData->pimages[5].y-pMapData->y+682+61){
-            // QUAND ON RENTRE DANS LA MAISON
+            Map_Destroy(_pMap);
+            return ;
         }
         else {
             al_draw_bitmap(pMapData->image[14],1695,805,0);
@@ -504,6 +507,8 @@ void gestioncolision(PMAP _pMap,float x,float y,int indice){
 void Map_TimedUpdate(PMAP _pMap)
 {
     MapData* pMapData = _pMap->MapData;
+    ALLEGRO_DISPLAY* ecran=al_get_current_display();
+    al_hide_mouse_cursor(ecran);
     pMapData->x+=pMapData->speedhori*pMapData->deplacementhori;
     pMapData->y+=pMapData->speedverti*pMapData->deplacementverti;
     gestionbordure(_pMap);
@@ -531,15 +536,9 @@ void Map_TimedUpdate(PMAP _pMap)
 
 void Map_Destroy(PMAP _pMap)
 {
-    printf("Destruction du jeu...\n");
-
-    free(_pMap->MapData);
+    MapData* pMapData = _pMap->MapData;
+    *_pMap->pCurrentGameId = pMapData->jeusuivant;
     _pMap->MapData = NULL;
-
-    printf("Jeu detruit\n");
-
-    *_pMap->pCurrentGameId = GAME_NONE;
-
-    printf("Etat du jeu actuel mis a GAME_NONE");
+    free(_pMap->MapData);
 }
 

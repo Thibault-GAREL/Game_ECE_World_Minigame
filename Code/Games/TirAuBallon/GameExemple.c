@@ -1,81 +1,94 @@
 #include "GameExemple.h"
 
-void DarkPiano_Create(PGAME _pExemple)
+void Exemple_Create(PGAME _pExemple)                               // ECHELLE = 1.25 POUR LE MOMENT
 {
-    GameData* pGameData = malloc(sizeof (GameData));
-    pGameData->police[0]= al_load_ttf_font(PATH"\\police.ttf",150,0);
-    pGameData->police[1]= al_load_ttf_font(PATH"\\police.ttf",100,0);
-    pGameData->police[2]= al_load_ttf_font(PATH"\\police.ttf",30,0);
-    pGameData->image[0]= al_load_bitmap(PATH"\\fondmenu.jpg");
-    pGameData->image[1]= al_load_bitmap(PATH"\\sabrelaser.png");
-    pGameData->image[2]= al_load_bitmap(PATH"\\boutonplay.png");
-    pGameData->image[3]= al_load_bitmap(PATH"\\batiment1.jpg");
-    pGameData->image[4]= al_load_bitmap(PATH"\\tete_strom.png");
-    pGameData->image[5]= al_load_bitmap(PATH"\\tete_yoda.png");
-    pGameData->image[6]= al_load_bitmap(PATH"\\tete_vador.png");
-    pGameData->image[7]= al_load_bitmap(PATH"\\armegauche.png");
-    pGameData->image[8]= al_load_bitmap(PATH"\\armedroite.png");
-    pGameData->image[9]= al_load_bitmap(PATH"\\vaisseau.png");
-    pGameData->image[10]= al_load_bitmap(PATH"\\vaisseaumenu.png");
-    pGameData->image[11]= al_load_bitmap(PATH"\\vaisseaumenu2.png");
-    pGameData->image[12]= al_load_bitmap(PATH"\\viseur.png");
-    pGameData->image[13]= al_load_bitmap(PATH"\\horloge.png");
-    pGameData->image[14]= al_load_bitmap(PATH"\\ballonscore.png");
-    pGameData->image[15]= al_load_bitmap(PATH"\\fondtatawin.jpg");
-    pGameData->image[16]= al_load_bitmap(PATH"\\scorepartie.png");
-    pGameData->image[17]= al_load_bitmap(PATH"\\meilleurscore.png");
-    pGameData->image[18]= al_load_bitmap(PATH"\\ticket.png");
-    pGameData->image[19]= al_load_bitmap(PATH"\\chiffreun.png");
-    pGameData->image[20]= al_load_bitmap(PATH"\\chiffrezero.png");
-    pGameData->image[21]= al_load_bitmap(PATH"\\boutonscore.png");
-    pGameData->image[22]= al_load_bitmap(PATH"\\fondscore.jpg");
-    pGameData->image[23]= al_load_bitmap(PATH"\\croix.png");
+    TABGameData* pGameData = malloc(sizeof (TABGameData));
+    pGameData->police[0]= al_load_ttf_font("..\\Textures/Map/police.ttf",150,0);
+    pGameData->police[1]= al_load_ttf_font("..\\Textures/Map/police.ttf",100,0);
+    pGameData->police[2]= al_load_ttf_font("..\\Textures/Map/police.ttf",30,0);
+    pGameData->image[0]= al_load_bitmap("..\\Textures/Map/fondmenu.jpg");
+    pGameData->image[1]= al_load_bitmap("..\\Textures/Map/sabrelaser.png");
+    pGameData->image[2]= al_load_bitmap("..\\Textures/Map/boutonplay.png");
+    pGameData->image[3]= al_load_bitmap("..\\Textures/Map/batiment1.jpg");
+    pGameData->image[4]= al_load_bitmap("..\\Textures/Map/tete_strom.png");
+    pGameData->image[5]= al_load_bitmap("..\\Textures/Map/tete_yoda.png");
+    pGameData->image[6]= al_load_bitmap("..\\Textures/Map/tete_vador.png");
+    pGameData->image[7]= al_load_bitmap("..\\Textures/Map/armegauche.png");
+    pGameData->image[8]= al_load_bitmap("..\\Textures/Map/armedroite.png");
+    pGameData->image[9]= al_load_bitmap("..\\Textures/Map/vaisseau.png");
+    pGameData->image[10]= al_load_bitmap("..\\Textures/Map/vaisseaumenu.png");
+    pGameData->image[11]= al_load_bitmap("..\\Textures/Map/vaisseaumenu2.png");
+    pGameData->image[12]= al_load_bitmap("..\\Textures/Map/viseur.png");
+    pGameData->image[13]= al_load_bitmap("..\\Textures/Map/horloge.png");
+    pGameData->image[14]= al_load_bitmap("..\\Textures/Map/ballonscore.png");
+    pGameData->image[15]= al_load_bitmap("..\\Textures/Map/fondtatawin.jpg");
+    pGameData->image[16]= al_load_bitmap("..\\Textures/Map/scorepartie.png");
+    pGameData->image[17]= al_load_bitmap("..\\Textures/Map/meilleurscore.png");
+    pGameData->image[18]= al_load_bitmap("..\\Textures/Map/ticket.png");
+    pGameData->image[19]= al_load_bitmap("..\\Textures/Map/chiffreun.png");
+    pGameData->image[20]= al_load_bitmap("..\\Textures/Map/chiffrezero.png");
+    pGameData->image[21]= al_load_bitmap("..\\Textures/Map/boutonscore.png");
+    pGameData->image[22]= al_load_bitmap("..\\Textures/Map/fondscore.jpg");
+    pGameData->image[23]= al_load_bitmap("..\\Textures/Map/croix.png");
+    pGameData->image[24]= al_load_bitmap("..\\Textures/Map/hit1.png");
+    pGameData->image[25]= al_load_bitmap("..\\Textures/Map/hit2.png");
+    pGameData->image[26]= al_load_bitmap("..\\Textures/Map/hit3.png");
+    pGameData->image[27]= al_load_bitmap("..\\Textures/Map/hit4.png");
+    pGameData->image[28]= al_load_bitmap("..\\Textures/Map/hit5.png");
+    pGameData->image[29]= al_load_bitmap("..\\Textures/Map/hit6.png");
+    pGameData->image[30]= al_load_bitmap("..\\Textures/Map/hit7.png");
+    pGameData->image[31]= al_load_bitmap("..\\Textures/Map/hit8.png");
+    pGameData->image[32]= al_load_bitmap("..\\Textures/Map/hit9.png");
+    pGameData->image[33]= al_load_bitmap("..\\Textures/Map/hit10.png");
+    pGameData->image[34]= al_load_bitmap("..\\Textures/Map/hit11.png");
+    pGameData->image[35]= al_load_bitmap("..\\Textures/Map/hit12.png");
+    pGameData->image[36]= al_load_bitmap("..\\Textures/Map/hit13.png");
+    pGameData->image[37]= al_load_bitmap("..\\Textures/Map/hit14.png");
+    pGameData->image[38]= al_load_bitmap("..\\Textures/Map/hit15.png");
+    pGameData->image[39]= al_load_bitmap("..\\Textures/Map/hit16.png");
+    pGameData->image[40]= al_load_bitmap("..\\Textures/Map/hit17.png");
+    pGameData->image[41]= al_load_bitmap("..\\Textures/Map/hit18.png");
 
-    pGameData->image[24]= al_load_bitmap(PATH"\\hit1.png");
-    pGameData->image[25]= al_load_bitmap(PATH"\\hit2.png");
-    pGameData->image[26]= al_load_bitmap(PATH"\\hit3.png");
-    pGameData->image[27]= al_load_bitmap(PATH"\\hit4.png");
-    pGameData->image[28]= al_load_bitmap(PATH"\\hit5.png");
-    pGameData->image[29]= al_load_bitmap(PATH"\\hit6.png");
-    pGameData->image[30]= al_load_bitmap(PATH"\\hit7.png");
-    pGameData->image[31]= al_load_bitmap(PATH"\\hit8.png");
-    pGameData->image[32]= al_load_bitmap(PATH"\\hit9.png");
-    pGameData->image[33]= al_load_bitmap(PATH"\\hit10.png");
-    pGameData->image[34]= al_load_bitmap(PATH"\\hit11.png");
-    pGameData->image[35]= al_load_bitmap(PATH"\\hit12.png");
-    pGameData->image[36]= al_load_bitmap(PATH"\\hit13.png");
-    pGameData->image[37]= al_load_bitmap(PATH"\\hit14.png");
-    pGameData->image[38]= al_load_bitmap(PATH"\\hit15.png");
-    pGameData->image[39]= al_load_bitmap(PATH"\\hit16.png");
-    pGameData->image[40]= al_load_bitmap(PATH"\\hit17.png");
-    pGameData->image[41]= al_load_bitmap(PATH"\\hit18.png");
-    pGameData->image[42]= al_load_bitmap(PATH"\\hit19.png");
-    pGameData->image[43]= al_load_bitmap(PATH"\\hit20.png");
-    pGameData->image[44]= al_load_bitmap(PATH"\\hit21.png");
-    pGameData->image[45]= al_load_bitmap(PATH"\\hit22.png");
-    pGameData->image[46]= al_load_bitmap(PATH"\\hit23.png");
-    pGameData->image[47]= al_load_bitmap(PATH"\\hit24.png");
-    pGameData->image[48]= al_load_bitmap(PATH"\\hit25.png");
-    pGameData->image[49]= al_load_bitmap(PATH"\\hit26.png");
-    pGameData->image[50]= al_load_bitmap(PATH"\\hit27.png");
-    pGameData->image[51]= al_load_bitmap(PATH"\\hit28.png");
-    pGameData->image[52]= al_load_bitmap(PATH"\\hit29.png");
-    pGameData->image[53]= al_load_bitmap(PATH"\\hit30.png");
-    pGameData->image[54]= al_load_bitmap(PATH"\\hit31.png");
-    pGameData->image[55]= al_load_bitmap(PATH"\\hit32.png");
-    pGameData->image[56]= al_load_bitmap(PATH"\\hit33.png");
-    pGameData->image[57]= al_load_bitmap(PATH"\\hit34.png");
-    pGameData->image[58]= al_load_bitmap(PATH"\\hit35.png");
-    pGameData->image[59]= al_load_bitmap(PATH"\\hit36.png");
-    pGameData->image[60]= al_load_bitmap(PATH"\\hit37.png");
-    pGameData->image[61]= al_load_bitmap(PATH"\\hit38.png");
-    pGameData->image[62]= al_load_bitmap(PATH"\\hit39.png");
-    pGameData->image[63]= al_load_bitmap(PATH"\\hit40.png");
-    pGameData->image[64]= al_load_bitmap(PATH"\\hit41.png");
-    pGameData->image[65]= al_load_bitmap(PATH"\\hit42.png");
-    pGameData->image[66]= al_load_bitmap(PATH"\\hit43.png");
-    pGameData->image[67]= al_load_bitmap(PATH"\\hit44.png");
-    pGameData->image[68]= al_load_bitmap(PATH"\\hit45.png");
+    pGameData->image[42]= al_load_bitmap("..\\Textures/Map/hit19.png");
+    pGameData->image[43]= al_load_bitmap("..\\Textures/Map/hit20.png");
+    pGameData->image[44]= al_load_bitmap("..\\Textures/Map/hit21.png");
+    pGameData->image[45]= al_load_bitmap("..\\Textures/Map/hit22.png");
+    pGameData->image[46]= al_load_bitmap("..\\Textures/Map/hit23.png");
+    pGameData->image[47]= al_load_bitmap("..\\Textures/Map/hit24.png");
+    pGameData->image[48]= al_load_bitmap("..\\Textures/Map/hit25.png");
+    pGameData->image[49]= al_load_bitmap("..\\Textures/Map/hit26.png");
+    pGameData->image[50]= al_load_bitmap("..\\Textures/Map/hit27.png");
+    pGameData->image[51]= al_load_bitmap("..\\Textures/Map/hit28.png");
+    pGameData->image[52]= al_load_bitmap("..\\Textures/Map/hit29.png");
+    pGameData->image[53]= al_load_bitmap("..\\Textures/Map/hit30.png");
+    pGameData->image[54]= al_load_bitmap("..\\Textures/Map/hit31.png");
+    pGameData->image[55]= al_load_bitmap("..\\Textures/Map/hit32.png");
+    pGameData->image[56]= al_load_bitmap("..\\Textures/Map/hit33.png");
+    pGameData->image[57]= al_load_bitmap("..\\Textures/Map/hit34.png");
+    pGameData->image[58]= al_load_bitmap("..\\Textures/Map/hit35.png");
+    pGameData->image[59]= al_load_bitmap("..\\Textures/Map/hit36.png");
+    pGameData->image[60]= al_load_bitmap("..\\Textures/Map/hit37.png");
+    pGameData->image[61]= al_load_bitmap("..\\Textures/Map/hit38.png");
+    pGameData->image[62]= al_load_bitmap("..\\Textures/Map/hit39.png");
+    pGameData->image[63]= al_load_bitmap("..\\Textures/Map/hit40.png");
+    pGameData->image[64]= al_load_bitmap("..\\Textures/Map/hit41.png");
+    pGameData->image[65]= al_load_bitmap("..\\Textures/Map/hit42.png");
+    pGameData->image[66]= al_load_bitmap("..\\Textures/Map/hit43.png");
+    pGameData->image[67]= al_load_bitmap("..\\Textures/Map/hit44.png");
+    pGameData->image[68]= al_load_bitmap("..\\Textures/Map/hit45.png");
+
+    for (int i=0;i<60;i++){
+        sprintf(pGameData->chiffre, "..\\Textures/Map/darkvador%d.png", i);
+        pGameData->danse[i]= al_load_bitmap(pGameData->chiffre);
+    }
+
+
+    pGameData->soninstance=NULL;
+    al_reserve_samples(5);
+    pGameData->sons[0]= al_load_sample("..\\Textures/Map/blaster.ogg");
+    pGameData->soninstance= al_create_sample_instance(pGameData->sons[0]);
+    al_set_sample_instance_playmode(pGameData->soninstance,ALLEGRO_PLAYMODE_ONCE);
+    al_attach_sample_instance_to_mixer(pGameData->soninstance,al_get_default_mixer());
 
     pGameData->gamemode = 0;
     pGameData->nbballon = 90;
@@ -104,6 +117,9 @@ void DarkPiano_Create(PGAME _pExemple)
     pGameData->compteurimage=24;
     pGameData->animation_x=-100;
     pGameData->animation_y=-100;
+
+    pGameData->compteurmusique=0;
+    pGameData->compteurmusique2=0;
     for (int i=0;i<pGameData->nbballon+1;i++){
         if (i%2 == 1){
             pGameData->pballon[i].vx=2;
@@ -131,12 +147,12 @@ void DarkPiano_Update(PGAME _pExemple)
         DarkPiano_Create(_pExemple);
     }
 
-    GameData* pGameData = _pExemple->gameData;
+    TABGameData* pGameData = _pExemple->gameData;
 
     if (_pExemple->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {
-        pGameData->mouse.x = _pExemple->pEvent->mouse.x*1.25;   // METTRE UNE ECHELLE APRES
-        pGameData->mouse.y = _pExemple->pEvent->mouse.y*1.25;
+        pGameData->mouse.x = _pExemple->pEvent->mouse.x*1.00;
+        pGameData->mouse.y = _pExemple->pEvent->mouse.y*1.00;
     }
     if ( _pExemple->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
     {
@@ -149,7 +165,7 @@ void DarkPiano_Update(PGAME _pExemple)
 }
 
 void assigner_pos_ballon(PGAME _pExemple){
-    GameData* pGameData = _pExemple->gameData;
+    TABGameData* pGameData = _pExemple->gameData;
     pGameData->compteurassignation++;
     srand(time(NULL));
     float posx=0;
@@ -241,14 +257,14 @@ void assigner_pos_ballon(PGAME _pExemple){
 
 
 void dessinerballon(PGAME _pExemple){
-    GameData* pGameData = _pExemple->gameData;
+    TABGameData* pGameData = _pExemple->gameData;
     for (int i=0;i<pGameData->nbballon+1;i++){
         al_draw_bitmap(pGameData->image[4+pGameData->pballon[i].numimg],pGameData->pballon[i].x,pGameData->pballon[i].y,0);
     }
 }
 
 void pointsdroite(float x1,float y1,float x2,float y2,int xpoint,int ypoint,PGAME _pExemple,int indice){
-    GameData* pGameData = _pExemple->gameData;
+    TABGameData* pGameData = _pExemple->gameData;
     if (indice==1){
         for (int i=x1;i<x2+1;i++){
             pGameData->pointsx1[i]=i;
@@ -278,7 +294,7 @@ void pointsdroite(float x1,float y1,float x2,float y2,int xpoint,int ypoint,PGAM
 
 
 void mouvementballon(PGAME _pExemple){
-    GameData* pGameData = _pExemple->gameData;
+    TABGameData* pGameData = _pExemple->gameData;
     pGameData->compteurdroite++;
     for (int i=0;i<pGameData->nbballon/3;i++) {
         for (int j = 580; j < 716; j++) {
@@ -357,13 +373,11 @@ void mouvementballon(PGAME _pExemple){
         pGameData->pballon[i].x+=pGameData->pballon[i].vx;
         pGameData->pballon[i].y+=pGameData->pballon[i].vy;
     }
-
-
 }
 
 
 void reset(PGAME _pExemple){
-    GameData* pGameData = _pExemple->gameData;
+    TABGameData* pGameData = _pExemple->gameData;
     pGameData->nbballon = 90;
     pGameData->compteurvaisseau=2000;
     pGameData->yvaiseeau = 400;
@@ -384,7 +398,7 @@ void reset(PGAME _pExemple){
 
 
 void traitementmeilleurscore(PGAME _pExemple){
-    GameData* pGameData = _pExemple->gameData;
+    TABGameData* pGameData = _pExemple->gameData;
     if (pGameData->pointJ1 >= pGameData->meilleurscore1){
         pGameData->meilleurscore3=pGameData->meilleurscore2;
         pGameData->meilleurscore2=pGameData->meilleurscore1;
@@ -412,7 +426,23 @@ void traitementmeilleurscore(PGAME _pExemple){
 }
 
 
-
+void danse(PGAME _pExemple){
+    TABGameData* pGameData = _pExemple->gameData;
+    if (pGameData->compteurmusique==0){
+        Allegro_play_Sample((_pExemple->SampleAlManager)->pSampleInstance->mj);
+        pGameData->compteurmusique+=1;
+    }
+    if (pGameData->compteurmusique<60){
+        al_draw_bitmap(pGameData->danse[pGameData->compteurmusique],1420,500,0);
+    }
+    if (pGameData->compteurmusique2 % 17 ==1){
+        pGameData->compteurmusique++;
+    }
+    pGameData->compteurmusique2++;
+    if (pGameData->compteurmusique>=59){
+        Allegro_Stop_Sample((_pExemple->SampleAlManager)->pSampleInstance->mj);
+    }
+}
 
 void DarkPiano_TimedUpdate(PGAME _pExemple)
 {
@@ -423,9 +453,9 @@ void DarkPiano_TimedUpdate(PGAME _pExemple)
     char deuxpoint[] = " : ";
     char tour[] = "turn";
 
-    GameData* pGameData = _pExemple->gameData;
+    TABGameData* pGameData = _pExemple->gameData;
     if (pGameData->gamemode==0){
-        ALLEGRO_DISPLAY * ecran=();
+        ALLEGRO_DISPLAY * ecran=al_get_current_display();
         al_show_mouse_cursor(ecran);
         al_draw_bitmap(pGameData->image[0],0,0,0);
         al_draw_bitmap(pGameData->image[10],pGameData->vaisseaumenu1x,pGameData->vaisseaumenu1y,0);
@@ -460,6 +490,9 @@ void DarkPiano_TimedUpdate(PGAME _pExemple)
         al_draw_bitmap(pGameData->image[3],0,0,0);
         ALLEGRO_DISPLAY*ecran= al_get_current_display();
         al_hide_mouse_cursor(ecran);
+        if (pGameData->click==1){
+            al_play_sample_instance(pGameData->soninstance);
+        }
         if (pGameData->compteurvaisseau > 320 && pGameData->compteurvaisseau+80 < 1720){
             if((pGameData->compteurvaisseau > 1280 || pGameData->compteurvaisseau+80 < 1220) && (pGameData->compteurvaisseau > 780 || pGameData->compteurvaisseau+80 < 700)){
                 al_draw_bitmap(pGameData->image[9],pGameData->compteurvaisseau,pGameData->yvaiseeau,0);
@@ -559,6 +592,7 @@ void DarkPiano_TimedUpdate(PGAME _pExemple)
         al_draw_bitmap(pGameData->image[15],0,0,0);
         al_draw_bitmap(pGameData->image[21],350,900,0);
         al_draw_bitmap(pGameData->image[23],1800,0,0);
+        danse(_pExemple);
         if (Point_In_Rectangle(pGameData->mouse, (Vector2D){1800,0}, (Vector2D){1872,82}) == 1 && pGameData->click==1){
             pGameData->click=0;
             pGameData->gamemode=5;
@@ -568,14 +602,14 @@ void DarkPiano_TimedUpdate(PGAME _pExemple)
             pGameData->click=0;
         }
         FILE* fichier=NULL;
-        fichier= fopen(PATH"\\sauvegarde.txt","r");
+        fichier= fopen("..\\Textures/Map/sauvegarde.txt","r");
         fscanf(fichier,"%d\n%d\n%d\n",&pGameData->meilleurscore1,&pGameData->meilleurscore2,&pGameData->meilleurscore3);
         fclose(fichier);
         if (pGameData->compteursauvegarde==0){
             traitementmeilleurscore(_pExemple);
             pGameData->compteursauvegarde=1;
         }
-        fichier = fopen(PATH"\\sauvegarde.txt","w");
+        fichier = fopen("..\\Textures/Map/sauvegarde.txt","w");
         fprintf(fichier,"%d\n%d\n%d",pGameData->meilleurscore1,pGameData->meilleurscore2,pGameData->meilleurscore3);
         fclose(fichier);
         fichier=NULL;
@@ -649,20 +683,20 @@ void DarkPiano_TimedUpdate(PGAME _pExemple)
         }
     }
     if (pGameData->gamemode==5){
-        exit(0);
+        Exemple_Destroy(_pExemple);
+        return ;
     }
 }
-//////////////////////////////////////////////////   // ANIMATION BALLON DETRUIT
-void DarkPiano_Destroy(PGAME _pExemple)
+
+void Exemple_Destroy(PGAME _pExemple)
 {
     printf("Destruction du jeu...\n");
-
     free(_pExemple->gameData);
     _pExemple->gameData = NULL;
 
     printf("Jeu detruit\n");
 
-    *_pExemple->pCurrentGameId = GAME_NONE;
+    *_pExemple->pCurrentGameId = 6;
 
     printf("Etat du jeu actuel mis a GAME_NONE");
 }
