@@ -694,11 +694,6 @@ void TAB_Destroy(PGAME _pExemple)
     printf("Destruction du jeu...\n");
     free(_pExemple->gameData);
     _pExemple->gameData = NULL;
-
-    printf("Jeu detruit\n");
-
-    *_pExemple->pCurrentGameId = 6;
-
-    printf("Etat du jeu actuel mis a GAME_NONE");
+    *_pExemple->pCurrentGameId = GAME_MAP;
 }
 

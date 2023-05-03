@@ -101,7 +101,7 @@ void Map_Create(PGAME _pMap)                               // ECHELLE = 1.25 POU
     pMapData->c=0;
     pMapData->d=0;
 
-    pMapData->jeusuivant = GAME_DP ;
+    pMapData->jeusuivant = GAME_TAB ;
     pMapData->sensbonhommex = 0;
     pMapData->sensbonhommey = 0;
     pMapData->compteurfumme =0;
@@ -560,8 +560,9 @@ void Map_TimedUpdate(PGAME _pMap)
 void Map_Destroy(PGAME _pMap)
 {
     MapData* pMapData = _pMap->gameData;
-    *_pMap->pCurrentGameId = pMapData->jeusuivant;
-    _pMap->gameData = NULL;
+    int a = pMapData->jeusuivant;
     free(_pMap->gameData);
+    _pMap->gameData = NULL;
+    *_pMap->pCurrentGameId = a;
 }
 
