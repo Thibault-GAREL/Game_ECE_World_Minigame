@@ -485,8 +485,8 @@ void TAB_TimedUpdate(PGAME _pExemple)
             pGameData->click=0;
         }
     }
-    if (pGameData->gamemode==1){
-        int a=0;
+    if (pGameData->gamemode==1)
+    {
         al_draw_bitmap(pGameData->image[3],0,0,0);
         ALLEGRO_DISPLAY*ecran= al_get_current_display();
         al_hide_mouse_cursor(ecran);
