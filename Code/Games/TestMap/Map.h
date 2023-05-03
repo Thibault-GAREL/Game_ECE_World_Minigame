@@ -21,7 +21,7 @@ typedef struct _MAPDATA
 {
     Vector2D mouse;
     int click;
-    ALLEGRO_BITMAP* image[42];
+    ALLEGRO_BITMAP* image[45];
     Images* pimages;
     float x;
     float y;
