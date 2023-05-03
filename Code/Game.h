@@ -12,7 +12,8 @@ enum
     GAME_EXEMPLE = 1,
     GAME_SNAKE,
     GAME_TDLR,
-    GAME_PAC
+    GAME_PAC,
+    GAME_DP
 };
 
 typedef struct _PLAYER

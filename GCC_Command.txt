@@ -1,0 +1,1 @@
+gcc -g -Wall *.c .\Utils\*.c .\Games\Exemple\*.c .\Games\PecheAuCanards\*.c .\Games\Snake\*.c .\Games\Traverse_de_la_riviere\*.c .\Games\DarkPiano\*.c  -lallegro -lallegro_primitives -lallegro_image -lallegro_font -lallegro_ttf -lallegro_acodec -lallegro_audio -oExemple

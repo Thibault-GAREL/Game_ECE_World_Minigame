@@ -73,11 +73,11 @@ typedef struct _GAMEDATA
 
 
 
-void Exemple_Create(PGAME _pExemple);
-void Exemple_Update(PGAME _pExemple);
+void DarkPiano_Create(PGAME _pExemple);
+void DarkPiano_Update(PGAME _pExemple);
 void assigner_pos_ballon(PGAME _pExemple);
 void dessinerballon(PGAME _pExemple);
 void pointsdroite(float x1,float y1,float x2,float y2,int xpoint,int ypoint,PGAME _pExemple,int indice);
-void Exemple_TimedUpdate(PGAME _pExemple);
-void Exemple_Destroy(PGAME _pExemple);
+void DarkPiano_TimedUpdate(PGAME _pExemple);
+void DarkPiano_Destroy(PGAME _pExemple);
 

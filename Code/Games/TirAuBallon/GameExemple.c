@@ -1,6 +1,6 @@
 #include "GameExemple.h"
 
-void Exemple_Create(PGAME _pExemple)
+void DarkPiano_Create(PGAME _pExemple)
 {
     GameData* pGameData = malloc(sizeof (GameData));
     pGameData->police[0]= al_load_ttf_font(PATH"\\police.ttf",150,0);
@@ -124,11 +124,11 @@ void Exemple_Create(PGAME _pExemple)
     }
 }
 
-void Exemple_Update(PGAME _pExemple)
+void DarkPiano_Update(PGAME _pExemple)
 {
     if (!_pExemple->gameData)
     {
-        Exemple_Create(_pExemple);
+        DarkPiano_Create(_pExemple);
     }
 
     GameData* pGameData = _pExemple->gameData;
@@ -414,7 +414,7 @@ void traitementmeilleurscore(PGAME _pExemple){
 
 
 
-void Exemple_TimedUpdate(PGAME _pExemple)
+void DarkPiano_TimedUpdate(PGAME _pExemple)
 {
     char nomjeu[] = "Tir Au Jeday";
     char nomJ1[] = "Joueur 1";
@@ -653,7 +653,7 @@ void Exemple_TimedUpdate(PGAME _pExemple)
     }
 }
 //////////////////////////////////////////////////   // ANIMATION BALLON DETRUIT
-void Exemple_Destroy(PGAME _pExemple)
+void DarkPiano_Destroy(PGAME _pExemple)
 {
     printf("Destruction du jeu...\n");
 

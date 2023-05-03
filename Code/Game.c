@@ -61,6 +61,12 @@ void Games_TimedUpdate(PGAME* _pGames, int _gamesCount, int _currentGameId)
             continue;
         }
 
+        if (_pGames[i]->gameData == NULL)
+        {
+            printf("ERROR: Le pointeur vers les données du jeu est null ! \n");
+            return;
+        }
+
         _pGames[i]->Game_TimedUpdate(_pGames[i]);
 
         return;

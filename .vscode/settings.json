@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "ui.h": "c",
+        "magical.h": "c",
+        "allegroutils.h": "c"
+    }
+}

@@ -8,10 +8,10 @@
 #include "..\\..\\Utils\\UI.h"
 
 #define CLONE_ORIGINAL_SIZE 400
-#define CLONE_SIZE 40
+#define CLONE_SIZE 60
 
 #define FOOD_ORIGINAL_SIZE 600
-#define FOOD_SIZE 50
+#define FOOD_SIZE 70
 #define FOOD_COUNT_MAX 10
 #define FOOD_PROBA 100
 
@@ -52,7 +52,13 @@ typedef struct _SNAKE_DATA
     ALLEGRO_BITMAP* pFood1;
     int currentPlayer;
     int gameState;
-    ALLEGRO_FONT* pScoreFont;
+    ALLEGRO_FONT* pScoreFont50;
+    ALLEGRO_FONT* pScoreFont16;
+
+    ALLEGRO_BITMAP* DarkVadorHolo[7];
+    PANIMATION pDarkVador;
+
+    ALLEGRO_BITMAP* desert;
 }SNAKE_DATA, *PSNAKE_DATA;
 
 
@@ -72,3 +78,5 @@ void Food_CheckCollision(PGAME _pSnake);
 
 void Draw_UI(SNAKE_DATA _snakeData);
 void NextPlayer(PGAME _pSnake);
+
+void Load_DarkVadorHolo(ALLEGRO_BITMAP* DarkVadorHolo[7]);
