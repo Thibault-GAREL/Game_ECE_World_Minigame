@@ -41,8 +41,8 @@ int main()
     pGames[4] = Game_Init(GAME_DP,DarkPiano_Update, DarkPiano_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
     pMaps[0] = Map_Init(MAP_EXEMPLE, Map_Update, Map_TimedUpdate, &currentGameId, &event);
 
+    pGames[2]->SampleAlManager = pAlManager;
     pGames[3]->SampleAlManager = pAlManager;
-    pGames[4]->SampleAlManager = pAlManager;
 
     while (1)
     {
