@@ -8,8 +8,7 @@
 
 enum
 {
-    GAME_NONE = 0,
-    GAME_EXEMPLE = 1,
+    GAME_NONE = -1,
     GAME_SNAKE,
     GAME_TDLR,
     GAME_PAC,
