@@ -302,6 +302,10 @@ void Draw_UI(SNAKE_DATA _snakeData)
     Animation_Draw(_snakeData.pDarkVador);
 }
 
+/*void Update_UI(PGAME _pSnake)
+{
+    PSNAKE_DATA pSnakeData = (PSNAKE_DATA)_pSnake->gameData;
+}*/
 
 void NextPlayer(PGAME _pSnake)
 {

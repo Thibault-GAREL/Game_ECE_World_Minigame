@@ -140,7 +140,7 @@ void Exemple_Create(PGAME _pExemple)                               // ECHELLE = 
     }
 }
 
-void DarkPiano_Update(PGAME _pExemple)
+void Exemple_Update(PGAME _pExemple)
 {
     if (!_pExemple->gameData)
     {
@@ -444,7 +444,7 @@ void danse(PGAME _pExemple){
     }
 }
 
-void DarkPiano_TimedUpdate(PGAME _pExemple)
+void Exemple_TimedUpdate(PGAME _pExemple)
 {
     char nomjeu[] = "Tir Au Jeday";
     char nomJ1[] = "Joueur 1";

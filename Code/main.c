@@ -34,22 +34,20 @@ int main()
     PPLAYER players;
     Players_Init(&players, PLAYER_COUNT);
 
-    int gamesCount = 6;
+    int gamesCount = 5;
     PGAME pGames[gamesCount];
     PMAP pMaps[1];
-    pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pGames[1] = Game_Init(GAME_SNAKE, SnakeGame_Update, SnakeGame_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pGames[2] = Game_Init(GAME_TDLR, TDLR_Update, TDLR_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pGames[3] = Game_Init(GAME_PAC,PAC_Update, PAC_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    //pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[0] = Game_Init(GAME_SNAKE, SnakeGame_Update, SnakeGame_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[1] = Game_Init(GAME_TDLR, TDLR_Update, TDLR_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[2] = Game_Init(GAME_PAC,PAC_Update, PAC_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[3] = Game_Init(GAME_TAB,Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
     pGames[4] = Game_Init(GAME_DP,DarkPiano_Update, DarkPiano_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pGames[4] = Game_Init(GAME_TAB,Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
     pMaps[0] = Map_Init(MAP_EXEMPLE, Map_Update, Map_TimedUpdate, &currentGameId, &event);
 
     pGames[3]->SampleAlManager = pAlManager;
     pGames[4]->SampleAlManager = pAlManager;
 
-    int mouseX = 0;
-    int mouseY = 0;
     while (1)
     {
         al_wait_for_event(pAlManager->pEventQueue, &event);
@@ -66,16 +64,8 @@ int main()
             Maps_Update(pMaps , 1 , currentGameId);
         }
 
-        if (event.mouse.type == ALLEGRO_EVENT_MOUSE_AXES)
-        {
-            mouseX = event.mouse.x;
-            mouseY = event.mouse.y;
-            continue;
-        }
-
         if (event.mouse.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
         {
-            //printf("[%d] mouseX=%d, mouseY=%d\n", event.mouse.button, mouseX, mouseY);
             continue;
         }
 
@@ -96,6 +86,7 @@ int main()
             if(Get_Touch(&event, ALLEGRO_KEY_P, 0,1,0,0))
             {
                 currentGameId = GAME_DP;
+            }
             if(Get_Touch(&event, ALLEGRO_KEY_F, 0,1,0,0))
             {
                 currentGameId = GAME_TAB;
@@ -106,14 +97,21 @@ int main()
             }
         }
         
-        if (event.type == ALLEGRO_EVENT_TIMER) {
+        if (event.type == ALLEGRO_EVENT_TIMER) 
+        {
             al_clear_to_color(al_map_rgb(255, 255, 255));
-            if (currentGameId == 6) {
+
+            if (currentGameId == 6) 
+            {
                 Maps_TimedUpdate(pMaps, 1, currentGameId);
-            } else {
+            } 
+            else 
+            {
                 Games_TimedUpdate(pGames, gamesCount, currentGameId);
             }
+
             al_flip_display();
+
             continue;
         }
     }

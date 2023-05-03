@@ -77,6 +77,7 @@ void Food_Generation(PGAME _pSnake);
 void Food_CheckCollision(PGAME _pSnake);
 
 void Draw_UI(SNAKE_DATA _snakeData);
+void Update_UI(PGAME _pSnake);
 void NextPlayer(PGAME _pSnake);
 
 void Load_DarkVadorHolo(ALLEGRO_BITMAP* DarkVadorHolo[7]);

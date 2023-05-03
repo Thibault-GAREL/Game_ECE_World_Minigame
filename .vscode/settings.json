@@ -2,6 +2,8 @@
     "files.associations": {
         "ui.h": "c",
         "magical.h": "c",
-        "allegroutils.h": "c"
+        "allegroutils.h": "c",
+        "traverse_code.h": "c",
+        "gameexemple.h": "c"
     }
 }

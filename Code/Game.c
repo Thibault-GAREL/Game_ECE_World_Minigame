@@ -15,7 +15,7 @@ PGAME Game_Init(int _gameId, void (*_Game_Update)(PGAME), void (*_Game_TimedUpda
     pGame->pPlayers = _pPlayers;
 
     return pGame;
-}
+} 
 
 void Games_Update(PGAME* _pGames, int _gamesCount, int _currentGameId)
 {
@@ -35,7 +35,7 @@ void Games_Update(PGAME* _pGames, int _gamesCount, int _currentGameId)
         {
             continue;
         }
-
+        
         _pGames[i]->Game_Update(_pGames[i]);
 
         return;
