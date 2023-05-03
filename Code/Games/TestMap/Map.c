@@ -538,8 +538,37 @@ void tableaudescore(PGAME _pMap){
     //al_draw_text(pMapData->police[0], al_map_rgb(0,0,0),600,600,0,pMapData->ticketJ2);
 
     if (_pMap->pPlayers[0]->tickets == 5){
-        al_draw_bitmap(pMapData->image[47],500,500,0);
+        al_draw_bitmap(pMapData->image[47],1000,460,0);
     }
+    if (_pMap->pPlayers[0]->tickets == 4){
+        al_draw_bitmap(pMapData->image[46],1000,460,0);
+    }
+    if (_pMap->pPlayers[0]->tickets == 3){
+        al_draw_bitmap(pMapData->image[45],1000,460,0);
+    }
+    if (_pMap->pPlayers[0]->tickets == 2){
+        al_draw_bitmap(pMapData->image[44],1000,460,0);
+    }
+    if (_pMap->pPlayers[0]->tickets == 1){
+        al_draw_bitmap(pMapData->image[43],1000,460,0);
+    }
+
+    /*
+    if (_pMap->pPlayers[1]->tickets == 5){
+        al_draw_bitmap(pMapData->image[47],1000,530,0);
+    }
+    if (_pMap->pPlayers[1]->tickets == 4){
+        al_draw_bitmap(pMapData->image[46],1000,530,0);
+    }
+    if (_pMap->pPlayers[1]->tickets == 3){
+        al_draw_bitmap(pMapData->image[45],1000,530,0);
+    }
+    if (_pMap->pPlayers[1]->tickets == 2){
+        al_draw_bitmap(pMapData->image[44],1000,530,0);
+    }
+    if (_pMap->pPlayers[1]->tickets == 1){
+        al_draw_bitmap(pMapData->image[43],1000,530,0);
+    }*/
 }
 
 void Map_TimedUpdate(PGAME _pMap)
