@@ -13,7 +13,7 @@ enum
     GAME_TDLR,
     GAME_PAC,
     GAME_TAB,
-    GAME_DP
+    GAME_DP,
 };
 
 typedef struct _PLAYER

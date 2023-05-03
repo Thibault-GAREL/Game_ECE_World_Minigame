@@ -7,20 +7,16 @@
 #include "Utils/allegroutils.h"
 #include "Games/Traverse_de_la_riviere/Traverse_code.h"
 #include "Games/PecheAuCanards/PAC.h"
-#include "Games/DarkPiano/DarkPiano.h"
 #include "Games/TestMap/Map.h"
-#include "Menu/Menu.h"
+#include "Games/Exemple/GameExemple.h"
+#include "Games/DarkPiano/DarkPiano.h"
 
 #define PLAYER_COUNT 2
 #define MAP_EXEMPLE 6
-
 int main()
 {
     Allegro_Init();
     PALLEGRO_MANAGER pAlManager = AllegroManager_Create(1920, 1080, 0.01);
-
-    pAlManager->pMenu = Init_Game_Loading();
-
     ALLEGRO_EVENT event;
 
     //Allegro_play_Sample(pAlManager->pSampleInstance->walk);
@@ -30,7 +26,7 @@ int main()
     //ChangeCursor(pAlManager, pAlManager->pCursors->Cursor1);
 
     int currentGameId = GAME_NONE;
-    
+
     PPLAYER players;
     Players_Init(&players, PLAYER_COUNT);
 
@@ -41,7 +37,7 @@ int main()
     pGames[0] = Game_Init(GAME_SNAKE, SnakeGame_Update, SnakeGame_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
     pGames[1] = Game_Init(GAME_TDLR, TDLR_Update, TDLR_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
     pGames[2] = Game_Init(GAME_PAC,PAC_Update, PAC_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pGames[3] = Game_Init(GAME_TAB,Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[3] = Game_Init(GAME_TAB,TAB_Update, TAB_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
     pGames[4] = Game_Init(GAME_DP,DarkPiano_Update, DarkPiano_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
     pMaps[0] = Map_Init(MAP_EXEMPLE, Map_Update, Map_TimedUpdate, &currentGameId, &event);
 
@@ -96,7 +92,7 @@ int main()
                 currentGameId = MAP_EXEMPLE;
             }
         }
-        
+
         if (event.type == ALLEGRO_EVENT_TIMER) 
         {
             al_clear_to_color(al_map_rgb(255, 255, 255));
