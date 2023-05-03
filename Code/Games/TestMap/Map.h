@@ -21,7 +21,7 @@ typedef struct _MAPDATA
 {
     Vector2D mouse;
     int click;
-    ALLEGRO_BITMAP* image[42];
+    ALLEGRO_BITMAP* image[45];
     Images* pimages;
     float x;
     float y;
@@ -67,13 +67,13 @@ typedef struct _MAPDATA
 
 
 
-void Map_Create(PMAP _pMap);
-void Map_Update(PMAP _pMap);
-void gestionbordure(PMAP _pMap);
-void affichageminimap(PMAP _pMap);
-void affichagebonhomme(PMAP _pMap);
-void affichageville(PMAP _pMap);
-void gestionvaiseeau(PMAP _pMap);
-void gestioncolision(PMAP _pMap,float x,float y,int indice);
-void Map_TimedUpdate(PMAP _pMap);
-void Map_Destroy(PMAP _pMap);
+void Map_Create(PGAME _pMap);
+void Map_Update(PGAME _pMap);
+void gestionbordure(PGAME _pMap);
+void affichageminimap(PGAME _pMap);
+void affichagebonhomme(PGAME _pMap);
+void affichageville(PGAME _pMap);
+void gestionvaiseeau(PGAME _pMap);
+void gestioncolision(PGAME _pMap,float x,float y,int indice);
+void Map_TimedUpdate(PGAME _pMap);
+void Map_Destroy(PGAME _pMap);

@@ -8,6 +8,8 @@
 #include "Games/Traverse_de_la_riviere/Traverse_code.h"
 #include "Games/PecheAuCanards/PAC.h"
 #include "Games/TestMap/Map.h"
+#include "Games/Exemple/GameExemple.h"
+#include "Games/DarkPiano/DarkPiano.h"
 
 #define PLAYER_COUNT 2
 #define MAP_EXEMPLE 6
@@ -24,25 +26,22 @@ int main()
     //ChangeCursor(pAlManager, pAlManager->pCursors->Cursor1);
 
     int currentGameId = GAME_NONE;
-    
+
     PPLAYER players;
     Players_Init(&players, PLAYER_COUNT);
 
-    int gamesCount = 5;
+    int gamesCount = 6;
     PGAME pGames[gamesCount];
-    PMAP pMaps[1];
-    pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pGames[1] = Game_Init(GAME_SNAKE, SnakeGame_Update, SnakeGame_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pGames[2] = Game_Init(GAME_TDLR, TDLR_Update, TDLR_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pGames[3] = Game_Init(GAME_PAC,PAC_Update, PAC_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pGames[4] = Game_Init(GAME_TAB,Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pMaps[0] = Map_Init(MAP_EXEMPLE, Map_Update, Map_TimedUpdate, &currentGameId, &event);
+    //pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[0] = Game_Init(GAME_SNAKE, SnakeGame_Update, SnakeGame_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[1] = Game_Init(GAME_TDLR, TDLR_Update, TDLR_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[2] = Game_Init(GAME_PAC,PAC_Update, PAC_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[3] = Game_Init(GAME_TAB,TAB_Update, TAB_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[4] = Game_Init(GAME_DP,DarkPiano_Update, DarkPiano_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[5]= Game_Init(GAME_MAP,Map_Update,Map_TimedUpdate,&currentGameId,&event,PLAYER_COUNT,&players);
 
+    pGames[2]->SampleAlManager = pAlManager;
     pGames[3]->SampleAlManager = pAlManager;
-
-
-    int mouseX = 0;
-    int mouseY = 0;
 
     while (1)
     {
@@ -52,24 +51,10 @@ int main()
         {
             break;
         }
-
-        if (currentGameId!=6){
-            Games_Update(pGames, gamesCount, currentGameId);
-        }
-        else {
-            Maps_Update(pMaps , 1 , currentGameId);
-        }
-
-        if (event.mouse.type == ALLEGRO_EVENT_MOUSE_AXES)
-        {
-            mouseX = event.mouse.x;
-            mouseY = event.mouse.y;
-            continue;
-        }
+        Games_Update(pGames, gamesCount, currentGameId);
 
         if (event.mouse.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
         {
-            printf("[%d] mouseX=%d, mouseY=%d\n", event.mouse.button, mouseX, mouseY);
             continue;
         }
 
@@ -87,28 +72,31 @@ int main()
             {
                 currentGameId = GAME_PAC;
             }
+            if(Get_Touch(&event, ALLEGRO_KEY_P, 0,1,0,0))
+            {
+                currentGameId = GAME_DP;
+            }
             if(Get_Touch(&event, ALLEGRO_KEY_F, 0,1,0,0))
             {
                 currentGameId = GAME_TAB;
             }
             if (Get_Touch(&event, ALLEGRO_KEY_V, 0, 1, 0, 0))
             {
-                currentGameId = MAP_EXEMPLE;
+                currentGameId = GAME_MAP;
             }
         }
-        
-        if (event.type == ALLEGRO_EVENT_TIMER)
+
+        if (event.type == ALLEGRO_EVENT_TIMER) 
         {
-        	al_clear_to_color(al_map_rgb(255,255,255));
-            if (currentGameId==6){
-                Maps_TimedUpdate(pMaps , 1 , currentGameId);
-            }
-            else {
-                Games_TimedUpdate(pGames, gamesCount, currentGameId);
-            }
+            al_clear_to_color(al_map_rgb(255, 255, 255));
+
+            Games_TimedUpdate(pGames, gamesCount, currentGameId);
+
             al_flip_display();
+
             continue;
         }
+        printf("%d\n",currentGameId);
     }
 
     printf("Correctly quit");

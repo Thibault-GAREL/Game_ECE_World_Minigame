@@ -15,7 +15,7 @@ PGAME Game_Init(int _gameId, void (*_Game_Update)(PGAME), void (*_Game_TimedUpda
     pGame->pPlayers = _pPlayers;
 
     return pGame;
-}
+} 
 
 void Games_Update(PGAME* _pGames, int _gamesCount, int _currentGameId)
 {
@@ -35,7 +35,7 @@ void Games_Update(PGAME* _pGames, int _gamesCount, int _currentGameId)
         {
             continue;
         }
-
+        
         _pGames[i]->Game_Update(_pGames[i]);
 
         return;
@@ -60,11 +60,23 @@ void Games_TimedUpdate(PGAME* _pGames, int _gamesCount, int _currentGameId)
         {
             continue;
         }
+        if (_pGames[i]->gameData == NULL)
+        {
+            printf("ERROR: Le pointeur vers les données du jeu est null ! \n");
+            return;
+        }
+
+        if (_pGames[i]->gameData == NULL)
+        {
+            printf("ERROR: Le pointeur vers les données du jeu est null ! \n");
+            return;
+        }
 
         _pGames[i]->Game_TimedUpdate(_pGames[i]);
 
         return;
     }
+
 }
 
 void Players_Init(PPLAYER* _pPlayers, int _count)
@@ -78,66 +90,3 @@ void Players_Init(PPLAYER* _pPlayers, int _count)
     }
 }
 
-
-PMAP Map_Init(int _gameId, void (*_Map_Update)(PMAP), void (*_Map_TimedUpdate)(PMAP), int* _pCurrentGameId, ALLEGRO_EVENT* _pEvent){
-    PMAP pMap = malloc(sizeof(GAME));
-
-    pMap->gameId = _gameId;
-    pMap->MapData = NULL;
-    pMap->Map_Update = _Map_Update;
-    pMap->Map_TimedUpdate = _Map_TimedUpdate;
-
-    pMap->pCurrentGameId = _pCurrentGameId;
-    pMap->pEvent = _pEvent;
-
-    return pMap;
-}
-
-void Maps_Update(PMAP* _pMaps, int _mapsCount,int _currentGameId){
-    if (_currentGameId == GAME_NONE)
-    {
-        return;
-    }
-
-    for (int i = 0; i < _mapsCount; i++)
-    {
-        if (_pMaps[i]->gameId != _currentGameId)
-        {
-            continue;
-        }
-        //printf("Test\n");
-
-        if (_pMaps[i]->Map_Update == NULL)
-        {
-            continue;
-        }
-
-        _pMaps[i]->Map_Update(_pMaps[i]);
-
-        return;
-    }
-}
-
-void Maps_TimedUpdate(PMAP* _pMaps, int _mapsCount, int _currentGameId){
-    if (_currentGameId == GAME_NONE)
-    {
-        return;
-    }
-
-    for (int i = 0; i < _mapsCount; i++)
-    {
-        if (_pMaps[i]->gameId != _currentGameId)
-        {
-            continue;
-        }
-
-        if (_pMaps[i]->Map_TimedUpdate == NULL)
-        {
-            continue;
-        }
-
-        _pMaps[i]->Map_TimedUpdate(_pMaps[i]);
-
-        return;
-    }
-}

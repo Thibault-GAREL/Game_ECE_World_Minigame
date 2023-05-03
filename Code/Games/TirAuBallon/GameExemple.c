@@ -1,6 +1,6 @@
 #include "GameExemple.h"
 
-void Exemple_Create(PGAME _pExemple)                               // ECHELLE = 1.25 POUR LE MOMENT
+void TAB_Create(PGAME _pExemple)                               // ECHELLE = 1.25 POUR LE MOMENT
 {
     TABGameData* pGameData = malloc(sizeof (TABGameData));
     pGameData->police[0]= al_load_ttf_font("..\\Textures/Map/police.ttf",150,0);
@@ -77,6 +77,11 @@ void Exemple_Create(PGAME _pExemple)                               // ECHELLE = 
     pGameData->image[67]= al_load_bitmap("..\\Textures/Map/hit44.png");
     pGameData->image[68]= al_load_bitmap("..\\Textures/Map/hit45.png");
 
+    for (int i=0;i<60;i++){
+        sprintf(pGameData->chiffre, "..\\Textures/Map/darkvador%d.png", i);
+        pGameData->danse[i]= al_load_bitmap(pGameData->chiffre);
+    }
+
 
     pGameData->soninstance=NULL;
     al_reserve_samples(5);
@@ -112,6 +117,9 @@ void Exemple_Create(PGAME _pExemple)                               // ECHELLE = 
     pGameData->compteurimage=24;
     pGameData->animation_x=-100;
     pGameData->animation_y=-100;
+
+    pGameData->compteurmusique=0;
+    pGameData->compteurmusique2=0;
     for (int i=0;i<pGameData->nbballon+1;i++){
         if (i%2 == 1){
             pGameData->pballon[i].vx=2;
@@ -132,19 +140,19 @@ void Exemple_Create(PGAME _pExemple)                               // ECHELLE = 
     }
 }
 
-void Exemple_Update(PGAME _pExemple)
+void TAB_Update(PGAME _pExemple)
 {
     if (!_pExemple->gameData)
     {
-        Exemple_Create(_pExemple);
+        TAB_Create(_pExemple);
     }
 
     TABGameData* pGameData = _pExemple->gameData;
 
     if (_pExemple->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {
-        pGameData->mouse.x = _pExemple->pEvent->mouse.x*1.25;
-        pGameData->mouse.y = _pExemple->pEvent->mouse.y*1.25;
+        pGameData->mouse.x = _pExemple->pEvent->mouse.x*1.00;
+        pGameData->mouse.y = _pExemple->pEvent->mouse.y*1.00;
     }
     if ( _pExemple->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
     {
@@ -418,7 +426,25 @@ void traitementmeilleurscore(PGAME _pExemple){
 }
 
 
-void Exemple_TimedUpdate(PGAME _pExemple)
+void danse(PGAME _pExemple){
+    TABGameData* pGameData = _pExemple->gameData;
+    if (pGameData->compteurmusique==0){
+        Allegro_play_Sample((_pExemple->SampleAlManager)->pSampleInstance->mj);
+        pGameData->compteurmusique+=1;
+    }
+    if (pGameData->compteurmusique<60){
+        al_draw_bitmap(pGameData->danse[pGameData->compteurmusique],1420,500,0);
+    }
+    if (pGameData->compteurmusique2 % 17 ==1){
+        pGameData->compteurmusique++;
+    }
+    pGameData->compteurmusique2++;
+    if (pGameData->compteurmusique>=59){
+        Allegro_Stop_Sample((_pExemple->SampleAlManager)->pSampleInstance->mj);
+    }
+}
+
+void TAB_TimedUpdate(PGAME _pExemple)
 {
     char nomjeu[] = "Tir Au Jeday";
     char nomJ1[] = "Joueur 1";
@@ -432,7 +458,6 @@ void Exemple_TimedUpdate(PGAME _pExemple)
         ALLEGRO_DISPLAY * ecran=al_get_current_display();
         al_show_mouse_cursor(ecran);
         al_draw_bitmap(pGameData->image[0],0,0,0);
-        printf("pas derreur");
         al_draw_bitmap(pGameData->image[10],pGameData->vaisseaumenu1x,pGameData->vaisseaumenu1y,0);
         al_draw_bitmap(pGameData->image[11],pGameData->vaisseaumenu2x,pGameData->vaisseaumenu2y,0);
         al_draw_bitmap(pGameData->image[10],pGameData->vaisseaumenu3x,pGameData->vaisseaumenu3y,0);
@@ -460,11 +485,12 @@ void Exemple_TimedUpdate(PGAME _pExemple)
             pGameData->click=0;
         }
     }
-    if (pGameData->gamemode==1){
-        int a=0;
+    if (pGameData->gamemode==1)
+    {
         al_draw_bitmap(pGameData->image[3],0,0,0);
         ALLEGRO_DISPLAY*ecran= al_get_current_display();
         al_hide_mouse_cursor(ecran);
+        
         if (pGameData->click==1){
             al_play_sample_instance(pGameData->soninstance);
         }
@@ -567,6 +593,7 @@ void Exemple_TimedUpdate(PGAME _pExemple)
         al_draw_bitmap(pGameData->image[15],0,0,0);
         al_draw_bitmap(pGameData->image[21],350,900,0);
         al_draw_bitmap(pGameData->image[23],1800,0,0);
+        danse(_pExemple);
         if (Point_In_Rectangle(pGameData->mouse, (Vector2D){1800,0}, (Vector2D){1872,82}) == 1 && pGameData->click==1){
             pGameData->click=0;
             pGameData->gamemode=5;
@@ -657,21 +684,16 @@ void Exemple_TimedUpdate(PGAME _pExemple)
         }
     }
     if (pGameData->gamemode==5){
-        Exemple_Destroy(_pExemple);
-        exit(0);
+        TAB_Destroy(_pExemple);
+        return ;
     }
 }
 
-void Exemple_Destroy(PGAME _pExemple)
+void TAB_Destroy(PGAME _pExemple)
 {
     printf("Destruction du jeu...\n");
     free(_pExemple->gameData);
     _pExemple->gameData = NULL;
-
-    printf("Jeu detruit\n");
-
-    *_pExemple->pCurrentGameId = GAME_NONE;
-
-    printf("Etat du jeu actuel mis a GAME_NONE");
+    *_pExemple->pCurrentGameId = GAME_MAP;
 }
 

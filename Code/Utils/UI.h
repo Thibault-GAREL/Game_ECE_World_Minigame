@@ -38,7 +38,7 @@ typedef struct _PANEL
     int isEnable;
     /*
     PVECTOR2D_INT positionTarget;
-    char isPositionTargetEnabled;
+    char isPositionTargetEnable;
     */
 }PANEL, *PPANEL;
 

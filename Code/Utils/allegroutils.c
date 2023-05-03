@@ -80,6 +80,8 @@ PALLEGRO_GAME_SAMPLES_INSTANCE InitSample (ALLEGRO_GAME_SAMPLE* pSample){
     pSample_Instance->PACEasterEgg = al_create_sample_instance(pSample->PACEasterEgg);
     pSample_Instance->PACCredits = al_create_sample_instance(pSample->PACCredits);
 
+    pSample_Instance->mj= al_create_sample_instance(pSample->mj);
+
     pSample_Instance->walk = al_create_sample_instance(pSample->walk);
     //pSample_Instance->click = al_create_sample_instance(pSample->click);
     //pSample_Instance->shot = al_create_sample_instance(pSample->shot);
@@ -99,6 +101,8 @@ void SetSampleInstance(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance){
     al_set_sample_instance_playmode(pSampleInstance->PACCredits, ALLEGRO_PLAYMODE_LOOP);
 
     al_set_sample_instance_playmode(pSampleInstance->walk, ALLEGRO_PLAYMODE_ONCE);
+
+    al_set_sample_instance_playmode(pSampleInstance->mj,ALLEGRO_PLAYMODE_ONCE);
     //al_set_sample_instance_playmode(pSampleInstance->click, ALLEGRO_PLAYMODE_ONCE);
     //al_set_sample_instance_playmode(pSampleInstance->shot, ALLEGRO_PLAYMODE_ONCE);
     //al_set_sample_instance_playmode(pSampleInstance->duck, ALLEGRO_PLAYMODE_ONCE);
@@ -120,6 +124,8 @@ void SetSampleInstance(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance){
     //al_attach_sample_instance_to_mixer(pSampleInstance->car, al_get_default_mixer());
     //al_attach_sample_instance_to_mixer(pSampleInstance->snake, al_get_default_mixer());
     //al_attach_sample_instance_to_mixer(pSampleInstance->balloon, al_get_default_mixer());
+
+    al_attach_sample_instance_to_mixer(pSampleInstance->mj,al_get_default_mixer());
 }
 
 PALLEGRO_GAME_SAMPLE Allegro_Samples_Create(){
@@ -133,6 +139,8 @@ PALLEGRO_GAME_SAMPLE Allegro_Samples_Create(){
     pSample->PACCredits = al_load_sample("..\\Audio-Samples\\PAC\\Credits.ogg");
 
     pSample->walk = al_load_sample("..\\Audio-Samples\\Mario_sample.ogg");
+
+    pSample->mj = al_load_sample("..\\Audio-Samples\\MJSONG.ogg");
     //pSample->balloon = NULL;
 
     return pSample;
@@ -152,6 +160,8 @@ void Allegro_Samples_Destroy(PALLEGRO_GAME_SAMPLE _pAllegroSample){
     al_destroy_sample(_pAllegroSample->car);
     al_destroy_sample(_pAllegroSample->snake);
     al_destroy_sample(_pAllegroSample->balloon);
+
+    al_destroy_sample(_pAllegroSample->mj);
     free (_pAllegroSample);
 }
 
@@ -169,6 +179,8 @@ void Allegro_Samples_Instance_Destroy(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInst
     al_destroy_sample_instance(pSampleInstance->car);
     al_destroy_sample_instance(pSampleInstance->snake);
     al_destroy_sample_instance(pSampleInstance->balloon);
+
+    al_destroy_sample_instance(pSampleInstance->mj);
     free(pSampleInstance);
 }
 
