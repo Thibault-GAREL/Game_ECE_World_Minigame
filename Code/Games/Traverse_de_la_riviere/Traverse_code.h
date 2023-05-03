@@ -14,9 +14,9 @@
 #define CL_PATH ".."
 #define PATH CL_PATH
 #define Largeur 1920
-#define  X_player 910
+//#define  X_player 910
 #define Y_player 720
-#define LIFE 3000
+#define LIFE 300
 
 typedef struct Maillion {
     int numero;
@@ -37,9 +37,10 @@ typedef struct Obstacle
 
 
 typedef struct GameData {
-    ALLEGRO_BITMAP* image [8];
+    ALLEGRO_BITMAP* image [9];
     ALLEGRO_BITMAP* fond [9];
-    int fond_choisi [8];
+    int fond_choisi [1000];
+    float x_fond [1000];
     ALLEGRO_FONT* police[3];
     int Strat [1000];
     int compteur_strat;
@@ -58,10 +59,13 @@ typedef struct GameData {
     char* nom_player1;
     char* nom_player2;
 
+    int X_player;
+
     int player_en_cours;
 
     Vector2D mouse_position;
     int click;
+    int compteur_rectangle;
 }GameData;
 
 //void ajouterfinLSC (Maillion** p, int numero);
