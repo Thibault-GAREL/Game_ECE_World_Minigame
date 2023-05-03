@@ -33,6 +33,7 @@ void Games_Update(PGAME* _pGames, int _gamesCount, int _currentGameId)
 
         if (_pGames[i]->Game_Update == NULL)
         {
+            printf("ERROR: Le pointeur vers la fonction update du jeu est null ! \n");
             continue;
         }
         
@@ -58,14 +59,9 @@ void Games_TimedUpdate(PGAME* _pGames, int _gamesCount, int _currentGameId)
 
         if (_pGames[i]->Game_TimedUpdate == NULL)
         {
+            printf("ERROR: Le pointeur vers la fonction timedUpdate du jeu est null ! \n");
             continue;
         }
-        if (_pGames[i]->gameData == NULL)
-        {
-            printf("ERROR: Le pointeur vers les données du jeu est null ! \n");
-            return;
-        }
-
         if (_pGames[i]->gameData == NULL)
         {
             printf("ERROR: Le pointeur vers les données du jeu est null ! \n");
@@ -121,6 +117,7 @@ void Maps_Update(PMAP* _pMaps, int _mapsCount,int _currentGameId){
 
         if (_pMaps[i]->Map_Update == NULL)
         {
+            printf("ERROR: Le pointeur vers la fonction update du jeu est null ! \n");
             continue;
         }
 
@@ -146,6 +143,7 @@ void Maps_TimedUpdate(PMAP* _pMaps, int _mapsCount, int _currentGameId){
 
         if (_pMaps[i]->Map_TimedUpdate == NULL)
         {
+            printf("ERROR: Le pointeur vers la fonction timedUpdate du jeu est null ! \n");
             continue;
         }
         if (_pMaps[i]->MapData == NULL)

@@ -18,6 +18,9 @@ int main()
     Allegro_Init();
     PALLEGRO_MANAGER pAlManager = AllegroManager_Create(1920, 1080, 0.01);
     ALLEGRO_EVENT event;
+    
+    //pMenu_Animation pAnimation_for_Menu = Init_Game_Loading();
+
 
     //Allegro_play_Sample(pAlManager->pSampleInstance->walk);
 
@@ -34,15 +37,15 @@ int main()
     PGAME pGames[gamesCount];
     PMAP pMaps[1];
     //pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pGames[0] = Game_Init(GAME_SNAKE, SnakeGame_Update, SnakeGame_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pGames[1] = Game_Init(GAME_TDLR, TDLR_Update, TDLR_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pGames[2] = Game_Init(GAME_PAC,PAC_Update, PAC_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pGames[3] = Game_Init(GAME_TAB,TAB_Update, TAB_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
-    pGames[4] = Game_Init(GAME_DP,DarkPiano_Update, DarkPiano_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[GAME_SNAKE] = Game_Init(GAME_SNAKE, SnakeGame_Update, SnakeGame_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[GAME_TDLR] = Game_Init(GAME_TDLR, TDLR_Update, TDLR_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[GAME_PAC] = Game_Init(GAME_PAC, PAC_Update, PAC_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[GAME_TAB] = Game_Init(GAME_TAB, TAB_Update, TAB_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    pGames[GAME_DP] = Game_Init(GAME_DP, DarkPiano_Update, DarkPiano_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
     pMaps[0] = Map_Init(MAP_EXEMPLE, Map_Update, Map_TimedUpdate, &currentGameId, &event);
 
-    pGames[3]->SampleAlManager = pAlManager;
-    pGames[4]->SampleAlManager = pAlManager;
+    pGames[GAME_PAC]->SampleAlManager = pAlManager;
+    pGames[GAME_TAB]->SampleAlManager = pAlManager;
 
     while (1)
     {
