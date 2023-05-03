@@ -535,13 +535,14 @@ void Map_TimedUpdate(PMAP _pMap)
     }
     for (int i=0;i<pMapData->nbimages;i++){
         al_draw_bitmap(pMapData->image[i],pMapData->pimages[i].x-pMapData->x,pMapData->pimages[i].y-pMapData->y,0);
-        al_draw_rectangle(-10000,-10000,-10000,-10000, al_map_rgb(0,0,0),2);      // obligé de l'avoir pour faire afficher le bonhomme ????
+        al_draw_rectangle(-1000,-1000,-1000,-1000, al_map_rgb(0,0,0),2);      // obligé de l'avoir pour faire afficher le bonhomme ????
     }
     affichageminimap(_pMap);
     gestionvaisseau(_pMap);
     affichagebonhomme(_pMap);
     affichageville(_pMap);
-    if (pMapData->compteurcolision%6==1){
+    if (pMapData->compteurcolision%6==1)
+    {
         gestioncolision(_pMap,5,-45,0);
         gestioncolision(_pMap,-35,40,3);
     }
