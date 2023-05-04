@@ -105,7 +105,7 @@ void Map_Create(PGAME _pMap)                               // ECHELLE = 1.25 POU
     pMapData->c=0;
     pMapData->d=0;
 
-    pMapData->jeusuivant = GAME_TAB ;
+    pMapData->jeusuivant = GAME_PAC ;
     pMapData->sensbonhommex = 0;
     pMapData->sensbonhommey = 0;
     pMapData->compteurfumme =0;
@@ -255,8 +255,6 @@ void affichageminimap(PGAME _pMap){
     al_draw_bitmap(pMapData->image[12],1300,650,0);
     if (pMapData->jeusuivant == GAME_PAC){
         if (pMapData->pimages[10].x-pMapData->x+348 >= 0 && pMapData->pimages[10].x-pMapData->x+348 <=1920 && pMapData->pimages[10].y-pMapData->y+40 <= 1080 && pMapData->pimages[10].y-pMapData->y+59 >= 0 && pMapData->bonhommey>pMapData->pimages[10].y-pMapData->y+752 && pMapData->bonhommey<pMapData->pimages[10].y+752-pMapData->y+59 && pMapData->bonhommex>pMapData->pimages[10].x+348-pMapData->x && pMapData->bonhommex<pMapData->pimages[10].x+348+40-pMapData->x) {
-            Map_Destroy(_pMap);
-
             pMapData->compteurfin=1;
         }
         else {
@@ -269,8 +267,6 @@ void affichageminimap(PGAME _pMap){
     }
     if (pMapData->jeusuivant == GAME_TAB){
        if (pMapData->pimages[0].x-pMapData->x+1496 >= 0 && pMapData->pimages[0].x-pMapData->x+1496 <=1920 && pMapData->pimages[0].y-pMapData->y+100 <= 1080 && pMapData->pimages[0].y-pMapData->y+108 >= 0 && pMapData->bonhommey>pMapData->pimages[0].y-pMapData->y+392 && pMapData->bonhommey<pMapData->pimages[0].y+392-pMapData->y+108 && pMapData->bonhommex>pMapData->pimages[0].x+1496-pMapData->x && pMapData->bonhommex<pMapData->pimages[0].x+1496+100-pMapData->x) {
-           *_pMap->pCurrentGameId = pMapData->jeusuivant ;
-           Map_Destroy(_pMap);
             pMapData->compteurfin=1;
         }
        else {
@@ -283,7 +279,6 @@ void affichageminimap(PGAME _pMap){
     }
     if (pMapData->jeusuivant == GAME_SNAKE){
         if (pMapData->pimages[8].x-pMapData->x+998 >= 0 && pMapData->pimages[8].x-pMapData->x+998 <=1920 && pMapData->pimages[8].y-pMapData->y+98 <= 1080 && pMapData->pimages[8].y-pMapData->y+90 >= 0 && pMapData->bonhommey>pMapData->pimages[8].y-pMapData->y+0 && pMapData->bonhommey<pMapData->pimages[8].y+0-pMapData->y+90 && pMapData->bonhommex>pMapData->pimages[8].x+998-pMapData->x && pMapData->bonhommex<pMapData->pimages[8].x+998+98-pMapData->x) {
-            Map_Destroy(_pMap);
             pMapData->compteurfin=1;
         }
         else {
@@ -294,7 +289,6 @@ void affichageminimap(PGAME _pMap){
     }
     if (pMapData->jeusuivant == GAME_TDLR){
         if (pMapData->bonhommex > pMapData->pimages[5].x-pMapData->x+233 && pMapData->bonhommex < pMapData->pimages[5].x-pMapData->x+233+50 && pMapData->bonhommey > pMapData->pimages[5].y-pMapData->y+682 && pMapData->bonhommey < pMapData->pimages[5].y-pMapData->y+682+61){
-            Map_Destroy(_pMap);
             pMapData->compteurfin=1;
         }
         else {
@@ -305,7 +299,6 @@ void affichageminimap(PGAME _pMap){
     }
     if (pMapData->jeusuivant == GAME_DP){
         if (pMapData->bonhommex > pMapData->pimages[6].x-pMapData->x+873 && pMapData->bonhommex < pMapData->pimages[6].x-pMapData->x+927 && pMapData->bonhommey > pMapData->pimages[6].y-pMapData->y+618 && pMapData->bonhommey < pMapData->pimages[6].y-pMapData->y+690){
-            Map_Destroy(_pMap);
             pMapData->compteurfin=1;
         }
         else {
@@ -581,6 +574,11 @@ void Map_TimedUpdate(PGAME _pMap)
         al_draw_rectangle(-1000,-1000,-1000,-1000, al_map_rgb(0,0,0),2);      // obligé de l'avoir pour faire afficher le bonhomme ????
     }
     affichageminimap(_pMap);
+    if (pMapData->compteurfin == 1){
+        *_pMap->pCurrentGameId = pMapData->jeusuivant;
+        Map_Destroy(_pMap);
+        return ;
+    }
     gestionvaisseau(_pMap);
     affichagebonhomme(_pMap);
     affichageville(_pMap);
@@ -602,6 +600,11 @@ void Map_TimedUpdate(PGAME _pMap)
 
 void Map_Destroy(PGAME _pMap)
 {
+    MapData* pMapData = _pMap->gameData;
+    for (int i=0;i<48;i++){
+        al_destroy_bitmap(pMapData->image[i]);
+    }
+    al_destroy_font(pMapData->police[0]);
     free(_pMap->gameData);
     _pMap->gameData = NULL;
 }
