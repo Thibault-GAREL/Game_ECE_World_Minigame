@@ -91,9 +91,11 @@ void Players_Init(PPLAYER* _pPlayers, int _count)
 
 void Players_Destroy(PPLAYER* _pPlayers, int _count)
 {
+    printf("TestPP\n");
     for (int i = 0; i < _count; i++)
     {
         free(_pPlayers[i]);
     }
+    printf("TestPP2\n");
 }
 
