@@ -400,7 +400,7 @@ void PAC_Destroy(PGAME _pPAC)
 
     printf("Jeu detruit\n");
 
-    *_pPAC->pCurrentGameId = GAME_NONE;
+    *_pPAC->pCurrentGameId = GAME_MAP;
 
     printf("Etat du jeu actuel mis a GAME_NONE");
 }

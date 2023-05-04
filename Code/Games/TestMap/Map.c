@@ -643,7 +643,6 @@ void Map_TimedUpdate(PGAME _pMap)
             }
             pMapData->compteuranim2++;
             al_flip_display();
-            printf("%d\n",pMapData->compteuranim1);
         }
         *_pMap->pCurrentGameId = pMapData->jeusuivant;
         Map_Destroy(_pMap);
