@@ -106,7 +106,7 @@ void Map_Create(PGAME _pMap)                               // ECHELLE = 1.25 POU
     pMapData->c=0;
     pMapData->d=0;
 
-    pMapData->jeusuivant = GAME_PAC ;
+    pMapData->jeusuivant = GAME_TDLR ;
     pMapData->sensbonhommex = 0;
     pMapData->sensbonhommey = 0;
     pMapData->compteurfumme =0;
