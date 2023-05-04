@@ -108,7 +108,7 @@ int main()
     }
 
     AllegroManager_Destroy(pAlManager);
-    Players_Destroy(players);
+    Players_Destroy(players, PLAYER_COUNT);
     printf("Correctly quit");
     return 0;
 }

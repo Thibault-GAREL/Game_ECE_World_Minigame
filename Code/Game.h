@@ -45,5 +45,5 @@ void Games_Update(PGAME* _pGames, int _gamesCount,int _currentGameId);
 void Games_TimedUpdate(PGAME* _pGames, int _gamesCount, int _currentGameId);
 
 void Players_Init(PPLAYER* _pPlayers, int _count);
-void Players_Destroy(PPLAYER _pPlayers);
+void Players_Destroy(PPLAYER* _pPlayers, int _count);
 
