@@ -268,25 +268,18 @@ void affichageminimap(PGAME _pMap){
         }
     }
     if (pMapData->jeusuivant == GAME_TAB){
-        if (0==0) {
-            printf("condit1 \n");
-            Map_Destroy(_pMap);
-
-            return;
+       if (pMapData->pimages[0].x-pMapData->x+1496 >= 0 && pMapData->pimages[0].x-pMapData->x+1496 <=1920 && pMapData->pimages[0].y-pMapData->y+100 <= 1080 && pMapData->pimages[0].y-pMapData->y+108 >= 0 && pMapData->bonhommey>pMapData->pimages[0].y-pMapData->y+392 && pMapData->bonhommey<pMapData->pimages[0].y+392-pMapData->y+108 && pMapData->bonhommex>pMapData->pimages[0].x+1496-pMapData->x && pMapData->bonhommex<pMapData->pimages[0].x+1496+100-pMapData->x) {
+           *_pMap->pCurrentGameId = pMapData->jeusuivant ;
+           Map_Destroy(_pMap);
             pMapData->compteurfin=1;
         }
-        /*if (pMapData->pimages[0].x-pMapData->x+1496 >= 0 && pMapData->pimages[0].x-pMapData->x+1496 <=1920 && pMapData->pimages[0].y-pMapData->y+100 <= 1080 && pMapData->pimages[0].y-pMapData->y+108 >= 0 && pMapData->bonhommey>pMapData->pimages[0].y-pMapData->y+392 && pMapData->bonhommey<pMapData->pimages[0].y+392-pMapData->y+108 && pMapData->bonhommex>pMapData->pimages[0].x+1496-pMapData->x && pMapData->bonhommex<pMapData->pimages[0].x+1496+100-pMapData->x) {
-            Map_Destroy(_pMap);
-            return;
-            pMapData->compteurfin=1;
-        }*/
-        else {
-            al_draw_bitmap(pMapData->image[14],1565,750,0);
-            if (pMapData->y > -3240+350 ){
-                al_draw_rectangle(1535+(pMapData->x)/19,930+(pMapData->y)/20,1535+(pMapData->x)/19+2,780,al_map_rgb(0,255,228),2);
-            }
-            al_draw_rectangle(1573,782,1535+(pMapData->x)/19,784, al_map_rgb(0,255,228),2);
-        }
+       else {
+           al_draw_bitmap(pMapData->image[14],1565,750,0);
+           if (pMapData->y > -3240+350 ){
+               al_draw_rectangle(1535+(pMapData->x)/19,930+(pMapData->y)/20,1535+(pMapData->x)/19+2,780,al_map_rgb(0,255,228),2);
+           }
+           al_draw_rectangle(1573,782,1535+(pMapData->x)/19,784, al_map_rgb(0,255,228),2);
+       }
     }
     if (pMapData->jeusuivant == GAME_SNAKE){
         if (pMapData->pimages[8].x-pMapData->x+998 >= 0 && pMapData->pimages[8].x-pMapData->x+998 <=1920 && pMapData->pimages[8].y-pMapData->y+98 <= 1080 && pMapData->pimages[8].y-pMapData->y+90 >= 0 && pMapData->bonhommey>pMapData->pimages[8].y-pMapData->y+0 && pMapData->bonhommey<pMapData->pimages[8].y+0-pMapData->y+90 && pMapData->bonhommex>pMapData->pimages[8].x+998-pMapData->x && pMapData->bonhommex<pMapData->pimages[8].x+998+98-pMapData->x) {
@@ -614,13 +607,11 @@ void Map_TimedUpdate(PGAME _pMap)
 
 void Map_Destroy(PGAME _pMap)
 {
-    MapData* pMapData = _pMap->gameData;
     printf("condit 2");
     free(_pMap->gameData);
     printf("condit 2");
     _pMap->gameData = NULL;
     printf("condit 3");
-    *_pMap->pCurrentGameId = pMapData->jeusuivant ;
     printf("condit 4");
 }
 
