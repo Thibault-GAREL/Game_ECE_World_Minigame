@@ -16,7 +16,7 @@
 #define Largeur 1920
 //#define  X_player 910
 #define Y_player 720
-#define LIFE 300
+#define LIFE 100
 
 typedef struct Maillion {
     int numero;

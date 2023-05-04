@@ -330,12 +330,12 @@ void TDLR_Update(PGAME _pExemple)
 
     if (Get_Touch(_pExemple->pEvent, ALLEGRO_KEY_RIGHT, 0, 0, 0, 1) && pGameData->gamemode == 1){
         //printf("touche espace \n");
-        pGameData->X_player = pGameData->X_player + 20;
+        pGameData->X_player = pGameData->X_player + 15;
     }
 
     if (Get_Touch(_pExemple->pEvent, ALLEGRO_KEY_LEFT, 0, 0, 0, 1) && pGameData->gamemode == 1){
         //printf("touche espace \n");
-        pGameData->X_player = pGameData->X_player - 20;
+        pGameData->X_player = pGameData->X_player - 15;
     }
 
     if (_pExemple->pEvent->mouse.type == ALLEGRO_EVENT_MOUSE_AXES)
@@ -369,11 +369,13 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
         al_draw_text(pGameData->police[1], al_map_rgb(255, 255, 255),550,200,0,"de bataille");
 
         if (pGameData->player_en_cours == 1) {
-            al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),100,480,0,"C'est au tour du Player 1");  //mettre ensuite _pExemple->pPlayers[0]->name
+            al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),100,480,0,"C'est au tour de :");
+            //al_draw_text(pGameData->police [2], al_map_rgb(255, 255, 255), 100, 580, 0, _pExemple->pPlayers [0]->name);       //mettre ensuite _pExemple->pPlayers[0]->name
             //al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),1350,480,0,"Player 2"); //_pExemple->pPlayers[1]->name
         }
         if (pGameData->player_en_cours == 2) {
-            al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),100,480,0,"C'est au tour du Player 2");  //mettre ensuite _pExemple->pPlayers[0]->name
+            al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),100,480,0,"C'est au tour de");  //mettre ensuite _pExemple->pPlayers[0]->name
+            //al_draw_text(pGameData->police [2], al_map_rgb(255, 255, 255), 100, 580, 0, _pExemple->pPlayers [1]->name);
             //al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),1350,480,0,"Player 2"); //_pExemple->pPlayers[1]->name
         }
 
@@ -491,7 +493,7 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
             //printf("life : %d", pGameData->life);
             if (pGameData->life >= 0) {
                 al_draw_filled_rectangle(50, 50, pGameData->life + 50, 100, al_map_rgb(0, 200, 0));
-                al_draw_rectangle(50, 50, pGameData->life + 50, 100, al_map_rgb(0, 0, 0), 3);
+                al_draw_rectangle(50, 50, pGameData->life + 50, 100, al_map_rgb(255, 255, 255), 3);
                 al_draw_text(pGameData->police [2], al_map_rgb(255, 255, 255), 50, 100, 0, "Life");
             }
             pGameData->temps_restant = pGameData->temps_restant - 1;
@@ -508,7 +510,7 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
         al_draw_bitmap(pGameData->image [8], 0, 0, 0);
         al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),100,480,0,"Score du joueur 1 :");
         al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),1100,480,0,"Score du jouuer 2 :");
-        printf("1 : %d / 2 : %d \n", pGameData->score_player1, pGameData->score_player2);
+        //printf("1 : %d / 2 : %d \n", pGameData->score_player1, pGameData->score_player2);
         if (pGameData->compteur_rectangle <= pGameData->score_player1*2) {
             pGameData->compteur_rectangle ++;
         }
@@ -550,6 +552,32 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
 
         al_draw_text(pGameData->police [2], al_map_rgb(100, 0, 0), 100, 580, 0, pGameData->score_player1_txt);
         al_draw_text(pGameData->police [2], al_map_rgb(0, 0, 100), 1100, 580, 0, pGameData->score_player2_txt);
+        if (Point_In_Rectangle(pGameData->mouse_position, (Vector2D){816,800}, (Vector2D){1104,889}) == 1 && pGameData->click==1)
+        {
+            pGameData->gamemode=3;
+            pGameData->click=0;
+        }
+        //  tif (Point_In_Rectangle())
+        al_draw_bitmap(pGameData->image [7], 816, 800, 0);
+        al_draw_filled_rectangle(900, 850, 950, 900, al_map_rgb(0, 0, 200));
+        al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255), 925, 875, 0, "Suivant");
+    }
+    if (pGameData->gamemode == 3) {
+        Allegro_play_Sample((_pExemple->SampleAlManager)->pSampleInstance->TDLR_Fin);
+        al_draw_bitmap(pGameData->image [8], 0, 0, 0);
+        al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),100,100,0,"Le gagnant est :");
+        if (pGameData->score_player1 > pGameData->score_player2){
+            pGameData->gagnant = pGameData->score_player1;
+            //al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255), 910, 400, 0, _pExemple->pPlayers[0]->name);
+        }
+        else if (pGameData->score_player1 < pGameData->score_player2){
+            pGameData->gagnant = pGameData->score_player2;
+            //al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255), 910, 400, 0, _pExemple->pPlayers[1]->name);
+        }
+        else {
+            pGameData->gagnant = 0;
+            al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255), 910, 400, 0, "personne (vous avez eu le même score!)");
+        }
     }
 }
 
@@ -558,10 +586,16 @@ void TDLR_Destroy(PGAME _pExemple)
     printf("Destruction du jeu...\n");
 
     GameData* pGameData = (GameData*) _pExemple->gameData;
-    //liberation(&(pGameData->liste));
-
+    for (int i = 0; i < 9; ++i) {
+        al_destroy_bitmap(pGameData->image [i]);
+        al_destroy_bitmap(pGameData->fond [i]);
+    }
+    for (int i = 0; i < 3; ++i) {
+        al_destroy_font(pGameData->police [i]);
+    }
     free(_pExemple->gameData); //Pour chaque structure / allocation
     _pExemple->gameData = NULL;
+
 
                                                                                                                 //Ne pas oublier de destroy
 
