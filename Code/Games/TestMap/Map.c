@@ -529,13 +529,8 @@ void tableaudescore(PGAME _pMap){
     al_draw_bitmap(pMapData->image[41],900,410,0);
     al_draw_scaled_bitmap(pMapData->image[42],0,0,250,250,1140,490,80,80,0);
     al_draw_scaled_bitmap(pMapData->image[42],0,0,250,250,1140,560,80,80,0);
-    //al_draw_text(pMapData->police[0], al_map_rgb(0,0,0),200,200,0,_pMap->pPlayers[0]->name);
-    //al_draw_text(pMapData->police[0], al_map_rgb(0,0,0),300,300,0,_pMap->pPlayers[1]->name);
-    //sprintf(pMapData->ticketJ1,"%d",_pMap->pPlayers[0]->tickets);
-    //sprintf(pMapData->ticketJ2,"%d",_pMap->pPlayers[1]->tickets);
-    //al_draw_text(pMapData->police[0], al_map_rgb(0,0,0),500,500,0,pMapData->ticketJ1);
-    //al_draw_text(pMapData->police[0], al_map_rgb(0,0,0),600,600,0,pMapData->ticketJ2);
-
+    al_draw_text(pMapData->police[0], al_map_rgb(0,0,0),200,200,0,_pMap->pPlayers[0]->name);
+    al_draw_text(pMapData->police[0], al_map_rgb(0,0,0),300,300,0,_pMap->pPlayers[1]->name);
     if (_pMap->pPlayers[0]->tickets == 5){
         al_draw_bitmap(pMapData->image[47],1000,460,0);
     }
@@ -552,7 +547,7 @@ void tableaudescore(PGAME _pMap){
         al_draw_bitmap(pMapData->image[43],1000,460,0);
     }
 
-    /*
+
     if (_pMap->pPlayers[1]->tickets == 5){
         al_draw_bitmap(pMapData->image[47],1000,530,0);
     }
@@ -567,7 +562,7 @@ void tableaudescore(PGAME _pMap){
     }
     if (_pMap->pPlayers[1]->tickets == 1){
         al_draw_bitmap(pMapData->image[43],1000,530,0);
-    }*/
+    }
 }
 
 void Map_TimedUpdate(PGAME _pMap)
@@ -607,11 +602,7 @@ void Map_TimedUpdate(PGAME _pMap)
 
 void Map_Destroy(PGAME _pMap)
 {
-    printf("condit 2");
     free(_pMap->gameData);
-    printf("condit 2");
     _pMap->gameData = NULL;
-    printf("condit 3");
-    printf("condit 4");
 }
 
