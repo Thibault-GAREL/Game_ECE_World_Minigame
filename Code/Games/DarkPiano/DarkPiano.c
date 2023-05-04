@@ -122,7 +122,7 @@ void DarkPiano_Destroy(PGAME _pGame)
 
     _pGame->gameData = NULL;
 
-    *_pGame->pCurrentGameId = GAME_NONE;
+    *_pGame->pCurrentGameId = GAME_MAP;
 
     printf("DarkPiano correctly destroy\n");
 }
@@ -331,6 +331,21 @@ void GameStateChecker(PGAME _pGame)
     {
         if (++pDpData->playerCurrent >= _pGame->playersCount)
         {
+            if (pDpData->scoreP1 > pDpData->score)
+            {
+                _pGame->pPlayers[0]->tickets+=2;
+            }
+            else if (pDpData->scoreP1 < pDpData->score)
+            {
+                _pGame->pPlayers[1]->tickets+=2;
+            }
+            else
+            {
+                _pGame->pPlayers[0]->tickets+=1;
+                _pGame->pPlayers[1]->tickets+=1;
+            }
+            //printf("P0ticket=%d\n", _pGame->pPlayers[0]->tickets);
+            //printf("P1ticket=%d\n", _pGame->pPlayers[1]->tickets);
             DarkPiano_Destroy(_pGame);
             return;
         }
@@ -341,6 +356,8 @@ void GameStateChecker(PGAME _pGame)
             pDpData->corde[i] = 0;
         }
 
+        pDpData->scoreP1 = pDpData->score;
+        pDpData->score = 0;
         pDpData->speed = START_SPEED;
         pDpData->error = 0;
 
@@ -350,8 +367,8 @@ void GameStateChecker(PGAME _pGame)
         }
         
 
-        printf("Player = %d\n", pDpData->playerCurrent);
-        printf("ticket=%d\n", _pGame->pPlayers[pDpData->playerCurrent]->tickets);
+        //printf("Player = %d\n", pDpData->playerCurrent);
+        //printf("ticket=%d\n", _pGame->pPlayers[pDpData->playerCurrent]->tickets);
     }
     
 }

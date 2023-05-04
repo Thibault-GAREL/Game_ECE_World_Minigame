@@ -56,6 +56,7 @@ typedef struct _DP_DATA
     float speed;
     int error;
     int playerCurrent;
+    int scoreP1;
 }DP_DATA, *PDP_DATA;
 
 void DarkPiano_Create(PGAME _pExemple);

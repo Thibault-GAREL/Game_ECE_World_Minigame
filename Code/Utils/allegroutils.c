@@ -163,7 +163,8 @@ PALLEGRO_GAME_SAMPLE Allegro_Samples_Create(){
     return pSample;
 }
 
-void Allegro_Samples_Destroy(PALLEGRO_GAME_SAMPLE _pAllegroSample){
+void Allegro_Samples_Destroy(PALLEGRO_GAME_SAMPLE _pAllegroSample)
+{
     al_destroy_sample(_pAllegroSample->PACMenu);
     al_destroy_sample(_pAllegroSample->PACGame);
     al_destroy_sample(_pAllegroSample->PACEXplode);
@@ -174,13 +175,13 @@ void Allegro_Samples_Destroy(PALLEGRO_GAME_SAMPLE _pAllegroSample){
     al_destroy_sample(_pAllegroSample->TDLR_Degats);
     al_destroy_sample(_pAllegroSample->TDLR_Fin);
 
-    al_destroy_sample(_pAllegroSample->walk);
+    /*al_destroy_sample(_pAllegroSample->walk);
     al_destroy_sample(_pAllegroSample->click);
     al_destroy_sample(_pAllegroSample->shot);
     al_destroy_sample(_pAllegroSample->duck);
     al_destroy_sample(_pAllegroSample->car);
     al_destroy_sample(_pAllegroSample->snake);
-    al_destroy_sample(_pAllegroSample->balloon);
+    al_destroy_sample(_pAllegroSample->balloon);*/
 
     al_destroy_sample(_pAllegroSample->mj);
     free (_pAllegroSample);
@@ -197,13 +198,13 @@ void Allegro_Samples_Instance_Destroy(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInst
     al_destroy_sample_instance(pSampleInstance->TDLR_Degats);
     al_destroy_sample_instance(pSampleInstance->TDLR_Fin);
 
-    al_destroy_sample_instance(pSampleInstance->walk);
+    /*al_destroy_sample_instance(pSampleInstance->walk);
     al_destroy_sample_instance(pSampleInstance->click);
     al_destroy_sample_instance(pSampleInstance->shot);
     al_destroy_sample_instance(pSampleInstance->duck);
     al_destroy_sample_instance(pSampleInstance->car);
     al_destroy_sample_instance(pSampleInstance->snake);
-    al_destroy_sample_instance(pSampleInstance->balloon);
+    al_destroy_sample_instance(pSampleInstance->balloon);*/
 
     al_destroy_sample_instance(pSampleInstance->mj);
     free(pSampleInstance);
