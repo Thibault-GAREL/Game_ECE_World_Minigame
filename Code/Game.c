@@ -81,12 +81,11 @@ void Games_TimedUpdate(PGAME* _pGames, int _gamesCount, int _currentGameId)
 
 void Players_Init(PPLAYER* _pPlayers, int _count)
 {
-    (*_pPlayers) = malloc(_count* sizeof(PLAYER));
-
     for (int i = 0; i < _count; i++)
     {
-        (*_pPlayers)[i].name[0] = '\0';
-        (*_pPlayers)[i].tickets = TICKET_START;
+        _pPlayers[i] = calloc(1, sizeof(PLAYER));
+        _pPlayers[i]->name[0] = '\0';
+        _pPlayers[i]->tickets = TICKET_START;
     }
 }
 

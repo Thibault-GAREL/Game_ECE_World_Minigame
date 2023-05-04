@@ -30,8 +30,8 @@ int main()
 
     int currentGameId = GAME_NONE;
 
-    PPLAYER players;
-    Players_Init(&players, PLAYER_COUNT);
+    PPLAYER players[PLAYER_COUNT];
+    Players_Init(players, PLAYER_COUNT);
     printf("init des joueurs fait");
 
     int gamesCount = 6;
@@ -61,7 +61,7 @@ int main()
             break;
         }
         Games_Update(pGames, gamesCount, currentGameId);
-        printf("pas d'erreur 1 \n");
+
 
         if (event.mouse.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
         {
@@ -107,8 +107,8 @@ int main()
         }
     }
 
-    printf("Correctly quit");
     AllegroManager_Destroy(pAlManager);
     Players_Destroy(players);
+    printf("Correctly quit");
     return 0;
 }

@@ -4,6 +4,7 @@
         "magical.h": "c",
         "allegroutils.h": "c",
         "traverse_code.h": "c",
-        "gameexemple.h": "c"
+        "gameexemple.h": "c",
+        "typeinfo": "c"
     }
 }

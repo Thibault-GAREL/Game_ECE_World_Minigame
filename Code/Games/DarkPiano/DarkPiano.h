@@ -21,7 +21,7 @@
 #define FLECHE_OFFSET_X NOTE_OFFSET_X + 50
 
 #define START_SPEED 0.8f
-#define ACCELERATION 0.001f
+#define ACCELERATION 0.0005f
 #define MAX_SPEED 10
 
 #define ERROR_MAX 4
