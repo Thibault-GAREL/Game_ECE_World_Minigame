@@ -541,7 +541,7 @@ void tableaudescore(PGAME _pMap){
         al_draw_bitmap(pMapData->image[43],1000,460,0);
     }
     if (_pMap->pPlayers[0]->tickets == 0){
-        al_draw_bitmap(pMapData->image[48],1000,530,0);
+        al_draw_bitmap(pMapData->image[48],1000,500,0);
     }
 
 
@@ -561,7 +561,7 @@ void tableaudescore(PGAME _pMap){
         al_draw_bitmap(pMapData->image[43],1000,530,0);
     }
     if (_pMap->pPlayers[1]->tickets == 0){
-        al_draw_bitmap(pMapData->image[48],1000,530,0);
+        al_draw_bitmap(pMapData->image[48],1000,570,0);
     }
 }
 
