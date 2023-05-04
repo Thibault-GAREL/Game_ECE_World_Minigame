@@ -14,9 +14,9 @@
 #define CL_PATH ".."
 #define PATH CL_PATH
 #define Largeur 1920
-#define  X_player 910
+//#define  X_player 910
 #define Y_player 720
-#define LIFE 30
+#define LIFE 300
 
 typedef struct Maillion {
     int numero;
@@ -37,7 +37,10 @@ typedef struct Obstacle
 
 
 typedef struct GameData {
-    ALLEGRO_BITMAP* image [8];
+    ALLEGRO_BITMAP* image [9];
+    ALLEGRO_BITMAP* fond [9];
+    int fond_choisi [1000];
+    float x_fond [1000];
     ALLEGRO_FONT* police[3];
     int Strat [1000];
     int compteur_strat;
@@ -47,14 +50,22 @@ typedef struct GameData {
     int gamemode;
     int score_player1;
     int score_player2;
+    int score_player1_txt;
+    int score_player2_txt;
     int gagnant;
+    int temps_restant;
+    int timer;
+    char timer_txt [100];
     char* nom_player1;
     char* nom_player2;
+
+    int X_player;
 
     int player_en_cours;
 
     Vector2D mouse_position;
     int click;
+    int compteur_rectangle;
 }GameData;
 
 //void ajouterfinLSC (Maillion** p, int numero);
@@ -66,8 +77,10 @@ int inverse (int num, int pixel_avance);
 void generation_strat (PGAME _pExemple);
 void position_alleatoire (PGAME _pExemple);
 void affichage_strat (PGAME _pExemple, int numero);
+void affichage_fond (PGAME _pExemple, int numero);
 bool colision (PGAME _pExemple, int numero);
 void next_joueur (PGAME _pExemple);
+void nb_to_text (int score_player, char score_player_txt []);
 
 void TDLR_Create(PGAME _pExemple);
 void TDLR_Update(PGAME _pExemple);

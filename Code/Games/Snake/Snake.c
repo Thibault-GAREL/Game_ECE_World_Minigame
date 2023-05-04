@@ -24,7 +24,15 @@ void SnakeGame_Create(PGAME _pSnake)
     pSnakeData->pFood1 = al_load_bitmap("..\\Textures\\Snake\\food1.png");
     pSnakeData->currentPlayer = 0;
     pSnakeData->gameState = GAME_STATE_RUNNING;
-    pSnakeData->pScoreFont = al_load_font("..\\Textures\\Fonts\\police.TTF", 50, 0);
+    pSnakeData->pScoreFont50 = al_load_font("..\\Textures\\Fonts\\police.TTF", 50, 0);
+    pSnakeData->pScoreFont16 = al_load_font("..\\Textures\\Fonts\\police.TTF", 16, 0);
+
+    Load_DarkVadorHolo(pSnakeData->DarkVadorHolo);
+    pSnakeData->pDarkVador = Animation_Create((VECTOR2D_INT){20,910}, 30, 1, 7, pSnakeData->DarkVadorHolo);
+    Animation_Enable_ScaleFactor(pSnakeData->pDarkVador, (Vector2D){0.1f, 0.1f});
+    Animation_Enable_StartState(pSnakeData->pDarkVador, ANIMATION_STATE_STOP);
+
+    pSnakeData->desert = al_load_bitmap("..\\Textures\\Snake\\Desert.png");
 }
 
 void SnakeGame_Update(PGAME _pSnake)
@@ -85,6 +93,8 @@ void SnakeGame_TimedUpdate(PGAME _pSnake)
         pSnakeData->pSnake->step = 0;
     }
 
+    al_draw_bitmap(pSnakeData->desert, -100, -100, 0);
+
     Snake_Draw(pSnakeData->pSnake->pHead, pSnakeData->pSnake);
 
     for (int i = 0; i < pSnakeData->foodCount; i++)
@@ -116,14 +126,22 @@ void SnakeGame_TimedUpdate(PGAME _pSnake)
 void SnakeGame_Destroy(PGAME _pSnake)
 {
     PSNAKE_DATA pSnakeData = (PSNAKE_DATA)_pSnake->gameData;
+
     Snake_Destroy_AllParts(pSnakeData->pSnake->pHead);
     al_destroy_bitmap(pSnakeData->pSnake->pClone);
+
     free(pSnakeData->pSnake);
+    al_destroy_font(pSnakeData->pScoreFont50);
+    al_destroy_font(pSnakeData->pScoreFont16);
+    Animation_Destroy(pSnakeData->pDarkVador);
+    al_destroy_bitmap(pSnakeData->desert);
+    
     free(pSnakeData);
     
     _pSnake->gameData = NULL;
     *_pSnake->pCurrentGameId = GAME_NONE;
 }
+
 
 void Snake_Add_Part(PSNAKE_PART* _ppSnakePart, int* _pSize) 
 {
@@ -195,6 +213,7 @@ int Snake_EatSelf(PSNAKE_PART _pSnakePart, VECTOR2D_INT _headPosition)
     return Snake_EatSelf(_pSnakePart->previous, _headPosition);
 }
 
+
 void Food_Generation(PGAME _pSnake)
 {
     PSNAKE_DATA pSnakeData = (PSNAKE_DATA)_pSnake->gameData;
@@ -238,6 +257,7 @@ void Food_CheckCollision(PGAME _pSnake)
     }
 }
 
+
 void Draw_UI(SNAKE_DATA _snakeData)
 {
     int score = _snakeData.pSnake->size;
@@ -256,16 +276,36 @@ void Draw_UI(SNAKE_DATA _snakeData)
         scoreStr[i] = scoreDec[i] + zero;
     }
 
-    al_draw_text(_snakeData.pScoreFont, al_map_rgba(100, 100, 100, 254), 806, 106, 0, scoreStr);
-    al_draw_text(_snakeData.pScoreFont, al_map_rgb(150, 100, 100), 800, 100, 0, scoreStr);
-
+    al_draw_text(_snakeData.pScoreFont50, al_map_rgba(100, 100, 100, 254), 806, 106, 0, scoreStr);
+    al_draw_text(_snakeData.pScoreFont50, al_map_rgb(200, 110, 100), 800, 100, 0, scoreStr);
 
     char joueurNo[3] = "J0\0";
     joueurNo[1] += _snakeData.currentPlayer + 1;
 
-    al_draw_text(_snakeData.pScoreFont, al_map_rgba(100, 100, 100, 254), 106, 106, 0, joueurNo);
-    al_draw_text(_snakeData.pScoreFont, al_map_rgb(150, 100, 100), 100, 100, 0, joueurNo);
+    al_draw_text(_snakeData.pScoreFont50, al_map_rgba(100, 100, 100, 254), 106, 106, 0, joueurNo);
+    al_draw_text(_snakeData.pScoreFont50, al_map_rgb(200, 110, 100), 100, 100, 0, joueurNo);
+
+    int commentProgress0 = _snakeData.pDarkVador->currentStep < 56 ? _snakeData.pDarkVador->currentStep : 56;
+    char darkVadorComment0[] = "Enrolez le plus de clone que possible dans mon armée !";
+    darkVadorComment0[commentProgress0] = '\0';
+    
+    al_draw_text(_snakeData.pScoreFont16, al_map_rgb(200, 255, 255), 200, 960, 0, darkVadorComment0);
+    
+    int commentProgress1 = _snakeData.pDarkVador->currentStep > 56 ? _snakeData.pDarkVador->currentStep - 56 : 0;
+    commentProgress1 = commentProgress1 > 12 ? 12 : commentProgress1; 
+    char darkVadorComment1[] = "Plus vite !";
+    darkVadorComment1[commentProgress1] = '\0';
+    
+    al_draw_text(_snakeData.pScoreFont16, al_map_rgb(200, 255, 255), 200, 980, 0, darkVadorComment1);
+
+    Animation_Update_Step(_snakeData.pDarkVador);
+    Animation_Draw(_snakeData.pDarkVador);
 }
+
+/*void Update_UI(PGAME _pSnake)
+{
+    PSNAKE_DATA pSnakeData = (PSNAKE_DATA)_pSnake->gameData;
+}*/
 
 void NextPlayer(PGAME _pSnake)
 {
@@ -274,6 +314,7 @@ void NextPlayer(PGAME _pSnake)
     if (++pSnakeData->currentPlayer >= _pSnake->playersCount)
     {
         SnakeGame_Destroy(_pSnake);
+        return;
     }
     else
     {
@@ -286,5 +327,19 @@ void NextPlayer(PGAME _pSnake)
         Snake_Add_Part(&pSnakeData->pSnake->pHead, &pSnakeData->pSnake->size);
         pSnakeData->pSnake->pHead->position.x = 1920 / 2;
         pSnakeData->pSnake->pHead->position.y = 1080 / 2;
+
+        pSnakeData->pDarkVador->currentStep = ANIMATION_STATE_REPLAY;
     }
+}
+
+
+void Load_DarkVadorHolo(ALLEGRO_BITMAP* DarkVadorHolo[7])
+{
+    DarkVadorHolo[0] = al_load_bitmap("..\\Textures\\Snake\\DarkVadorAnimation\\DarkVadorHolographic0.png");
+    DarkVadorHolo[1] = al_load_bitmap("..\\Textures\\Snake\\DarkVadorAnimation\\DarkVadorHolographic1.png");
+    DarkVadorHolo[2] = al_load_bitmap("..\\Textures\\Snake\\DarkVadorAnimation\\DarkVadorHolographic2.png");
+    DarkVadorHolo[3] = al_load_bitmap("..\\Textures\\Snake\\DarkVadorAnimation\\DarkVadorHolographic3.png");
+    DarkVadorHolo[4] = al_load_bitmap("..\\Textures\\Snake\\DarkVadorAnimation\\DarkVadorHolographic4.png");
+    DarkVadorHolo[5] = al_load_bitmap("..\\Textures\\Snake\\DarkVadorAnimation\\DarkVadorHolographic5.png");
+    DarkVadorHolo[6] = al_load_bitmap("..\\Textures\\Snake\\DarkVadorAnimation\\DarkVadorHolographic6.png");
 }

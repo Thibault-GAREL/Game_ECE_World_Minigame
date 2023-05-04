@@ -1,6 +1,6 @@
 #include "GameExemple.h"
 
-void Exemple_Create(PGAME _pExemple)                               // ECHELLE = 1.25 POUR LE MOMENT
+void TAB_Create(PGAME _pExemple)                               // ECHELLE = 1.25 POUR LE MOMENT
 {
     TABGameData* pGameData = malloc(sizeof (TABGameData));
     pGameData->police[0]= al_load_ttf_font("..\\Textures/Map/police.ttf",150,0);
@@ -140,11 +140,11 @@ void Exemple_Create(PGAME _pExemple)                               // ECHELLE = 
     }
 }
 
-void Exemple_Update(PGAME _pExemple)
+void TAB_Update(PGAME _pExemple)
 {
     if (!_pExemple->gameData)
     {
-        Exemple_Create(_pExemple);
+        TAB_Create(_pExemple);
     }
 
     TABGameData* pGameData = _pExemple->gameData;
@@ -444,7 +444,7 @@ void danse(PGAME _pExemple){
     }
 }
 
-void Exemple_TimedUpdate(PGAME _pExemple)
+void TAB_TimedUpdate(PGAME _pExemple)
 {
     char nomjeu[] = "Tir Au Jeday";
     char nomJ1[] = "Joueur 1";
@@ -485,11 +485,12 @@ void Exemple_TimedUpdate(PGAME _pExemple)
             pGameData->click=0;
         }
     }
-    if (pGameData->gamemode==1){
-        int a=0;
+    if (pGameData->gamemode==1)
+    {
         al_draw_bitmap(pGameData->image[3],0,0,0);
         ALLEGRO_DISPLAY*ecran= al_get_current_display();
         al_hide_mouse_cursor(ecran);
+        
         if (pGameData->click==1){
             al_play_sample_instance(pGameData->soninstance);
         }
@@ -683,21 +684,16 @@ void Exemple_TimedUpdate(PGAME _pExemple)
         }
     }
     if (pGameData->gamemode==5){
-        Exemple_Destroy(_pExemple);
+        TAB_Destroy(_pExemple);
         return ;
     }
 }
 
-void Exemple_Destroy(PGAME _pExemple)
+void TAB_Destroy(PGAME _pExemple)
 {
     printf("Destruction du jeu...\n");
     free(_pExemple->gameData);
     _pExemple->gameData = NULL;
-
-    printf("Jeu detruit\n");
-
-    *_pExemple->pCurrentGameId = 6;
-
-    printf("Etat du jeu actuel mis a GAME_NONE");
+    *_pExemple->pCurrentGameId = GAME_MAP;
 }
 
