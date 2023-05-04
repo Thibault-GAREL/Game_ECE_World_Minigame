@@ -20,6 +20,8 @@ int main()
     PALLEGRO_MANAGER pAlManager = AllegroManager_Create(1920, 1080, 0.01);
     ALLEGRO_EVENT event;
 
+    printf("init du manager fait \n");
+
     //Allegro_play_Sample(pAlManager->pSampleInstance->walk);
 
     //Allegro_Stop_Sample(pAlManager->pSampleInstance->walk);
@@ -30,10 +32,12 @@ int main()
 
     PPLAYER players;
     Players_Init(&players, PLAYER_COUNT);
+    printf("init des joueurs fait");
 
     int gamesCount = 6;
     PGAME pGames[gamesCount];
     //pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
+    printf("tous les init sauf map faits \n");
     pGames[0] = Game_Init(GAME_SNAKE, SnakeGame_Update, SnakeGame_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
     pGames[1] = Game_Init(GAME_TDLR, TDLR_Update, TDLR_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
     pGames[2] = Game_Init(GAME_PAC,PAC_Update, PAC_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
@@ -41,9 +45,12 @@ int main()
     pGames[4] = Game_Init(GAME_DP,DarkPiano_Update, DarkPiano_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
     pGames[5]= Game_Init(GAME_MAP,Map_Update,Map_TimedUpdate,&currentGameId,&event,PLAYER_COUNT,&players);
 
+    printf("init sans erreur \n");
+
     pGames[1]->SampleAlManager = pAlManager;
     pGames[2]->SampleAlManager = pAlManager;
     pGames[3]->SampleAlManager = pAlManager;
+
 
     while (1)
     {
@@ -54,6 +61,7 @@ int main()
             break;
         }
         Games_Update(pGames, gamesCount, currentGameId);
+        printf("pas d'erreur 1 \n");
 
         if (event.mouse.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
         {
@@ -93,7 +101,6 @@ int main()
             al_clear_to_color(al_map_rgb(255, 255, 255));
 
             Games_TimedUpdate(pGames, gamesCount, currentGameId);
-
             al_flip_display();
 
             continue;
@@ -101,5 +108,7 @@ int main()
     }
 
     printf("Correctly quit");
+    AllegroManager_Destroy(pAlManager);
+    Players_Destroy(players);
     return 0;
 }

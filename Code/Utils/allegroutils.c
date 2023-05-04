@@ -68,6 +68,7 @@ void AllegroManager_Destroy(PALLEGRO_MANAGER _pAllegroManager)
     al_destroy_event_queue(_pAllegroManager->pEventQueue);
     Allegro_Samples_Instance_Destroy(_pAllegroManager->pSampleInstance);
     Allegro_Samples_Destroy(_pAllegroManager->pSample);
+    Destroy_cursors(_pAllegroManager->pCursors);
     free(_pAllegroManager);
 }
 
@@ -142,7 +143,7 @@ void SetSampleInstance(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance){
 
 PALLEGRO_GAME_SAMPLE Allegro_Samples_Create(){
     al_reserve_samples(Audio_Samples_Count);
-    PALLEGRO_GAME_SAMPLE pSample = malloc (sizeof (ALLEGRO_MANAGER));
+    PALLEGRO_GAME_SAMPLE pSample = malloc (sizeof (ALLEGRO_GAME_SAMPLE));
 
     pSample->PACMenu = al_load_sample("..\\Audio-Samples\\PAC\\Menu.ogg");
     pSample->PACGame = al_load_sample("..\\Audio-Samples\\PAC\\Game.ogg");
@@ -169,6 +170,10 @@ void Allegro_Samples_Destroy(PALLEGRO_GAME_SAMPLE _pAllegroSample){
     al_destroy_sample(_pAllegroSample->PACEasterEgg);
     al_destroy_sample(_pAllegroSample->PACCredits);
 
+    al_destroy_sample(_pAllegroSample->TDLR_Menu);
+    al_destroy_sample(_pAllegroSample->TDLR_Degats);
+    al_destroy_sample(_pAllegroSample->TDLR_Fin);
+
     al_destroy_sample(_pAllegroSample->walk);
     al_destroy_sample(_pAllegroSample->click);
     al_destroy_sample(_pAllegroSample->shot);
@@ -187,6 +192,10 @@ void Allegro_Samples_Instance_Destroy(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInst
     al_destroy_sample_instance(pSampleInstance->PACEXplode);
     al_destroy_sample_instance(pSampleInstance->PACEasterEgg);
     al_destroy_sample_instance(pSampleInstance->PACCredits);
+
+    al_destroy_sample_instance(pSampleInstance->TDLR_Menu);
+    al_destroy_sample_instance(pSampleInstance->TDLR_Degats);
+    al_destroy_sample_instance(pSampleInstance->TDLR_Fin);
 
     al_destroy_sample_instance(pSampleInstance->walk);
     al_destroy_sample_instance(pSampleInstance->click);
@@ -209,7 +218,7 @@ void Allegro_Stop_Sample (ALLEGRO_SAMPLE_INSTANCE* _pSample){
 }
 
 PALLEGRO_CURSOR InitCursors(){
-    PALLEGRO_CURSOR pCursor = malloc(sizeof (ALLEGRO_CURSOR));
+    PALLEGRO_CURSOR pCursor = malloc(sizeof(ALLEGRO_CURSOR));
 
     ALLEGRO_BITMAP *Cursor1 = al_load_bitmap("..\\Textures\\Cursors\\cursor--v1.png");
     ALLEGRO_BITMAP *PAC = al_load_bitmap("..\\Textures\\Cursors\\PAC Sight (Personnalisé).png");
@@ -230,6 +239,11 @@ PALLEGRO_CURSOR InitCursors(){
     //pCursor->Cursor7 = al_create_mouse_cursor();
 
     return pCursor;
+}
+
+void Destroy_cursors(PALLEGRO_CURSOR pCursor){
+    al_destroy_mouse_cursor(pCursor->Cursor1);
+    al_destroy_mouse_cursor(pCursor->PACSight);
 }
 
 void ChangeCursor (PALLEGRO_MANAGER pAlManager, ALLEGRO_MOUSE_CURSOR *pMouseCursor){
