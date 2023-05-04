@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "Utils\\allegroutils.h"
 
-#define TICKET_START 5
+#define TICKET_START 0
 
 enum
 {

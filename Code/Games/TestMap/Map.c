@@ -61,6 +61,7 @@ void Map_Create(PGAME _pMap)                               // ECHELLE = 1.25 POU
     pMapData->image[45]= al_load_bitmap("..\\Textures/Map/chiffre3.png");
     pMapData->image[46]= al_load_bitmap("..\\Textures/Map/chiffre4.png");
     pMapData->image[47]= al_load_bitmap("..\\Textures/Map/chiffre5.png");
+    pMapData->image[48]= al_load_bitmap("..\\Textures/Map/chifffre0.png");
 
     pMapData->pimages[0].x = 0;
     pMapData->pimages[0].y = -3240;
@@ -539,6 +540,9 @@ void tableaudescore(PGAME _pMap){
     if (_pMap->pPlayers[0]->tickets == 1){
         al_draw_bitmap(pMapData->image[43],1000,460,0);
     }
+    if (_pMap->pPlayers[0]->tickets == 0){
+        al_draw_bitmap(pMapData->image[48],1000,530,0);
+    }
 
 
     if (_pMap->pPlayers[1]->tickets == 5){
@@ -555,6 +559,9 @@ void tableaudescore(PGAME _pMap){
     }
     if (_pMap->pPlayers[1]->tickets == 1){
         al_draw_bitmap(pMapData->image[43],1000,530,0);
+    }
+    if (_pMap->pPlayers[1]->tickets == 0){
+        al_draw_bitmap(pMapData->image[48],1000,530,0);
     }
 }
 
@@ -601,10 +608,13 @@ void Map_TimedUpdate(PGAME _pMap)
 void Map_Destroy(PGAME _pMap)
 {
     MapData* pMapData = _pMap->gameData;
-    for (int i=0;i<48;i++){
+    for (int i=0;i<49;i++){
         al_destroy_bitmap(pMapData->image[i]);
     }
     al_destroy_font(pMapData->police[0]);
+
+    ALLEGRO_DISPLAY * ecran =al_get_current_display();
+    al_show_mouse_cursor(ecran);
     free(_pMap->gameData);
     _pMap->gameData = NULL;
 }
