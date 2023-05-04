@@ -120,6 +120,9 @@ void TAB_Create(PGAME _pExemple)                               // ECHELLE = 1.25
 
     pGameData->compteurmusique=0;
     pGameData->compteurmusique2=0;
+
+    pGameData->compteurtickets=0;
+
     for (int i=0;i<pGameData->nbballon+1;i++){
         if (i%2 == 1){
             pGameData->pballon[i].vx=2;
@@ -667,8 +670,11 @@ void TAB_TimedUpdate(PGAME _pExemple)
             pGameData->ticketJ1=1;
             pGameData->ticketJ2=1;
         }
-        _pExemple->pPlayers[0]->tickets+=pGameData->ticketJ1;
-        _pExemple->pPlayers[1]->tickets+=pGameData->ticketJ2;
+        if (pGameData->compteurtickets==0){
+            _pExemple->pPlayers[0]->tickets+=pGameData->ticketJ1;
+            _pExemple->pPlayers[1]->tickets+=pGameData->ticketJ2;
+            pGameData->compteurtickets=1;
+        }
     }
     if (pGameData->gamemode==4){
         al_draw_bitmap(pGameData->image[22],0,0,0);
