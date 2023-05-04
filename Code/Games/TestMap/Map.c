@@ -167,8 +167,8 @@ void Map_Update(PGAME _pMap)
 
     if (_pMap->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {
-        pMapData->mouse.x = _pMap->pEvent->mouse.x*1.25;
-        pMapData->mouse.y = _pMap->pEvent->mouse.y*1.25;
+        pMapData->mouse.x = _pMap->pEvent->mouse.x*1.00;
+        pMapData->mouse.y = _pMap->pEvent->mouse.y*1.00;
     }
     if ( _pMap->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
     {
@@ -635,7 +635,7 @@ void Map_TimedUpdate(PGAME _pMap)
     affichageminimap(_pMap);
     if (pMapData->compteurfin == 1){
         while (pMapData->compteuranim1 < 78){
-            if (pMapData->compteuranim2%10==1){
+            if (pMapData->compteuranim2%30==1){
                 pMapData->compteuranim1+=1;
             }
             if (pMapData->compteuranim1 < 78){

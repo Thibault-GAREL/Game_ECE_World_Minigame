@@ -151,8 +151,8 @@ void TAB_Update(PGAME _pExemple)
 
     if (_pExemple->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {
-        pGameData->mouse.x = _pExemple->pEvent->mouse.x*1.25;
-        pGameData->mouse.y = _pExemple->pEvent->mouse.y*1.25;
+        pGameData->mouse.x = _pExemple->pEvent->mouse.x*1.00;
+        pGameData->mouse.y = _pExemple->pEvent->mouse.y*1.00;
     }
     if ( _pExemple->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
     {
@@ -694,6 +694,18 @@ void TAB_TimedUpdate(PGAME _pExemple)
 void TAB_Destroy(PGAME _pExemple)
 {
     printf("Destruction du jeu...\n");
+    TABGameData* pGameData = _pExemple->gameData;
+    for (int i=0;i<69;i++){
+        al_destroy_bitmap(pGameData->image[i]);
+    }
+    for (int i=0;i<60;i++){
+        al_destroy_bitmap(pGameData->danse[i]);
+    }
+    for (int i=0;i<3;i++){
+        al_destroy_font(pGameData->police[i]);
+    }
+    al_destroy_sample_instance(pGameData->soninstance);
+    al_destroy_sample(pGameData->sons[0]);
     free(_pExemple->gameData);
     _pExemple->gameData = NULL;
     *_pExemple->pCurrentGameId = GAME_MAP;
