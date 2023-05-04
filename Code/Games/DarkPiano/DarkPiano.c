@@ -64,7 +64,6 @@ void DarkPiano_Update(PGAME _pGame)
         {
             pDpData->corde[i]->isErrored = 1;
             pDpData->error++;
-            printf("erreur +1\n");
         }
     }
 }
@@ -352,6 +351,7 @@ void GameStateChecker(PGAME _pGame)
         
 
         printf("Player = %d\n", pDpData->playerCurrent);
+        printf("ticket=%d\n", _pGame->pPlayers[pDpData->playerCurrent]->tickets);
     }
     
 }
