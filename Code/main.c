@@ -29,7 +29,7 @@ int main()
 
     //ChangeCursor(pAlManager, pAlManager->pCursors->Cursor1);
 
-    int currentGameId = GAME_MAP;
+    int currentGameId = MENU;
 
     PPLAYER players[PLAYER_COUNT];
     Players_Init(players, PLAYER_COUNT);
