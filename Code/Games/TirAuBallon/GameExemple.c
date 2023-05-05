@@ -120,6 +120,9 @@ void TAB_Create(PGAME _pExemple)                               // ECHELLE = 1.25
 
     pGameData->compteurmusique=0;
     pGameData->compteurmusique2=0;
+
+    pGameData->compteurtickets=0;
+
     for (int i=0;i<pGameData->nbballon+1;i++){
         if (i%2 == 1){
             pGameData->pballon[i].vx=2;
@@ -151,8 +154,8 @@ void TAB_Update(PGAME _pExemple)
 
     if (_pExemple->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {
-        pGameData->mouse.x = _pExemple->pEvent->mouse.x*1.25;
-        pGameData->mouse.y = _pExemple->pEvent->mouse.y*1.25;
+        pGameData->mouse.x = _pExemple->pEvent->mouse.x*1.00;
+        pGameData->mouse.y = _pExemple->pEvent->mouse.y*1.00;
     }
     if ( _pExemple->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
     {
@@ -667,8 +670,11 @@ void TAB_TimedUpdate(PGAME _pExemple)
             pGameData->ticketJ1=1;
             pGameData->ticketJ2=1;
         }
-        _pExemple->pPlayers[0]->tickets+=pGameData->ticketJ1;
-        _pExemple->pPlayers[1]->tickets+=pGameData->ticketJ2;
+        if (pGameData->compteurtickets==0){
+            _pExemple->pPlayers[0]->tickets+=pGameData->ticketJ1;
+            _pExemple->pPlayers[1]->tickets+=pGameData->ticketJ2;
+            pGameData->compteurtickets=1;
+        }
     }
     if (pGameData->gamemode==4){
         al_draw_bitmap(pGameData->image[22],0,0,0);
@@ -694,6 +700,18 @@ void TAB_TimedUpdate(PGAME _pExemple)
 void TAB_Destroy(PGAME _pExemple)
 {
     printf("Destruction du jeu...\n");
+    TABGameData* pGameData = _pExemple->gameData;
+    for (int i=0;i<69;i++){
+        al_destroy_bitmap(pGameData->image[i]);
+    }
+    for (int i=0;i<60;i++){
+        al_destroy_bitmap(pGameData->danse[i]);
+    }
+    for (int i=0;i<3;i++){
+        al_destroy_font(pGameData->police[i]);
+    }
+    al_destroy_sample_instance(pGameData->soninstance);
+    al_destroy_sample(pGameData->sons[0]);
     free(_pExemple->gameData);
     _pExemple->gameData = NULL;
     *_pExemple->pCurrentGameId = GAME_MAP;

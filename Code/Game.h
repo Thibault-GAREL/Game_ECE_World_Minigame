@@ -15,6 +15,7 @@ enum
     GAME_TAB,
     GAME_DP,
     GAME_MAP,
+    MENU
 };
 
 typedef struct _PLAYER

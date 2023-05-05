@@ -70,6 +70,11 @@ void Map_Create(PGAME _pMap)                               // ECHELLE = 1.25 POU
     pMapData->image[53]= al_load_bitmap("..\\Textures/Map/AffichePAC.png");
     pMapData->image[54]= al_load_bitmap("..\\Textures/Map/AfficheDP.png");
 
+    for (int i=1;i<78;i++){
+        sprintf(pMapData->animation, "..\\Textures/Animations/Allegro-loading/Animation%d.jpg", i);
+        pMapData->transi[i]= al_load_bitmap(pMapData->animation);
+    }
+
     pMapData->pimages[0].x = 0;
     pMapData->pimages[0].y = -3240;
     pMapData->pimages[1].x = 1920;
@@ -147,6 +152,8 @@ void Map_Create(PGAME _pMap)                               // ECHELLE = 1.25 POU
 
     pMapData->compteurchoixjeu=0;
 
+    pMapData->compteuranim1=1;
+    pMapData->compteuranim2=0;
 }
 
 void Map_Update(PGAME _pMap)
@@ -160,8 +167,8 @@ void Map_Update(PGAME _pMap)
 
     if (_pMap->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {
-        pMapData->mouse.x = _pMap->pEvent->mouse.x*1.25;
-        pMapData->mouse.y = _pMap->pEvent->mouse.y*1.25;
+        pMapData->mouse.x = _pMap->pEvent->mouse.x*1.00;
+        pMapData->mouse.y = _pMap->pEvent->mouse.y*1.00;
     }
     if ( _pMap->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
     {
@@ -653,6 +660,16 @@ void Map_TimedUpdate(PGAME _pMap)
     }
     affichageminimap(_pMap);
     if (pMapData->compteurfin == 1){
+        while (pMapData->compteuranim1 < 78){
+            if (pMapData->compteuranim2%30==1){
+                pMapData->compteuranim1+=1;
+            }
+            if (pMapData->compteuranim1 < 78){
+                al_draw_bitmap(pMapData->transi[pMapData->compteuranim1],0,0,0);
+            }
+            pMapData->compteuranim2++;
+            al_flip_display();
+        }
         *_pMap->pCurrentGameId = pMapData->jeusuivant;
         Map_Destroy(_pMap);
         return ;
@@ -684,6 +701,9 @@ void Map_Destroy(PGAME _pMap)
     MapData* pMapData = _pMap->gameData;
     for (int i=0;i<55;i++){
         al_destroy_bitmap(pMapData->image[i]);
+    }
+    for (int i=1;i<78;i++){
+        al_destroy_bitmap(pMapData->transi[i]);
     }
     al_destroy_font(pMapData->police[0]);
     al_destroy_font(pMapData->police[1]);

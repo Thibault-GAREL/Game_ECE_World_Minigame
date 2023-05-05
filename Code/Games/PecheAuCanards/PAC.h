@@ -45,6 +45,7 @@ typedef struct _PACGAMEDATA
     int IntervalTime;
     ALLEGRO_COLOR PickedColor;
     ALLEGRO_COLOR NormalColor;
+    int compteurfin;
 }PacGameData, *pPacGameData;
 
 void PAC_Create(PGAME _pPAC);
