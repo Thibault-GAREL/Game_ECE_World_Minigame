@@ -96,4 +96,3 @@ void Players_Destroy(PPLAYER* _pPlayers, int _count)
         free(_pPlayers[i]);
     }
 }
-
