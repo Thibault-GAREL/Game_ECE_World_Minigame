@@ -30,7 +30,7 @@ int main()
 
     //ChangeCursor(pAlManager, pAlManager->pCursors->Cursor1);
 
-    int currentGameId = GAME_BONUS;
+    int currentGameId = GAME_MAP;
 
     PPLAYER players[PLAYER_COUNT];
     Players_Init(players, PLAYER_COUNT);
