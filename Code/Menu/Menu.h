@@ -19,7 +19,8 @@ typedef struct _MenuGameData {
     int GameLaunched;
     int Main_Menu_Select;
 
-    char GetName1[256];
+    char GetName1[10];
+    char GetName2[10];
     int CurrentCharPos;
     ALLEGRO_FONT *GetNameFont;
     int GetNameState;
@@ -33,4 +34,3 @@ void Menu_Create(PGAME _pMenu);
 void Menu_Update(PGAME _pMenu);
 void Menu_TimedUpdate(PGAME _pMenu);
 void Menu_Destroy(PGAME _pMenu);
-void Get_Player_Name(PGAME _pMenu);

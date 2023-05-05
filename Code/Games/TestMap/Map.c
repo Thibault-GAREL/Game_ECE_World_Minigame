@@ -620,6 +620,32 @@ void choisirjeusuivant(PGAME _pMap){
 void Map_TimedUpdate(PGAME _pMap)
 {
     MapData* pMapData = _pMap->gameData;
+
+    /*pMapData->pimages[0].x = 0;
+    pMapData->pimages[0].y = -3240;
+    pMapData->pimages[1].x = 1920;
+    pMapData->pimages[1].y = -3240;
+    pMapData->pimages[2].x = 3840;
+    pMapData->pimages[2].y = -3240;
+    pMapData->pimages[3].x = 0;
+    pMapData->pimages[3].y = -2160;
+    pMapData->pimages[4].x = 1920;
+    pMapData->pimages[4].y = -2160;
+    pMapData->pimages[5].x = 3840;
+    pMapData->pimages[5].y = -2160;
+    pMapData->pimages[6].x = 0;
+    pMapData->pimages[6].y = -1080;
+    pMapData->pimages[7].x = 1920;
+    pMapData->pimages[7].y = -1080;
+    pMapData->pimages[8].x = 3840;
+    pMapData->pimages[8].y = -1080;
+    pMapData->pimages[9].x = 0;
+    pMapData->pimages[9].y = 0;
+    pMapData->pimages[10].x = 1920;
+    pMapData->pimages[10].y = 0;
+    pMapData->pimages[11].x = 3840;
+    pMapData->pimages[11].y = 0;*/
+
     ALLEGRO_DISPLAY* ecran=al_get_current_display();
     al_hide_mouse_cursor(ecran);
     pMapData->x+=pMapData->speedhori*pMapData->deplacementhori;
