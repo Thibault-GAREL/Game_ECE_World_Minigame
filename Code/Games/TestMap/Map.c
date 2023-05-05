@@ -167,8 +167,8 @@ void Map_Update(PGAME _pMap)
 
     if (_pMap->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {
-        pMapData->mouse.x = _pMap->pEvent->mouse.x*1.00;
-        pMapData->mouse.y = _pMap->pEvent->mouse.y*1.00;
+        pMapData->mouse.x = _pMap->pEvent->mouse.x*1.25;
+        pMapData->mouse.y = _pMap->pEvent->mouse.y*1.25;
     }
     if ( _pMap->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
     {
