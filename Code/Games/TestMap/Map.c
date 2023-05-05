@@ -154,7 +154,14 @@ void Map_Create(PGAME _pMap)                               // ECHELLE = 1.25 POU
 
     pMapData->compteuranim1=1;
     pMapData->compteuranim2=0;
+
+    for (int i = 0; i < 12; i++)
+    {
+        al_lock_bitmap(pMapData->image[28+i], 0, ALLEGRO_LOCK_READONLY);
+    }
+
 }
+
 
 void Map_Update(PGAME _pMap)
 {
@@ -660,12 +667,13 @@ void Map_TimedUpdate(PGAME _pMap)
     }
     affichageminimap(_pMap);
     if (pMapData->compteurfin == 1){
-        while (pMapData->compteuranim1 < 78){
+        while (pMapData->compteuranim1 < 75){
             if (pMapData->compteuranim2%30==1){
                 pMapData->compteuranim1+=1;
             }
-            if (pMapData->compteuranim1 < 78){
+            if (pMapData->compteuranim1 < 75){
                 al_draw_bitmap(pMapData->transi[pMapData->compteuranim1],0,0,0);
+                printf("%d\n",pMapData->compteuranim1);
             }
             pMapData->compteuranim2++;
             al_flip_display();
