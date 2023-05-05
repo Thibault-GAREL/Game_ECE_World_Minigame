@@ -49,9 +49,12 @@ void Menu_Create(PGAME _pMenu)
     gameData->MB_Infos[5]->vx = 0;
     gameData->MB_Infos[5]->vy = 0;
 
-    for (int i = 0; i < 256; ++i) {
+    for (int i = 0; i < 10; ++i) {
         gameData->GetName1[i] = 0;
+        gameData->GetName2[i] = 0;
     }
+
+
     gameData->GetNameFont = al_load_font("..\\Textures/Fonts/StarWars Font.TTF", 24, 0);
 }
 
@@ -103,36 +106,68 @@ void Menu_Update(PGAME _pMenu)
         }
     }
 
-    if (gameData->GameLaunched == 1){
-        al_get_keyboard_state(&(gameData->keyboard_state));
-        if (Get_Touch( _pMenu->pEvent, ALLEGRO_KEY_ENTER,0,0,1,0)){
-            gameData->GetName1[gameData->CurrentCharPos] = '\0';
-            gameData->GetNameState = 2;
-        }
+    if (gameData->GetNameState == 1){
+        if (gameData->GameLaunched == 1){
+            al_get_keyboard_state(&(gameData->keyboard_state));
+            if (Get_Touch( _pMenu->pEvent, ALLEGRO_KEY_ENTER,0,0,1,0)){
+                gameData->GetName1[gameData->CurrentCharPos] = '\0';
+                gameData->GetNameState = 2;
+                gameData->CurrentCharPos = 0;
+            }
 
-        else {
-            for (int i = 0; i < ALLEGRO_KEY_MAX; ++i) {
-                if (al_key_down(&(gameData->keyboard_state), i))
-                {
-                    if (i >= ALLEGRO_KEY_A && i <= ALLEGRO_KEY_Z)
+            else {
+                for (int i = 0; i < ALLEGRO_KEY_MAX; ++i) {
+                    if (Get_Touch( _pMenu->pEvent, i,0,0,1,0))
                     {
-                        if (gameData->CurrentCharPos < sizeof(gameData->GetName1) - 1)
+                        if (i >= ALLEGRO_KEY_A && i <= ALLEGRO_KEY_Z)
                         {
-                            gameData->GetName1[gameData->CurrentCharPos++] = 'a' + (i - ALLEGRO_KEY_A);
+                            if (gameData->CurrentCharPos < sizeof(gameData->GetName1) - 1)
+                            {
+                                gameData->GetName1[gameData->CurrentCharPos++] = 'a' + (i - ALLEGRO_KEY_A);
+                            }
                         }
-                    }
-                    else if (i == ALLEGRO_KEY_BACKSPACE)
-                    {
-                        if (gameData->CurrentCharPos > 0)
+                        else if (i == ALLEGRO_KEY_BACKSPACE)
                         {
-                            gameData->GetName1[--gameData->CurrentCharPos] = 0;
+                            if (gameData->CurrentCharPos > 0)
+                            {
+                                gameData->GetName1[--gameData->CurrentCharPos] = 0;
+                            }
                         }
                     }
                 }
             }
-            al_clear_to_color(al_map_rgb(0,0,0));
-            al_draw_text(gameData->GetNameFont, al_map_rgb(255,255,255),10,10,0,gameData->GetName1);
-            al_flip_display();
+        }
+    }
+    else if (gameData->GetNameState == 2){
+        if (gameData->GameLaunched == 1){
+            al_get_keyboard_state(&(gameData->keyboard_state));
+            if (Get_Touch( _pMenu->pEvent, ALLEGRO_KEY_ENTER,0,0,1,0)){
+                gameData->GetName2[gameData->CurrentCharPos] = '\0';
+                gameData->GetNameState = 3;
+                gameData->CurrentCharPos = 0;
+            }
+
+            else {
+                for (int i = 0; i < ALLEGRO_KEY_MAX; ++i) {
+                    if (Get_Touch( _pMenu->pEvent, i,0,0,1,0))
+                    {
+                        if (i >= ALLEGRO_KEY_A && i <= ALLEGRO_KEY_Z)
+                        {
+                            if (gameData->CurrentCharPos < sizeof(gameData->GetName2) - 1)
+                            {
+                                gameData->GetName2[gameData->CurrentCharPos++] = 'a' + (i - ALLEGRO_KEY_A);
+                            }
+                        }
+                        else if (i == ALLEGRO_KEY_BACKSPACE)
+                        {
+                            if (gameData->CurrentCharPos > 0)
+                            {
+                                gameData->GetName2[--gameData->CurrentCharPos] = 0;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -154,24 +189,27 @@ void Menu_TimedUpdate(PGAME _pMenu)
 {
     pMenuGameData gameData = _pMenu->gameData;
 
-    if (gameData->Main_Menu_Select == 0){
+    if (gameData->Main_Menu_Select == 0 &&gameData->GameLaunched == 0){
         al_draw_bitmap(gameData->Menu_Bitmap[0],gameData->MB_Infos[0]->x,gameData->MB_Infos[0]->y,0);
         al_draw_bitmap(gameData->Menu_Bitmap[1],gameData->MB_Infos[1]->x,gameData->MB_Infos[1]->y,0);
         al_draw_bitmap(gameData->Menu_Bitmap[2],gameData->MB_Infos[2]->x,gameData->MB_Infos[2]->y,0);
         al_draw_bitmap(gameData->Menu_Bitmap[3],gameData->MB_Infos[3]->x,gameData->MB_Infos[3]->y,0);
     }
-    if(gameData->Main_Menu_Select == 1){
+    if(gameData->Main_Menu_Select == 1 &&gameData->GameLaunched == 0){
         al_draw_bitmap(gameData->Menu_Bitmap[4],gameData->MB_Infos[4]->x,gameData->MB_Infos[4]->y,0);
     }
-    if(gameData->Main_Menu_Select == 2){
+    if(gameData->Main_Menu_Select == 2 &&gameData->GameLaunched == 0){
         al_draw_bitmap(gameData->Menu_Bitmap[5],gameData->MB_Infos[5]->x,gameData->MB_Infos[5]->y,0);
     }
 
-}
+    if (gameData->GameLaunched == 1 && gameData->GetNameState == 1){
+        al_draw_text(gameData->GetNameFont, al_map_rgb(0,0,0),10,10,0,gameData->GetName1);
+    }
 
-void Get_Player_Name(PGAME _pMenu){
-    pMenuGameData gameData = _pMenu->gameData;
-
+    if (gameData->GameLaunched == 1 && gameData->GetNameState == 2){
+        al_draw_text(gameData->GetNameFont, al_map_rgb(0,0,0),10,10,0,gameData->GetName1);
+        al_draw_text(gameData->GetNameFont, al_map_rgb(0,0,0),10,50,0,gameData->GetName2);
+    }
 
 }
 

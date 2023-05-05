@@ -22,7 +22,7 @@ typedef struct _MAPDATA
     Vector2D mouse;
     int click;
     ALLEGRO_BITMAP* image[55];
-    ALLEGRO_BITMAP* transi[122];
+    ALLEGRO_BITMAP* transi[78];
     ALLEGRO_FONT* police[2];
     Images* pimages;
     float x;

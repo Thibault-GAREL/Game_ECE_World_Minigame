@@ -167,8 +167,8 @@ void Map_Update(PGAME _pMap)
 
     if (_pMap->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {
-        pMapData->mouse.x = _pMap->pEvent->mouse.x*1.00;
-        pMapData->mouse.y = _pMap->pEvent->mouse.y*1.00;
+        pMapData->mouse.x = _pMap->pEvent->mouse.x*1.25;
+        pMapData->mouse.y = _pMap->pEvent->mouse.y*1.25;
     }
     if ( _pMap->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
     {
@@ -620,6 +620,32 @@ void choisirjeusuivant(PGAME _pMap){
 void Map_TimedUpdate(PGAME _pMap)
 {
     MapData* pMapData = _pMap->gameData;
+
+    /*pMapData->pimages[0].x = 0;
+    pMapData->pimages[0].y = -3240;
+    pMapData->pimages[1].x = 1920;
+    pMapData->pimages[1].y = -3240;
+    pMapData->pimages[2].x = 3840;
+    pMapData->pimages[2].y = -3240;
+    pMapData->pimages[3].x = 0;
+    pMapData->pimages[3].y = -2160;
+    pMapData->pimages[4].x = 1920;
+    pMapData->pimages[4].y = -2160;
+    pMapData->pimages[5].x = 3840;
+    pMapData->pimages[5].y = -2160;
+    pMapData->pimages[6].x = 0;
+    pMapData->pimages[6].y = -1080;
+    pMapData->pimages[7].x = 1920;
+    pMapData->pimages[7].y = -1080;
+    pMapData->pimages[8].x = 3840;
+    pMapData->pimages[8].y = -1080;
+    pMapData->pimages[9].x = 0;
+    pMapData->pimages[9].y = 0;
+    pMapData->pimages[10].x = 1920;
+    pMapData->pimages[10].y = 0;
+    pMapData->pimages[11].x = 3840;
+    pMapData->pimages[11].y = 0;*/
+
     ALLEGRO_DISPLAY* ecran=al_get_current_display();
     al_hide_mouse_cursor(ecran);
     pMapData->x+=pMapData->speedhori*pMapData->deplacementhori;
@@ -634,12 +660,13 @@ void Map_TimedUpdate(PGAME _pMap)
     }
     affichageminimap(_pMap);
     if (pMapData->compteurfin == 1){
-        while (pMapData->compteuranim1 < 78){
+        while (pMapData->compteuranim1 < 75){
             if (pMapData->compteuranim2%30==1){
                 pMapData->compteuranim1+=1;
             }
-            if (pMapData->compteuranim1 < 78){
+            if (pMapData->compteuranim1 < 75){
                 al_draw_bitmap(pMapData->transi[pMapData->compteuranim1],0,0,0);
+                printf("%d\n",pMapData->compteuranim1);
             }
             pMapData->compteuranim2++;
             al_flip_display();
