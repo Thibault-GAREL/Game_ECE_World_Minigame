@@ -21,7 +21,7 @@ typedef struct _MAPDATA
 {
     Vector2D mouse;
     int click;
-    ALLEGRO_BITMAP* image[55];
+    ALLEGRO_BITMAP* image[56];
     ALLEGRO_BITMAP* transi[78];
     ALLEGRO_FONT* police[2];
     Images* pimages;
@@ -72,6 +72,8 @@ typedef struct _MAPDATA
     char animation[100];
     int compteuranim1;
     int compteuranim2;
+    int fin;
+    int compteuraffichagenom;
 }MapData;
 
 
