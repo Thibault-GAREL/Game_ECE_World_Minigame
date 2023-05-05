@@ -446,8 +446,6 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
         }
 
 
-        printf("%d\n", pGameData->X_player);
-
         if (collision(_pExemple, pGameData->pixel_avance + 2) == true){
             al_clear_to_color(al_map_rgba(255, 0, 0, 245));
             Allegro_play_Sample((_pExemple->SampleAlManager)->pSampleInstance->TDLR_Degats);
@@ -654,8 +652,6 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
 
 void TDLR_Destroy(PGAME _pExemple)
 {
-    printf("Destruction du jeu...\n");
-
     GameData* pGameData = (GameData*) _pExemple->gameData;
     for (int i = 0; i < 9; ++i) {
         al_destroy_bitmap(pGameData->image [i]);
@@ -669,15 +665,7 @@ void TDLR_Destroy(PGAME _pExemple)
     }
     free(_pExemple->gameData); //Pour chaque structure / allocation
     _pExemple->gameData = NULL;
-
-
-                                                                                                                //Ne pas oublier de destroy
-
-    printf("Jeu detruit\n");
-
     *_pExemple->pCurrentGameId = GAME_MAP;
-
-    printf("Etat du jeu actuel mis a GAME_NONE");
 }
 
 

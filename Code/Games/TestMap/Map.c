@@ -154,7 +154,14 @@ void Map_Create(PGAME _pMap)                               // ECHELLE = 1.25 POU
 
     pMapData->compteuranim1=1;
     pMapData->compteuranim2=0;
+
+    for (int i = 0; i < 12; i++)
+    {
+        al_lock_bitmap(pMapData->image[28+i], 0, ALLEGRO_LOCK_READONLY);
+    }
+
 }
+
 
 void Map_Update(PGAME _pMap)
 {
