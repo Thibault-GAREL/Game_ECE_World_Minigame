@@ -155,7 +155,7 @@ void Menu_Update(PGAME _pMenu)
                         {
                             if (gameData->CurrentCharPos < sizeof(gameData->GetName2) - 1)
                             {
-                                gameData->GetName1[gameData->CurrentCharPos++] = 'a' + (i - ALLEGRO_KEY_A);
+                                gameData->GetName2[gameData->CurrentCharPos++] = 'a' + (i - ALLEGRO_KEY_A);
                             }
                         }
                         else if (i == ALLEGRO_KEY_BACKSPACE)
@@ -207,7 +207,8 @@ void Menu_TimedUpdate(PGAME _pMenu)
     }
 
     if (gameData->GameLaunched == 1 && gameData->GetNameState == 2){
-        al_draw_text(gameData->GetNameFont, al_map_rgb(0,0,0),10,50,0,gameData->GetName1);
+        al_draw_text(gameData->GetNameFont, al_map_rgb(0,0,0),10,10,0,gameData->GetName1);
+        al_draw_text(gameData->GetNameFont, al_map_rgb(0,0,0),10,50,0,gameData->GetName2);
     }
 
 }
