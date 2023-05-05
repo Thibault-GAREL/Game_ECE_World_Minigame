@@ -21,8 +21,9 @@ typedef struct _MAPDATA
 {
     Vector2D mouse;
     int click;
-    ALLEGRO_BITMAP* image[50];
-    ALLEGRO_FONT* police[1];
+    ALLEGRO_BITMAP* image[55];
+    ALLEGRO_BITMAP* transi[122];
+    ALLEGRO_FONT* police[2];
     Images* pimages;
     float x;
     float y;
@@ -67,6 +68,10 @@ typedef struct _MAPDATA
     char ticketJ1[sizeof (int)];
     char ticketJ2[sizeof (int)];
     int compteurfin;
+    int compteurchoixjeu;
+    char animation[100];
+    int compteuranim1;
+    int compteuranim2;
 }MapData;
 
 
@@ -79,5 +84,6 @@ void affichagebonhomme(PGAME _pMap);
 void affichageville(PGAME _pMap);
 void gestionvaiseeau(PGAME _pMap);
 void gestioncolision(PGAME _pMap,float x,float y,int indice);
+void animation(PGAME _pMap);
 void Map_TimedUpdate(PGAME _pMap);
 void Map_Destroy(PGAME _pMap);

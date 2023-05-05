@@ -10,6 +10,7 @@
 #include "Games/TestMap/Map.h"
 #include "Games/Exemple/GameExemple.h"
 #include "Games/DarkPiano/DarkPiano.h"
+#include "Menu/Menu.h"
 
 #define PLAYER_COUNT 2
 #define MAP_EXEMPLE 6
@@ -28,13 +29,13 @@ int main()
 
     //ChangeCursor(pAlManager, pAlManager->pCursors->Cursor1);
 
-    int currentGameId = GAME_NONE;
+    int currentGameId = MENU;
 
     PPLAYER players[PLAYER_COUNT];
     Players_Init(players, PLAYER_COUNT);
     printf("init des joueurs fait");
 
-    int gamesCount = 6;
+    int gamesCount = 7;
     PGAME pGames[gamesCount];
     //pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
     printf("tous les init sauf map faits \n");
@@ -44,6 +45,7 @@ int main()
     pGames[3] = Game_Init(GAME_TAB,TAB_Update, TAB_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
     pGames[4] = Game_Init(GAME_DP,DarkPiano_Update, DarkPiano_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
     pGames[5]= Game_Init(GAME_MAP,Map_Update,Map_TimedUpdate,&currentGameId,&event,PLAYER_COUNT,&players);
+    pGames[6]= Game_Init(MENU,Menu_Update, Menu_TimedUpdate,&currentGameId,&event,PLAYER_COUNT,&players);
 
     printf("init sans erreur \n");
 
@@ -93,6 +95,10 @@ int main()
             if (Get_Touch(&event, ALLEGRO_KEY_V, 0, 1, 0, 0))
             {
                 currentGameId = GAME_MAP;
+            }
+            if (Get_Touch(&event, ALLEGRO_KEY_M, 0, 1, 0, 0))
+            {
+                currentGameId = MENU;
             }
         }
 

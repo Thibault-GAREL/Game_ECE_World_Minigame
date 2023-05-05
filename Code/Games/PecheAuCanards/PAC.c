@@ -98,6 +98,8 @@ void PAC_Create(PGAME _pPAC)
     gameData->Player1_Timer = 0;
     gameData->Player2_Timer = 0;
 
+    gameData->compteurfin=0;
+
     PAC_Coordinates_create(_pPAC);
 
     for (int i = 0; i < 12; ++i) {
@@ -133,7 +135,7 @@ void PAC_Update(PGAME _pPAC)
         gameData->click=0;
     }
     if (Get_Touch( _pPAC->pEvent, ALLEGRO_KEY_W,0,0,1,0)){
-        PAC_Destroy(_pPAC);
+        gameData->compteurfin=1;
     }
     if (Get_Touch( _pPAC->pEvent, ALLEGRO_KEY_ENTER,0,0,1,0)){
         gameData->GameLaunched = 1;
@@ -381,6 +383,13 @@ void PAC_TimedUpdate(PGAME _pPAC)
         }
 
         Check_Duck_Collisions(_pPAC);
+        if (gameData->compteurfin==1){
+            Allegro_Stop_Sample((_pPAC->SampleAlManager)->pSampleInstance->PACMenu);
+            Allegro_Stop_Sample((_pPAC->SampleAlManager)->pSampleInstance->PACCredits);
+            al_destroy_mouse_cursor((_pPAC->SampleAlManager)->pCursors->PACSight);
+            PAC_Destroy(_pPAC);
+            return ;
+        }
     }
 }
 
@@ -394,13 +403,16 @@ void PAC_Destroy(PGAME _pPAC)
         al_destroy_bitmap(pPAC->DuckTextures[i]);
         free(pPAC->DuckInfos[i]);
     }
-
+    al_destroy_font(pPAC->font);
+    al_destroy_bitmap(pPAC->background);
+    al_destroy_bitmap(pPAC->End);
+    al_destroy_bitmap(pPAC->Menu);
     free(_pPAC->gameData);
     _pPAC->gameData = NULL;
 
     printf("Jeu detruit\n");
 
-    *_pPAC->pCurrentGameId = GAME_NONE;
+    *_pPAC->pCurrentGameId = GAME_MAP;
 
     printf("Etat du jeu actuel mis a GAME_NONE");
 }

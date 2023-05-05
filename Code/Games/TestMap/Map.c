@@ -12,6 +12,7 @@ void Map_Create(PGAME _pMap)                               // ECHELLE = 1.25 POU
     _pMap->gameData = pMapData;
 
     pMapData->police[0]= al_load_ttf_font("..\\Textures/Map/police.ttf",150,0);
+    pMapData->police[1]= al_load_ttf_font("..\\Textures/Map/police.ttf",50,0);
 
     pMapData->image[0]= al_load_bitmap("..\\Textures/Map/MAP1.png");
     pMapData->image[1]= al_load_bitmap("..\\Textures/Map/MAP2.png");
@@ -62,6 +63,17 @@ void Map_Create(PGAME _pMap)                               // ECHELLE = 1.25 POU
     pMapData->image[46]= al_load_bitmap("..\\Textures/Map/chiffre4.png");
     pMapData->image[47]= al_load_bitmap("..\\Textures/Map/chiffre5.png");
     pMapData->image[48]= al_load_bitmap("..\\Textures/Map/chifffre0.png");
+    pMapData->image[49]= al_load_bitmap("..\\Textures/Map/selectgame.png");
+    pMapData->image[50]= al_load_bitmap("..\\Textures/Map/AfficheTDLR.png");
+    pMapData->image[51]= al_load_bitmap("..\\Textures/Map/AfficheTAB.png");
+    pMapData->image[52]= al_load_bitmap("..\\Textures/Map/AfficheSNAKE.png");
+    pMapData->image[53]= al_load_bitmap("..\\Textures/Map/AffichePAC.png");
+    pMapData->image[54]= al_load_bitmap("..\\Textures/Map/AfficheDP.png");
+
+    for (int i=1;i<78;i++){
+        sprintf(pMapData->animation, "..\\Textures/Animations/Allegro-loading/Animation%d.jpg", i);
+        pMapData->transi[i]= al_load_bitmap(pMapData->animation);
+    }
 
     pMapData->pimages[0].x = 0;
     pMapData->pimages[0].y = -3240;
@@ -106,7 +118,7 @@ void Map_Create(PGAME _pMap)                               // ECHELLE = 1.25 POU
     pMapData->c=0;
     pMapData->d=0;
 
-    pMapData->jeusuivant = GAME_TDLR ;
+    pMapData->jeusuivant = GAME_NONE ;
     pMapData->sensbonhommex = 0;
     pMapData->sensbonhommey = 0;
     pMapData->compteurfumme =0;
@@ -138,6 +150,10 @@ void Map_Create(PGAME _pMap)                               // ECHELLE = 1.25 POU
     pMapData->imageactuelle=0;
     pMapData->compteurfin=0;
 
+    pMapData->compteurchoixjeu=0;
+
+    pMapData->compteuranim1=1;
+    pMapData->compteuranim2=0;
 }
 
 void Map_Update(PGAME _pMap)
@@ -151,8 +167,8 @@ void Map_Update(PGAME _pMap)
 
     if (_pMap->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {
-        pMapData->mouse.x = _pMap->pEvent->mouse.x*1.25;
-        pMapData->mouse.y = _pMap->pEvent->mouse.y*1.25;
+        pMapData->mouse.x = _pMap->pEvent->mouse.x*1.00;
+        pMapData->mouse.y = _pMap->pEvent->mouse.y*1.00;
     }
     if ( _pMap->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
     {
@@ -565,6 +581,42 @@ void tableaudescore(PGAME _pMap){
     }
 }
 
+void choisirjeusuivant(PGAME _pMap){
+    MapData* pMapData = _pMap->gameData;
+    ALLEGRO_DISPLAY * ecran = al_get_current_display();
+    al_show_mouse_cursor(ecran);
+    al_draw_bitmap(pMapData->image[49],800,300,0);
+    al_draw_filled_rectangle(220,500,1700,700, al_map_rgb(0,0,0));
+
+    al_draw_bitmap(pMapData->image[50],220,500,0);
+    al_draw_bitmap(pMapData->image[51],447,500,0);
+    al_draw_bitmap(pMapData->image[52],694,500,0);
+    al_draw_bitmap(pMapData->image[53],941,500,0);
+    al_draw_bitmap(pMapData->image[54],1188,500,0);
+
+    if (pMapData->mouse.x >= 220 && pMapData->mouse.x < 447 && pMapData->mouse.y >= 500 && pMapData->mouse.y <= 700 && pMapData->click==1){
+        pMapData->jeusuivant=GAME_TDLR;
+        pMapData->compteurchoixjeu=1;
+    }
+    if (pMapData->mouse.x >= 447 && pMapData->mouse.x < 694 && pMapData->mouse.y >= 500 && pMapData->mouse.y <= 700 && pMapData->click==1){
+        pMapData->jeusuivant=GAME_TAB;
+        pMapData->compteurchoixjeu=1;
+    }
+    if (pMapData->mouse.x >= 694 && pMapData->mouse.x < 941 && pMapData->mouse.y >= 500 && pMapData->mouse.y <= 700 && pMapData->click==1){
+        pMapData->jeusuivant=GAME_SNAKE;
+        pMapData->compteurchoixjeu=1;
+    }
+    if (pMapData->mouse.x >= 941 && pMapData->mouse.x < 1188 && pMapData->mouse.y >= 500 && pMapData->mouse.y <= 700 && pMapData->click==1){
+        pMapData->jeusuivant=GAME_PAC;
+        pMapData->compteurchoixjeu=1;
+    }
+    if (pMapData->mouse.x >= 1188 && pMapData->mouse.x < 1188+247 && pMapData->mouse.y >= 500 && pMapData->mouse.y <= 700 && pMapData->click==1){
+        pMapData->jeusuivant=GAME_DP;
+        pMapData->compteurchoixjeu=1;
+    }
+}
+
+
 void Map_TimedUpdate(PGAME _pMap)
 {
     MapData* pMapData = _pMap->gameData;
@@ -582,6 +634,16 @@ void Map_TimedUpdate(PGAME _pMap)
     }
     affichageminimap(_pMap);
     if (pMapData->compteurfin == 1){
+        while (pMapData->compteuranim1 < 78){
+            if (pMapData->compteuranim2%30==1){
+                pMapData->compteuranim1+=1;
+            }
+            if (pMapData->compteuranim1 < 78){
+                al_draw_bitmap(pMapData->transi[pMapData->compteuranim1],0,0,0);
+            }
+            pMapData->compteuranim2++;
+            al_flip_display();
+        }
         *_pMap->pCurrentGameId = pMapData->jeusuivant;
         Map_Destroy(_pMap);
         return ;
@@ -589,6 +651,9 @@ void Map_TimedUpdate(PGAME _pMap)
     gestionvaisseau(_pMap);
     affichagebonhomme(_pMap);
     affichageville(_pMap);
+    if (pMapData->compteurchoixjeu == 0){
+        choisirjeusuivant(_pMap);
+    }
     if (pMapData->compteurcolision%6==1)
     {
         gestioncolision(_pMap,5,-45,0);
@@ -608,11 +673,14 @@ void Map_TimedUpdate(PGAME _pMap)
 void Map_Destroy(PGAME _pMap)
 {
     MapData* pMapData = _pMap->gameData;
-    for (int i=0;i<49;i++){
+    for (int i=0;i<55;i++){
         al_destroy_bitmap(pMapData->image[i]);
     }
+    for (int i=1;i<78;i++){
+        al_destroy_bitmap(pMapData->transi[i]);
+    }
     al_destroy_font(pMapData->police[0]);
-
+    al_destroy_font(pMapData->police[1]);
     ALLEGRO_DISPLAY * ecran =al_get_current_display();
     al_show_mouse_cursor(ecran);
     free(_pMap->gameData);

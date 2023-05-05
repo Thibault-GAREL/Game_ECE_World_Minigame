@@ -78,6 +78,7 @@ typedef struct _TABGAMEDATA
     char chiffre[100];
     int compteurmusique;
     int compteurmusique2;
+    int compteurtickets;
 }TABGameData;
 
 
