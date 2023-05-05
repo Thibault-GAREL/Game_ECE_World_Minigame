@@ -281,7 +281,7 @@ void TDLR_Create(PGAME _pExemple)
     pGameData->video [19] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-12h58m16s241.png");
     pGameData->video [20] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-12h58m46s620.png");
     pGameData->video [21] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-12h59m27s401.png");
-    pGameData->video [22] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h04m38s452.png");
+    /*pGameData->video [22] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h04m38s452.png");
     pGameData->video [23] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h04m43s448.png)");
     pGameData->video [24] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h06m17s417.png");
     pGameData->video [25] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h06m22s560.png");
@@ -293,7 +293,7 @@ void TDLR_Create(PGAME _pExemple)
     pGameData->video [31] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h06m48s874.png");
     pGameData->video [32] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h06m53s778.png");
     pGameData->video [33] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h07m02s058.png");
-    pGameData->video [34] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h07m14s492.png");
+    pGameData->video [34] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h07m14s492.png");*/
 
     pGameData->police[0]= al_load_ttf_font(PATH"\\Textures\\Fonts\\police.ttf",150,0);
     pGameData->police[1]= al_load_ttf_font(PATH"\\Textures\\Fonts\\police.ttf",100,0);
@@ -608,10 +608,10 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
         //al_draw_bitmap(pGameData->image [8], 0, 0, 0);
         pGameData->compteur_animation1 ++;
         al_draw_text(pGameData->police[2], al_map_rgb(0, 0, 0),100,100,0,"Le gagnant est :");
-        if (pGameData->compteur_animation1 % 20 == 1) {
+        if (pGameData->compteur_animation1 % 15 == 1) {
             pGameData->compteur_animation2 ++;
         }
-        if (pGameData->compteur_animation2 < 35) {
+        if (pGameData->compteur_animation2 < 22) {
 
             al_draw_bitmap(pGameData->video [pGameData->compteur_animation2], 600, 0, 0);
         }
@@ -651,7 +651,7 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
         else {
             pGameData->gagnant = 0;
             al_draw_text(pGameData->police[2], al_map_rgb(0, 0, 0), 100, 400, 0, "personne");
-            al_draw_text(pGameData->police[2], al_map_rgb(0, 0, 0), 100, 500, 0, "(vous avez eu le même score!)");
+            al_draw_text(pGameData->police[2], al_map_rgb(0, 0, 0), 100, 500, 0, "(vous avez eu le même score !)");
             al_draw_filled_rectangle(720, 700, 1100, 850, al_map_rgb(50, 100, 200));
             al_draw_rectangle(720, 700, 1100, 850, al_map_rgb(0, 0, 0), 3);
             al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255), 800 , 750, 0, "Sortir");
@@ -687,8 +687,6 @@ void TDLR_Destroy(PGAME _pExemple)
     }
     free(_pExemple->gameData); //Pour chaque structure / allocation
     _pExemple->gameData = NULL;
-
-
                                                                                                                 //Ne pas oublier de destroy
 
     printf("Jeu detruit\n");
