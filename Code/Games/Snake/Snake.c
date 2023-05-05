@@ -139,7 +139,7 @@ void SnakeGame_Destroy(PGAME _pSnake)
     free(pSnakeData);
     
     _pSnake->gameData = NULL;
-    *_pSnake->pCurrentGameId = GAME_NONE;
+    *_pSnake->pCurrentGameId = GAME_MAP;
 }
 
 
