@@ -1,4 +1,4 @@
-#include "Geo.h"
+#include "GameExemple.h"
 
 void Exemple_Create(PGAME _pExemple)
 {

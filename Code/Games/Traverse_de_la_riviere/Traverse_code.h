@@ -37,9 +37,9 @@ typedef struct Obstacle
 
 
 typedef struct GameData {
-    ALLEGRO_BITMAP* image [9];
+    ALLEGRO_BITMAP* image [8];
     ALLEGRO_BITMAP* fond [9];
-    ALLEGRO_BITMAP* video [35];
+    ALLEGRO_BITMAP* video [22];
     int fond_choisi [1000];
     float x_fond [1000];
     ALLEGRO_FONT* police[3];
