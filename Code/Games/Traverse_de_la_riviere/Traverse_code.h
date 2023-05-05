@@ -62,6 +62,9 @@ typedef struct GameData {
 
     int X_player;
 
+    int compteur_animation1;
+    int compteur_animation2;
+
     int player_en_cours;
 
     Vector2D mouse_position;

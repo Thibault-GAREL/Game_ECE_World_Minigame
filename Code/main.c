@@ -8,7 +8,7 @@
 #include "Games/Traverse_de_la_riviere/Traverse_code.h"
 #include "Games/PecheAuCanards/PAC.h"
 #include "Games/TestMap/Map.h"
-#include "Games/Exemple/GameExemple.h"
+#include "Games/Exemple/Geo.h"
 #include "Games/DarkPiano/DarkPiano.h"
 #include "Menu/Menu.h"
 
