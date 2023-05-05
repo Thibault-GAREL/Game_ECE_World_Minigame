@@ -11,6 +11,7 @@
 #include "Games/Exemple/GameExemple.h"
 #include "Games/DarkPiano/DarkPiano.h"
 #include "Menu/Menu.h"
+#include "Games/JeuBonus/JeuBonus.h"
 
 #define PLAYER_COUNT 2
 #define MAP_EXEMPLE 6
@@ -29,13 +30,13 @@ int main()
 
     //ChangeCursor(pAlManager, pAlManager->pCursors->Cursor1);
 
-    int currentGameId = MENU;
+    int currentGameId = GAME_BONUS;
 
     PPLAYER players[PLAYER_COUNT];
     Players_Init(players, PLAYER_COUNT);
     printf("init des joueurs fait");
 
-    int gamesCount = 7;
+    int gamesCount = 8;
     PGAME pGames[gamesCount];
     //pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
     printf("tous les init sauf map faits \n");
@@ -46,6 +47,7 @@ int main()
     pGames[4] = Game_Init(GAME_DP,DarkPiano_Update, DarkPiano_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
     pGames[5]= Game_Init(GAME_MAP,Map_Update,Map_TimedUpdate,&currentGameId,&event,PLAYER_COUNT,&players);
     pGames[6]= Game_Init(MENU,Menu_Update, Menu_TimedUpdate,&currentGameId,&event,PLAYER_COUNT,&players);
+    pGames[7]= Game_Init(GAME_BONUS,Bonus_Update,Bonus_TimedUpdate,&currentGameId,&event,PLAYER_COUNT,&players);
 
     printf("init sans erreur \n");
 

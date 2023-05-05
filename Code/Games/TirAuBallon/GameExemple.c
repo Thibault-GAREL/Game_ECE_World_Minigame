@@ -673,7 +673,7 @@ void TAB_TimedUpdate(PGAME _pExemple)
         if (pGameData->compteurtickets==0){
             _pExemple->pPlayers[0]->tickets+=pGameData->ticketJ1;
             _pExemple->pPlayers[1]->tickets+=pGameData->ticketJ2;
-            pGameData->compteurtickets=1;
+            pGameData->compteurtickets=1; 
         }
     }
     if (pGameData->gamemode==4){
