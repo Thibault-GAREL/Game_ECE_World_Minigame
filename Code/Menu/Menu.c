@@ -20,6 +20,8 @@ void Menu_Create(PGAME _pMenu)
     gameData->Menu_Bitmap[4] = al_load_bitmap("..\\Textures/Menu/Settings.png");
     gameData->Menu_Bitmap[5] = al_load_bitmap("..\\Textures/Menu/Credits.png");
     gameData->Menu_Bitmap[6] = al_load_bitmap("..\\Textures/Menu/Names.png");
+    gameData->Menu_Bitmap[7] = al_load_bitmap("..\\Textures/Menu/Button.png");
+    gameData->Menu_Bitmap[8] = al_load_bitmap("..\\Textures/Menu/Button Clicked.png");
 
     for (int i = 0; i < 10; ++i) {
         gameData->MB_Infos[i] = malloc(sizeof (MenuBitmapInfo));
@@ -225,6 +227,7 @@ void Menu_TimedUpdate(PGAME _pMenu)
     }
     if(gameData->Main_Menu_Select == 1 &&gameData->GameLaunched == 0){
         al_draw_bitmap(gameData->Menu_Bitmap[4],gameData->MB_Infos[4]->x,gameData->MB_Infos[4]->y,0);
+        al_draw_bitmap(gameData->Menu_Bitmap[7],1000, 600,0);
     }
     if(gameData->Main_Menu_Select == 2 &&gameData->GameLaunched == 0){
         al_draw_bitmap(gameData->Menu_Bitmap[5],gameData->MB_Infos[5]->x,gameData->MB_Infos[5]->y,0);
