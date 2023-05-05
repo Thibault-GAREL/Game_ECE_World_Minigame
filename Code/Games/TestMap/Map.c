@@ -69,6 +69,7 @@ void Map_Create(PGAME _pMap)                               // ECHELLE = 1.25 POU
     pMapData->image[52]= al_load_bitmap("..\\Textures/Map/AfficheSNAKE.png");
     pMapData->image[53]= al_load_bitmap("..\\Textures/Map/AffichePAC.png");
     pMapData->image[54]= al_load_bitmap("..\\Textures/Map/AfficheDP.png");
+    pMapData->image[55]= al_load_bitmap("..\\Textures/Map/ecranvictoire.png");
 
     for (int i=1;i<78;i++){
         sprintf(pMapData->animation, "..\\Textures/Animations/Allegro-loading/Animation%d.jpg", i);
@@ -154,6 +155,9 @@ void Map_Create(PGAME _pMap)                               // ECHELLE = 1.25 POU
 
     pMapData->compteuranim1=1;
     pMapData->compteuranim2=0;
+
+    pMapData->fin=0;
+    pMapData->compteuraffichagenom=0;
 
     for (int i = 0; i < 12; i++)
     {
@@ -627,77 +631,94 @@ void choisirjeusuivant(PGAME _pMap){
 void Map_TimedUpdate(PGAME _pMap)
 {
     MapData* pMapData = _pMap->gameData;
-    pMapData->pimages[0].x = 0;
-    pMapData->pimages[0].y = -3240;
-    pMapData->pimages[1].x = 1920;
-    pMapData->pimages[1].y = -3240;
-    pMapData->pimages[2].x = 3840;
-    pMapData->pimages[2].y = -3240;
-    pMapData->pimages[3].x = 0;
-    pMapData->pimages[3].y = -2160;
-    pMapData->pimages[4].x = 1920;
-    pMapData->pimages[4].y = -2160;
-    pMapData->pimages[5].x = 3840;
-    pMapData->pimages[5].y = -2160;
-    pMapData->pimages[6].x = 0;
-    pMapData->pimages[6].y = -1080;
-    pMapData->pimages[7].x = 1920;
-    pMapData->pimages[7].y = -1080;
-    pMapData->pimages[8].x = 3840;
-    pMapData->pimages[8].y = -1080;
-    pMapData->pimages[9].x = 0;
-    pMapData->pimages[9].y = 0;
-    pMapData->pimages[10].x = 1920;
-    pMapData->pimages[10].y = 0;
-    pMapData->pimages[11].x = 3840;
-    pMapData->pimages[11].y = 0;
-    ALLEGRO_DISPLAY* ecran=al_get_current_display();
-    al_hide_mouse_cursor(ecran);
-    pMapData->x+=pMapData->speedhori*pMapData->deplacementhori;
-    pMapData->y+=pMapData->speedverti*pMapData->deplacementverti;
-    gestionbordure(_pMap);
-    for (int j=28;j<40;j++){
-        al_draw_bitmap(pMapData->image[j],pMapData->pimages[j-28].x-pMapData->x,pMapData->pimages[j-28].y-pMapData->y,0);
-    }
-    for (int i=0;i<pMapData->nbimages;i++){
-        al_draw_bitmap(pMapData->image[i],pMapData->pimages[i].x-pMapData->x,pMapData->pimages[i].y-pMapData->y,0);
-        al_draw_rectangle(-1000,-1000,-1000,-1000, al_map_rgb(0,0,0),2);      // obligé de l'avoir pour faire afficher le bonhomme ????
-    }
-    affichageminimap(_pMap);
-    if (pMapData->compteurfin == 1){
-        while (pMapData->compteuranim1 < 75){
-            if (pMapData->compteuranim2%30==1){
-                pMapData->compteuranim1+=1;
-            }
-            if (pMapData->compteuranim1 < 75){
-                al_draw_bitmap(pMapData->transi[pMapData->compteuranim1],0,0,0);
-                printf("%d\n",pMapData->compteuranim1);
-            }
-            pMapData->compteuranim2++;
-            al_flip_display();
+    if (pMapData->fin == 0){
+        pMapData->pimages[0].x = 0;
+        pMapData->pimages[0].y = -3240;
+        pMapData->pimages[1].x = 1920;
+        pMapData->pimages[1].y = -3240;
+        pMapData->pimages[2].x = 3840;
+        pMapData->pimages[2].y = -3240;
+        pMapData->pimages[3].x = 0;
+        pMapData->pimages[3].y = -2160;
+        pMapData->pimages[4].x = 1920;
+        pMapData->pimages[4].y = -2160;
+        pMapData->pimages[5].x = 3840;
+        pMapData->pimages[5].y = -2160;
+        pMapData->pimages[6].x = 0;
+        pMapData->pimages[6].y = -1080;
+        pMapData->pimages[7].x = 1920;
+        pMapData->pimages[7].y = -1080;
+        pMapData->pimages[8].x = 3840;
+        pMapData->pimages[8].y = -1080;
+        pMapData->pimages[9].x = 0;
+        pMapData->pimages[9].y = 0;
+        pMapData->pimages[10].x = 1920;
+        pMapData->pimages[10].y = 0;
+        pMapData->pimages[11].x = 3840;
+        pMapData->pimages[11].y = 0;
+        ALLEGRO_DISPLAY* ecran=al_get_current_display();
+        al_hide_mouse_cursor(ecran);
+        pMapData->x+=pMapData->speedhori*pMapData->deplacementhori;
+        pMapData->y+=pMapData->speedverti*pMapData->deplacementverti;
+        gestionbordure(_pMap);
+        for (int j=28;j<40;j++){
+            al_draw_bitmap(pMapData->image[j],pMapData->pimages[j-28].x-pMapData->x,pMapData->pimages[j-28].y-pMapData->y,0);
         }
-        *_pMap->pCurrentGameId = pMapData->jeusuivant;
-        Map_Destroy(_pMap);
-        return ;
+        for (int i=0;i<pMapData->nbimages;i++){
+            al_draw_bitmap(pMapData->image[i],pMapData->pimages[i].x-pMapData->x,pMapData->pimages[i].y-pMapData->y,0);
+            al_draw_rectangle(-1000,-1000,-1000,-1000, al_map_rgb(0,0,0),2);      // obligé de l'avoir pour faire afficher le bonhomme ????
+        }
+        affichageminimap(_pMap);
+        if (pMapData->compteurfin == 1){
+            while (pMapData->compteuranim1 < 75){
+                if (pMapData->compteuranim2%30==1){
+                    pMapData->compteuranim1+=1;
+                }
+                if (pMapData->compteuranim1 < 75){
+                    al_draw_bitmap(pMapData->transi[pMapData->compteuranim1],0,0,0);
+                    printf("%d\n",pMapData->compteuranim1);
+                }
+                pMapData->compteuranim2++;
+                al_flip_display();
+            }
+            *_pMap->pCurrentGameId = pMapData->jeusuivant;
+            Map_Destroy(_pMap);
+            return ;
+        }
+        gestionvaisseau(_pMap);
+        affichagebonhomme(_pMap);
+        affichageville(_pMap);
+        if (pMapData->compteurchoixjeu == 0){
+            choisirjeusuivant(_pMap);
+        }
+        if (pMapData->compteurcolision%6==1)
+        {
+            gestioncolision(_pMap,5,-45,0);
+            gestioncolision(_pMap,-35,40,3);
+        }
+        if (pMapData->compteurcolision%8==1 && pMapData->compteurcolision%6!=1){
+            gestioncolision(_pMap,40,40,2);
+            gestioncolision(_pMap,5,50,1);
+        }
+        pMapData->compteurcolision++;
+        if (pMapData->imageactuelle==1){
+            tableaudescore(_pMap);
+        }
     }
-    gestionvaisseau(_pMap);
-    affichagebonhomme(_pMap);
-    affichageville(_pMap);
-    if (pMapData->compteurchoixjeu == 0){
-        choisirjeusuivant(_pMap);
-    }
-    if (pMapData->compteurcolision%6==1)
-    {
-        gestioncolision(_pMap,5,-45,0);
-        gestioncolision(_pMap,-35,40,3);
-    }
-    if (pMapData->compteurcolision%8==1 && pMapData->compteurcolision%6!=1){
-        gestioncolision(_pMap,40,40,2);
-        gestioncolision(_pMap,5,50,1);
-    }
-    pMapData->compteurcolision++;
-    if (pMapData->imageactuelle==1){
-        tableaudescore(_pMap);
+    if (_pMap->pPlayers[0]->tickets >= 5 || _pMap->pPlayers[1]->tickets >= 5)
+        pMapData->fin=1;
+    if (pMapData->fin == 1){
+        al_draw_bitmap(pMapData->image[55],0,0,0);
+        if (_pMap->pPlayers[1]->tickets >= 5 && _pMap->pPlayers[0]->tickets >= 5){
+            al_draw_text(pMapData->police[0], al_map_rgb(255,0,0),500,100,0,_pMap->pPlayers[0]->name);
+            al_draw_text(pMapData->police[0], al_map_rgb(255,0,0),500,300,0,_pMap->pPlayers[1]->name);
+        }
+        else if (_pMap->pPlayers[0]->tickets >= 5 && _pMap->pPlayers[1]->tickets <= 5){
+            al_draw_text(pMapData->police[0], al_map_rgb(255,0,0),500,100,0,_pMap->pPlayers[0]->name);
+        }
+        else if (_pMap->pPlayers[1]->tickets >= 5 && _pMap->pPlayers[0]->tickets <= 5){
+            al_draw_text(pMapData->police[0], al_map_rgb(255,0,0),500,100,0,_pMap->pPlayers[1]->name);
+        }
     }
 
 }
@@ -705,7 +726,7 @@ void Map_TimedUpdate(PGAME _pMap)
 void Map_Destroy(PGAME _pMap)
 {
     MapData* pMapData = _pMap->gameData;
-    for (int i=0;i<55;i++){
+    for (int i=0;i<56;i++){
         al_destroy_bitmap(pMapData->image[i]);
     }
     for (int i=1;i<78;i++){
