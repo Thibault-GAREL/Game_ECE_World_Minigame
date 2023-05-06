@@ -20,11 +20,12 @@ void Menu_Create(PGAME _pMenu)
     gameData->Menu_Bitmap[4] = al_load_bitmap("..\\Textures/Menu/Settings.png");
     gameData->Menu_Bitmap[5] = al_load_bitmap("..\\Textures/Menu/Credits.png");
     gameData->Menu_Bitmap[6] = al_load_bitmap("..\\Textures/Menu/Names.png");
-    gameData->Menu_Bitmap[7] = al_load_bitmap("..\\Textures/Menu/Button.png");
-    gameData->Menu_Bitmap[8] = al_load_bitmap("..\\Textures/Menu/Button Clicked.png");
+    gameData->Menu_Bitmap[7] = al_load_bitmap("..\\Textures/Menu/Button (Personnalisé).png");
+    gameData->Menu_Bitmap[8] = al_load_bitmap("..\\Textures/Menu/Button Clicked (Personnalisé).png");
 
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 20; ++i) {
         gameData->MB_Infos[i] = malloc(sizeof (MenuBitmapInfo));
+        gameData->MB_Infos[i]->BitmapClicked = 0;
     }
 
     gameData->MB_Infos[0]->x = 0;
@@ -39,6 +40,33 @@ void Menu_Create(PGAME _pMenu)
     gameData->MB_Infos[4]->y = 0;
     gameData->MB_Infos[5]->x = 0;
     gameData->MB_Infos[5]->y = 0;
+    gameData->MB_Infos[6]->x = 0;
+    gameData->MB_Infos[6]->y = 0;
+
+
+    gameData->MB_Infos[7]->x = 950;;
+    gameData->MB_Infos[7]->y = 675;;
+    gameData->MB_Infos[8]->x = 1050;
+    gameData->MB_Infos[8]->y = 675;
+    gameData->MB_Infos[9]->x = 1150;
+    gameData->MB_Infos[9]->y = 675;
+    gameData->MB_Infos[10]->x = 1250;
+    gameData->MB_Infos[10]->y = 675;
+    gameData->MB_Infos[11]->x = 1350;
+    gameData->MB_Infos[11]->y = 675;
+
+    gameData->MB_Infos[12]->x = 950;
+    gameData->MB_Infos[12]->y = 850;
+    gameData->MB_Infos[13]->x = 1050;
+    gameData->MB_Infos[13]->y = 850;
+    gameData->MB_Infos[14]->x = 1150;
+    gameData->MB_Infos[14]->y = 850;
+    gameData->MB_Infos[15]->x = 1250;
+    gameData->MB_Infos[15]->y = 850;
+    gameData->MB_Infos[16]->x = 1350;
+    gameData->MB_Infos[16]->y = 850;
+    gameData->MB_Infos[17]->x = 1450;
+    gameData->MB_Infos[17]->y = 850;
 
     gameData->MB_Infos[0]->vx = 0;
     gameData->MB_Infos[0]->vy = 0;
@@ -96,12 +124,12 @@ void Menu_Update(PGAME _pMenu)
         gameData->GameLaunched = 1;
     }
 
-    if (Get_Touch( _pMenu->pEvent, ALLEGRO_KEY_DELETE,0,0,1,0) && gameData->Main_Menu_Select != 0){
+    if (Get_Touch( _pMenu->pEvent, ALLEGRO_KEY_DELETE,0,0,1,0) && gameData->Main_Menu_Select != 0 && gameData->GameLaunched == 0){
         gameData->Main_Menu_Select = 0;
     }
-    else if(Get_Touch( _pMenu->pEvent, ALLEGRO_KEY_DELETE,0,0,1,0) && gameData->Main_Menu_Select == 0){
+    /*else if(Get_Touch( _pMenu->pEvent, ALLEGRO_KEY_DELETE,0,0,1,0) && gameData->Main_Menu_Select == 0){
         Menu_Destroy(_pMenu);
-    }
+    */
 
     if (Point_In_Rectangle((Vector2D){gameData->mouse.x, gameData->mouse.y}, (Vector2D){gameData->MB_Infos[1]->x ,gameData->MB_Infos[1]->y }, (Vector2D){gameData->MB_Infos[1]->x + al_get_bitmap_width(gameData->Menu_Bitmap[1]),gameData->MB_Infos[1]->y+al_get_bitmap_height(gameData->Menu_Bitmap[1])})){
         gameData->MB_Infos[1]->MouseIsOver = 1;
@@ -109,6 +137,23 @@ void Menu_Update(PGAME _pMenu)
             gameData->GameLaunched = 1;
         }
     }
+    for (int i = 7; i < 18; ++i) {
+        if (Point_In_Rectangle((Vector2D){gameData->mouse.x, gameData->mouse.y}, (Vector2D){gameData->MB_Infos[i]->x ,gameData->MB_Infos[i]->y }, (Vector2D){gameData->MB_Infos[i]->x + al_get_bitmap_width(gameData->Menu_Bitmap[7]),gameData->MB_Infos[i]->y+al_get_bitmap_height(gameData->Menu_Bitmap[7])})){
+            if (gameData->click == 1) {
+                if (gameData->MB_Infos[i]->BitmapClicked == 1){
+                    gameData->MB_Infos[i]->BitmapClicked = 0;
+                }
+                else {
+                    for (int j = 7; j <18; j++){
+                        gameData->MB_Infos[j]->BitmapClicked = 0;
+                    }
+                    gameData->MB_Infos[i]->BitmapClicked = 1;
+                    printf("bouton click \n");
+                }
+            }
+        }
+    }
+
 
     if (gameData->GetNameState == 1){
         if (gameData->GameLaunched == 1){
@@ -148,25 +193,6 @@ void Menu_Update(PGAME _pMenu)
             if (Get_Touch( _pMenu->pEvent, ALLEGRO_KEY_ENTER,0,0,1,0)){
                 gameData->GetName2[gameData->CurrentCharPos] = '\0';
                 gameData->GetNameState = 3;
-
-                /*for (gameData->CurrentCharPos = 0; gameData->CurrentCharPos < 10; gameData->CurrentCharPos++) {
-                    if (gameData->GetName1[gameData->CurrentCharPos] != '\0'){
-                        _pMenu->pPlayers[0]->name[gameData->CurrentCharPos] = gameData->GetName1[gameData->CurrentCharPos];
-                        gameData->CurrentCharPos++;
-                    }
-                    else{
-                        _pMenu->pPlayers[0]->name[0] = '\0';
-                    }
-                }
-                for (gameData->CurrentCharPos = 0; gameData->CurrentCharPos < 10; gameData->CurrentCharPos++) {
-                    if (gameData->GetName2[gameData->CurrentCharPos] != '\0'){
-                        _pMenu->pPlayers[1]->name[gameData->CurrentCharPos] = gameData->GetName2[gameData->CurrentCharPos];
-                        gameData->CurrentCharPos++;
-                    }
-                    else{
-                        _pMenu->pPlayers[1]->name[0] = '\0';
-                    }
-                }*/
 
                 strcpy(_pMenu->pPlayers[0]->name, gameData->GetName1);
                 strcpy(_pMenu->pPlayers[1]->name, gameData->GetName2);
@@ -219,17 +245,27 @@ void Menu_TimedUpdate(PGAME _pMenu)
 {
     pMenuGameData gameData = _pMenu->gameData;
 
-    if (gameData->Main_Menu_Select == 0 &&gameData->GameLaunched == 0){
+    if (gameData->Main_Menu_Select == 0 && gameData->GameLaunched == 0){
         al_draw_bitmap(gameData->Menu_Bitmap[0],gameData->MB_Infos[0]->x,gameData->MB_Infos[0]->y,0);
         al_draw_bitmap(gameData->Menu_Bitmap[1],gameData->MB_Infos[1]->x,gameData->MB_Infos[1]->y,0);
         al_draw_bitmap(gameData->Menu_Bitmap[2],gameData->MB_Infos[2]->x,gameData->MB_Infos[2]->y,0);
         al_draw_bitmap(gameData->Menu_Bitmap[3],gameData->MB_Infos[3]->x,gameData->MB_Infos[3]->y,0);
     }
-    if(gameData->Main_Menu_Select == 1 &&gameData->GameLaunched == 0){
+    if(gameData->Main_Menu_Select == 1 && gameData->GameLaunched == 0){
         al_draw_bitmap(gameData->Menu_Bitmap[4],gameData->MB_Infos[4]->x,gameData->MB_Infos[4]->y,0);
-        al_draw_bitmap(gameData->Menu_Bitmap[7],1000, 600,0);
+        al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[7]->BitmapClicked],gameData->MB_Infos[7]->x, gameData->MB_Infos[7]->y,0);
+        al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[8]->BitmapClicked],gameData->MB_Infos[8]->x, gameData->MB_Infos[8]->y,0);
+        al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[9]->BitmapClicked],gameData->MB_Infos[9]->x, gameData->MB_Infos[9]->y,0);
+        al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[10]->BitmapClicked],gameData->MB_Infos[10]->x, gameData->MB_Infos[10]->y,0);
+        al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[11]->BitmapClicked],gameData->MB_Infos[11]->x, gameData->MB_Infos[11]->y,0);
+
+        al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[12]->BitmapClicked],gameData->MB_Infos[12]->x, gameData->MB_Infos[12]->y,0);
+        al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[13]->BitmapClicked],gameData->MB_Infos[13]->x, gameData->MB_Infos[13]->y,0);
+        al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[14]->BitmapClicked],gameData->MB_Infos[14]->x, gameData->MB_Infos[14]->y,0);
+        al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[15]->BitmapClicked],gameData->MB_Infos[15]->x, gameData->MB_Infos[15]->y,0);
+        al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[16]->BitmapClicked],gameData->MB_Infos[16]->x, gameData->MB_Infos[16]->y,0);
     }
-    if(gameData->Main_Menu_Select == 2 &&gameData->GameLaunched == 0){
+    if(gameData->Main_Menu_Select == 2 && gameData->GameLaunched == 0){
         al_draw_bitmap(gameData->Menu_Bitmap[5],gameData->MB_Infos[5]->x,gameData->MB_Infos[5]->y,0);
     }
 

@@ -41,6 +41,20 @@ typedef struct _BONUSDATA
     int b;
     int c;
     int d;
+    int colision1;
+    int colision2;
+    int colision3;
+    int colision4;
+    int colision5;
+    int colision6;
+    int compteurchoc;
+    int compteurfinchoc;
+    int compteurchoc2;
+    int compteurfinchoc2;
+    int compteurchoc3;
+    int compteurfinchoc3;
+    int compteurchoc4;
+    int compteurfinchoc4;
 }BonusData;
 
 
@@ -48,6 +62,7 @@ void Bonus_Create(PGAME _pBonus);
 void Bonus_Update(PGAME _pBonus);
 void gestionbordurebonhommes(PGAME _pBonus);
 void affichagebonhommes(PGAME _pBonus);
+void gestioncolisions(PGAME _pBonus);
 void Bonus_TimedUpdate(PGAME _pBonus);
 void Bonus_Destroy(PGAME _pBonus);
 
