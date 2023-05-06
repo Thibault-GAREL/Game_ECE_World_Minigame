@@ -649,38 +649,40 @@ void gestionballe(PGAME _pBonus){
     if (pBonusData->sensbonhomme1==0){
         if (pBonusData->xballon+9 <= pBonusData->x1+230 && pBonusData->xballon+9 > pBonusData->x1+120){
             if (pBonusData->yballon+39 <= pBonusData->y1 && pBonusData->yballon+39 > pBonusData->y1+174-232){
-                pBonusData->speedballonx+=10;
-                pBonusData->speedballonx *= -1;
-                pBonusData->speedballon *= 1.25;
+                if (pBonusData->tirJ1==0){
+                    pBonusData->speedballonx+=10;
+                    pBonusData->speedballonx *= -1;
+                    pBonusData->speedballon *= 1.25;
+                }
                 if (pBonusData->tirJ1==1){
                     pBonusData->speedballonx+=10;
                     pBonusData->speedballonx *= -2;
-                    pBonusData->speedballon *= 3;
+                    pBonusData->speedballon *= -3;
                 }
             }
-            if (pBonusData->yballon+39 <= pBonusData->y1+174-232 && pBonusData->yballon+39 > pBonusData->y1+105-232){
+            if (pBonusData->yballon+39 <= pBonusData->y1+174-232 && pBonusData->yballon+39 > pBonusData->y1+110-232){
                 pBonusData->speedballonx+=10;
                 pBonusData->speedballonx *= 1;
                 pBonusData->speedballon *= -1;
             }
-            if (pBonusData->yballon+39 <= pBonusData->y1+105-232 && pBonusData->yballon+39 > pBonusData->y1+15-232){
+            if (pBonusData->yballon+39 <= pBonusData->y1+105-232 && pBonusData->yballon+39 > pBonusData->y1+60-232){
                 pBonusData->speedballonx *= -1.2;
                 pBonusData->speedballon *= -1.8;
             }
         }
         if (pBonusData->xballon+70 >= pBonusData->x1+55 && pBonusData->xballon+70 < pBonusData->x1+79){
-            if (pBonusData->yballon+39 >= pBonusData->y1+15-232 && pBonusData->yballon+39 < pBonusData->y1){
+            if (pBonusData->yballon+39 >= pBonusData->y1+60-232 && pBonusData->yballon+39 < pBonusData->y1){
                 pBonusData->speedballonx-=10;
                 pBonusData->speedballonx *= -1.25;
                 pBonusData->speedballon *= 1;
             }
         }
         if (pBonusData->xballon+40 >= pBonusData->x1+55 && pBonusData->xballon+40 < pBonusData->x1+188){
-            if (pBonusData->yballon+39 <= pBonusData->y1+105-232 && pBonusData->yballon+39 > pBonusData->y1+15-232){
+            if (pBonusData->yballon+39 <= pBonusData->y1+105-232 && pBonusData->yballon+39 > pBonusData->y1+60-232){
                 pBonusData->speedballonx *= -1.2;
                 pBonusData->speedballon *= -1.8;
             }
-            if (pBonusData->yballon+4 >= pBonusData->y1){
+            if (pBonusData->yballon+4 >= pBonusData->y1+5){
                 pBonusData->speedballonx *= -1.2;
                 pBonusData->speedballon *= -1.8;
             }
@@ -689,13 +691,15 @@ void gestionballe(PGAME _pBonus){
     if (pBonusData->sensbonhomme1==1){
         if (pBonusData->xballon+70 >= pBonusData->x1+40 && pBonusData->xballon+70 < pBonusData->x1+150){
             if (pBonusData->yballon+39 <= pBonusData->y1 && pBonusData->yballon+39 > pBonusData->y1+174-232){
-                pBonusData->speedballonx-=10;
-                pBonusData->speedballonx *= -1;
-                pBonusData->speedballon *= 1.25;
+                if (pBonusData->tirJ1==0){
+                    pBonusData->speedballonx-=10;
+                    pBonusData->speedballonx *= 1;
+                    pBonusData->speedballon *= 1.25;
+                }
                 if (pBonusData->tirJ1==1){
                     pBonusData->speedballonx-=10;
                     pBonusData->speedballonx *= -2;
-                    pBonusData->speedballon *= 3;
+                    pBonusData->speedballon *= -3;
                 }
             }
             if (pBonusData->yballon+39 <= pBonusData->y1+174-232 && pBonusData->yballon+39 > pBonusData->y1+105-232){
@@ -703,14 +707,14 @@ void gestionballe(PGAME _pBonus){
                 pBonusData->speedballonx *= 1;
                 pBonusData->speedballon *= -1;
             }
-            if (pBonusData->yballon+39 <= pBonusData->y1+105-232 && pBonusData->yballon+39 > pBonusData->y1+15-232){
+            if (pBonusData->yballon+39 <= pBonusData->y1+105-232 && pBonusData->yballon+39 > pBonusData->y1+60-232){
                 pBonusData->speedballonx *= -1.2;
                 pBonusData->speedballon *= -1.8;
             }
         }
         if (pBonusData->xballon+9 <= pBonusData->x1+188 && pBonusData->xballon+9 > pBonusData->x1+150){
-            if (pBonusData->yballon+39 >= pBonusData->y1+15-232 && pBonusData->yballon+39 < pBonusData->y1){
-                pBonusData->speedballonx-=10;
+            if (pBonusData->yballon+39 >= pBonusData->y1+60-232 && pBonusData->yballon+39 < pBonusData->y1){
+                pBonusData->speedballonx+=10;
                 pBonusData->speedballonx *= -1.25;
                 pBonusData->speedballon *= 1;
             }
@@ -720,7 +724,91 @@ void gestionballe(PGAME _pBonus){
                 pBonusData->speedballonx *= -1.2;
                 pBonusData->speedballon *= -1.8;
             }
-            if (pBonusData->yballon+4 >= pBonusData->y1){
+            if (pBonusData->yballon+4 >= pBonusData->y1+5){
+                pBonusData->speedballonx *= -1.2;
+                pBonusData->speedballon *= -1.8;
+            }
+        }
+    }
+    if (pBonusData->sensbonhomme2==0){
+        if (pBonusData->xballon+70 >= pBonusData->x2+7 && pBonusData->xballon+70 < pBonusData->x2+60){
+            if (pBonusData->yballon+39 >= pBonusData->y2+178-232 && pBonusData->yballon+39 < pBonusData->y2+228-232){
+                if (pBonusData->tirJ2==0){
+                    pBonusData->speedballonx+=10;
+                    pBonusData->speedballonx *= -1;
+                    pBonusData->speedballon *= 1.25;
+                }
+                if (pBonusData->tirJ2==1){
+                    pBonusData->speedballonx+=10;
+                    pBonusData->speedballonx *= -2;
+                    pBonusData->speedballon *= 3;
+                }
+            }
+            if (pBonusData->yballon+39 >= pBonusData->y2+112-232 && pBonusData->yballon+39 < pBonusData->y2+178-232){
+                pBonusData->speedballonx-=10;
+                pBonusData->speedballonx *= 1;
+                pBonusData->speedballon *= -1;
+            }
+            if (pBonusData->yballon+39 >= pBonusData->y2+80 - 232 && pBonusData->yballon+39 < pBonusData->y2+178-232){
+                pBonusData->speedballonx *= -1.2;
+                pBonusData->speedballon *= -1.8;
+            }
+        }
+        if (pBonusData->xballon+9 <= pBonusData->x2+147 && pBonusData->xballon+9 > pBonusData->x2+90){
+            if (pBonusData->yballon+39 >= pBonusData->y2+80-232 && pBonusData->yballon+39 < pBonusData->y2+228-232){
+                pBonusData->speedballonx+=10;
+                pBonusData->speedballonx *= -1.25;
+                pBonusData->speedballon *= 1;
+            }
+        }
+        if (pBonusData->xballon+40 >= pBonusData->x2+7 && pBonusData->xballon+40 < pBonusData->x2+147){
+            if (pBonusData->yballon+39 >= pBonusData->y2+70-232 && pBonusData->yballon+39 < pBonusData->y2+34-232){
+                pBonusData->speedballonx *= -1.2;
+                pBonusData->speedballon *= -1.8;
+            }
+            if (pBonusData->yballon+4 >= pBonusData->y2){
+                pBonusData->speedballonx *= -1.2;
+                pBonusData->speedballon *= -1.8;
+            }
+        }
+    }
+    if (pBonusData->sensbonhomme2==1){
+        if (pBonusData->xballon+9 >= pBonusData->x2+62 && pBonusData->xballon+9 < pBonusData->x2+211){
+            if (pBonusData->yballon+39 >= pBonusData->y2+178-232 && pBonusData->yballon+39 < pBonusData->y2+228-232){
+                if (pBonusData->tirJ2==0){
+                    pBonusData->speedballonx-=10;
+                    pBonusData->speedballonx *= -1;
+                    pBonusData->speedballon *= 1.25;
+                }
+                if (pBonusData->tirJ2==1){
+                    pBonusData->speedballonx-=10;
+                    pBonusData->speedballonx *= -2;
+                    pBonusData->speedballon *= 3;
+                }
+            }
+            if (pBonusData->yballon+39 >= pBonusData->y2+112-232 && pBonusData->yballon+39 < pBonusData->y2+178-232){
+                pBonusData->speedballonx-=10;
+                pBonusData->speedballonx *= 1;
+                pBonusData->speedballon *= -1;
+            }
+            if (pBonusData->yballon+39 >= pBonusData->y2+80 - 232 && pBonusData->yballon+39 < pBonusData->y2+178-232){
+                pBonusData->speedballonx *= -1.2;
+                pBonusData->speedballon *= -1.8;
+            }
+        }
+        if (pBonusData->xballon+70 <= pBonusData->x2+211 && pBonusData->xballon+70 > pBonusData->x2+62){
+            if (pBonusData->yballon+39 >= pBonusData->y2+80-232 && pBonusData->yballon+39 < pBonusData->y2+228-232){
+                pBonusData->speedballonx-=10;
+                pBonusData->speedballonx *= -1.25;
+                pBonusData->speedballon *= 1;
+            }
+        }
+        if (pBonusData->xballon+40 >= pBonusData->x2+62 && pBonusData->xballon+40 < pBonusData->x2+211){
+            if (pBonusData->yballon+39 >= pBonusData->y2+70-232 && pBonusData->yballon+39 < pBonusData->y2+34-232){
+                pBonusData->speedballonx *= -1.2;
+                pBonusData->speedballon *= -1.8;
+            }
+            if (pBonusData->yballon+4 >= pBonusData->y2){
                 pBonusData->speedballonx *= -1.2;
                 pBonusData->speedballon *= -1.8;
             }
