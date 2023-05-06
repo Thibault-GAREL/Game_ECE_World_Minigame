@@ -77,6 +77,12 @@ void Bonus_Create(PGAME _pBonus)
     pBonusData->compteurfinchoc3=0;
     pBonusData->compteurchoc4=0;
     pBonusData->compteurfinchoc4=0;
+
+    pBonusData->gravity=0.4;
+    pBonusData->friction=0.9;
+    pBonusData->speedballon=0;
+    pBonusData->compteurfinvit=0;
+    pBonusData->speedballonx=0;
 }
 
 void Bonus_Update(PGAME _pBonus)
@@ -455,9 +461,17 @@ void gestioncolisions(PGAME _pBonus){
                 pBonusData->colision5=0;
             }
         }
+        else {
+            pBonusData->colision6=0;
+            pBonusData->colision3=0;
+            pBonusData->colision2=0;
+            pBonusData->colision1=0;
+            pBonusData->colision4=0;
+            pBonusData->colision5=0;
+        }
     }
     if (pBonusData->compteurchoc==1){
-        pBonusData->x2+=20;
+        pBonusData->x2+=10;
         if (pBonusData->sensbonhomme2==0){
             al_draw_bitmap(pBonusData->image[24],pBonusData->x2+32,pBonusData->y2-199+53,0);
             al_draw_bitmap(pBonusData->image[24],pBonusData->x2+89,pBonusData->y2-199+119,0);
@@ -482,13 +496,13 @@ void gestioncolisions(PGAME _pBonus){
             pBonusData->x2 = 1660-151;
         }
         pBonusData->compteurfinchoc++;
-        if (pBonusData->compteurfinchoc >= 10){
+        if (pBonusData->compteurfinchoc >= 30){
             pBonusData->compteurchoc=0;
             pBonusData->compteurfinchoc=0;
         }
     }
     if (pBonusData->compteurchoc2==1){
-        pBonusData->x1-=20;
+        pBonusData->x1-=10;
         if (pBonusData->x1+68 <= 260){
             pBonusData->x1 = 260-68;
         }
@@ -513,13 +527,13 @@ void gestioncolisions(PGAME _pBonus){
             al_draw_bitmap(pBonusData->image[25],pBonusData->x1+96,pBonusData->y1-199+128,0);
         }
         pBonusData->compteurfinchoc2++;
-        if (pBonusData->compteurfinchoc2 >= 10){
+        if (pBonusData->compteurfinchoc2 >= 30){
             pBonusData->compteurfinchoc2=0;
             pBonusData->compteurchoc2=0;
         }
     }
     if (pBonusData->compteurchoc3==1){
-        pBonusData->x2-=20;
+        pBonusData->x2-=10;
         if (pBonusData->x2+8 <= 260){
             pBonusData->x2=260-8;
         }
@@ -544,13 +558,13 @@ void gestioncolisions(PGAME _pBonus){
             al_draw_bitmap(pBonusData->image[25],pBonusData->x2+115,pBonusData->y2-199+150,0);
         }
         pBonusData->compteurfinchoc3++;
-        if (pBonusData->compteurfinchoc3 >= 10){
+        if (pBonusData->compteurfinchoc3 >= 30){
             pBonusData->compteurfinchoc3=0;
             pBonusData->compteurchoc3=0;
         }
     }
     if (pBonusData->compteurchoc4==1){
-        pBonusData->x1+=20;
+        pBonusData->x1+=10;
         if (pBonusData->x1+188 >= 1660){
             pBonusData->x1=1660-188;
         }
@@ -575,13 +589,87 @@ void gestioncolisions(PGAME _pBonus){
             al_draw_bitmap(pBonusData->image[25],pBonusData->x1+96,pBonusData->y1-199+128,0);
         }
         pBonusData->compteurfinchoc4++;
-        if (pBonusData->compteurfinchoc4 >= 10){
+        if (pBonusData->compteurfinchoc4 >= 30){
             pBonusData->compteurchoc4=0;
             pBonusData->compteurfinchoc4=0;
         }
     }
+    //printf("1:%d\n2:%d\n3:%d\n4:%d\n5:%d\n6:%d\n",pBonusData->colision1,pBonusData->colision2,pBonusData->colision3,pBonusData->colision4,pBonusData->colision5,pBonusData->colision6);
 }
 
+void gestionballe(PGAME _pBonus){
+    BonusData *pBonusData = _pBonus->gameData;
+    pBonusData->yballon+=pBonusData->speedballon;
+    pBonusData->yballon+=2*pBonusData->gravity;
+    pBonusData->xballon+=pBonusData->speedballonx*0.80;
+    if (pBonusData->speedballon >= 40){
+        pBonusData->speedballon=40;
+    }
+    if (pBonusData->speedballon <= -40){
+        pBonusData->speedballon=-40;
+    }
+    if (pBonusData->speedballonx >= 40){
+        pBonusData->speedballonx=40;
+    }
+    if (pBonusData->speedballonx <= -40){
+        pBonusData->speedballonx=-40;
+    }
+    if (pBonusData->xballon+70 >= 1660){
+        pBonusData->xballon=1660-70;
+        pBonusData->speedballonx*=-1;
+    }
+    if (pBonusData->xballon+9 <= 260){
+        pBonusData->xballon=260-9;
+        pBonusData->speedballonx*=-1;
+    }
+    if (pBonusData->yballon+4 <= 0){
+        pBonusData->yballon=0-4;
+        pBonusData->speedballon*=-1;
+    }
+    if(pBonusData->compteurfinvit==0){
+        pBonusData->speedballon+=pBonusData->gravity;
+    }
+    else {
+        pBonusData->speedballon=0;
+        pBonusData->friction=0;
+    }
+    if (pBonusData->yballon >= 730){
+        pBonusData->speedballon=-pBonusData->speedballon*pBonusData->friction;
+        pBonusData->yballon=730;
+    }
+    if (pBonusData->yballon<=680){
+        pBonusData->compteurchutteballon=0;
+    }
+    else {
+        pBonusData->compteurchutteballon++;
+    }
+    if (pBonusData->compteurchutteballon>=10){
+        pBonusData->compteurfinvit=1;
+    }
+    if (pBonusData->sensbonhomme1==0){
+        if (pBonusData->xballon+9 <= pBonusData->x1+188 && pBonusData->xballon+9 > pBonusData->x1+100){
+            if (pBonusData->yballon+39 <= pBonusData->y1 && pBonusData->yballon+39 > pBonusData->y1+174-232){
+                if (pBonusData->tirJ1==1){
+                    pBonusData->speedballonx+=10;
+                    pBonusData->speedballonx *= 2;
+                    pBonusData->speedballon *= -3;
+                }
+                else {
+                    pBonusData->speedballonx+=10;
+                    pBonusData->speedballonx *= 1;
+                    pBonusData->speedballon *= -1;
+                }
+            }
+
+        }
+        if (pBonusData->xballon+70 >= pBonusData->x1+68 && pBonusData->xballon+70 < pBonusData->x1){
+
+        }
+    }
+    al_draw_rectangle(pBonusData->x1+100,pBonusData->y1+232-232,pBonusData->x1+188,pBonusData->y1+174-232, al_map_rgb(255,0,0),5);
+    al_draw_rectangle(pBonusData->xballon+9,pBonusData->yballon+39,pBonusData->xballon+9+5,pBonusData->yballon+39+5,
+                      al_map_rgb(255,0,0),5);
+}
 
 void Bonus_TimedUpdate(PGAME _pBonus) {
     BonusData *pBonusData = _pBonus->gameData;
@@ -598,6 +686,7 @@ void Bonus_TimedUpdate(PGAME _pBonus) {
     al_draw_bitmap(pBonusData->image[8],1750,950,0);
     affichagebonhommes(_pBonus);
     gestioncolisions(_pBonus);
+    gestionballe(_pBonus);
     al_draw_bitmap(pBonusData->image[23],pBonusData->xballon,pBonusData->yballon,0);
 
 }

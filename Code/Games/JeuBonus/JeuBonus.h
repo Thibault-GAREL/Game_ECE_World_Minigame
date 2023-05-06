@@ -55,6 +55,12 @@ typedef struct _BONUSDATA
     int compteurfinchoc3;
     int compteurchoc4;
     int compteurfinchoc4;
+    float gravity;
+    float friction;
+    float speedballon;
+    int compteurchutteballon;
+    int compteurfinvit;
+    float speedballonx;
 }BonusData;
 
 
@@ -63,6 +69,7 @@ void Bonus_Update(PGAME _pBonus);
 void gestionbordurebonhommes(PGAME _pBonus);
 void affichagebonhommes(PGAME _pBonus);
 void gestioncolisions(PGAME _pBonus);
+void gestionballe(PGAME _pBonus);
 void Bonus_TimedUpdate(PGAME _pBonus);
 void Bonus_Destroy(PGAME _pBonus);
 
