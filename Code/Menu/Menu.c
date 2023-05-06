@@ -127,9 +127,9 @@ void Menu_Update(PGAME _pMenu)
     if (Get_Touch( _pMenu->pEvent, ALLEGRO_KEY_DELETE,0,0,1,0) && gameData->Main_Menu_Select != 0 && gameData->GameLaunched == 0){
         gameData->Main_Menu_Select = 0;
     }
-    else if(Get_Touch( _pMenu->pEvent, ALLEGRO_KEY_DELETE,0,0,1,0) && gameData->Main_Menu_Select == 0){
+    /*else if(Get_Touch( _pMenu->pEvent, ALLEGRO_KEY_DELETE,0,0,1,0) && gameData->Main_Menu_Select == 0){
         Menu_Destroy(_pMenu);
-    }
+    */
 
     if (Point_In_Rectangle((Vector2D){gameData->mouse.x, gameData->mouse.y}, (Vector2D){gameData->MB_Infos[1]->x ,gameData->MB_Infos[1]->y }, (Vector2D){gameData->MB_Infos[1]->x + al_get_bitmap_width(gameData->Menu_Bitmap[1]),gameData->MB_Infos[1]->y+al_get_bitmap_height(gameData->Menu_Bitmap[1])})){
         gameData->MB_Infos[1]->MouseIsOver = 1;
@@ -144,10 +144,10 @@ void Menu_Update(PGAME _pMenu)
                     gameData->MB_Infos[i]->BitmapClicked = 0;
                 }
                 else {
-                    gameData->MB_Infos[i]->BitmapClicked = 1;
-                    for (int j = 7; j <18 && j !=i; j++){
+                    for (int j = 7; j <18; j++){
                         gameData->MB_Infos[j]->BitmapClicked = 0;
                     }
+                    gameData->MB_Infos[i]->BitmapClicked = 1;
                     printf("bouton click \n");
                 }
             }
