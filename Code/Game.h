@@ -16,7 +16,8 @@ enum
     GAME_DP,
     GAME_MAP,
     MENU,
-    GAME_BONUS
+    GAME_BONUS,
+    GAME_GEO
 };
 
 typedef struct _PLAYER
