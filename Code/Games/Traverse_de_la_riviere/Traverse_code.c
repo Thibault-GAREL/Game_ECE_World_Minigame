@@ -246,8 +246,8 @@ void TDLR_Create(PGAME _pExemple)
     pGameData->image [4] = al_load_bitmap(PATH "\\Textures\\TDLR\\X-wing_droite.png");
     pGameData->image [5] = al_load_bitmap(PATH "\\Textures\\TDLR\\Chasseur_TIE_droite.png");
 
-    pGameData->image [7] = al_load_bitmap(PATH "\\Textures\\TDLR\\boutonplay.png");
-    pGameData->image [8] = al_load_bitmap(PATH "\\Textures\\TDLR\\Etoile_noire.jpg");
+    pGameData->image [6] = al_load_bitmap(PATH "\\Textures\\TDLR\\boutonplay.png");
+    pGameData->image [7] = al_load_bitmap(PATH "\\Textures\\TDLR\\Etoile_noire.jpg");
 
     pGameData->fond [0] = al_load_bitmap(PATH "\\Textures\\TDLR\\Fonds\\tempsnip.png");
     pGameData->fond [1] = al_load_bitmap(PATH "\\Textures\\TDLR\\Fonds\\tempsnip1.png");
@@ -259,7 +259,7 @@ void TDLR_Create(PGAME _pExemple)
     pGameData->fond [7] = al_load_bitmap(PATH "\\Textures\\TDLR\\Fonds\\tempsnip7.png");
     pGameData->fond [8] = al_load_bitmap(PATH "\\Textures\\TDLR\\Fonds\\Zone_de_paix.png");
 
-    /*pGameData->video [0] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-12h56m51s571.png");
+    pGameData->video [0] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-12h56m51s571.png");
     pGameData->video [1] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-12h56m58s324.png");
     pGameData->video [2] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-12h57m01s945.png");
     pGameData->video [3] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-12h57m06s538.png");
@@ -281,19 +281,6 @@ void TDLR_Create(PGAME _pExemple)
     pGameData->video [19] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-12h58m16s241.png");
     pGameData->video [20] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-12h58m46s620.png");
     pGameData->video [21] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-12h59m27s401.png");
-    pGameData->video [22] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h04m38s452.png");
-    pGameData->video [23] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h04m43s448.png)");
-    pGameData->video [24] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h06m17s417.png");
-    pGameData->video [25] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h06m22s560.png");
-    pGameData->video [26] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h06m26s871.png");
-    pGameData->video [27] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h06m32s616.png");
-    pGameData->video [28] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h06m36s320.png");
-    pGameData->video [29] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h06m40s875.png");
-    pGameData->video [30] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h06m44s652.png");
-    pGameData->video [31] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h06m48s874.png");
-    pGameData->video [32] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h06m53s778.png");
-    pGameData->video [33] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h07m02s058.png");
-    pGameData->video [34] = al_load_bitmap(PATH "\\Textures\\TDLR\\Dark_vador\\vlcsnap-2023-05-04-13h07m14s492.png");*/
 
     pGameData->police[0]= al_load_ttf_font(PATH"\\Textures\\Fonts\\police.ttf",150,0);
     pGameData->police[1]= al_load_ttf_font(PATH"\\Textures\\Fonts\\police.ttf",100,0);
@@ -307,6 +294,8 @@ void TDLR_Create(PGAME _pExemple)
     pGameData->temps_restant = 31000;
     pGameData->player_en_cours = 1;
     pGameData->compteur_rectangle = 0;
+    pGameData->compteur_animation1 = 0;
+    pGameData->compteur_animation2 = 0;
     srand(time(NULL));
 
     pGameData->Strat [0] = 0;
@@ -352,12 +341,12 @@ void TDLR_Update(PGAME _pExemple)
     //int* gameData = _pExemple->gameData;
     //printf("%d\n", gameData[0]++);
 
-    if (Get_Touch(_pExemple->pEvent, ALLEGRO_KEY_W, 0, 0, 1, 0))
+    /*if (Get_Touch(_pExemple->pEvent, ALLEGRO_KEY_W, 0, 0, 1, 0))
     {
         printf("WIN !!!!\n");
 
         TDLR_Destroy(_pExemple);
-    }
+    }*/
     if (Get_Touch(_pExemple->pEvent, ALLEGRO_KEY_UP, 0, 1, 0, 0) && pGameData->gamemode == 1){
         //printf("touche espace \n");
         pGameData->pixel_avance += 1;
@@ -421,7 +410,7 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
             pGameData->click=0;
         }
         //  tif (Point_In_Rectangle())
-        al_draw_bitmap(pGameData->image [7], 816, 800, 0);
+        al_draw_bitmap(pGameData->image [6], 816, 800, 0);
         //printf("X: %f, Y: %f \n", pGameData->mouse_position.x,  pGameData->mouse_position.y);
         //al_draw_filled_rectangle(816, 800, 1104, 889, al_map_rgb(255, 0, 0));
     }
@@ -445,6 +434,8 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
             affichage_fond(_pExemple, i);
         }
 
+
+        //printf("%d\n", pGameData->X_player);
 
         if (collision(_pExemple, pGameData->pixel_avance + 2) == true){
             al_clear_to_color(al_map_rgba(255, 0, 0, 245));
@@ -543,7 +534,7 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
     }
     else if (pGameData->gamemode == 2) {
         Allegro_play_Sample((_pExemple->SampleAlManager)->pSampleInstance->TDLR_Fin);
-        al_draw_bitmap(pGameData->image [8], 0, 0, 0);
+        al_draw_bitmap(pGameData->image [7], 0, 0, 0);
         al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),100,480,0,"Score du joueur 1 :");
         al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),1100,480,0,"Score du jouuer 2 :");
         //printf("1 : %d / 2 : %d \n", pGameData->score_player1, pGameData->score_player2);
@@ -594,56 +585,73 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
             pGameData->click=0;
         }
         //  tif (Point_In_Rectangle())
-        //al_draw_bitmap(pGameData->image [7], 910, 100, 0);
+        //al_draw_bitmap(pGameData->image [6], 910, 100, 0);
         al_draw_filled_rectangle(720, 100, 1100, 250, al_map_rgb(50, 100, 200));
         al_draw_rectangle(720, 100, 1100, 250, al_map_rgb(255, 255, 255), 3);
         al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255), 775, 150, 0, "Suivant");
     }
     if (pGameData->gamemode == 3) {
         Allegro_play_Sample((_pExemple->SampleAlManager)->pSampleInstance->TDLR_Fin);
-        al_draw_bitmap(pGameData->image [8], 0, 0, 0);
-        al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255),100,100,0,"Le gagnant est :");
+        //al_draw_bitmap(pGameData->image [7], 0, 0, 0);
+        pGameData->compteur_animation1 ++;
+        al_draw_text(pGameData->police[2], al_map_rgb(0, 0, 0),100,100,0,"Le gagnant est :");
+        if (pGameData->compteur_animation1 % 15 == 1) {
+            pGameData->compteur_animation2 ++;
+        }
+        if (pGameData->compteur_animation2 < 22) {
+
+            al_draw_bitmap(pGameData->video [pGameData->compteur_animation2], 600, 0, 0);
+        }
+        else {
+            pGameData->compteur_animation2 = 0;
+        }
+
+
         if (pGameData->score_player1 > pGameData->score_player2){
             pGameData->gagnant = pGameData->score_player1;
+            al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255), 100, 400, 0, _pExemple->pPlayers[0]->name);
             al_draw_filled_rectangle(720, 700, 1100, 850, al_map_rgb(50, 100, 200));
-            al_draw_rectangle(720, 700, 1100, 850, al_map_rgb(255, 255, 255), 3);
+            al_draw_rectangle(720, 700, 1100, 850, al_map_rgb(0, 0, 0), 3);
             al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255), 800 , 750, 0, "Sortir");
             if (Point_In_Rectangle(pGameData->mouse_position, (Vector2D){720, 700}, (Vector2D){1100, 850}) == 1 && pGameData->click==1)
             {
-                _pExemple->pPlayers [0]->tickets ++;
                 pGameData->click=0;
+                _pExemple->pPlayers [0]->tickets ++;
                 TDLR_Destroy(_pExemple);
                 return;
-                //al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255), 100, 400, 0, _pExemple->pPlayers[0]->name);
+
             }
         }
         else if (pGameData->score_player1 < pGameData->score_player2){
             pGameData->gagnant = pGameData->score_player2;
+            al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255), 100, 400, 0, _pExemple->pPlayers[1]->name);
             al_draw_filled_rectangle(720, 700, 1100, 850, al_map_rgb(50, 100, 200));
-            al_draw_rectangle(720, 700, 1100, 850, al_map_rgb(255, 255, 255), 3);
+            al_draw_rectangle(720, 700, 1100, 850, al_map_rgb(0, 0, 0), 3);
             al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255), 800 , 750, 0, "Sortir");
             if (Point_In_Rectangle(pGameData->mouse_position, (Vector2D){720, 700}, (Vector2D){1100, 850}) == 1 && pGameData->click==1)
             {
-                _pExemple->pPlayers [1]->tickets ++;
                 pGameData->click=0;
+                _pExemple->pPlayers [1]->tickets ++;
                 TDLR_Destroy(_pExemple);
-                //al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255), 100, 400, 0, _pExemple->pPlayers[1]->name);
                 return;
             }
         }
         else {
             pGameData->gagnant = 0;
-            al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255), 100, 400, 0, "personne (vous avez eu le même score!)");
+            al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255), 100, 400, 0, _pExemple->pPlayers[1]->name);
+            al_draw_text(pGameData->police[2], al_map_rgb(0, 0, 0), 100, 400, 0, "personne");
+            al_draw_text(pGameData->police[2], al_map_rgb(0, 0, 0), 100, 500, 0, "(vous avez eu le même score !)");
             al_draw_filled_rectangle(720, 700, 1100, 850, al_map_rgb(50, 100, 200));
-            al_draw_rectangle(720, 700, 1100, 850, al_map_rgb(255, 255, 255), 3);
+            al_draw_rectangle(720, 700, 1100, 850, al_map_rgb(0, 0, 0), 3);
             al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255), 800 , 750, 0, "Sortir");
             if (Point_In_Rectangle(pGameData->mouse_position, (Vector2D){720, 700}, (Vector2D){1100, 850}) == 1 && pGameData->click==1)
             {
                 _pExemple->pPlayers [0]->tickets ++;
                 _pExemple->pPlayers [1]->tickets ++;
                 pGameData->click=0;
+                _pExemple->pPlayers [0]->tickets ++;
+                _pExemple->pPlayers [1]->tickets ++;
                 TDLR_Destroy(_pExemple);
-                //al_draw_text(pGameData->police[2], al_map_rgb(255, 255, 255), 100, 400, 0, _pExemple->pPlayers[1]->name);
                 return;
             }
         }
@@ -652,20 +660,29 @@ void TDLR_TimedUpdate(PGAME _pExemple) //dessin + Timer dans cette fonction
 
 void TDLR_Destroy(PGAME _pExemple)
 {
+    printf("Destruction du jeu...\n");
     GameData* pGameData = (GameData*) _pExemple->gameData;
-    for (int i = 0; i < 9; ++i) {
+    Allegro_Stop_Sample((_pExemple->SampleAlManager)->pSampleInstance->TDLR_Fin);
+    for (int i = 0; i < 8; ++i) {
         al_destroy_bitmap(pGameData->image [i]);
         al_destroy_bitmap(pGameData->fond [i]);
     }
     for (int i = 0; i < 3; ++i) {
         al_destroy_font(pGameData->police [i]);
     }
-    for (int i = 0; i < 35; ++i) {
+    for (int i = 0; i < 22; ++i) {
         al_destroy_bitmap(pGameData->video [i]);
     }
     free(_pExemple->gameData); //Pour chaque structure / allocation
     _pExemple->gameData = NULL;
     *_pExemple->pCurrentGameId = GAME_MAP;
+                                                                                                                //Ne pas oublier de destroy
+
+    printf("Jeu detruit\n");
+
+
+
+    printf("Etat du jeu actuel mis a GAME_NONE");
 }
 
 
