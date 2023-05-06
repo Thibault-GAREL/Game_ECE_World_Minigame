@@ -44,6 +44,17 @@ typedef struct _BONUSDATA
     int colision1;
     int colision2;
     int colision3;
+    int colision4;
+    int colision5;
+    int colision6;
+    int compteurchoc;
+    int compteurfinchoc;
+    int compteurchoc2;
+    int compteurfinchoc2;
+    int compteurchoc3;
+    int compteurfinchoc3;
+    int compteurchoc4;
+    int compteurfinchoc4;
 }BonusData;
 
 

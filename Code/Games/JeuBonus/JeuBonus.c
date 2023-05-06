@@ -29,6 +29,8 @@ void Bonus_Create(PGAME _pBonus)
     pBonusData->image[21]= al_load_bitmap("..\\Textures/JeuBonus/bonhomme22G.png");
     pBonusData->image[22]= al_load_bitmap("..\\Textures/JeuBonus/bonhomme23G.png");
     pBonusData->image[23]= al_load_bitmap("..\\Textures/JeuBonus/Ballon.png");
+    pBonusData->image[24]= al_load_bitmap("..\\Textures/JeuBonus/enervementgrand.png");
+    pBonusData->image[25]= al_load_bitmap("..\\Textures/JeuBonus/enervementpetit.png");
 
     pBonusData->x1=500;
     pBonusData->y1=730;
@@ -63,6 +65,18 @@ void Bonus_Create(PGAME _pBonus)
     pBonusData->colision1=0;
     pBonusData->colision2=0;
     pBonusData->colision3=0;
+    pBonusData->colision4=0;
+    pBonusData->colision5=0;
+    pBonusData->colision6=0;
+
+    pBonusData->compteurchoc=0;
+    pBonusData->compteurfinchoc=0;
+    pBonusData->compteurchoc2=0;
+    pBonusData->compteurfinchoc2=0;
+    pBonusData->compteurchoc3=0;
+    pBonusData->compteurfinchoc3=0;
+    pBonusData->compteurchoc4=0;
+    pBonusData->compteurfinchoc4=0;
 }
 
 void Bonus_Update(PGAME _pBonus)
@@ -107,11 +121,15 @@ void Bonus_Update(PGAME _pBonus)
     if (pBonusData->colision1==0 && pBonusData->colision2==0 && pBonusData->colision3==0){
         pBonusData->deplacementx1 = Get_Touch(_pBonus->pEvent,ALLEGRO_KEY_D,pBonusData->deplacementx1,1,0,pBonusData->deplacementx1);
     }
-    pBonusData->deplacementx1 = Get_Touch(_pBonus->pEvent,ALLEGRO_KEY_Q,pBonusData->deplacementx1,-1,0,pBonusData->deplacementx1);
+    if(pBonusData->colision4==0 && pBonusData->colision5==0 && pBonusData->colision6==0){
+        pBonusData->deplacementx1 = Get_Touch(_pBonus->pEvent,ALLEGRO_KEY_Q,pBonusData->deplacementx1,-1,0,pBonusData->deplacementx1);
+    }
     if (pBonusData->colision1==0 && pBonusData->colision2==0 && pBonusData->colision3==0){
         pBonusData->deplacementx2 = Get_Touch(_pBonus->pEvent,ALLEGRO_KEY_LEFT,pBonusData->deplacementx2,-1,0,pBonusData->deplacementx2);
     }
-    pBonusData->deplacementx2 = Get_Touch(_pBonus->pEvent,ALLEGRO_KEY_RIGHT,pBonusData->deplacementx2,1,0,pBonusData->deplacementx2);
+    if (pBonusData->colision4==0 && pBonusData->colision5==0 && pBonusData->colision6==0){
+        pBonusData->deplacementx2 = Get_Touch(_pBonus->pEvent,ALLEGRO_KEY_RIGHT,pBonusData->deplacementx2,1,0,pBonusData->deplacementx2);
+    }
 
     if (pBonusData->colision1==1 && pBonusData->deplacementx2==-1){
         pBonusData->deplacementx2=0;
@@ -129,6 +147,24 @@ void Bonus_Update(PGAME _pBonus)
         pBonusData->deplacementx2=0;
     }
     if (pBonusData->colision3==1 && pBonusData->deplacementx1==1){
+        pBonusData->deplacementx1=0;
+    }
+    if (pBonusData->colision4==1 && pBonusData->deplacementx2==1){
+        pBonusData->deplacementx2=0;
+    }
+    if (pBonusData->colision4==1 && pBonusData->deplacementx1==-1){
+        pBonusData->deplacementx1=0;
+    }
+    if (pBonusData->colision5==1 && pBonusData->deplacementx2==1){
+        pBonusData->deplacementx2=0;
+    }
+    if (pBonusData->colision5==1 && pBonusData->deplacementx1==-1){
+        pBonusData->deplacementx1=0;
+    }
+    if (pBonusData->colision6==1 && pBonusData->deplacementx2==1){
+        pBonusData->deplacementx2=0;
+    }
+    if (pBonusData->colision6==1 && pBonusData->deplacementx1==-1){
         pBonusData->deplacementx1=0;
     }
 
@@ -329,31 +365,219 @@ void gestioncolisions(PGAME _pBonus){
     if (pBonusData->sensbonhomme1==0 && pBonusData->sensbonhomme2==0){
         if (((pBonusData->x1+188 >= pBonusData->x2+8 && pBonusData->x1+188 < pBonusData->x2+108) || (pBonusData->x2+8 <= pBonusData->x1+188 && pBonusData->x2+8 >pBonusData->x1+108)) && ((pBonusData->y1-222 >= pBonusData->y2-194 && pBonusData->y1-222 < pBonusData->y2-35) || (pBonusData->y2-194 >= pBonusData->y1-222 && pBonusData->y2-194 < pBonusData->y1-11))){
             pBonusData->colision1=1;
+            if (pBonusData->tirJ1 == 1){
+                pBonusData->compteurchoc=1;
+            }
+            if (pBonusData->tirJ2 == 1){
+                pBonusData->compteurchoc2=1;
+            }
         }
         else {
             pBonusData->colision3=0;
             pBonusData->colision2=0;
             pBonusData->colision1=0;
+            pBonusData->colision4=0;
+            pBonusData->colision5=0;
+            pBonusData->colision6=0;
         }
     }
     if (pBonusData->sensbonhomme1==1 && pBonusData->sensbonhomme2==0){
         if(((pBonusData->x1+146 >= pBonusData->x2+8+20 && pBonusData->x1+146 < pBonusData->x2+38) || (pBonusData->x2+8 <= pBonusData->x1+146-20 && pBonusData->x2+8 >pBonusData->x1+146-38)) && ((pBonusData->y1-222 >= pBonusData->y2-194 && pBonusData->y1-222 < pBonusData->y2-35) || (pBonusData->y2-194 >= pBonusData->y1-222 && pBonusData->y2-194 < pBonusData->y1-11))){
             pBonusData->colision2=1;
+            if (pBonusData->tirJ2 == 1){
+                pBonusData->compteurchoc2=1;
+            }
+        }
+        else if (pBonusData->x2+80 < pBonusData->x1+33){
+            if ((pBonusData->x1+33 <= pBonusData->x2+151 && pBonusData->x1+33 > pBonusData->x2+8) && ((pBonusData->y1-222 >= pBonusData->y2-194 && pBonusData->y1-222 < pBonusData->y2-35) || (pBonusData->y2-194 >= pBonusData->y1-222 && pBonusData->y2-194 < pBonusData->y1-11)) ){
+                pBonusData->colision5=1;
+                if (pBonusData->tirJ1==1){
+                    pBonusData->compteurchoc3=1;
+                }
+            }
+            else {
+                pBonusData->colision5=0;
+            }
         }
         else {
             pBonusData->colision3=0;
             pBonusData->colision2=0;
             pBonusData->colision1=0;
+            pBonusData->colision4=0;
+            pBonusData->colision5=0;
+            pBonusData->colision6=0;
         }
     }
     if (pBonusData->sensbonhomme1==0 && pBonusData->sensbonhomme2==1){
         if(((pBonusData->x1+188 >= pBonusData->x2+37+20 && pBonusData->x1+188 < pBonusData->x2+38) || (pBonusData->x2+37 <= pBonusData->x1+188-20 && pBonusData->x2+37 >pBonusData->x1+188-38)) && ((pBonusData->y1-222 >= pBonusData->y2-194 && pBonusData->y1-222 < pBonusData->y2-35) || (pBonusData->y2-194 >= pBonusData->y1-222 && pBonusData->y2-194 < pBonusData->y1-11))){
             pBonusData->colision3=1;
+            if (pBonusData->tirJ1==1){
+                pBonusData->compteurchoc=1;
+            }
+        }
+        else if (pBonusData->x1+100 > pBonusData->x2 +213){
+            if (((pBonusData->x2+213 >= pBonusData->x1+68 && pBonusData->x2+213 < pBonusData->x1+188)) && ((pBonusData->y1-222 >= pBonusData->y2-194 && pBonusData->y1-222 < pBonusData->y2-35) || (pBonusData->y2-194 >= pBonusData->y1-222 && pBonusData->y2-194 < pBonusData->y1-11))){
+                pBonusData->colision4=1;
+                if (pBonusData->tirJ2==1){
+                    pBonusData->compteurchoc4=1;
+                }
+            }
+            else {
+                pBonusData->colision4=0;
+            }
         }
         else {
             pBonusData->colision3=0;
             pBonusData->colision2=0;
             pBonusData->colision1=0;
+            pBonusData->colision4=0;
+            pBonusData->colision5=0;
+            pBonusData->colision6=0;
+        }
+    }
+    if (pBonusData->sensbonhomme2==1 && pBonusData->sensbonhomme1==1){
+        if (pBonusData->x1+33 > pBonusData->x2+64){
+            if ((pBonusData->x1+33 <= pBonusData->x2+213 && pBonusData->x1+33 > pBonusData->x2+64) && ((pBonusData->y1-222 >= pBonusData->y2-194 && pBonusData->y1-222 < pBonusData->y2-35) || (pBonusData->y2-194 >= pBonusData->y1-222 && pBonusData->y2-194 < pBonusData->y1-11))){
+                pBonusData->colision6=1;
+                if (pBonusData->tirJ1==1){
+                    pBonusData->compteurchoc3=1;
+                }
+                if (pBonusData->tirJ2==1){
+                    pBonusData->compteurchoc4=1;
+                }
+            }
+            else {
+                pBonusData->colision6=0;
+                pBonusData->colision3=0;
+                pBonusData->colision2=0;
+                pBonusData->colision1=0;
+                pBonusData->colision4=0;
+                pBonusData->colision5=0;
+            }
+        }
+    }
+    if (pBonusData->compteurchoc==1){
+        pBonusData->x2+=20;
+        if (pBonusData->sensbonhomme2==0){
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x2+32,pBonusData->y2-199+53,0);
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x2+89,pBonusData->y2-199+119,0);
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x2+45,pBonusData->y2-199+148,0);
+        }
+        if (pBonusData->sensbonhomme2==1){
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x2+128,pBonusData->y2-199+50,0);
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x2+79,pBonusData->y2-199+108,0);
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x2+115,pBonusData->y2-199+150,0);
+        }
+        if (pBonusData->sensbonhomme2==0){
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x2+32,pBonusData->y2-199+53,0);
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x2+89,pBonusData->y2-199+119,0);
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x2+45,pBonusData->y2-199+148,0);
+        }
+        if (pBonusData->sensbonhomme2==1){
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x2+128,pBonusData->y2-199+50,0);
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x2+79,pBonusData->y2-199+108,0);
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x2+115,pBonusData->y2-199+150,0);
+        }
+        if (pBonusData->x2+151 >= 1660){
+            pBonusData->x2 = 1660-151;
+        }
+        pBonusData->compteurfinchoc++;
+        if (pBonusData->compteurfinchoc >= 10){
+            pBonusData->compteurchoc=0;
+            pBonusData->compteurfinchoc=0;
+        }
+    }
+    if (pBonusData->compteurchoc2==1){
+        pBonusData->x1-=20;
+        if (pBonusData->x1+68 <= 260){
+            pBonusData->x1 = 260-68;
+        }
+        if (pBonusData->sensbonhomme1==0){
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x1+102,pBonusData->y1-199+7,0);
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x1+36,pBonusData->y1-199+94,0);
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x1+78,pBonusData->y1-199+136,0);
+        }
+        if (pBonusData->sensbonhomme1==1){
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x1+68,pBonusData->y1-199+17,0);
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x1+133,pBonusData->y1-199+104,0);
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x1+96,pBonusData->y1-199+128,0);
+        }
+        if (pBonusData->sensbonhomme1==0){
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x1+102,pBonusData->y1-199+7,0);
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x1+36,pBonusData->y1-199+94,0);
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x1+78,pBonusData->y1-199+136,0);
+        }
+        if (pBonusData->sensbonhomme1==1){
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x1+68,pBonusData->y1-199+17,0);
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x1+133,pBonusData->y1-199+104,0);
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x1+96,pBonusData->y1-199+128,0);
+        }
+        pBonusData->compteurfinchoc2++;
+        if (pBonusData->compteurfinchoc2 >= 10){
+            pBonusData->compteurfinchoc2=0;
+            pBonusData->compteurchoc2=0;
+        }
+    }
+    if (pBonusData->compteurchoc3==1){
+        pBonusData->x2-=20;
+        if (pBonusData->x2+8 <= 260){
+            pBonusData->x2=260-8;
+        }
+        if (pBonusData->sensbonhomme2==0){
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x2+32,pBonusData->y2-199+53,0);
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x2+89,pBonusData->y2-199+119,0);
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x2+45,pBonusData->y2-199+148,0);
+        }
+        if (pBonusData->sensbonhomme2==1){
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x2+128,pBonusData->y2-199+50,0);
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x2+79,pBonusData->y2-199+108,0);
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x2+115,pBonusData->y2-199+150,0);
+        }
+        if (pBonusData->sensbonhomme2==0){
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x2+32,pBonusData->y2-199+53,0);
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x2+89,pBonusData->y2-199+119,0);
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x2+45,pBonusData->y2-199+148,0);
+        }
+        if (pBonusData->sensbonhomme2==1){
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x2+128,pBonusData->y2-199+50,0);
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x2+79,pBonusData->y2-199+108,0);
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x2+115,pBonusData->y2-199+150,0);
+        }
+        pBonusData->compteurfinchoc3++;
+        if (pBonusData->compteurfinchoc3 >= 10){
+            pBonusData->compteurfinchoc3=0;
+            pBonusData->compteurchoc3=0;
+        }
+    }
+    if (pBonusData->compteurchoc4==1){
+        pBonusData->x1+=20;
+        if (pBonusData->x1+188 >= 1660){
+            pBonusData->x1=1660-188;
+        }
+        if (pBonusData->sensbonhomme1==0){
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x1+102,pBonusData->y1-199+7,0);
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x1+36,pBonusData->y1-199+94,0);
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x1+78,pBonusData->y1-199+136,0);
+        }
+        if (pBonusData->sensbonhomme1==1){
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x1+68,pBonusData->y1-199+17,0);
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x1+133,pBonusData->y1-199+104,0);
+            al_draw_bitmap(pBonusData->image[24],pBonusData->x1+96,pBonusData->y1-199+128,0);
+        }
+        if (pBonusData->sensbonhomme1==0){
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x1+102,pBonusData->y1-199+7,0);
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x1+36,pBonusData->y1-199+94,0);
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x1+78,pBonusData->y1-199+136,0);
+        }
+        if (pBonusData->sensbonhomme1==1){
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x1+68,pBonusData->y1-199+17,0);
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x1+133,pBonusData->y1-199+104,0);
+            al_draw_bitmap(pBonusData->image[25],pBonusData->x1+96,pBonusData->y1-199+128,0);
+        }
+        pBonusData->compteurfinchoc4++;
+        if (pBonusData->compteurfinchoc4 >= 10){
+            pBonusData->compteurchoc4=0;
+            pBonusData->compteurfinchoc4=0;
         }
     }
 }
