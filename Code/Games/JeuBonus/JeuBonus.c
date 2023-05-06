@@ -31,6 +31,11 @@ void Bonus_Create(PGAME _pBonus)
     pBonusData->image[23]= al_load_bitmap("..\\Textures/JeuBonus/Ballon.png");
     pBonusData->image[24]= al_load_bitmap("..\\Textures/JeuBonus/enervementgrand.png");
     pBonusData->image[25]= al_load_bitmap("..\\Textures/JeuBonus/enervementpetit.png");
+    pBonusData->image[26]= al_load_bitmap("..\\Textures/JeuBonus/Affichagescore.png");
+
+    pBonusData->police[0]= al_load_ttf_font("..\\Textures/JeuBonus/cambriab.ttf",25,0);
+    pBonusData->police[1]= al_load_ttf_font("..\\Textures/JeuBonus/cambriab.ttf",45,0);
+    pBonusData->police[2]= al_load_ttf_font("..\\Textures/JeuBonus/cambriab.ttf",100,0);
 
     pBonusData->x1=500;
     pBonusData->y1=730;
@@ -83,6 +88,15 @@ void Bonus_Create(PGAME _pBonus)
     pBonusData->speedballon=0;
     pBonusData->compteurfinvit=0;
     pBonusData->speedballonx=0;
+
+    pBonusData->timer=60;
+    pBonusData->compteurtimer=0;
+    pBonusData->butJ1=0;
+    pBonusData->butJ2=0;
+    pBonusData->compteurdixJ1=0;
+    pBonusData->compteurdixJ2=0;
+    pBonusData->compteurbut=0;
+    pBonusData->compteurbut2=0;
 }
 
 void Bonus_Update(PGAME _pBonus)
@@ -277,8 +291,6 @@ void affichagebonhommes(PGAME _pBonus){
             pBonusData->compteurfinanimJ1++;
         }
     }
-    printf("%d\n",pBonusData->sensbonhomme1);
-    printf("A : %d\n",pBonusData->tirJ1);
     if (pBonusData->sensbonhomme1 == 1){
         if (pBonusData->tirJ1==0){
             al_draw_bitmap(pBonusData->image[14],pBonusData->x1,pBonusData->y1-230,0);
@@ -599,7 +611,6 @@ void gestioncolisions(PGAME _pBonus){
             pBonusData->compteurfinchoc4=0;
         }
     }
-    //printf("1:%d\n2:%d\n3:%d\n4:%d\n5:%d\n6:%d\n",pBonusData->colision1,pBonusData->colision2,pBonusData->colision3,pBonusData->colision4,pBonusData->colision5,pBonusData->colision6);
 }
 
 void gestionballe(PGAME _pBonus){
@@ -829,6 +840,75 @@ void gestionballe(PGAME _pBonus){
     }
 }
 
+void animationbut(PGAME _pBonus,int player){
+    BonusData *pBonusData = _pBonus->gameData;
+
+}
+
+void affichagescore(PGAME _pBonus){
+    char nomJ1[]="J1";
+    char nomJ2[]="J2";
+    char tempsmax[]="01";
+    char tempsmin[]="00";
+    char un[]="1";
+    char zero[]="0";
+    BonusData *pBonusData = _pBonus->gameData;
+    al_draw_bitmap(pBonusData->image[26],685,0,0);
+    al_draw_text(pBonusData->police[0], al_map_rgb(255,255,255),810,85,0,nomJ1);
+    al_draw_text(pBonusData->police[0], al_map_rgb(255,255,255),1095,85,0,nomJ2);
+    if (pBonusData->timer == 60){
+        al_draw_text(pBonusData->police[1], al_map_rgb(255,255,255),900,170,0,tempsmax);
+    }
+    if (pBonusData->timer < 60){
+        al_draw_text(pBonusData->police[1], al_map_rgb(255,255,255),900,170,0,tempsmin);
+    }
+    pBonusData->compteurtimer++;
+    if (pBonusData->compteurtimer%100==1) {
+        pBonusData->timer -= 1;
+    }
+    sprintf(pBonusData->tempsrestant,"%d",pBonusData->timer);
+    sprintf(pBonusData->scoreJ1,"%d",pBonusData->butJ1);
+    sprintf(pBonusData->scoreJ2,"%d",pBonusData->butJ2);
+    al_draw_text(pBonusData->police[1], al_map_rgb(255,255,255),970,170,0,pBonusData->tempsrestant);
+    al_draw_text(pBonusData->police[2], al_map_rgb(255,255,255),810,130,0,pBonusData->scoreJ1);
+    al_draw_text(pBonusData->police[2], al_map_rgb(255,255,255),1100,130,0,pBonusData->scoreJ2);
+    if (pBonusData->butJ1 < 10){
+        al_draw_text(pBonusData->police[2], al_map_rgb(255,255,255),760,130,0,zero);
+    }
+    if (pBonusData->butJ2 < 10){
+        al_draw_text(pBonusData->police[2], al_map_rgb(255,255,255),1050,130,0,zero);
+    }
+    if (pBonusData->butJ1 > 10){
+        pBonusData->compteurdixJ1++;
+        pBonusData->butJ1=0;
+    }
+    if (pBonusData->butJ2 > 10){
+        pBonusData->compteurdixJ2++;
+        pBonusData->butJ2=0;
+    }
+    if (pBonusData->compteurdixJ1 == 1){
+        al_draw_text(pBonusData->police[2], al_map_rgb(255,255,255),760,130,0,un);
+    }
+    if (pBonusData->compteurdixJ2 == 1){
+        al_draw_text(pBonusData->police[2], al_map_rgb(255,255,255),1050,130,0,un);
+    }
+    if(pBonusData->yballon+39 >= 390 && pBonusData->yballon+39 <= 730 && pBonusData->xballon+9 <= 290){
+        pBonusData->compteurbut++;
+    }
+    if(pBonusData->yballon+39 >= 390 && pBonusData->yballon+39 <= 730 && pBonusData->xballon+70 >= 1630){
+        pBonusData->compteurbut2++;
+    }
+    if (pBonusData->compteurbut==1){
+        pBonusData->butJ2+=1;
+        animationbut(_pBonus,1);// REMETTRE A ZERO COMPTEURBUT ET COMPTEURBUT2
+    }
+    if (pBonusData->compteurbut2==1){
+        pBonusData->butJ1+=1;
+        animationbut(_pBonus,2);
+    }
+}
+
+
 void Bonus_TimedUpdate(PGAME _pBonus) {
     BonusData *pBonusData = _pBonus->gameData;
     al_draw_bitmap(pBonusData->image[0],0,0,0);
@@ -844,9 +924,9 @@ void Bonus_TimedUpdate(PGAME _pBonus) {
     al_draw_bitmap(pBonusData->image[8],1750,950,0);
     affichagebonhommes(_pBonus);
     gestioncolisions(_pBonus);
+    al_draw_bitmap(pBonusData->image[23],pBonusData->xballon,pBonusData->yballon,0);      // FAIRE UN TRUC AU DESSUS DES PERSO AVEC J1 J2
     gestionballe(_pBonus);
-    al_draw_bitmap(pBonusData->image[23],pBonusData->xballon,pBonusData->yballon,0);
-
+    affichagescore(_pBonus);
 }
 
 void Bonus_Destroy(PGAME _pBonus){
