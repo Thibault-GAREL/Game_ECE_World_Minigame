@@ -37,6 +37,11 @@ void Bonus_Create(PGAME _pBonus)
     pBonusData->police[1]= al_load_ttf_font("..\\Textures/JeuBonus/cambriab.ttf",45,0);
     pBonusData->police[2]= al_load_ttf_font("..\\Textures/JeuBonus/cambriab.ttf",100,0);
 
+    for (int i=0;i<38;i++){
+        sprintf(pBonusData->animgoal,"..\\Textures/JeuBonus/%d.png",i);
+        pBonusData->goal[i]= al_load_bitmap(pBonusData->animgoal);
+    }
+
     pBonusData->x1=500;
     pBonusData->y1=730;
     pBonusData->x2=1250;

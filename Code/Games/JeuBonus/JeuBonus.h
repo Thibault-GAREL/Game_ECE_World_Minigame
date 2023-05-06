@@ -16,6 +16,7 @@ typedef struct _BONUSDATA
     int click;
     ALLEGRO_BITMAP* image[30];
     ALLEGRO_FONT* police[3];
+    ALLEGRO_BITMAP* goal[38];
     float x1;
     float y1;
     float x2;
@@ -73,6 +74,7 @@ typedef struct _BONUSDATA
     int compteurdixJ2;
     int compteurbut;
     int compteurbut2;
+    char animgoal[100];
 }BonusData;
 
 
