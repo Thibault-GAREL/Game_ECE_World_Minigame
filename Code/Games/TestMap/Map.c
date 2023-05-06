@@ -178,8 +178,8 @@ void Map_Update(PGAME _pMap)
 
     if (_pMap->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {
-        pMapData->mouse.x = _pMap->pEvent->mouse.x*1.25;
-        pMapData->mouse.y = _pMap->pEvent->mouse.y*1.25;
+        pMapData->mouse.x = _pMap->pEvent->mouse.x*(_pMap->SampleAlManager->ResolutionScale);
+        pMapData->mouse.y = _pMap->pEvent->mouse.y*(_pMap->SampleAlManager->ResolutionScale);
     }
     if ( _pMap->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
     {
@@ -681,7 +681,6 @@ void Map_TimedUpdate(PGAME _pMap)
                 pMapData->compteuranim2++;
                 al_flip_display();
             }
-            *_pMap->pCurrentGameId = pMapData->jeusuivant;
             Map_Destroy(_pMap);
             return ;
         }
@@ -726,16 +725,23 @@ void Map_TimedUpdate(PGAME _pMap)
 void Map_Destroy(PGAME _pMap)
 {
     MapData* pMapData = _pMap->gameData;
-    for (int i=0;i<56;i++){
+
+    for (int i=0;i<55;i++){
         al_destroy_bitmap(pMapData->image[i]);
     }
+
     for (int i=1;i<78;i++){
         al_destroy_bitmap(pMapData->transi[i]);
     }
+
     al_destroy_font(pMapData->police[0]);
     al_destroy_font(pMapData->police[1]);
-    ALLEGRO_DISPLAY * ecran =al_get_current_display();
+
+    ALLEGRO_DISPLAY * ecran = al_get_current_display();
     al_show_mouse_cursor(ecran);
+
+    *_pMap->pCurrentGameId = pMapData->jeusuivant;
+
     free(_pMap->gameData);
     _pMap->gameData = NULL;
 }

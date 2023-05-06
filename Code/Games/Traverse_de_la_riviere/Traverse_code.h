@@ -18,11 +18,11 @@
 #define Y_player 720
 #define LIFE 100
 
-typedef struct Maillion {
+/*typedef struct Maillion {
     int numero;
     //indication des obstacles ici
     struct Maillion* next;
-}Maillion;
+}Maillion;*/
 
 typedef struct Obstacle
 {
