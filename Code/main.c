@@ -12,7 +12,7 @@
 #include "Games/DarkPiano/DarkPiano.h"
 #include "Menu/Menu.h"
 #include "Games/JeuBonus/JeuBonus.h"
-#include "Games/Geometrie_dash/Geometrie_dash.h"
+#include "Games/GeometryDash/GeometryDash.h"
 
 #define PLAYER_COUNT 2
 #define MAP_EXEMPLE 6
@@ -31,7 +31,7 @@ int main()
 
     //ChangeCursor(pAlManager, pAlManager->pCursors->Cursor1);
 
-    int currentGameId = MENU;
+    int currentGameId = GAME_NONE;
 
     PPLAYER players[PLAYER_COUNT];
     Players_Init(players, PLAYER_COUNT);
@@ -105,6 +105,10 @@ int main()
             if (Get_Touch(&event, ALLEGRO_KEY_M, 0, 1, 0, 0))
             {
                 currentGameId = MENU;
+            }
+            if (Get_Touch(&event, ALLEGRO_KEY_G, 0, 1, 0, 0))
+            {
+                currentGameId = GAME_GEO;
             }
         }
 
