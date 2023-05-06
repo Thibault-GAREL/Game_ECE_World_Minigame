@@ -12,6 +12,7 @@
 #include "Games/DarkPiano/DarkPiano.h"
 #include "Menu/Menu.h"
 #include "Games/JeuBonus/JeuBonus.h"
+#include "Games/Geometrie_dash/Geometrie_dash.h"
 
 #define PLAYER_COUNT 2
 #define MAP_EXEMPLE 6
@@ -36,7 +37,7 @@ int main()
     Players_Init(players, PLAYER_COUNT);
     printf("init des joueurs fait");
 
-    int gamesCount = 8;
+    int gamesCount = 9;
     PGAME pGames[gamesCount];
     //pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
     printf("tous les init sauf map faits \n");
@@ -48,6 +49,7 @@ int main()
     pGames[5]= Game_Init(GAME_MAP,Map_Update,Map_TimedUpdate,&currentGameId,&event,PLAYER_COUNT,&players);
     pGames[6]= Game_Init(MENU,Menu_Update, Menu_TimedUpdate,&currentGameId,&event,PLAYER_COUNT,&players);
     pGames[7]= Game_Init(GAME_BONUS,Bonus_Update,Bonus_TimedUpdate,&currentGameId,&event,PLAYER_COUNT,&players);
+    pGames[8]= Game_Init(GAME_GEO, Geo_Update, Geo_TimedUpdate, &currentGameId, &event,PLAYER_COUNT, &players);
 
     printf("init sans erreur \n");
 
