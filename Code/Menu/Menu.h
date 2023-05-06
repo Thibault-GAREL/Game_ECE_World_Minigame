@@ -11,6 +11,7 @@ typedef struct _MenuBitmap{
     int vx;
     int vy;
     int MouseIsOver;
+    int BitmapClicked;
 }MenuBitmapInfo, *pMenuBitmapInfo;
 
 typedef struct _MenuGameData {
@@ -26,7 +27,7 @@ typedef struct _MenuGameData {
     int GetNameState;
     ALLEGRO_KEYBOARD_STATE keyboard_state;
 
-    pMenuBitmapInfo MB_Infos[10];
+    pMenuBitmapInfo MB_Infos[20];
     ALLEGRO_BITMAP *Menu_Bitmap[10];
 }MenuGameData, *pMenuGameData;
 
