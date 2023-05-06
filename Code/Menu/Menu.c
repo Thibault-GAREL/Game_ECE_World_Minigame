@@ -12,6 +12,10 @@ void Menu_Create(PGAME _pMenu)
     gameData->Main_Menu_Select = 0;
     gameData->CurrentCharPos = 0;
     gameData->GetNameState = 1;
+    gameData->RefreshRate = 0;
+    gameData->SFXGain = 1;
+    gameData->MusicGain = 1;
+    gameData->ResolutionScale = 1;
 
     gameData->Menu_Bitmap[0] = al_load_bitmap("..\\Textures/Menu/Menu.jpg");
     gameData->Menu_Bitmap[1] = al_load_bitmap("..\\Textures/Menu/Menu Choice 1 (Personnalisé).png");
@@ -56,17 +60,20 @@ void Menu_Create(PGAME _pMenu)
     gameData->MB_Infos[11]->y = 675;
 
     gameData->MB_Infos[12]->x = 950;
-    gameData->MB_Infos[12]->y = 850;
+    gameData->MB_Infos[12]->y = 875;
     gameData->MB_Infos[13]->x = 1050;
-    gameData->MB_Infos[13]->y = 850;
+    gameData->MB_Infos[13]->y = 875;
     gameData->MB_Infos[14]->x = 1150;
-    gameData->MB_Infos[14]->y = 850;
+    gameData->MB_Infos[14]->y = 875;
     gameData->MB_Infos[15]->x = 1250;
-    gameData->MB_Infos[15]->y = 850;
+    gameData->MB_Infos[15]->y = 875;
     gameData->MB_Infos[16]->x = 1350;
-    gameData->MB_Infos[16]->y = 850;
-    gameData->MB_Infos[17]->x = 1450;
-    gameData->MB_Infos[17]->y = 850;
+    gameData->MB_Infos[16]->y = 875;
+
+    gameData->MB_Infos[17]->x = 900;
+    gameData->MB_Infos[17]->y = 450;
+    gameData->MB_Infos[18]->x = 1400;
+    gameData->MB_Infos[18]->y = 450;
 
     gameData->MB_Infos[0]->vx = 0;
     gameData->MB_Infos[0]->vy = 0;
@@ -85,7 +92,6 @@ void Menu_Create(PGAME _pMenu)
         gameData->GetName1[i] = 0;
         gameData->GetName2[i] = 0;
     }
-
 
     gameData->GetNameFont = al_load_font("..\\Textures/Fonts/StarWars Font.TTF", 55, 0);
 }
@@ -137,23 +143,77 @@ void Menu_Update(PGAME _pMenu)
             gameData->GameLaunched = 1;
         }
     }
-    for (int i = 7; i < 18; ++i) {
-        if (Point_In_Rectangle((Vector2D){gameData->mouse.x, gameData->mouse.y}, (Vector2D){gameData->MB_Infos[i]->x ,gameData->MB_Infos[i]->y }, (Vector2D){gameData->MB_Infos[i]->x + al_get_bitmap_width(gameData->Menu_Bitmap[7]),gameData->MB_Infos[i]->y+al_get_bitmap_height(gameData->Menu_Bitmap[7])})){
-            if (gameData->click == 1) {
-                if (gameData->MB_Infos[i]->BitmapClicked == 1){
-                    gameData->MB_Infos[i]->BitmapClicked = 0;
-                }
-                else {
-                    for (int j = 7; j <18; j++){
-                        gameData->MB_Infos[j]->BitmapClicked = 0;
+
+    if (gameData->RefreshRate < 20){
+        gameData->RefreshRate++;
+    }
+    else{
+        for (int i = 0; i < 5; ++i) {
+            if (Point_In_Rectangle((Vector2D){gameData->mouse.x, gameData->mouse.y}, (Vector2D){gameData->MB_Infos[i+7]->x ,gameData->MB_Infos[i+7]->y }, (Vector2D){gameData->MB_Infos[i+7]->x + al_get_bitmap_width(gameData->Menu_Bitmap[7]),gameData->MB_Infos[i+7]->y+al_get_bitmap_height(gameData->Menu_Bitmap[7])})){
+                if (gameData->click == 1) {
+                    if (gameData->MB_Infos[i+7]->BitmapClicked == 1){
+                        gameData->MB_Infos[i+7]->BitmapClicked = 0;
                     }
-                    gameData->MB_Infos[i]->BitmapClicked = 1;
-                    printf("bouton click \n");
+                    else {
+                        for (int j = 7; j <12; j++){
+                            gameData->MB_Infos[j]->BitmapClicked = 0;
+                        }
+                        gameData->MB_Infos[i+7]->BitmapClicked = 1;
+                        //printf("bouton click \n");
+                    }
+                    gameData->MusicGain = i*0.25;
+                    //printf("%f \n", gameData->MusicGain);
                 }
             }
         }
-    }
 
+        for (int i = 0; i < 5; ++i) {
+            if (Point_In_Rectangle((Vector2D){gameData->mouse.x, gameData->mouse.y}, (Vector2D){gameData->MB_Infos[i+12]->x ,gameData->MB_Infos[i+12]->y }, (Vector2D){gameData->MB_Infos[i+12]->x + al_get_bitmap_width(gameData->Menu_Bitmap[7]),gameData->MB_Infos[i+12]->y+al_get_bitmap_height(gameData->Menu_Bitmap[7])})){
+                if (gameData->click == 1) {
+                    if (gameData->MB_Infos[i+12]->BitmapClicked == 1){
+                        gameData->MB_Infos[i+12]->BitmapClicked = 0;
+                    }
+                    else {
+                        for (int j = 12; j <17; j++){
+                            gameData->MB_Infos[j]->BitmapClicked = 0;
+                        }
+                        gameData->MB_Infos[i+12]->BitmapClicked = 1;
+                        //printf("bouton click \n");
+                    }
+                    gameData->SFXGain = i*0.25;
+                    //printf("%f \n", gameData->SFXGain);
+                }
+            }
+        }
+
+
+        if (Point_In_Rectangle((Vector2D){gameData->mouse.x, gameData->mouse.y}, (Vector2D){gameData->MB_Infos[17]->x ,gameData->MB_Infos[17]->y }, (Vector2D){gameData->MB_Infos[17]->x + al_get_bitmap_width(gameData->Menu_Bitmap[7]),gameData->MB_Infos[17]->y+al_get_bitmap_height(gameData->Menu_Bitmap[7])})){
+            if (gameData->click == 1){
+                if (gameData->MB_Infos[17]->BitmapClicked == 1){
+                    gameData->MB_Infos[17]->BitmapClicked = 0;
+                }
+                else{
+                    gameData->MB_Infos[17]->BitmapClicked = 1;
+                    gameData->MB_Infos[18]->BitmapClicked = 0;
+                    gameData->ResolutionScale = 1;
+                }
+            }
+        }
+
+        if (Point_In_Rectangle((Vector2D){gameData->mouse.x, gameData->mouse.y}, (Vector2D){gameData->MB_Infos[18]->x ,gameData->MB_Infos[18]->y }, (Vector2D){gameData->MB_Infos[18]->x + al_get_bitmap_width(gameData->Menu_Bitmap[7]),gameData->MB_Infos[18]->y+al_get_bitmap_height(gameData->Menu_Bitmap[7])})){
+            if (gameData->click == 1){
+                if (gameData->MB_Infos[18]->BitmapClicked == 1){
+                    gameData->MB_Infos[18]->BitmapClicked = 0;
+                }
+                else{
+                    gameData->MB_Infos[18]->BitmapClicked = 1;
+                    gameData->MB_Infos[17]->BitmapClicked = 0;
+                    gameData->ResolutionScale = 1.25;
+                }
+            }
+        }
+        gameData->RefreshRate = 0;
+    }
 
     if (gameData->GetNameState == 1){
         if (gameData->GameLaunched == 1){
@@ -200,7 +260,6 @@ void Menu_Update(PGAME _pMenu)
                 printf("%s \n",_pMenu->pPlayers[1]->name);
                 Menu_Destroy(_pMenu);
                 return;
-
             }
 
             else {
@@ -253,17 +312,24 @@ void Menu_TimedUpdate(PGAME _pMenu)
     }
     if(gameData->Main_Menu_Select == 1 && gameData->GameLaunched == 0){
         al_draw_bitmap(gameData->Menu_Bitmap[4],gameData->MB_Infos[4]->x,gameData->MB_Infos[4]->y,0);
+
+        al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[17]->BitmapClicked],gameData->MB_Infos[17]->x, gameData->MB_Infos[17]->y,0);
+        al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[18]->BitmapClicked],gameData->MB_Infos[18]->x, gameData->MB_Infos[18]->y,0);
+        al_draw_text(gameData->GetNameFont, al_map_rgb(0,0,0),gameData->MB_Infos[17]->x + 300,gameData->MB_Infos[17]->y+15,1,"100% - 125%");
+
         al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[7]->BitmapClicked],gameData->MB_Infos[7]->x, gameData->MB_Infos[7]->y,0);
         al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[8]->BitmapClicked],gameData->MB_Infos[8]->x, gameData->MB_Infos[8]->y,0);
         al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[9]->BitmapClicked],gameData->MB_Infos[9]->x, gameData->MB_Infos[9]->y,0);
         al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[10]->BitmapClicked],gameData->MB_Infos[10]->x, gameData->MB_Infos[10]->y,0);
         al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[11]->BitmapClicked],gameData->MB_Infos[11]->x, gameData->MB_Infos[11]->y,0);
+        al_draw_text(gameData->GetNameFont, al_map_rgb(0,0,0),gameData->MB_Infos[7]->x - 175,gameData->MB_Infos[7]->y+15,1,"0% - 100%");
 
         al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[12]->BitmapClicked],gameData->MB_Infos[12]->x, gameData->MB_Infos[12]->y,0);
         al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[13]->BitmapClicked],gameData->MB_Infos[13]->x, gameData->MB_Infos[13]->y,0);
         al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[14]->BitmapClicked],gameData->MB_Infos[14]->x, gameData->MB_Infos[14]->y,0);
         al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[15]->BitmapClicked],gameData->MB_Infos[15]->x, gameData->MB_Infos[15]->y,0);
         al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[16]->BitmapClicked],gameData->MB_Infos[16]->x, gameData->MB_Infos[16]->y,0);
+        al_draw_text(gameData->GetNameFont, al_map_rgb(0,0,0),gameData->MB_Infos[7]->x - 175,gameData->MB_Infos[12]->y+15,1,"0% - 100%");
     }
     if(gameData->Main_Menu_Select == 2 && gameData->GameLaunched == 0){
         al_draw_bitmap(gameData->Menu_Bitmap[5],gameData->MB_Infos[5]->x,gameData->MB_Infos[5]->y,0);
@@ -287,6 +353,12 @@ void Menu_Destroy(PGAME _pMenu)
     printf("Destruction du jeu...\n");
     pMenuGameData gameData = _pMenu->gameData;
 
+    _pMenu->SampleAlManager->MusicGain = gameData->MusicGain;
+    _pMenu->SampleAlManager->SFXGain = gameData->SFXGain;
+    _pMenu->SampleAlManager->ResolutionScale = gameData->ResolutionScale;
+
+    Set_New_Sample_Instance(_pMenu->SampleAlManager);
+
     al_destroy_bitmap(gameData->Menu_Bitmap[0]);
     al_destroy_bitmap(gameData->Menu_Bitmap[1]);
     al_destroy_bitmap(gameData->Menu_Bitmap[2]);
@@ -294,10 +366,13 @@ void Menu_Destroy(PGAME _pMenu)
     al_destroy_bitmap(gameData->Menu_Bitmap[4]);
     al_destroy_bitmap(gameData->Menu_Bitmap[5]);
     al_destroy_bitmap(gameData->Menu_Bitmap[6]);
+    al_destroy_bitmap(gameData->Menu_Bitmap[7]);
+    al_destroy_bitmap(gameData->Menu_Bitmap[8]);
 
     al_destroy_font(gameData->GetNameFont);
 
-    for (int i = 0; i < 10; ++i) {
+
+    for (int i = 0; i < 20; ++i) {
         free(gameData->MB_Infos[i]);
     }
 

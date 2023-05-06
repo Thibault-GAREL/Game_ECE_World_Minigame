@@ -30,7 +30,7 @@ int main()
 
     //ChangeCursor(pAlManager, pAlManager->pCursors->Cursor1);
 
-    int currentGameId = GAME_MAP;
+    int currentGameId = MENU;
 
     PPLAYER players[PLAYER_COUNT];
     Players_Init(players, PLAYER_COUNT);
@@ -54,6 +54,8 @@ int main()
     pGames[1]->SampleAlManager = pAlManager;
     pGames[2]->SampleAlManager = pAlManager;
     pGames[3]->SampleAlManager = pAlManager;
+    pGames[5]->SampleAlManager = pAlManager;
+    pGames[6]->SampleAlManager = pAlManager;
 
 
     while (1)

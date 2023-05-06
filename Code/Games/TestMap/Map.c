@@ -178,8 +178,8 @@ void Map_Update(PGAME _pMap)
 
     if (_pMap->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {
-        pMapData->mouse.x = _pMap->pEvent->mouse.x*1.25;
-        pMapData->mouse.y = _pMap->pEvent->mouse.y*1.25;
+        pMapData->mouse.x = _pMap->pEvent->mouse.x*(_pMap->SampleAlManager->ResolutionScale);
+        pMapData->mouse.y = _pMap->pEvent->mouse.y*(_pMap->SampleAlManager->ResolutionScale);
     }
     if ( _pMap->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
     {

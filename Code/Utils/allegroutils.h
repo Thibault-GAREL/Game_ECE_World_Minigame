@@ -88,6 +88,9 @@ typedef struct _ALLEGRO_MANAGER
     ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance;
     ALLEGRO_CURSOR *pCursors;
     void* pMenu;
+    double MusicGain;
+    double SFXGain;
+    double ResolutionScale;
 }ALLEGRO_MANAGER, *PALLEGRO_MANAGER;
 
 
@@ -100,7 +103,8 @@ void Allegro_Samples_Instance_Destroy(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInst
 void Allegro_play_Sample (ALLEGRO_SAMPLE_INSTANCE * _pSample);
 void Allegro_Stop_Sample (ALLEGRO_SAMPLE_INSTANCE * _pSample);
 PALLEGRO_GAME_SAMPLES_INSTANCE InitSample (ALLEGRO_GAME_SAMPLE * pSample);
-void SetSampleInstance(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance);
+void SetSampleInstance(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance, ALLEGRO_MANAGER *pAllegroManager);
+void Set_New_Sample_Instance(ALLEGRO_MANAGER *pAllegroManager);
 PALLEGRO_CURSOR InitCursors();
 void Destroy_cursors(PALLEGRO_CURSOR pCursor);
 void ChangeCursor (PALLEGRO_MANAGER pAlManager, ALLEGRO_MOUSE_CURSOR *pMouseCursor);

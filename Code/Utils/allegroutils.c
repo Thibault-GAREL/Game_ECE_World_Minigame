@@ -52,7 +52,10 @@ PALLEGRO_MANAGER AllegroManager_Create(int _dw, int _dh, double _timeSpeed)
 
     pAllegroManager->pCursors = InitCursors();
 
-    SetSampleInstance(pAllegroManager->pSampleInstance);
+    pAllegroManager->MusicGain = 1;
+    pAllegroManager->SFXGain = 1;
+
+    SetSampleInstance(pAllegroManager->pSampleInstance, pAllegroManager);
     pAllegroManager->pDisplay =  al_create_display(_dw, _dh);
     pAllegroManager->pTimer = al_create_timer(_timeSpeed);
     al_start_timer(pAllegroManager->pTimer);
@@ -98,7 +101,7 @@ PALLEGRO_GAME_SAMPLES_INSTANCE InitSample (ALLEGRO_GAME_SAMPLE* pSample){
     return pSample_Instance;
 }
 
-void SetSampleInstance(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance){
+void SetSampleInstance(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance, ALLEGRO_MANAGER *pAllegroManager){
     al_set_sample_instance_playmode(pSampleInstance->PACMenu, ALLEGRO_PLAYMODE_LOOP);
     al_set_sample_instance_playmode(pSampleInstance->PACGame, ALLEGRO_PLAYMODE_LOOP);
     al_set_sample_instance_playmode(pSampleInstance->PACEXplode, ALLEGRO_PLAYMODE_ONCE);
@@ -112,13 +115,6 @@ void SetSampleInstance(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance){
     al_set_sample_instance_playmode(pSampleInstance->TDLR_Degats, ALLEGRO_PLAYMODE_ONCE);
 
     al_set_sample_instance_playmode(pSampleInstance->mj,ALLEGRO_PLAYMODE_ONCE);
-    //al_set_sample_instance_playmode(pSampleInstance->click, ALLEGRO_PLAYMODE_ONCE);
-    //al_set_sample_instance_playmode(pSampleInstance->shot, ALLEGRO_PLAYMODE_ONCE);
-    //al_set_sample_instance_playmode(pSampleInstance->duck, ALLEGRO_PLAYMODE_ONCE);
-    //al_set_sample_instance_playmode(pSampleInstance->car, ALLEGRO_PLAYMODE_ONCE);
-    //al_set_sample_instance_playmode(pSampleInstance->snake, ALLEGRO_PLAYMODE_ONCE);
-    //al_set_sample_instance_playmode(pSampleInstance->balloon, ALLEGRO_PLAYMODE_ONCE);
-
 
     al_attach_sample_instance_to_mixer(pSampleInstance->PACMenu, al_get_default_mixer());
     al_attach_sample_instance_to_mixer(pSampleInstance->PACGame, al_get_default_mixer());
@@ -140,6 +136,28 @@ void SetSampleInstance(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance){
 
     al_attach_sample_instance_to_mixer(pSampleInstance->mj,al_get_default_mixer());
 }
+
+void Set_New_Sample_Instance(ALLEGRO_MANAGER *pAllegroManager){
+
+    //Gain for Musics
+
+    al_set_sample_instance_gain(pAllegroManager->pSampleInstance->PACMenu, pAllegroManager->MusicGain);
+    al_set_sample_instance_gain(pAllegroManager->pSampleInstance->PACGame, pAllegroManager->MusicGain);
+    al_set_sample_instance_gain(pAllegroManager->pSampleInstance->PACCredits, pAllegroManager->MusicGain);
+
+    al_set_sample_instance_gain(pAllegroManager->pSampleInstance->TDLR_Menu, pAllegroManager->MusicGain);
+    al_set_sample_instance_gain(pAllegroManager->pSampleInstance->TDLR_Fin, pAllegroManager->MusicGain);
+
+
+    //Gain for SFX
+
+    al_set_sample_instance_gain(pAllegroManager->pSampleInstance->PACEXplode, pAllegroManager->SFXGain);
+    al_set_sample_instance_gain(pAllegroManager->pSampleInstance->PACEasterEgg, pAllegroManager->SFXGain);
+    al_set_sample_instance_gain(pAllegroManager->pSampleInstance->TDLR_Degats, pAllegroManager->MusicGain);
+    al_set_sample_instance_gain(pAllegroManager->pSampleInstance->mj, pAllegroManager->MusicGain);
+
+}
+
 
 PALLEGRO_GAME_SAMPLE Allegro_Samples_Create(){
     al_reserve_samples(Audio_Samples_Count);

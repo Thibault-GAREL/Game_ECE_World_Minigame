@@ -121,8 +121,8 @@ void PAC_Update(PGAME _pPAC)
 
     if (_pPAC->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {
-        gameData->mouse.x = _pPAC->pEvent->mouse.x*1;
-        gameData->mouse.y = _pPAC->pEvent->mouse.y*1;
+        gameData->mouse.x = _pPAC->pEvent->mouse.x*(_pPAC->SampleAlManager->ResolutionScale);
+        gameData->mouse.y = _pPAC->pEvent->mouse.y*(_pPAC->SampleAlManager->ResolutionScale);
     }
     if ( _pPAC->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
     {

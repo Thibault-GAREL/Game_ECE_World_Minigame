@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "../Game.h"
 #include "..\\Utils\\Vector.h"
+#include "..\\Utils\\allegroutils.h"
 
 typedef struct _MenuBitmap{
     int x;
@@ -19,6 +20,12 @@ typedef struct _MenuGameData {
     int click;
     int GameLaunched;
     int Main_Menu_Select;
+    int RefreshRate;
+
+    double MusicGain;
+    double SFXGain;
+
+    double ResolutionScale;
 
     char GetName1[10];
     char GetName2[10];
