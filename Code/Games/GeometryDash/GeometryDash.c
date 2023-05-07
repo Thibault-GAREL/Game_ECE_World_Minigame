@@ -11,14 +11,7 @@ void Geo_Create(PGAME _pGeoDash)
     _pGeoDash->gameData = pGeoData;
 
     pGeoData->image[0] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\GDa.png");
-    pGeoData->image[1] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\Background (Personnalisé).png");
-    pGeoData->image[2] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\Carré.png");
-    pGeoData->image[3] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\Rectangle.png");
-    pGeoData->image[4] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\Triangle.png");
-    pGeoData->image[5] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\Jump.png");
-    pGeoData->image[6] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\GD Map (Personnalisé).png");
-    pGeoData->image [7] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\colision.png");
-    pGeoData->image [8] = al_load_bitmap(PATH "\\Textures\\TDLR\\boutonplay.png");
+    pGeoData->image[1] = al_load_bitmap(PATH "\\Textures\\TDLR\\boutonplay.png");
 
 
     pGeoData->ay_player = 1;
@@ -96,7 +89,7 @@ void Geo_TimedUpdate(PGAME _pGeoDash) {
             pGeoData->click=0;
         }
         //  tif (Point_In_Rectangle())
-        al_draw_bitmap(pGeoData->image [8], 816, 800, 0);
+        al_draw_bitmap(pGeoData->image [1], 816, 800, 0);
     }
     else if (pGeoData->gamemode == 1) {
         //al_clear_to_color(al_map_rgb(200, 0, 0));
@@ -126,6 +119,9 @@ void Geo_TimedUpdate(PGAME _pGeoDash) {
         al_draw_bitmap(pGeoData ->image [0], X_player, pGeoData ->y_player, 0);
         pGeoData->x_fond = pGeoData->x_fond + pGeoData->avancement_fond;
         //al_draw_filled_triangle();
+
+    }
+    else if (pGeoData->gamemode == 2) {
 
     }
 
