@@ -259,18 +259,79 @@ Si c'est le cas, nous vous conseillons d'exporter en fichier PowerPoint (pptx), 
 # Antoine 
 
 - `✅ 100%` <u>__Jeux obligatoire</u> :__  Tir Au Ballon style
-                Star Wars  
+                Star Wars   🚀
 
 
 - `✅ 99%` <u>__Map</u> :__ 
-  - *Les colisions rendent la map un peu moins fluides.*
+  - *Les colisions rendent la map un peu moins fluides.* 🌲
 
 
-- `✅ 100%` <u>__Jeux Bonus </u>:__ Head Ball style Star Wars
+- `✅ 100%` <u>__Jeux Bonus </u>:__ Head Ball style Star Wars ⚽
 
 
 ---
 
+# Tir Au Ballon  🎈🔫  `1/4`
+
+### Les différentes textures :
+
+- <u> Les Ballons </u> :
+![bg right:40%](images/tete_strom.png)   ![bg right:80%](images/tete_vador.png)    ![bg right:40%](images/tete_yoda.png)
+
+- <u>L'arme</u> : 
+
+![](images/armegauche.png)
+
+- <u>Les Gadgets</u> :
+
+![](images/horloge.png)  ![](images/vaisseaumenu2.png)  ![](images/darkvador.png)
+
 ---
+
+# Tir Au Ballon  🎈🔫  `2/4`
+
+# Les fonctionnalitées ➕ :
+
+  ➖ Mode de jeu Difficile : 91 ballons dans 3 zones 🚫
+  
+  ➖ Le jeu donne l'impression d'avoir de la 3D 🎲
+
+  ➖ Colisions avec les bordures (diagonales), réaction des ballons aléatoires ⚡
+
+  ➖ Apparitions et vitesse des ballons aléatoires 📡
+
+  ➖ Son de tir et animations explosions ballons 💣
+
+  ➖ Timer de 30 secondes par personnes. Les joueurs jouent l'un après l'autre 🕙
+
+  ➖ Récap des scores et attributions des tickets 🎫
+
+  ➖ Sauvegarde des meilleurs scores 💯
+
+  ➖ Petite danse de Dark Vador 💃
+
+---
+
+# Tir Au Ballon  🎈🔫  `3/4`
+
+## Capture d'écran de TirAuJedai : 
+
+![](images/fondjeu.png)
+
+---
+
+# Tir Au Ballon  🎈🔫  `4/4`
+
+## Structuration :
+
+
+| Donnée                  | Structure                 | Code                                                                              |
+|-------------------------|---------------------------|-----------------------------------------------------------------------------------|
+| Images                  | Tableau d'ALLEGRO_BITMAP* | ``` ALLEGRO_BITMAP* image[50] ```                                                 |
+| Appel images animations | Sprintf + for             | ``` for (int i=0;i<50;i++){ sprintf(char,"%d.png",i); al_load_bitmap(char); } ``` |
+|                         |                           |                                                                                   |
+|                         |                           |                                                                                   |
+|                         |                           |                                                                                   |
+
 
 ---
