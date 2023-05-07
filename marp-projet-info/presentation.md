@@ -253,3 +253,24 @@ Vous pouvez personnaliser l'affichage de votre présentation avec le langage CSS
 
 Depuis récemment, l'export (**`Export Slide Deck...`**) en PDF oublie parfois des éléments. 
 Si c'est le cas, nous vous conseillons d'exporter en fichier PowerPoint (pptx), puis de l'exporter en PDF depuis PowerPoint.
+
+---
+
+# Antoine 
+
+- `✅ 100%` <u>__Jeux obligatoire</u> :__  Tir Au Ballon style
+                Star Wars  
+
+
+- `✅ 99%` <u>__Map</u> :__ 
+  - *Les colisions rendent la map un peu moins fluides.*
+
+
+- `✅ 100%` <u>__Jeux Bonus </u>:__ Head Ball style Star Wars
+
+
+---
+
+---
+
+---
