@@ -707,7 +707,6 @@ void Map_TimedUpdate(PGAME _pMap)
                 }
                 if (pMapData->compteuranim1 < 75){
                     al_draw_bitmap(pMapData->transi[pMapData->compteuranim1],0,0,0);
-                    printf("%d\n",pMapData->compteuranim1);
                 }
                 pMapData->compteuranim2++;
                 al_flip_display();

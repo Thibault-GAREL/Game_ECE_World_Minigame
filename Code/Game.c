@@ -84,7 +84,9 @@ void Players_Init(PPLAYER* _pPlayers, int _count)
     for (int i = 0; i < _count; i++)
     {
         _pPlayers[i] = calloc(1, sizeof(PLAYER));
-        _pPlayers[i]->name[0] = '\0';
+        _pPlayers[i]->name[0] = 'P';
+        _pPlayers[i]->name[1] = '0' + i;
+        _pPlayers[i]->name[2] = '\0';
         _pPlayers[i]->tickets = TICKET_START;
     }
 }
