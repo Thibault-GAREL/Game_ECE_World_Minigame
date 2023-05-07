@@ -10,8 +10,13 @@ void Geo_Create(PGAME _pGeoDash)
     GeoData * pGeoData = (GeoData *) malloc (sizeof (GeoData));
     _pGeoDash->gameData = pGeoData;
 
-    pGeoData->image [0] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\GDa.png");
-    pGeoData->image [1] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\GD Map (Personnalisé).png");
+    pGeoData->image[0] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\GDa.png");
+    pGeoData->image[1] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\Background (Personnalisé).png");
+    pGeoData->image[2] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\Carré.png");
+    pGeoData->image[3] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\Rectangle.png");
+    pGeoData->image[4] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\Triangle.png");
+    pGeoData->image[5] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\Jump.png");
+
 
     pGeoData->ay_player = 1;
     pGeoData->vy_player = 0;
@@ -88,8 +93,8 @@ void Geo_TimedUpdate(PGAME _pGeoDash) {
         }
 
 
-
         al_draw_bitmap(pGeoData->image [1], pGeoData->x_fond, 0, 0);
+        al_draw_bitmap(pGeoData->image[3], pGeoData->x_fond + 50,100,0);
 
         al_draw_bitmap(pGeoData ->image [0], X_player, pGeoData ->y_player, 0);
         pGeoData->x_fond = pGeoData->x_fond + pGeoData->avancement_fond;

@@ -17,7 +17,7 @@
 
 
 typedef struct GeoData {
-    ALLEGRO_BITMAP* image [2];
+    ALLEGRO_BITMAP* image [10];
     int ay_player;
     int vy_player;
     int y_player;
@@ -35,12 +35,11 @@ typedef struct GeoData {
     float Gravity;
     int y;
     int vy;
-
     int Velocity;
-
-
     int Jump;
     int JumpDuration;
+
+    int GroundLevel;
     int Gamemode;
 
 }GD_Gamedata, *pGD_Gamedata;*/
