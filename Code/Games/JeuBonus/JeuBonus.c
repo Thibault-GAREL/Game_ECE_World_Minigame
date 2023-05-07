@@ -677,7 +677,7 @@ void gestionballe(PGAME _pBonus){
         if (pBonusData->xballon+9 <= pBonusData->x1+230 && pBonusData->xballon+9 > pBonusData->x1+120){
             if (pBonusData->yballon+39 <= pBonusData->y1 && pBonusData->yballon+39 > pBonusData->y1+174-232){
                 if (pBonusData->speedballonx==0){
-                    pBonusData->speedballonx=-10;
+                    pBonusData->speedballonx=10;
                 }
                 if (pBonusData->tirJ1==0){
                     pBonusData->speedballonx *= -1;
@@ -690,14 +690,14 @@ void gestionballe(PGAME _pBonus){
             }
             if (pBonusData->yballon+39 <= pBonusData->y1+174-232 && pBonusData->yballon+39 > pBonusData->y1+110-232){
                 if (pBonusData->speedballonx==0){
-                    pBonusData->speedballonx=-10;
+                    pBonusData->speedballonx=10;
                 }
                 pBonusData->speedballonx *= -1;
                 pBonusData->speedballon *= -1;
             }
             if (pBonusData->yballon+39 <= pBonusData->y1+105-232 && pBonusData->yballon+39 > pBonusData->y1+60-232){
                 if (pBonusData->speedballonx==0){
-                    pBonusData->speedballonx=-10;
+                    pBonusData->speedballonx=10;
                 }
                 pBonusData->speedballonx *= -1.2;
                 pBonusData->speedballon *= -1.8;
@@ -716,7 +716,7 @@ void gestionballe(PGAME _pBonus){
             }
             if (pBonusData->yballon+4 >= pBonusData->y1+5){
                 if (pBonusData->speedballonx==0){
-                    pBonusData->speedballonx=-10;
+                    pBonusData->speedballonx=10;
                 }
                 pBonusData->speedballonx *= -1.2;
                 pBonusData->speedballon *= -1.8;
@@ -765,7 +765,7 @@ void gestionballe(PGAME _pBonus){
         if (pBonusData->xballon+70 >= pBonusData->x2+7 && pBonusData->xballon+70 < pBonusData->x2+60){
             if (pBonusData->yballon+39 >= pBonusData->y2+178-232 && pBonusData->yballon+39 < pBonusData->y2+228-232){
                 if (pBonusData->speedballonx==0){
-                    pBonusData->speedballonx=10;
+                    pBonusData->speedballonx=-10;
                 }
                 if (pBonusData->tirJ2==0){
                     pBonusData->speedballonx *= -1;
@@ -778,14 +778,14 @@ void gestionballe(PGAME _pBonus){
             }
             if (pBonusData->yballon+39 >= pBonusData->y2+112-232 && pBonusData->yballon+39 < pBonusData->y2+178-232){
                 if (pBonusData->speedballonx==0){
-                    pBonusData->speedballonx=10;
+                    pBonusData->speedballonx=-10;
                 }
                 pBonusData->speedballonx *= -1;
                 pBonusData->speedballon *= -1;
             }
             if (pBonusData->yballon+39 >= pBonusData->y2+80 - 232 && pBonusData->yballon+39 < pBonusData->y2+178-232){
                 if (pBonusData->speedballonx==0){
-                    pBonusData->speedballonx=10;
+                    pBonusData->speedballonx=-10;
                 }
                 pBonusData->speedballonx *= -1.2;
                 pBonusData->speedballon *= -1.8;
@@ -804,7 +804,7 @@ void gestionballe(PGAME _pBonus){
             }
             if (pBonusData->yballon+4 >= pBonusData->y2){
                 if (pBonusData->speedballonx==0){
-                    pBonusData->speedballonx=10;
+                    pBonusData->speedballonx=-10;
                 }
                 pBonusData->speedballonx *= -1.2;
                 pBonusData->speedballon *= -1.8;
