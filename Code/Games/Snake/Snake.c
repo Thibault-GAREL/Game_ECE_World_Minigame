@@ -340,11 +340,11 @@ void NextPlayer(PGAME _pSnake)
     {
         if (pSnakeData->scores[0] > pSnakeData->scores[1])
         {
-            _pSnake->pPlayers[0]->tickets+=2;
+            _pSnake->pPlayers[0]->tickets+=1;
         }
         else if (pSnakeData->scores[0] < pSnakeData->scores[1])
         {
-            _pSnake->pPlayers[1]->tickets+=2;
+            _pSnake->pPlayers[1]->tickets+=1;
         }
         else
         {
