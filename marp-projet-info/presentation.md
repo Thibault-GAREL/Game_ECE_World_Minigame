@@ -48,7 +48,7 @@ Equipe X
 
 ## Thème
 
-Lorem ipsum dolor sit amet, **consectetur** adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+Lorem ipsum dolor sit amet, **consectetur** adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
 ---
 
@@ -62,7 +62,7 @@ Décrire ici les fonctionnalités implémentées : choix joueurs, saisie des nom
 
 # Carte `2/2`
 
-Suite si ça ne tient pas sur une slide. 
+Suite si ça ne tient pas sur une slide.
 
 :bulb: *Vous pouvez faire comme ça à chaque fois qu'une slide ne suffit pas, il vaut mieux 5 slides légères qu'une surchargée.*
 
@@ -173,12 +173,12 @@ _class: lead
 
 - `✅ 100%` Tâche 1
 - `✅ 80%` Tâche 2
-    - *Développer ici pourquoi cette tâche n'est pas terminée à 100%. (exemple : on aurait pu améliorer...).*
+  - *Développer ici pourquoi cette tâche n'est pas terminée à 100%. (exemple : on aurait pu améliorer...).*
 - `❌ 20%` Tâche 3
-    - *Développer ici pourquoi cette tâche n'a pas été terminée.*
+  - *Développer ici pourquoi cette tâche n'a pas été terminée.*
 - `❌ 20%` Tâche 4
-    - *Développer ici pourquoi cette tâche n'a pas été terminée.*
-    - *Développer ici pourquoi cette tâche n'a pas été terminée.*
+  - *Développer ici pourquoi cette tâche n'a pas été terminée.*
+  - *Développer ici pourquoi cette tâche n'a pas été terminée.*
 
 ---
 
@@ -232,7 +232,7 @@ for(int i = 0; i < 5; i++) {
 }
 ```
 
-> 0 1 2 3 4 
+> 0 1 2 3 4
 
 
 ---
@@ -243,7 +243,7 @@ https://gist.github.com/rxaviers/7360908
 
 ---
 
-# Thème 
+# Thème
 
 Vous pouvez personnaliser l'affichage de votre présentation avec le langage CSS en modifiant le fichier `theme.css`.
 
@@ -251,76 +251,77 @@ Vous pouvez personnaliser l'affichage de votre présentation avec le langage CSS
 
 # Export PDF
 
-Depuis récemment, l'export (**`Export Slide Deck...`**) en PDF oublie parfois des éléments. 
+Depuis récemment, l'export (**`Export Slide Deck...`**) en PDF oublie parfois des éléments.
 Si c'est le cas, nous vous conseillons d'exporter en fichier PowerPoint (pptx), puis de l'exporter en PDF depuis PowerPoint.
 
 ---
 
-# Antoine 
+# Antoine
 
-- `✅ 100%` <u>__Jeux obligatoire</u> :__  Tir Au Ballon style
-                Star Wars   🚀
+- `✅ 100%` __Jeux obligatoire :__  Tir Au Ballon style
+  Star Wars   🚀
 
 
-- `✅ 99%` <u>__Map</u> :__ 
+- `✅ 99%` __Map :__
   - *Les colisions rendent la map un peu moins fluides.* 🌲
 
 
-- `✅ 100%` <u>__Jeux Bonus </u>:__ Head Ball style Star Wars ⚽
+- `✅ 100%` __Jeux Bonus :__ Head Ball style Star Wars ⚽
 
 
 ---
 
-# Tir Au Ballon  🎈🔫  `1/6`
+# Tir Au Ballon  🎈🔫  `1/9`
 
 ### Les différentes textures :
 
-- <u> Les Ballons </u> :
-![bg right:40%](images/tete_strom.png)   ![bg right:80%](images/tete_vador.png)    ![bg right:40%](images/tete_yoda.png)
+- __Les Ballons__ :
+  ![](images/tete_strom.png)   ![](images/tete_vador.png)    ![](images/tete_yoda.png)
 
-- <u>L'arme</u> : 
+- __L'arme__ :
 
 ![](images/armegauche.png)
 
-- <u>Les Gadgets</u> :
+- __Les Gadgets__ :
 
 ![](images/horloge.png)  ![](images/vaisseaumenu2.png)  ![](images/darkvador.png)
 
 ---
 
-# Tir Au Ballon  🎈🔫  `2/6`
+# Tir Au Ballon  🎈🔫  `2/9`
 
 # Les fonctionnalitées ➕ :
 
-  ➖ Mode de jeu Difficile : 91 ballons dans 3 zones 🚫
-  
-  ➖ Le jeu donne l'impression d'avoir de la 3D 🎲
+➖ Mode de jeu Difficile : 91 ballons dans 3 zones 🚫
 
-  ➖ Colisions avec les bordures (diagonales), réaction des ballons aléatoires ⚡
+➖ Le jeu donne l'impression d'avoir de la 3D 🎲
 
-  ➖ Apparitions et vitesse des ballons aléatoires 📡
+➖ Colisions avec les bordures (diagonales), réaction des ballons aléatoires ⚡
 
-  ➖ Son de tir et animations explosions ballons 💣
+➖ Apparitions et vitesse des ballons aléatoires 📡
 
-  ➖ Timer de 30 secondes par personnes. Les joueurs jouent l'un après l'autre 🕙
+➖ Son de tir et animations explosions ballons 💣
 
-  ➖ Récap des scores et attributions des tickets 🎫
+➖ Timer de 30 secondes par personnes. Les joueurs jouent l'un après l'autre 🕙
 
-  ➖ Sauvegarde des meilleurs scores 💯
+➖ Récap des scores et attributions des tickets 🎫
 
-  ➖ Petite danse de Dark Vador 💃
+➖ Sauvegarde des meilleurs scores 💯
 
----
-
-# Tir Au Ballon  🎈🔫  `3/6`
-
-## Capture d'écran de TirAuJedai : 
-
-![](images/fondjeu.png)
+➖ Petite danse de Dark Vador 💃
 
 ---
 
-# Tir Au Ballon  🎈🔫  `4/6`
+
+# Tir Au Ballon  🎈🔫  `3/9`
+
+## Capture d'écran de TirAuJedai :
+
+![bg right 100%](images/fondjeu.png)
+
+---
+
+# Tir Au Ballon  🎈🔫  `4/9`
 
 ## Structuration :
 
@@ -329,40 +330,60 @@ Si c'est le cas, nous vous conseillons d'exporter en fichier PowerPoint (pptx), 
 |-------------------------|-----------------------------------------|---------------------------------------------------------------------------------------------------------------------|
 | Images                  | Tableau d'ALLEGRO_BITMAP*               | ``` ALLEGRO_BITMAP* image[50] ```    📷                                                                             |
 | Appel images animations | Sprintf + for                           | ``` for (int i=0;i<50;i++){ sprintf(char,"%d.png",i); al_load_bitmap(char); } ```   🎥                              |
+
+---
+
+# Tir Au Ballon 🎈🔫  `5/9`
+
+| Donnée                  | Structure                               | Code                                                                                                                |
+|-------------------------|-----------------------------------------|---------------------------------------------------------------------------------------------------------------------|
 | Ballons                 | Tableau de structure (x,y,numéro,vx,vy) | ``` typedef struct _BALLON { float x; float y; int num; float vx; float vy; }Ballon ``` 📌 ``` Ballon* pballon; ``` |
 | Sons                    | Tableau de sample + 1 Sample Instance   | ``` ALLEGRO_SAMPLE* sons[1];  ALLEGRO_SAMPLE_INSTANCE* soninstance; ```  🔈                                         |
 | Polices                 | Tableau d'ALLEGRO_FONT*                 | ``` ALLEGRO_FONT* police[3]; ```   📃                                                                               |                        |                                         |                                                                                                                     |
 
 ---
 
-# Tir Au Ballon  🎈🔫  `5/6`
+# Tir Au Ballon  🎈🔫  `6/9`
 
 ## Fonctions importantes :
-
 
 | Fonction                  | Utilité                                                                                  |
 |---------------------------|------------------------------------------------------------------------------------------|
 | ```TAB_Create()```        | Initialisation de toutes les variables 🎓                                                  |
 | ```Menu()```              | Première page du jeu. Permet au joueurs de lancer la partie quand il le souhaitent 🔍    |
 | ```Assign_pos_Ballon()``` | Affichage et déplacement de tous les ballons durant la partie   🎈                         |
+
+---
+
+# Tir Au Ballon 🎈🔫  `7/9`
+
+| Fonction                  | Utilité                                                                                  |
+|---------------------------|------------------------------------------------------------------------------------------|
 | ```Pointdroite()```       | Fonction répertoriant tous les points d'une droite affine à l'aide de deux points 📊       |    
 | ```reset()```             | Fonction re-initialisant les variables quand J1 a finit 🔧                               |
 | ```Menufin()```           | Fonction s'occupant de la page de fin. Les joueurs peuvent fermer et regarder les scores 🎯|                                                         |                                                                                                                     |
 | ```calcultickets()```     | Fonction attribuant les tickets au joueurs 🎫                                              |
 | ```sauvegarde()```        | Fonction sauvegardant les meilleurs scores. Les joueurs peuvent les consulter 📁           |
+
+---
+
+# Tir Au Ballon 🎈🔫  `8/9`
+
+| Fonction                  | Utilité                                                                                  |
+|---------------------------|------------------------------------------------------------------------------------------|
 | ```destroy()```           | Fonction détruisant les images, fonts... et passe le programme sur la map 💥               |
 
 
- __Colisions :__ 
+__Colisions :__
 
- ![](images/presinfo.png)
+![](images/presinfo.png)
  
 ---
 
-# Tir Au Ballon  🎈🔫  `6/6`
+# Tir Au Ballon  🎈🔫  `9/9`
 
 ## Graphe ordres des fonctions :
 
-  ![](images/GrapheTAB.png)
+![](images/GrapheTAB.png)
 
 ---
