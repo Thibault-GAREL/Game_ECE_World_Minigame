@@ -27,6 +27,8 @@ typedef struct _PACGAMEDATA
     ALLEGRO_BITMAP *DuckTextures[DuckCount];
     ALLEGRO_BITMAP *background;
     ALLEGRO_BITMAP *End;
+    ALLEGRO_BITMAP *PlayerNextTurn;
+    ALLEGRO_BITMAP *ButtonQuit;
     Vector2D mouse;
     int click;
     int Fishingstate[DuckCount];
@@ -42,6 +44,9 @@ typedef struct _PACGAMEDATA
     int Player2_Timer;
     char RemainingTime[100];
     int GameLaunched;
+
+    int GameMode;
+
     int IntervalTime;
     ALLEGRO_COLOR PickedColor;
     ALLEGRO_COLOR NormalColor;
