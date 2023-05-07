@@ -13,6 +13,7 @@
 #define CL_PATH ".."
 #define PATH CL_PATH
 #define X_player 500
+#define y_debut_player 800
 
 
 typedef struct GeoData {
@@ -23,6 +24,8 @@ typedef struct GeoData {
 
     int sol;
     int avancement_fond;
+    int x_fond;
+    int timer;
 
     int gamemode;
 }GeoData;
