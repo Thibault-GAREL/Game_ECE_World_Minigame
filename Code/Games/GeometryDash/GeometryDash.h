@@ -13,8 +13,9 @@
 
 #define CL_PATH ".."
 #define PATH CL_PATH
-#define X_player 500
+#define X_player 150
 #define y_debut_player 800
+
 
 
 typedef struct GeoData {
@@ -31,7 +32,12 @@ typedef struct GeoData {
     Vector2D mouse_position;
 
     int gamemode;
+
+    ALLEGRO_COLOR ColisionRight;
+    ALLEGRO_COLOR ColisionTop;
+    ALLEGRO_COLOR ColisionBottom;
 }GeoData;
+
 
 /*typedef struct GeoData {
     ALLEGRO_BITMAP* GDTextures[10];
