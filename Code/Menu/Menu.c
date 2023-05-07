@@ -126,8 +126,11 @@ void Menu_Update(PGAME _pMenu)
     if (Get_Touch( _pMenu->pEvent, ALLEGRO_KEY_W,0,0,1,0)){
         Menu_Destroy(_pMenu);
     }
-    if (Get_Touch( _pMenu->pEvent, ALLEGRO_KEY_ENTER,0,0,1,0)){
+    if (Get_Touch( _pMenu->pEvent, ALLEGRO_KEY_ENTER,0,0,1,0) && gameData->Main_Menu_Select == 0){
         gameData->GameLaunched = 1;
+    }
+    if (Get_Touch( _pMenu->pEvent, ALLEGRO_KEY_ENTER,0,0,1,0) && gameData->Main_Menu_Select != 0){
+        gameData->Main_Menu_Select = 0;
     }
 
     if (Get_Touch( _pMenu->pEvent, ALLEGRO_KEY_DELETE,0,0,1,0) && gameData->Main_Menu_Select != 0 && gameData->GameLaunched == 0){
@@ -185,7 +188,6 @@ void Menu_Update(PGAME _pMenu)
                 }
             }
         }
-
 
         if (Point_In_Rectangle((Vector2D){gameData->mouse.x, gameData->mouse.y}, (Vector2D){gameData->MB_Infos[17]->x ,gameData->MB_Infos[17]->y }, (Vector2D){gameData->MB_Infos[17]->x + al_get_bitmap_width(gameData->Menu_Bitmap[7]),gameData->MB_Infos[17]->y+al_get_bitmap_height(gameData->Menu_Bitmap[7])})){
             if (gameData->click == 1){
@@ -330,9 +332,12 @@ void Menu_TimedUpdate(PGAME _pMenu)
         al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[15]->BitmapClicked],gameData->MB_Infos[15]->x, gameData->MB_Infos[15]->y,0);
         al_draw_bitmap(gameData->Menu_Bitmap[7+gameData->MB_Infos[16]->BitmapClicked],gameData->MB_Infos[16]->x, gameData->MB_Infos[16]->y,0);
         al_draw_text(gameData->GetNameFont, al_map_rgb(0,0,0),gameData->MB_Infos[7]->x - 175,gameData->MB_Infos[12]->y+15,1,"0% - 100%");
+        al_draw_text(gameData->GetNameFont, al_map_rgb(255,255,255),960,1020,1,"Press enter to confirm");
     }
+
     if(gameData->Main_Menu_Select == 2 && gameData->GameLaunched == 0){
         al_draw_bitmap(gameData->Menu_Bitmap[5],gameData->MB_Infos[5]->x,gameData->MB_Infos[5]->y,0);
+        al_draw_text(gameData->GetNameFont, al_map_rgb(255,255,255),960,1020,1,"Press enter to confirm");
     }
 
     if (gameData->GameLaunched == 1 && gameData->GetNameState == 1){

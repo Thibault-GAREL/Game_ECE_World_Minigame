@@ -28,11 +28,18 @@ void SnakeGame_Create(PGAME _pSnake)
     pSnakeData->pScoreFont16 = al_load_font("..\\Textures\\Fonts\\police.TTF", 16, 0);
 
     Load_DarkVadorHolo(pSnakeData->DarkVadorHolo);
-    pSnakeData->pDarkVador = Animation_Create((VECTOR2D_INT){20,910}, 30, 1, 7, pSnakeData->DarkVadorHolo);
+    pSnakeData->pDarkVador = Animation_Create((VECTOR2D_INT){20,910}, 20, 1, 7, pSnakeData->DarkVadorHolo);
     Animation_Enable_ScaleFactor(pSnakeData->pDarkVador, (Vector2D){0.1f, 0.1f});
-    Animation_Enable_StartState(pSnakeData->pDarkVador, ANIMATION_STATE_STOP);
+    //Animation_Enable_StartState(pSnakeData->pDarkVador, ANIMATION_STATE_STOP);
 
     pSnakeData->desert = al_load_bitmap("..\\Textures\\Snake\\Desert.png");
+    pSnakeData->menubk = al_load_bitmap("..\\Textures\\Snake\\SnakeBK.png");
+    pSnakeData->buttonPlay = al_load_bitmap("..\\Textures\\Snake\\BouttonPlay.png");
+    pSnakeData->buttonMap = al_load_bitmap("..\\Textures\\Snake\\MapImage.png");
+    pSnakeData->isMenuEnable = 1;
+
+    pSnakeData->scores[0] = 0;
+    pSnakeData->scores[1] = 0;
 }
 
 void SnakeGame_Update(PGAME _pSnake)
@@ -43,6 +50,14 @@ void SnakeGame_Update(PGAME _pSnake)
     }
 
     PSNAKE_DATA pSnakeData = (PSNAKE_DATA)_pSnake->gameData;
+
+    if (pSnakeData->isMenuEnable)
+    {
+        Menu_UpdateEvent(_pSnake);
+        return;
+    }
+    
+    pSnakeData->scores[pSnakeData->currentPlayer] = pSnakeData->pSnake->size;
 
     if (Get_Touch(_pSnake->pEvent, ALLEGRO_KEY_Q,0, 1, 0, 0))
     {
@@ -80,6 +95,12 @@ void SnakeGame_Update(PGAME _pSnake)
 void SnakeGame_TimedUpdate(PGAME _pSnake)
 {
     PSNAKE_DATA pSnakeData = (PSNAKE_DATA)_pSnake->gameData;
+
+    if (pSnakeData->isMenuEnable)
+    {
+        Menu_Draw(_pSnake);
+        return;
+    }
 
     pSnakeData->pSnake->step += pSnakeData->pSnake->speed;
     pSnakeData->pSnake->speed = SNAKE_SPEED_START + pSnakeData->pSnake->size * SNAKE_SPEED_INCREASE;
@@ -140,6 +161,8 @@ void SnakeGame_Destroy(PGAME _pSnake)
     
     _pSnake->gameData = NULL;
     *_pSnake->pCurrentGameId = GAME_MAP;
+
+    printf("Snake correctly destroy\n");
 }
 
 
@@ -287,14 +310,14 @@ void Draw_UI(SNAKE_DATA _snakeData)
 
     int commentProgress0 = _snakeData.pDarkVador->currentStep < 56 ? _snakeData.pDarkVador->currentStep : 56;
     char darkVadorComment0[] = "Enrolez le plus de clone que possible dans mon armée !";
-    darkVadorComment0[commentProgress0] = '\0';
+    //darkVadorComment0[commentProgress0] = '\0';
     
     al_draw_text(_snakeData.pScoreFont16, al_map_rgb(200, 255, 255), 200, 960, 0, darkVadorComment0);
     
     int commentProgress1 = _snakeData.pDarkVador->currentStep > 56 ? _snakeData.pDarkVador->currentStep - 56 : 0;
     commentProgress1 = commentProgress1 > 12 ? 12 : commentProgress1; 
     char darkVadorComment1[] = "Plus vite !";
-    darkVadorComment1[commentProgress1] = '\0';
+    //darkVadorComment1[commentProgress1] = '\0';
     
     al_draw_text(_snakeData.pScoreFont16, al_map_rgb(200, 255, 255), 200, 980, 0, darkVadorComment1);
 
@@ -311,9 +334,24 @@ void NextPlayer(PGAME _pSnake)
 {
     PSNAKE_DATA pSnakeData = (PSNAKE_DATA)_pSnake->gameData;
 
+    pSnakeData->isMenuEnable = 1;
+
     if (++pSnakeData->currentPlayer >= _pSnake->playersCount)
     {
-        SnakeGame_Destroy(_pSnake);
+        if (pSnakeData->scores[0] > pSnakeData->scores[1])
+        {
+            _pSnake->pPlayers[0]->tickets+=1;
+        }
+        else if (pSnakeData->scores[0] < pSnakeData->scores[1])
+        {
+            _pSnake->pPlayers[1]->tickets+=1;
+        }
+        else
+        {
+            _pSnake->pPlayers[0]->tickets+=1;
+            _pSnake->pPlayers[1]->tickets+=1;
+        }
+        //SnakeGame_Destroy(_pSnake);
         return;
     }
     else
@@ -343,3 +381,65 @@ void Load_DarkVadorHolo(ALLEGRO_BITMAP* DarkVadorHolo[7])
     DarkVadorHolo[5] = al_load_bitmap("..\\Textures\\Snake\\DarkVadorAnimation\\DarkVadorHolographic5.png");
     DarkVadorHolo[6] = al_load_bitmap("..\\Textures\\Snake\\DarkVadorAnimation\\DarkVadorHolographic6.png");
 }
+
+void Menu_UpdateEvent(PGAME _pSnake)
+{
+    PSNAKE_DATA pSnakeData = (PSNAKE_DATA)_pSnake->gameData;
+    
+    if (_pSnake->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
+    {
+        int boutton_X = 720;
+        int boutton_Y = 450;
+        
+        if (_pSnake->pEvent->mouse.x > boutton_X && _pSnake->pEvent->mouse.x < boutton_X+al_get_bitmap_width(pSnakeData->buttonPlay) && _pSnake->pEvent->mouse.y > boutton_Y && _pSnake->pEvent->mouse.y < boutton_Y+al_get_bitmap_height(pSnakeData->buttonPlay))
+        {
+            if (pSnakeData->currentPlayer <= 1)
+            {
+                pSnakeData->isMenuEnable = 0;
+            }
+            else
+            {
+                SnakeGame_Destroy(_pSnake);
+                return;
+            }
+            
+        }   
+    }
+}
+
+void Menu_Draw(PGAME _pSnake)
+{
+    PSNAKE_DATA pSnakeData = (PSNAKE_DATA)_pSnake->gameData;
+    
+    al_draw_bitmap(pSnakeData->menubk, 0, 0, 0);
+    
+    int boutton_X = 720;
+    int boutton_Y = 450;
+
+    if (pSnakeData->currentPlayer <= 1)
+    {    
+        al_draw_bitmap(pSnakeData->buttonPlay, boutton_X, boutton_Y, 0);
+    }
+    else
+    {
+        al_draw_bitmap(pSnakeData->buttonMap, boutton_X, boutton_Y, 0);
+    }
+    
+    
+    al_draw_text(pSnakeData->pScoreFont50, al_map_rgb(0, 255, 0), 200, 200, 0, _pSnake->pPlayers[0]->name);
+    al_draw_text(pSnakeData->pScoreFont50, al_map_rgb(255, 0, 0), 1650, 200, 0, _pSnake->pPlayers[1]->name);
+
+    char strValue[8] = "0000000";
+    sprintf(strValue, "%d", pSnakeData->scores[0]);
+    al_draw_text(pSnakeData->pScoreFont50, al_map_rgb(200, 200, 0), 200, 250, 0, strValue);
+    sprintf(strValue, "%d", pSnakeData->scores[1]);
+    al_draw_text(pSnakeData->pScoreFont50, al_map_rgb(200, 200, 0), 1650, 250, 0, strValue);
+
+    sprintf(strValue, "%d", _pSnake->pPlayers[0]->tickets);
+    al_draw_text(pSnakeData->pScoreFont50, al_map_rgb(200, 200, 0), 200, 300, 0, strValue);
+    sprintf(strValue, "%d", _pSnake->pPlayers[1]->tickets);
+    al_draw_text(pSnakeData->pScoreFont50, al_map_rgb(200, 200, 0), 1650, 300, 0, strValue);
+
+    //al_draw_rectangle(bouttonPlay_X, bouttonPlay_Y, bouttonPlay_X+al_get_bitmap_width(pSnakeData->buttonPlay), bouttonPlay_Y+al_get_bitmap_height(pSnakeData->buttonPlay), al_map_rgb(255, 0, 0), 5);
+}
+

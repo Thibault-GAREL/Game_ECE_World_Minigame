@@ -55,6 +55,8 @@ void PAC_Create(PGAME _pPAC)
     gameData->DuckTextures[9] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_1 (Personnalisé).png");
     gameData->DuckTextures[10] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_3 (Personnalisé).png");
     gameData->DuckTextures[11] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_3 (Personnalisé).png");
+    gameData->PlayerNextTurn = al_load_bitmap("..\\Textures/PAC/Next Player.png");
+    gameData->ButtonQuit = al_load_bitmap("..\\Textures/Map/croix.png");
 
     gameData->font = al_load_ttf_font("..\\Textures/Fonts/StarWars Font.TTF", 30, 0);
     gameData->fontColor = al_map_rgb(255, 0, 0);
@@ -118,7 +120,6 @@ void PAC_Update(PGAME _pPAC)
     }
     pPacGameData gameData = _pPAC->gameData;
 
-
     if (_pPAC->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {
         gameData->mouse.x = _pPAC->pEvent->mouse.x*(_pPAC->SampleAlManager->ResolutionScale);
@@ -146,6 +147,20 @@ void PAC_Update(PGAME _pPAC)
             Was_Key_Pressed(_pPAC, gameData->CurrentDuckFished);
         }
     }
+    if (gameData->GameMode == -1){
+        if (Get_Touch( _pPAC->pEvent, ALLEGRO_KEY_ENTER,0,0,1,0)){
+            gameData->GameMode = 1;
+        }
+    }
+    if (gameData->GameMode == 2){
+        if (Point_In_Rectangle((Vector2D){gameData->mouse.x, gameData->mouse.y}, (Vector2D){1800 ,50}, (Vector2D){1800 + al_get_bitmap_width(gameData->ButtonQuit),50 +al_get_bitmap_height(gameData->ButtonQuit)})){
+            if (gameData->click == 1){
+                gameData->compteurfin = 1;
+            }
+        }
+    }
+
+
 }
 
 void PAC_Coordinates_create(PGAME _pPAC){
@@ -293,6 +308,7 @@ void PAC_TimedUpdate(PGAME _pPAC)
     if (gameData->GameLaunched == 0){
         al_draw_bitmap(gameData->Menu, 0, 0, 0);
         Allegro_play_Sample((_pPAC->SampleAlManager)->pSampleInstance->PACMenu);
+        gameData->GameMode = 0;
     }
     else {
         Check_Click_on_Duck(_pPAC);
@@ -302,7 +318,7 @@ void PAC_TimedUpdate(PGAME _pPAC)
             Allegro_play_Sample((_pPAC->SampleAlManager)->pSampleInstance->PACGame);
         }
 
-        if (gameData->Player1_Timer <= 3000) {
+        if (gameData->GameMode == 0 && gameData->Player1_Timer <= 3000){
             al_draw_bitmap(gameData->background, 0, 0, 0);
             gameData->Player1_Timer++;
             for (int i = 0; i < 12; ++i) {
@@ -331,11 +347,16 @@ void PAC_TimedUpdate(PGAME _pPAC)
 
         if (gameData->Player1_Timer == 3000) {
             PAC_Reinit(_pPAC);
+            gameData->GameMode = -1;
             gameData->Player1_Timer = 3001;
             gameData->PlayerID = 2;
         }
-        if (gameData->Player1_Timer >= 3000) {
-            if (gameData->Player2_Timer <= 3000) {
+        if (gameData->GameMode == -1){
+            al_draw_bitmap(gameData->PlayerNextTurn, 0,0,0);
+        }
+
+        if (gameData->GameMode == 1){
+            if (gameData->Player2_Timer <= 3000){
                 al_draw_bitmap(gameData->background, 0, 0, 0);
                 gameData->Player2_Timer++;
                 for (int i = 0; i < 12; ++i) {
@@ -375,11 +396,13 @@ void PAC_TimedUpdate(PGAME _pPAC)
 
         if (gameData->Player2_Timer >= 3000) {
             gameData->Player2_Timer++;
+            gameData->GameMode = 2;
             al_draw_bitmap(gameData->End, 0, 0, 0);
             al_draw_text(gameData->font, gameData->fontColor, 900, 500, 1, "Player 1");
             al_draw_text(gameData->font, gameData->fontColor, 1060, 500, 1, (const char *) (gameData->Score1));
             al_draw_text(gameData->font, gameData->fontColor, 900, 600, 1, "Player 2");
             al_draw_text(gameData->font, gameData->fontColor, 1060, 600, 1, (const char *) (gameData->Score2));
+            al_draw_bitmap(gameData->ButtonQuit, 1800,50,0);
         }
 
         Check_Duck_Collisions(_pPAC);

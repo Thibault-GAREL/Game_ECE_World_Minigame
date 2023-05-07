@@ -14,8 +14,8 @@ typedef struct _BONUSDATA
 {
     Vector2D mouse;
     int click;
-    ALLEGRO_BITMAP* image[35];
-    ALLEGRO_FONT* police[3];
+    ALLEGRO_BITMAP* image[38];
+    ALLEGRO_FONT* police[4];
     ALLEGRO_BITMAP* goal[30];
     float x1;
     float y1;
@@ -79,6 +79,13 @@ typedef struct _BONUSDATA
     int compteuranimation2;
     int vetodeplacement;
     int compteurdecompte;
+    int compteurunbut;
+    int gamemode;
+    char scorefinalJ1[100];
+    char scorefinalJ2[100];
+    int buttotalJ1;
+    int buttotalJ2;
+    int compteuratribution;
 }BonusData;
 
 
@@ -90,6 +97,7 @@ void gestioncolisions(PGAME _pBonus);
 void gestionballe(PGAME _pBonus);
 void animationbut(PGAME _pBonus);
 void affichagescore(PGAME _pBonus);
+void menu(PGAME _pBonus);
 void Bonus_TimedUpdate(PGAME _pBonus);
 void Bonus_Destroy(PGAME _pBonus);
 

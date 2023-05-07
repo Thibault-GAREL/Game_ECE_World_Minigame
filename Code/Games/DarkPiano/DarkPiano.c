@@ -333,11 +333,11 @@ void GameStateChecker(PGAME _pGame)
         {
             if (pDpData->scoreP1 > pDpData->score)
             {
-                _pGame->pPlayers[0]->tickets+=2;
+                _pGame->pPlayers[0]->tickets+=1;
             }
             else if (pDpData->scoreP1 < pDpData->score)
             {
-                _pGame->pPlayers[1]->tickets+=2;
+                _pGame->pPlayers[1]->tickets+=1;
             }
             else
             {
