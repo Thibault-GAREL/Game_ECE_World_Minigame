@@ -10,12 +10,15 @@ void Geo_Create(PGAME _pGeoDash)
     GeoData * pGeoData = (GeoData *) malloc (sizeof (GeoData));
     _pGeoDash->gameData = pGeoData;
 
-    pGeoData ->image [0] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\GDa.png");
+    pGeoData->image [0] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\GDa.png");
+    pGeoData->image [1] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\..................");
 
     pGeoData ->ay_player = 1;
     pGeoData ->vy_player = 0;
     pGeoData ->y_player = 900;
-    pGeoData->sol = 900;
+    pGeoData->sol = 1000;
+
+    pGeoData->gamemode = 0;
 
 
     /*pGD_Gamedata GameData = malloc(sizeof(GD_Gamedata));
@@ -46,6 +49,7 @@ void Geo_Update(PGAME _pGeoDash){
         pGeoData->vy_player = -20;
     }
 
+
     /*pGD_Gamedata GameData = _pGeoDash->gameData;
 
     if (Get_Touch(_pGeoDash->pEvent, ALLEGRO_KEY_SPACE, 0, 1, 0, 0)){  // attention au gamemode
@@ -60,16 +64,24 @@ void Geo_TimedUpdate(PGAME _pGeoDash) {
 
     GeoData * pGeoData = (GeoData *) _pGeoDash->gameData;
 
-    pGeoData ->vy_player = pGeoData ->vy_player + pGeoData ->ay_player;
-    pGeoData ->y_player = pGeoData ->y_player + pGeoData ->vy_player;
+    if (pGeoData->gamemode = 0) {
 
-    if (pGeoData->y_player >= pGeoData->sol) {
-        pGeoData->y_player = pGeoData->sol;
     }
+    else if (pGeoData->gamemode = 1) {
+        pGeoData ->vy_player = pGeoData ->vy_player + pGeoData ->ay_player;
+        pGeoData ->y_player = pGeoData ->y_player + pGeoData ->vy_player;
 
-    al_draw_bitmap(pGeoData ->image [0], X_player, pGeoData ->y_player, 0);
+        if (pGeoData->y_player + 100 >= pGeoData->sol) {
+            pGeoData->y_player = pGeoData->sol - 100;
+        }
 
+        if (al_get_pixel(pGeoData->image [1], X_player, pGeoData->y_player);
 
+        al_draw_bitmap(pGeoData ->image [0], X_player, pGeoData ->y_player, 0);
+
+        //al_draw_filled_triangle();
+
+    }
 
     /*pGD_Gamedata gameData = _pGeoDash->gameData;
 

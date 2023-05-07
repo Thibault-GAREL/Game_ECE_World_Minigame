@@ -16,12 +16,15 @@
 
 
 typedef struct GeoData {
-    ALLEGRO_BITMAP* image [1];
+    ALLEGRO_BITMAP* image [2];
     int ay_player;
     int vy_player;
     int y_player;
 
     int sol;
+    int avancement_fond;
+
+    int gamemode;
 }GeoData;
 
 /*typedef struct GeoData {
