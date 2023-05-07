@@ -71,6 +71,7 @@ void Map_Create(PGAME _pMap)                               // ECHELLE = 1.25 POU
     pMapData->image[54]= al_load_bitmap("..\\Textures/Map/AfficheDP.png");
     pMapData->image[55]= al_load_bitmap("..\\Textures/Map/ecranvictoire.png");
     pMapData->image[56]= al_load_bitmap("..\\Textures/Map/AfficheBonus.png");
+    pMapData->image[57]= al_load_bitmap("..\\Textures/Map/barremenu.png");
 
     for (int i=1;i<78;i++){
         sprintf(pMapData->animation, "..\\Textures/Animations/Allegro-loading/Animation%d.jpg", i);
@@ -672,8 +673,8 @@ void Map_TimedUpdate(PGAME _pMap)
         pMapData->pimages[10].y = 0;
         pMapData->pimages[11].x = 3840;
         pMapData->pimages[11].y = 0;
-        ALLEGRO_DISPLAY* ecran=al_get_current_display();
-        al_hide_mouse_cursor(ecran);
+        //ALLEGRO_DISPLAY* ecran=al_get_current_display();
+        //al_hide_mouse_cursor(ecran);
         pMapData->x+=pMapData->speedhori*pMapData->deplacementhori;
         pMapData->y+=pMapData->speedverti*pMapData->deplacementverti;
         gestionbordure(_pMap);
@@ -703,6 +704,10 @@ void Map_TimedUpdate(PGAME _pMap)
         gestionvaisseau(_pMap);
         affichagebonhomme(_pMap);
         affichageville(_pMap);
+        al_draw_bitmap(pMapData->image[57],1800,100,0);
+        if (pMapData->mouse.x >= 1800 && pMapData->mouse.x < 1900 && pMapData->mouse.y >= 100 && pMapData->mouse.y <= 200 && pMapData->click==1){
+            pMapData->compteurchoixjeu=0;
+        }
         if (pMapData->compteurchoixjeu == 0){
             choisirjeusuivant(_pMap);
         }
@@ -742,7 +747,7 @@ void Map_Destroy(PGAME _pMap)
 {
     MapData* pMapData = _pMap->gameData;
 
-    for (int i=0;i<57;i++){
+    for (int i=0;i<58;i++){
         al_destroy_bitmap(pMapData->image[i]);
     }
 
