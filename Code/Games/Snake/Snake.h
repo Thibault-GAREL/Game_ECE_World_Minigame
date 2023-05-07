@@ -59,6 +59,12 @@ typedef struct _SNAKE_DATA
     PANIMATION pDarkVador;
 
     ALLEGRO_BITMAP* desert;
+    ALLEGRO_BITMAP* menubk;
+    ALLEGRO_BITMAP* buttonPlay;
+    ALLEGRO_BITMAP* buttonMap;
+
+    int isMenuEnable;
+    int scores[2];
 }SNAKE_DATA, *PSNAKE_DATA;
 
 
@@ -81,3 +87,7 @@ void Update_UI(PGAME _pSnake);
 void NextPlayer(PGAME _pSnake);
 
 void Load_DarkVadorHolo(ALLEGRO_BITMAP* DarkVadorHolo[7]);
+
+
+void Menu_UpdateEvent(PGAME _pSnake);
+void Menu_Draw(PGAME _pSnake);
