@@ -135,8 +135,8 @@ void Bonus_Update(PGAME _pBonus)
     BonusData* pBonusData = _pBonus->gameData;
     if (_pBonus->pEvent->type == ALLEGRO_EVENT_MOUSE_AXES)
     {
-        pBonusData->mouse.x = _pBonus->pEvent->mouse.x*1;
-        pBonusData->mouse.y = _pBonus->pEvent->mouse.y*1;
+        pBonusData->mouse.x = _pBonus->pEvent->mouse.x*(_pBonus->SampleAlManager->ResolutionScale);
+        pBonusData->mouse.y = _pBonus->pEvent->mouse.y*(_pBonus->SampleAlManager->ResolutionScale);
     }
     if ( _pBonus->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
     {
