@@ -271,7 +271,7 @@ Si c'est le cas, nous vous conseillons d'exporter en fichier PowerPoint (pptx), 
 
 ---
 
-# Tir Au Ballon  🎈🔫  `1/4`
+# Tir Au Ballon  🎈🔫  `1/6`
 
 ### Les différentes textures :
 
@@ -288,7 +288,7 @@ Si c'est le cas, nous vous conseillons d'exporter en fichier PowerPoint (pptx), 
 
 ---
 
-# Tir Au Ballon  🎈🔫  `2/4`
+# Tir Au Ballon  🎈🔫  `2/6`
 
 # Les fonctionnalitées ➕ :
 
@@ -312,7 +312,7 @@ Si c'est le cas, nous vous conseillons d'exporter en fichier PowerPoint (pptx), 
 
 ---
 
-# Tir Au Ballon  🎈🔫  `3/4`
+# Tir Au Ballon  🎈🔫  `3/6`
 
 ## Capture d'écran de TirAuJedai : 
 
@@ -320,18 +320,49 @@ Si c'est le cas, nous vous conseillons d'exporter en fichier PowerPoint (pptx), 
 
 ---
 
-# Tir Au Ballon  🎈🔫  `4/4`
+# Tir Au Ballon  🎈🔫  `4/6`
 
 ## Structuration :
 
 
-| Donnée                  | Structure                 | Code                                                                              |
-|-------------------------|---------------------------|-----------------------------------------------------------------------------------|
-| Images                  | Tableau d'ALLEGRO_BITMAP* | ``` ALLEGRO_BITMAP* image[50] ```                                                 |
-| Appel images animations | Sprintf + for             | ``` for (int i=0;i<50;i++){ sprintf(char,"%d.png",i); al_load_bitmap(char); } ``` |
-|                         |                           |                                                                                   |
-|                         |                           |                                                                                   |
-|                         |                           |                                                                                   |
+| Donnée                  | Structure                               | Code                                                                                                                |
+|-------------------------|-----------------------------------------|---------------------------------------------------------------------------------------------------------------------|
+| Images                  | Tableau d'ALLEGRO_BITMAP*               | ``` ALLEGRO_BITMAP* image[50] ```    📷                                                                             |
+| Appel images animations | Sprintf + for                           | ``` for (int i=0;i<50;i++){ sprintf(char,"%d.png",i); al_load_bitmap(char); } ```   🎥                              |
+| Ballons                 | Tableau de structure (x,y,numéro,vx,vy) | ``` typedef struct _BALLON { float x; float y; int num; float vx; float vy; }Ballon ``` 📌 ``` Ballon* pballon; ``` |
+| Sons                    | Tableau de sample + 1 Sample Instance   | ``` ALLEGRO_SAMPLE* sons[1];  ALLEGRO_SAMPLE_INSTANCE* soninstance; ```  🔈                                         |
+| Polices                 | Tableau d'ALLEGRO_FONT*                 | ``` ALLEGRO_FONT* police[3]; ```   📃                                                                               |                        |                                         |                                                                                                                     |
 
+---
+
+# Tir Au Ballon  🎈🔫  `5/6`
+
+## Fonctions importantes :
+
+
+| Fonction                  | Utilité                                                                                  |
+|---------------------------|------------------------------------------------------------------------------------------|
+| ```TAB_Create()```        | Initialisation de toutes les variables 🎓                                                  |
+| ```Menu()```              | Première page du jeu. Permet au joueurs de lancer la partie quand il le souhaitent 🔍    |
+| ```Assign_pos_Ballon()``` | Affichage et déplacement de tous les ballons durant la partie   🎈                         |
+| ```Pointdroite()```       | Fonction répertoriant tous les points d'une droite affine à l'aide de deux points 📊       |    
+| ```reset()```             | Fonction re-initialisant les variables quand J1 a finit 🔧                               |
+| ```Menufin()```           | Fonction s'occupant de la page de fin. Les joueurs peuvent fermer et regarder les scores 🎯|                                                         |                                                                                                                     |
+| ```calcultickets()```     | Fonction attribuant les tickets au joueurs 🎫                                              |
+| ```sauvegarde()```        | Fonction sauvegardant les meilleurs scores. Les joueurs peuvent les consulter 📁           |
+| ```destroy()```           | Fonction détruisant les images, fonts... et passe le programme sur la map 💥               |
+
+
+ __Colisions :__ 
+
+ ![](images/presinfo.png)
+ 
+---
+
+# Tir Au Ballon  🎈🔫  `6/6`
+
+## Graphe ordres des fonctions :
+
+  ![](images/GrapheTAB.png)
 
 ---
