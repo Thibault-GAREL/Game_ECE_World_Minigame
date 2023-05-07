@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include "..\\..\\Game.h"
 #include "..\\..\\Utils\\allegroutils.h"
+#include "..\\..\\Utils\\Vector.h"
 
 #define CL_PATH ".."
 #define PATH CL_PATH
@@ -26,6 +27,8 @@ typedef struct GeoData {
     int avancement_fond;
     int x_fond;
     int timer;
+    int click;
+    Vector2D mouse_position;
 
     int gamemode;
 }GeoData;

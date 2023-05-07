@@ -16,17 +16,21 @@ void Geo_Create(PGAME _pGeoDash)
     pGeoData->image[3] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\Rectangle.png");
     pGeoData->image[4] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\Triangle.png");
     pGeoData->image[5] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\Jump.png");
+    pGeoData->image[6] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\GD Map (Personnalisé).png");
+    pGeoData->image [7] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\colision.png");
+    pGeoData->image [8] = al_load_bitmap(PATH "\\Textures\\TDLR\\boutonplay.png");
 
 
     pGeoData->ay_player = 1;
     pGeoData->vy_player = 0;
     pGeoData->y_player = y_debut_player;
     pGeoData->sol = 900;
-    pGeoData->x_fond = 500;
+    pGeoData->x_fond = 0;
     pGeoData->avancement_fond = -1;
     pGeoData->timer = 0;
 
-    pGeoData->gamemode = 1;
+    pGeoData->gamemode = 0;
+    pGeoData->click = 0;
 
 
     /*pGD_Gamedata GameData = malloc(sizeof(GD_Gamedata));
@@ -52,6 +56,18 @@ void Geo_Update(PGAME _pGeoDash){
 
     GeoData * pGeoData = (GeoData *) _pGeoDash->gameData;
 
+    if (_pGeoDash->pEvent->mouse.type == ALLEGRO_EVENT_MOUSE_AXES)
+    {
+        pGeoData->mouse_position.x = _pGeoDash->pEvent->mouse.x;
+        pGeoData->mouse_position.y = _pGeoDash->pEvent->mouse.y;
+    }
+    if (_pGeoDash->pEvent->mouse.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN && _pGeoDash->pEvent->mouse.button == 1){
+        pGeoData->click =1;
+    }
+    if (_pGeoDash->pEvent->mouse.type == ALLEGRO_EVENT_MOUSE_BUTTON_UP && _pGeoDash->pEvent->mouse.button == 1){
+        pGeoData->click =0;
+    }
+
     if (Get_Touch(_pGeoDash->pEvent, ALLEGRO_KEY_SPACE, 0, 1, 0, 0) && pGeoData->y_player == y_debut_player){  // attention au gamemode
         //printf("touche espace \n");
         pGeoData->vy_player = -20;
@@ -72,11 +88,18 @@ void Geo_TimedUpdate(PGAME _pGeoDash) {
 
     GeoData * pGeoData = (GeoData *) _pGeoDash->gameData;
 
-    if (pGeoData->gamemode = 0) {
-        //pGeoData->gamemode = 1;
+    if (pGeoData->gamemode == 0) {
+        al_draw_bitmap(pGeoData->image [7], 0, 0, 0);
+        if (Point_In_Rectangle(pGeoData->mouse_position, (Vector2D){816,800}, (Vector2D){1104,889}) == 1 && pGeoData->click==1)
+        {
+            pGeoData->gamemode=1;
+            pGeoData->click=0;
+        }
+        //  tif (Point_In_Rectangle())
+        al_draw_bitmap(pGeoData->image [8], 816, 800, 0);
     }
-    else if (pGeoData->gamemode = 1) {
-        al_clear_to_color(al_map_rgb(200, 0, 0));
+    else if (pGeoData->gamemode == 1) {
+        //al_clear_to_color(al_map_rgb(200, 0, 0));
         pGeoData->vy_player = pGeoData ->vy_player + pGeoData ->ay_player;
         pGeoData->y_player = pGeoData ->y_player + pGeoData ->vy_player;
 
@@ -87,14 +110,18 @@ void Geo_TimedUpdate(PGAME _pGeoDash) {
 
         pGeoData->timer ++;
         if (pGeoData->timer % 20 == 0){
-            if (al_get_pixel(pGeoData->image [1], X_player + 100, pGeoData->y_player).b > al_map_rgb(0, 0,161).b){
-                printf("colision\n");
+            if (0.929411 <= al_get_pixel(pGeoData->image [7], ((-1) * pGeoData->x_fond) + X_player, pGeoData->y_player).r && al_get_pixel(pGeoData->image [7], ((-1) * pGeoData->x_fond) + X_player, pGeoData->y_player).r < 0.929413){
+                printf("colision %d\n", pGeoData->timer);
             }
         }
 
+        // printf("%f", al_map_rgb(237, 28, 36).r);
+        //printf(" -- %d\n", pGeoData->x_fond);
+        //printf("%f", al_get_pixel(pGeoData->image [6], pGeoData->x_fond * (-1) - 100, 500).b);      al_get_pixel(pGeoData->image [7], ((-1) * pGeoData->x_fond), pGeoData->y_player).r <= 0.929412
 
-        al_draw_bitmap(pGeoData->image [1], pGeoData->x_fond, 0, 0);
-        al_draw_bitmap(pGeoData->image[3], pGeoData->x_fond + 50,100,0);
+        al_draw_bitmap(pGeoData->image [7], pGeoData->x_fond, 0, 0);
+        //al_draw_filled_rectangle(pGeoData->x_fond  + 800, y_debut_player, pGeoData->x_fond + 1000, y_debut_player + 100 ,al_map_rgb(0, 0, 18));
+        //al_draw_bitmap(pGeoData->image[3], pGeoData->x_fond + 50,100,0);
 
         al_draw_bitmap(pGeoData ->image [0], X_player, pGeoData ->y_player, 0);
         pGeoData->x_fond = pGeoData->x_fond + pGeoData->avancement_fond;
