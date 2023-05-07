@@ -14,7 +14,17 @@
 #define PATH CL_PATH
 #define X_player 500
 
+
 typedef struct GeoData {
+    ALLEGRO_BITMAP* image [1];
+    int ay_player;
+    int vy_player;
+    int y_player;
+
+    int sol;
+}GeoData;
+
+/*typedef struct GeoData {
     ALLEGRO_BITMAP* GDTextures[10];
     float Gravity;
     int y;
@@ -27,7 +37,7 @@ typedef struct GeoData {
     int JumpDuration;
     int Gamemode;
 
-}GD_Gamedata, *pGD_Gamedata;
+}GD_Gamedata, *pGD_Gamedata;*/
 
 
 void Geo_Create(PGAME _pExemple);
