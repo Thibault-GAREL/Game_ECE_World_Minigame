@@ -10,8 +10,9 @@ void Geo_Create(PGAME _pGeoDash)
     GeoData * pGeoData = (GeoData *) malloc (sizeof (GeoData));
     _pGeoDash->gameData = pGeoData;
 
-    pGeoData->image[0] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\GDa.png");
-    pGeoData->image[1] = al_load_bitmap(PATH "\\Textures\\TDLR\\boutonplay.png");
+    pGeoData->image [0] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\GDa.png");
+    pGeoData->image [1] = al_load_bitmap(PATH "\\Textures\\TDLR\\boutonplay.png");
+    pGeoData->image [2] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\Fond.png");
 
 
     pGeoData->ay_player = 1;
@@ -82,7 +83,7 @@ void Geo_TimedUpdate(PGAME _pGeoDash) {
     GeoData * pGeoData = (GeoData *) _pGeoDash->gameData;
 
     if (pGeoData->gamemode == 0) {
-        al_draw_bitmap(pGeoData->image [7], 0, 0, 0);
+        al_draw_bitmap(pGeoData->image [2], 0, 0, 0);
         if (Point_In_Rectangle(pGeoData->mouse_position, (Vector2D){816,800}, (Vector2D){1104,889}) == 1 && pGeoData->click==1)
         {
             pGeoData->gamemode=1;
@@ -102,17 +103,17 @@ void Geo_TimedUpdate(PGAME _pGeoDash) {
         }
 
         pGeoData->timer ++;
-        if (pGeoData->timer % 20 == 0){
-            if (0.929411 <= al_get_pixel(pGeoData->image [7], ((-1) * pGeoData->x_fond) + X_player, pGeoData->y_player).r && al_get_pixel(pGeoData->image [7], ((-1) * pGeoData->x_fond) + X_player, pGeoData->y_player).r < 0.929413){
+        /*if (pGeoData->timer % 20 == 0){
+            if (0.929411 <= al_get_pixel(pGeoData->image [3], ((-1) * pGeoData->x_fond) + X_player, pGeoData->y_player).r && al_get_pixel(pGeoData->image [7], ((-1) * pGeoData->x_fond) + X_player, pGeoData->y_player).r < 0.929413){
                 printf("colision %d\n", pGeoData->timer);
             }
-        }
+        }*/
 
         // printf("%f", al_map_rgb(237, 28, 36).r);
         //printf(" -- %d\n", pGeoData->x_fond);
         //printf("%f", al_get_pixel(pGeoData->image [6], pGeoData->x_fond * (-1) - 100, 500).b);      al_get_pixel(pGeoData->image [7], ((-1) * pGeoData->x_fond), pGeoData->y_player).r <= 0.929412
 
-        al_draw_bitmap(pGeoData->image [7], pGeoData->x_fond, 0, 0);
+        al_draw_bitmap(pGeoData->image [2], pGeoData->x_fond, 0, 0);
         //al_draw_filled_rectangle(pGeoData->x_fond  + 800, y_debut_player, pGeoData->x_fond + 1000, y_debut_player + 100 ,al_map_rgb(0, 0, 18));
         //al_draw_bitmap(pGeoData->image[3], pGeoData->x_fond + 50,100,0);
 
@@ -123,8 +124,8 @@ void Geo_TimedUpdate(PGAME _pGeoDash) {
     }
     else if (pGeoData->gamemode == 2) {
 
+        Geo_Destroy(_pGeoDash);
     }
-
     /*pGD_Gamedata gameData = _pGeoDash->gameData;
 
     gameData->vy += gameData->Gravity;
