@@ -161,6 +161,9 @@ void Map_Create(PGAME _pMap)                               // ECHELLE = 1.25 POU
     pMapData->fin=0;
     pMapData->compteuraffichagenom=0;
 
+    pMapData->mousemoove=0;
+    pMapData->compteursouris=0;
+
     for (int i = 0; i < 12; i++)
     {
         al_lock_bitmap(pMapData->image[28+i], 0, ALLEGRO_LOCK_READONLY);
@@ -182,6 +185,7 @@ void Map_Update(PGAME _pMap)
     {
         pMapData->mouse.x = _pMap->pEvent->mouse.x*(_pMap->SampleAlManager->ResolutionScale);
         pMapData->mouse.y = _pMap->pEvent->mouse.y*(_pMap->SampleAlManager->ResolutionScale);
+        pMapData->mousemoove=1;
     }
     if ( _pMap->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
     {
@@ -673,8 +677,18 @@ void Map_TimedUpdate(PGAME _pMap)
         pMapData->pimages[10].y = 0;
         pMapData->pimages[11].x = 3840;
         pMapData->pimages[11].y = 0;
-        //ALLEGRO_DISPLAY* ecran=al_get_current_display();
-        //al_hide_mouse_cursor(ecran);
+        if (pMapData->mousemoove==0){
+            ALLEGRO_DISPLAY* ecran=al_get_current_display();
+            al_hide_mouse_cursor(ecran);
+        }
+        if (pMapData->mousemoove==1){
+            ALLEGRO_DISPLAY* ecran=al_get_current_display();
+            al_show_mouse_cursor(ecran);
+            pMapData->compteursouris++;
+            if (pMapData->compteursouris>=2){
+                pMapData->mousemoove=0;
+            }
+        }
         pMapData->x+=pMapData->speedhori*pMapData->deplacementhori;
         pMapData->y+=pMapData->speedverti*pMapData->deplacementverti;
         gestionbordure(_pMap);

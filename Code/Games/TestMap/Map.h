@@ -74,6 +74,8 @@ typedef struct _MAPDATA
     int compteuranim2;
     int fin;
     int compteuraffichagenom;
+    int mousemoove;
+    int compteursouris;
 }MapData;
 
 
