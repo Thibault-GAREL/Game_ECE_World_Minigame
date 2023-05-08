@@ -88,6 +88,10 @@ PALLEGRO_GAME_SAMPLES_INSTANCE InitSample (ALLEGRO_GAME_SAMPLE* pSample){
     pSample_Instance->TDLR_Degats = al_create_sample_instance(pSample->TDLR_Degats);
     pSample_Instance->TDLR_Fin = al_create_sample_instance(pSample->TDLR_Fin);
 
+    pSample_Instance->FBMenu = al_create_sample_instance(pSample->FBMenu);
+    pSample_Instance->FBGame = al_create_sample_instance(pSample->FBGame);
+    pSample_Instance->FBDeath = al_create_sample_instance(pSample->FBDeath);
+
     pSample_Instance->mj= al_create_sample_instance(pSample->mj);
 
     pSample_Instance->walk = al_create_sample_instance(pSample->walk);
@@ -114,6 +118,10 @@ void SetSampleInstance(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance, ALLEGRO_M
     al_set_sample_instance_playmode(pSampleInstance->TDLR_Fin, ALLEGRO_PLAYMODE_LOOP);
     al_set_sample_instance_playmode(pSampleInstance->TDLR_Degats, ALLEGRO_PLAYMODE_ONCE);
 
+    al_set_sample_instance_playmode(pSampleInstance->FBMenu, ALLEGRO_PLAYMODE_LOOP);
+    al_set_sample_instance_playmode(pSampleInstance->FBGame, ALLEGRO_PLAYMODE_LOOP);
+    al_set_sample_instance_playmode(pSampleInstance->FBDeath, ALLEGRO_PLAYMODE_ONCE);
+
     al_set_sample_instance_playmode(pSampleInstance->mj,ALLEGRO_PLAYMODE_ONCE);
 
     al_attach_sample_instance_to_mixer(pSampleInstance->PACMenu, al_get_default_mixer());
@@ -125,6 +133,10 @@ void SetSampleInstance(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInstance, ALLEGRO_M
     al_attach_sample_instance_to_mixer(pSampleInstance->TDLR_Menu, al_get_default_mixer());
     al_attach_sample_instance_to_mixer(pSampleInstance->TDLR_Fin, al_get_default_mixer());
     al_attach_sample_instance_to_mixer(pSampleInstance->TDLR_Degats, al_get_default_mixer());
+
+    al_attach_sample_instance_to_mixer(pSampleInstance->FBGame, al_get_default_mixer());
+    al_attach_sample_instance_to_mixer(pSampleInstance->FBMenu, al_get_default_mixer());
+    al_attach_sample_instance_to_mixer(pSampleInstance->FBDeath, al_get_default_mixer());
 
     al_attach_sample_instance_to_mixer(pSampleInstance->walk, al_get_default_mixer());
     //al_attach_sample_instance_to_mixer(pSampleInstance->click, al_get_default_mixer());
@@ -148,14 +160,19 @@ void Set_New_Sample_Instance(ALLEGRO_MANAGER *pAllegroManager){
     al_set_sample_instance_gain(pAllegroManager->pSampleInstance->TDLR_Menu, pAllegroManager->MusicGain);
     al_set_sample_instance_gain(pAllegroManager->pSampleInstance->TDLR_Fin, pAllegroManager->MusicGain);
 
+    al_set_sample_instance_gain(pAllegroManager->pSampleInstance->FBMenu, pAllegroManager->MusicGain);
+
 
     //Gain for SFX
 
     al_set_sample_instance_gain(pAllegroManager->pSampleInstance->PACEXplode, pAllegroManager->SFXGain);
     al_set_sample_instance_gain(pAllegroManager->pSampleInstance->PACEasterEgg, pAllegroManager->SFXGain);
     al_set_sample_instance_gain(pAllegroManager->pSampleInstance->TDLR_Degats, pAllegroManager->MusicGain);
+
     al_set_sample_instance_gain(pAllegroManager->pSampleInstance->mj, pAllegroManager->MusicGain);
 
+    al_set_sample_instance_gain(pAllegroManager->pSampleInstance->FBDeath, pAllegroManager->SFXGain);
+    al_set_sample_instance_gain(pAllegroManager->pSampleInstance->FBGame, pAllegroManager->SFXGain);
 }
 
 
@@ -176,6 +193,11 @@ PALLEGRO_GAME_SAMPLE Allegro_Samples_Create(){
     pSample->walk = al_load_sample("..\\Audio-Samples\\Mario_sample.ogg");
 
     pSample->mj = al_load_sample("..\\Audio-Samples\\MJSONG.ogg");
+
+    pSample->FBMenu = al_load_sample("..\\Audio-Samples\\FB\\Menu.ogg");
+    pSample->FBGame = al_load_sample("..\\Audio-Samples\\FB\\Game.ogg");
+    pSample->FBDeath = al_load_sample("..\\Audio-Samples\\FB\\Death.ogg");
+
     //pSample->balloon = NULL;
 
     return pSample;
@@ -192,6 +214,10 @@ void Allegro_Samples_Destroy(PALLEGRO_GAME_SAMPLE _pAllegroSample)
     al_destroy_sample(_pAllegroSample->TDLR_Menu);
     al_destroy_sample(_pAllegroSample->TDLR_Degats);
     al_destroy_sample(_pAllegroSample->TDLR_Fin);
+
+    al_destroy_sample(_pAllegroSample->FBGame);
+    al_destroy_sample(_pAllegroSample->FBDeath);
+    al_destroy_sample(_pAllegroSample->FBMenu);
 
     /*al_destroy_sample(_pAllegroSample->walk);
     al_destroy_sample(_pAllegroSample->click);
@@ -215,6 +241,11 @@ void Allegro_Samples_Instance_Destroy(ALLEGRO_GAME_SAMPLES_INSTANCE* pSampleInst
     al_destroy_sample_instance(pSampleInstance->TDLR_Menu);
     al_destroy_sample_instance(pSampleInstance->TDLR_Degats);
     al_destroy_sample_instance(pSampleInstance->TDLR_Fin);
+
+    al_destroy_sample_instance(pSampleInstance->FBMenu);
+    al_destroy_sample_instance(pSampleInstance->FBDeath);
+    al_destroy_sample_instance(pSampleInstance->FBGame);
+
 
     /*al_destroy_sample_instance(pSampleInstance->walk);
     al_destroy_sample_instance(pSampleInstance->click);
