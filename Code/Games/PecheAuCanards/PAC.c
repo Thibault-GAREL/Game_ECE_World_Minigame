@@ -424,9 +424,9 @@ void PAC_TimedUpdate(PGAME _pPAC)
             gameData->Player2_Timer++;
             gameData->GameMode = 2;
             al_draw_bitmap(gameData->End, 0, 0, 0);
-            al_draw_text(gameData->font, gameData->fontColor, 900, 500, 1, "Player 1");
+            al_draw_text(gameData->font, gameData->fontColor, 900, 500, 1, _pPAC->pPlayers[0]->name);
             al_draw_text(gameData->font, gameData->fontColor, 1060, 500, 1, (const char *) (gameData->Score1));
-            al_draw_text(gameData->font, gameData->fontColor, 900, 600, 1, "Player 2");
+            al_draw_text(gameData->font, gameData->fontColor, 900, 600, 1, _pPAC->pPlayers[1]->name);
             al_draw_text(gameData->font, gameData->fontColor, 1060, 600, 1, (const char *) (gameData->Score2));
             al_draw_bitmap(gameData->ButtonQuit, 1800,50,0);
         }

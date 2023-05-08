@@ -61,6 +61,7 @@ int main()
     pGames[5]->SampleAlManager = pAlManager;
     pGames[6]->SampleAlManager = pAlManager;
     pGames[7]->SampleAlManager = pAlManager;
+    pGames[9]->SampleAlManager = pAlManager;
 
 
     while (1)
