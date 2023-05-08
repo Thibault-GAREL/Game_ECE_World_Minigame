@@ -688,7 +688,7 @@ ___
 ## Conception ⚙️ :
 
 - Le serpent est géré par une liste chaînée.
-- Les fonctions liées au serpent utilises la récursivité
+- Les fonctions liées au serpent utilises la récursivité.
 
 ---
 
@@ -698,12 +698,12 @@ ___
 
 ➖ Le joueur doit enroler de nouveaux clones dans son armée.
 
-➖ Le joueur ne doit pas marcher sur sa propre armée
+➖ Le joueur ne doit pas marcher sur sa propre armée.
 
 ➖ Les touches de contrôles sont les suivantes:
 > Z Q S D 
 
-➖ Celui qui crée la plus grande a gagné 🏆
+➖ Celui qui crée la plus grande a gagné 🏆.
  
 
  ---
@@ -733,10 +733,24 @@ ___
 ➖ Les touches de contrôles sont les suivantes:
 > A Z E R 
 
-➖ Le joueur doit appuyer sur les touches au bon moment
+➖ Le joueur doit appuyer sur les touches au bon moment.
 
 ➖ Les fautes à éviter :
-* Appuyer trop tôt sur une touche
-* Laisser passer une note sans appuyer dessus
+* Appuyer trop tôt sur une touche.
+* Laisser passer une note sans appuyer dessus.
 
-➖ La partie est finie après 3 fautes
+➖ La partie est finie après 3 fautes.
+
+---
+# Structure globale du projet et liaisons des jeux
+
+### Chaques jeux possèdent une structure "racine" `GAME` : 
+
+- pointeur d'une fonction de mise à jour qui donne accès aux évenements `Game_Update`.
+
+- pointeur d'une fonction de mise à jour "timées" qui permet de dessiner sur l'écran `Game_TimedUpdate`.
+
+- pointeur non typé qui permet de stoquer les données du jeu (position du joueurs, score, etc ...). 
+Dans tous nos jeux il correspond au pointeur d'une structure.
+
+Cette organisation particulière nous à permis de créer une grande quantité de jeux sans devoir modifier à chaque fois le programme principal.
