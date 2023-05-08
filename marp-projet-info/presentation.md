@@ -373,37 +373,6 @@ __Colisions :__
 
 ---
 
-# Thibault
-
-- `✅ 100%` __Traversée de la rivière__: __Jeux obligatoire__  (renommé "Traversée du champ de bataille" dans le style de Star Wars   🚀)
-
-
-- `✅ 100%` __Geometry Dash__
-
-
-
-- `✅ 100%` __Flappy Bird__
-
-![bg right](image_TDLR/Fond_d-ecran-Bataille_spatiale.jpg)
-
-
----
-
-# Matthieu
-
-- `✅ 100%` __Snake__ : __Jeux obligatoire__
-
-
-- `✅ 100%` __Guitare Hero__ (renommé "Dark piano" dans le style de Star Wars   🚀)
-
-
-- `✅ 100%` __Flappy Bird__
-  
-- `✅ 100%` __Geometry Dash__
-
-
----
-
 # Robin
 
 - `✅ 100%` __Pêche aux canards__ : __Jeux obligatoire__ (renommé "Pêche aux vaisseaux" dans le style de Star Wars   🚀)
@@ -531,66 +500,11 @@ __Colisions :__
 
 ---
 
-# Traversée de la rivière  :airplane:  :milky_way: `1/4`
-
-### Les différentes textures :
-
-- __Les Obstacles__ : (possibilité d'en rajouter)
-  ![](image_TDLR/Chasseur_TIE_droite.png) ![](image_TDLR/X-wing_droite.png)
-
-- __Le personnage et l'animation__ :
-
-![](image_TDLR/Standtooper.png) ![w :120 h:120](Image_TDLR/Dark_Vador.png)
-
----
-
-
-# Traversée de la rivière  :airplane:  :milky_way: `2/4`
-
-### Les différentes textures :
-
-- __Une zone de paix__ :
-
-![](image_TDLR/Zone_de_paix.png)
-
-- __Le fond étoile__
-  
-![](image_TDLR/tempsnip5.png)
-
----
-# Traversée de la rivière  :airplane:  :milky_way: `3/4`
-
-![](image_TDLR/Capture_jeu.png)
-
----
-
-# Traversée de la rivière  :airplane:  :milky_way: `4/4`
-
-# Les fonctionnalités ➕ :
-
-➖ Les joueurs peuvent avancer, aller à droite ou gauche pour esquiver les vaisseaux 🏃
-
-➖ Les vaisseaux alléatoire passe de tout les côtés 🚀
-
-➖ Le joueur se fait entrainé par les flots d'étoile 🌊🌠
-
-➖ Système de vie mise en place (en haut à gauche) ❤️ 
-(sortir de l'écran ou touche un vaisseau fait prendre des dégats)
-
-➖Des zones de paix sont présentes pour faire une pause 💤
-
-➖ Système de timer (en haut à droite)🕜
-
-➖Celui qui va le plus loin gagne 🏆
-
----
-
-
 # Flappy Bird 🐦 `1/2`
 
 ### Les différentes textures :
 
-- __Les Obstacles__ : 
+- __Les Obstacles__ :
 
 ![w :100 h:100 90](images/LS.png)
 
@@ -619,24 +533,129 @@ __Colisions :__
 ![bg right](images/Flappy.png)
 
 
+# Thibault
+
+- `✅ 100%` __Traversée de la rivière__: __Jeux obligatoire__  (renommé "Traversée du champ de bataille" dans le style de Star Wars   🚀)
+
+
+- `✅ 100%` __Geometry Dash__
+
+
+
+- `✅ 100%` __Flappy Bird__
+
+![bg right](image_TDLR/Fond_d-ecran-Bataille_spatiale.jpg)
+
+
 ---
 
+
+# Traversée de la rivière  :airplane:  :milky_way: `1/7`
+
+### Les différentes textures :
+
+- __Les Obstacles__ : (possibilité d'en rajouter)
+  ![](image_TDLR/Chasseur_TIE_droite.png) ![](image_TDLR/X-wing_droite.png)
+
+- __Le personnage et l'animation de vitoire__ :
+
+![](image_TDLR/Standtooper.png) ![w :120 h:120](Image_TDLR/Dark_Vador.png)
+
+---
+
+
+# Traversée de la rivière  :airplane:  :milky_way: `2/7`
+
+### Les différentes textures :
+
+- __Une zone de paix__ :
+
+![](image_TDLR/Zone_de_paix.png)
+
+- __Le fond étoile__
+
+![](image_TDLR/tempsnip5.png)
+- 2 pointeurs sont importants : GameData (qui enregistre les données) et obstacles (qui enregistre les données uniquement pour les obstacles)
+---
+# Traversée de la rivière  :airplane:  :milky_way: `3/7`
+
+__Fonctionnement interne__
+-Le joueur spawn sur un zone de paix et peux avancer, aller à droite et à gauche
+-Les différents obstacles sont génerés alléatoirement, pouvant aller avec des directions (allterné une sur deux pour pas trop mettre de difficulter au joueur) et des vitesses alléatoires
+-Le fond entraine le joueur sur le côté comme une rivière (des zones de paix permet de souffler)
+-La vie et le timer sont gérés (les collisions avec des vaisseaux ou une sortie d'écran enlève de la vie)
+-Les menus ponctuent le jeu avec les sons pour permettre une meilleur immertion
+
+---
+# Traversée de la rivière  :airplane:  :milky_way: `4/7`
+
+![](image_TDLR/Capture_jeu.png)
+
+
+
+---
+
+# Traversée de la rivière  :airplane:  :milky_way: `5/7`
+
+| Fonction               | Utilité                                                                                                                                         |
+|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| ```TDLR_Create()```       | Permet d'allouer la mémoire nécessaire pour le jeu                                                                                                 |
+| ```TDLR_Update()``` | Permet d'actualiser les évènements clavier et souris (entrée dans le jeu, click sur un bouton, etc.)                                                                                             |
+| ```TDLR_TimedUpdate()```    | Permet de mettre à jour la position des vaisseaux, gère les collisions, afficher les textures, ... toutes les secondes                                               |
+| ```TDLR_Destroy()```        | Permet de détruire les textures des vaisseaux et des polices                                          |
+|```Inverse()```| Permet de mettre les strats, les couches dans le bonne ordre d'affichage |
+---
+
+# Traversée de la rivière  :airplane:  :milky_way: `6/7`
+
+| Fonction               | Utilité                                                                                                                                         |
+|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| ```generation_strat () / position_alleatoire ()```       | Permet de générer et positionner les différents éléments aléatoirement                                                                                            |
+| ```affichage_strat () / affichage_fond ()``` | Permet d'afficher les différentes couches de vaisseaux et le fond en temps réel                                                                     |
+| ```colision()```    | Permet de retirer de la vie si le joueur touche un vaisseau                                               |
+| ```next_joueur()```        | Permet de passer d'un joueur à un autre (possibilité d'ajouté plusieurs joueurs)                         |
+
+---
+
+# Traversée de la rivière  :airplane:  :milky_way: `7/7`
+
+# Les fonctionnalités ➕ :
+
+➖ Les joueurs peuvent avancer, aller à droite ou gauche pour esquiver les vaisseaux 🏃
+
+➖ Les vaisseaux alléatoire passe de tout les côtés 🚀
+
+➖ Le joueur se fait entrainé par les flots d'étoile 🌊🌠
+
+➖ Système de vie mise en place (en haut à gauche) ❤️
+(sortir de l'écran ou touche un vaisseau fait prendre des dégats)
+
+➖Des zones de paix sont présentes pour faire une pause 💤
+
+➖ Système de timer (en haut à droite)🕜
+
+➖Celui qui va le plus loin gagne 🏆
+
+---
 
 
 # Geometry Dash  🏃 🔺 `1/3`
 
 ### Les différentes textures :
 
-- __Les Obstacles__ : 
+- __Les Obstacles__ :
+
+![w :120 h:120](image_Geo/Rectangle2.png) ![w :120 h:120](image_Geo/Triangle.png)
 
 
 - __Le personnage__ :
+  ![w :120 h:120](image_Geo/GDa.png)
 
 ---
 
 # Geometry Dash  🏃 🔺 `2/3`
 
-
+![](image_Geo/Capture_Geo.png)
 
 ---
 
@@ -646,12 +665,27 @@ __Colisions :__
 
 ➖ Les joueurs peuvent sauter pour aller le plus loin 🏃
 
-➖Des obstacles sont à éviter toute en passant sur les platformes 🔺
+➖Des obstacles  et le vide sont à éviter toute en passant sur les platformes pour aller le plus loin🔺
 
 ➖Celui qui va le plus loin gagne 🏆
+
+
  
  ---
+# Matthieu
 
+- `✅ 100%` __Snake__ : __Jeux obligatoire__
+
+
+- `✅ 100%` __Guitare Hero__ (renommé "Dark piano" dans le style de Star Wars   🚀)
+
+
+- `✅ 100%` __Flappy Bird__
+
+- `✅ 100%` __Geometry Dash__
+
+
+---
 
 # Snake  🐍 `1/5`
 
