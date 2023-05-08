@@ -57,6 +57,7 @@ void PAC_Create(PGAME _pPAC)
     gameData->DuckTextures[11] = al_load_bitmap("..\\Textures/PAC/Spaceship_texture_3 (Personnalisé).png");
     gameData->PlayerNextTurn = al_load_bitmap("..\\Textures/PAC/Next Player.png");
     gameData->ButtonQuit = al_load_bitmap("..\\Textures/Map/croix.png");
+    gameData->Cursor = al_load_bitmap("..\\Textures/Cursors/PAC (Personnalisé).png");
 
     gameData->font = al_load_ttf_font("..\\Textures/Fonts/StarWars Font.TTF", 30, 0);
     gameData->fontColor = al_map_rgb(255, 0, 0);
@@ -108,7 +109,7 @@ void PAC_Create(PGAME _pPAC)
         gameData->DuckInfos[i]->Points = (gameData->DuckInfos[i]->vx) * (gameData->DuckInfos[i]->vy);
         printf ("Les points valent %d \n", gameData->DuckInfos[i]->Points);
     }
-    al_set_mouse_cursor((_pPAC->SampleAlManager)->pDisplay, (_pPAC->SampleAlManager)->pCursors->PACSight);
+    //al_set_mouse_cursor((_pPAC->SampleAlManager)->pDisplay, (_pPAC->SampleAlManager)->pCursors->PACSight);
 }
 
 void PAC_Update(PGAME _pPAC)
@@ -333,6 +334,8 @@ void PAC_TimedUpdate(PGAME _pPAC)
 
     //ALLEGRO_DISPLAY * display = al_get_current_display();
 
+
+
     if (gameData->GameLaunched == 0){
         al_draw_bitmap(gameData->Menu, 0, 0, 0);
         Allegro_play_Sample((_pPAC->SampleAlManager)->pSampleInstance->PACMenu);
@@ -452,6 +455,7 @@ void PAC_TimedUpdate(PGAME _pPAC)
             return ;
         }
     }
+    al_draw_bitmap(gameData->Cursor, gameData->mouse.x - 50, gameData->mouse.y - 25,1);
 }
 
 void PAC_Destroy(PGAME _pPAC)

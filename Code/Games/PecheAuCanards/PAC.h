@@ -29,6 +29,8 @@ typedef struct _PACGAMEDATA
     ALLEGRO_BITMAP *End;
     ALLEGRO_BITMAP *PlayerNextTurn;
     ALLEGRO_BITMAP *ButtonQuit;
+    ALLEGRO_BITMAP *Cursor;
+
     Vector2D mouse;
     int click;
     int Fishingstate[DuckCount];
