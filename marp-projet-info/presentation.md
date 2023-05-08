@@ -633,10 +633,9 @@ __Colisions :__
 - __Les Obstacles__ : (possibilité d'en rajouté)
   ![](image_TDLR/Chasseur_TIE_droite.png) ![](image_TDLR/X-wing_droite.png)
 
-- __Le personnage__ :
+- __Le personnage et l'animation__ :
 
-![](image_TDLR/Standtooper.png)
-
+![](image_TDLR/Standtooper.png) ![w :120 h:120](Image_TDLR/Dark_Vador.png)
 
 ---
 
