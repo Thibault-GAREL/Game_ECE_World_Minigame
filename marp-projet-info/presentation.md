@@ -514,7 +514,7 @@ __Colisions :__
 
 # Map 🌍🚪 `11/12`
 
-## Capture d'écran choix des jeux : 
+## Capture d'écran choix des jeux :
 
 ![](images/choixjeu.png)
 
@@ -538,7 +538,7 @@ __Colisions :__
 
 - __La Balle__ :
 
-    ![](images/Ballon.png)
+  ![](images/Ballon.png)
 
 ---
 
@@ -562,18 +562,18 @@ __Colisions :__
 
 # Les fonctionnalitées ➕ :
 
-  ➖ Les joueurs peuvent avancer, reculer, sauter et donner un coup de pied 🏃
+➖ Les joueurs peuvent avancer, reculer, sauter et donner un coup de pied 🏃
 
-  ➖ La balle réagit comme une vraie balle (gravité et frottement/frictions) ⚽
+➖ La balle réagit comme une vraie balle (gravité et frottement/frictions) ⚽
 
-  ➖ Le joueur avec le plus de but en 1 minutes gagne la partie 🕜
+➖ Le joueur avec le plus de but en 1 minutes gagne la partie 🕜
 
-  ➖ Colisions entre joueurs et avec la balle 🚫
+➖ Colisions entre joueurs et avec la balle 🚫
 
-  ➖ Les joueurs peuvent se donner des coups de pied et repousser l'adversaire (+ animation) 🔪
+➖ Les joueurs peuvent se donner des coups de pied et repousser l'adversaire (+ animation) 🔪
 
-  ➖ Animation de but quand un joueur marque 🎉
+➖ Animation de but quand un joueur marque 🎉
 
-  ➖ Récap des scores à la fin de partie et attribution tickets 💯
+➖ Récap des scores à la fin de partie et attribution tickets 💯
 
-  ➖ Menu de début et menu de fin de jeu 🏁
+➖ Menu de début et menu de fin de jeu 🏁
