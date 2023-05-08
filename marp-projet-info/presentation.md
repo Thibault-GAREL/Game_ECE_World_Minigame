@@ -387,3 +387,141 @@ __Colisions :__
 ![](images/GrapheTAB.png)
 
 ---
+
+# Map 🌍🚪 `1/12`
+
+## Les différentes textures :
+
+- __Le bonhomme__ :
+
+![](images/bonhommedroite.png)
+
+- __Mini-Map__ :
+
+![](images/ping.png) ![](images/teteluke.png)  ![](images/minimap.png)
+
+![bg right 80%](images/testvaisseau1.png)
+
+---
+
+# Map 🌍🚪 `2/12`
+
+# Les fonctionnalitées ➕ :
+
+➖ Le joueur peut se déplacer librement dans la map (12 images de 1920x1080) 🏰
+
+➖ Le joueur a un menu pour choisir son jeu suivant et peut changer son choix 🚥
+
+➖ Le joueur peut se déplacer à pied (colisions) ou en vaisseau (pas de colisions) ✈️
+
+➖ Le joueur peut faire Tab et voir les tickets des 2 joueurs 🎫
+
+➖ Le joueur a une mini-map avec google maps vers son prochain jeu 📍
+
+➖ Les colisions sont faites dans toutes la map, le joueur n'est pas limité aux chemins 🚧
+
+  
+---
+
+# Map 🌍🚪 `3/12`
+
+# Les fonctionnalitées ➕ :
+
+➖ Quand il rentre dans sa maison le jeu se lance avec une animation (Robin) 🎥
+
+➖ 7 jeux différents <=> 7 chemins différents, 7 maisons de jeu 🎓
+
+➖ Affichage du nom de la zone quand on y rentre 🎏
+
+➖ Le curseur s'affiche seulement si la souris bouge 🐭
+
+
+---
+# Map 🌍🚪 `4/12`
+
+## Capture d'écran de la Map :
+
+![](images/mapteaser1.png)
+
+---
+
+# Map 🌍🚪 `5/12`
+
+# Structuration :
+
+
+| Donnée                  | Structure                 | Code                                                                                                                |
+|-------------------------|---------------------------|---------------------------------------------------------------------------------------------------------------------|
+| Images                  | Tableau d'ALLEGRO_BITMAP* | ``` ALLEGRO_BITMAP* image[50] ```    📷                                                                             |
+| Appel images animations | Sprintf + for             | ``` for (int i=0;i<50;i++){ sprintf(char,"%d.png",i); al_load_bitmap(char); } ```   🎥                              |
+
+
+---
+
+# Map 🌍🚪 `6/12`
+
+| Donnée                | Structure                                          | Code                                                               |
+|-----------------------|----------------------------------------------------|--------------------------------------------------------------------|
+| Polices               | Tableau d'ALLEGRO_FONT*                            | ``` ALLEGRO_FONT* police[3]; ```   📃                              |
+| Coordonnées images    | Tableau de structure                               | ``` typedef struct _IMAGES{ float x; float y}  Images* pimages;``` |
+| Colisions             | Sous couche avec la map avec des rectangles rouges | ``` if (al_get_pixel(...).r >= 9.2) { Colision }```                |
+| Jeux suivant          | Enum (entier)                                      | ``` enum { GAME_PAC, GAME_TAB, GAME_SNAKE  }```                    |
+| Coordonnées  | Floats                                             | ``` float xbonhomme; float ybonhomme; ```                          |
+
+---
+
+# Map 🌍🚪 `7/12`
+
+# Fonctions importantes :
+
+
+| Fonction             | Utilité                                                                     |
+|----------------------|-----------------------------------------------------------------------------|
+| ```Map_Create()```   | Initialisation de toutes les variables 🎓                                   |
+| ```Choixdujeu()```   | Les joueurs choisissent le jeu suivant, et peuvent changer à tout moment 🔍 |
+| ```AffichageMap()``` | Affichage de la map, en fonction des déplacements du joueurs 🌏               |
+
+---
+
+# Map 🌍🚪 `8/12`
+
+
+| Fonction               | Utilité                                                                                                                                         |
+|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| ```Gestionbordure()``` | S'occupe des bordures de la map : si pas de bordures le joueurs est fixe et la map bouge si bordure le joueur bouge et la map est fixe 🔒       |
+| ```Minimap()```        | Prend en compte le jeu suivant et fais google maps sur la minimap 🚩                                                                            |
+| ```Colisions()```      | Le calque de la map avec rectangle se déplace de la même manière que la vrai map, la fonction compare le pixel de notre joueur avec le calque ❌ |
+
+---
+
+# Map 🌍🚪 `9/12`
+
+| Fonction               | Utilité                                                                                                                                         |
+|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| ```Bonhomme()```       | Affiche et s'occupe des déplacement du joueur 🏃                                                                                                |
+| ```Affichageville()``` | Affiche le nom d'une zone quand on y rentre 💬                                                                                                    |
+| ```Map_Destroy()```    | Déstruction de toutes les images,fonts ... et lance le jeu suivant et l'animation ⏩                                                             |
+
+---
+
+# Map 🌍🚪 `10/12`
+
+## Exemple MAP/MAPColision :
+
+![](images/transfo.png)
+
+---
+
+# Map 🌍🚪 `11/12`
+
+## Capture d'écran choix des jeux : 
+
+![](images/choixjeu.png)
+
+---
+
+# Map 🌍🚪 `12/12`
+
+# Graphe ordre des fonctions :
+
+![](images/GrapheMAP.png)
