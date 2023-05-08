@@ -653,32 +653,57 @@ __Colisions :__
  ---
 
 
-# Snake  🐍 `1/3`
+# Snake  🐍 `1/5`
 
-### Les différentes textures :
+## Les différentes textures `1/2`:
 
-- __Les Obstacles__ : 
+- __La nourriture__ : 
 
-
-- __Le personnage__ :
-
----
-
-# Snake  🐍 `2/3`
-
-
+![bg right](images/food1.png)
 
 ---
 
-# Snake  🐍 `3/3`
+- __Les personnages__ :
 
-# Les fonctionnalités ➕ :
+![bg right](images/Clone.png)
 
-➖ Les joueurs peuvent sauter pour aller le plus loin 🏃
+---
+# Snake  🐍 `2/5`
 
-➖Des obstacles sont à éviter toute en passant sur les platformes 🔺
+- __Dark Vador holographique__ : 
+7 images s'affichent les unes après les autres pour créer une animation.
 
-➖Celui qui va le plus loin gagne 🏆
+![bg right](images/DarkVadorHolographic.png)
+
+___
+
+# Snake  🐍 `3/5`
+
+![right](images/ScreenSnake.png)
+
+---
+
+# Snake  🐍 `4/5`
+
+## Conception ⚙️ :
+
+- Le serpent est géré par une liste chaînée.
+- Les fonctions liées au serpent utilises la récursivité
+
+---
+
+# Snake  🐍 `5/5`
+
+## Les fonctionnalités ➕ :
+
+➖ Le joueur doit enroler de nouveaux clones dans son armée.
+
+➖ Le joueur ne doit pas marcher sur sa propre armée
+
+➖ Les touches de contrôles sont les suivantes:
+> Z Q S D 
+
+➖ Celui qui crée la plus grande a gagné 🏆
  
 
  ---
@@ -687,18 +712,17 @@ __Colisions :__
  
 # Dark piano 🎶 🎵 🎹 `1/3`
 
-### Les différentes textures :
+## Les différentes textures :
 
-- __Les touches__ : 
+- Les touches visuels :
 
-
-- __Le fonctionnement__ :
+![w:100 h:100](images/FlecheAppuyee.png) ![w:100 h:100](images/FlecheIdle.png) ![w:100 h:100](images/False.png)
 
 ---
 
 # Dark piano 🎶 🎵 🎹 `2/3`
 
-
+![bg right](images/ScreenDP.png)
 
 ---
 
@@ -706,4 +730,13 @@ __Colisions :__
 
 # Les fonctionnalités ➕ :
 
-➖ Les joueurs doivent appuyer sur les touches au bon moment 
+➖ Les touches de contrôles sont les suivantes:
+> A Z E R 
+
+➖ Le joueur doit appuyer sur les touches au bon moment
+
+➖ Les fautes à éviter :
+* Appuyer trop tôt sur une touche
+* Laisser passer une note sans appuyer dessus
+
+➖ La partie est finie après 3 fautes
