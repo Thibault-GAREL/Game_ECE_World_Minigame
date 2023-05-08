@@ -19,8 +19,9 @@
 #define rectangle 2
 
 
-typedef struct GeoData {
-    ALLEGRO_BITMAP* image [10];
+typedef struct GeoData 
+{
+    ALLEGRO_BITMAP* image [4];
     float ay_player;
     float vy_player;
     float y_player;
@@ -40,11 +41,18 @@ typedef struct GeoData {
     int click;
     Vector2D mouse_position;
 
-    int gamemode;
+    int isDead;
 
-    int x_triangle1;
+    int score;
+    int playerCurrent;
+    ALLEGRO_BITMAP* desert;
+    ALLEGRO_BITMAP* menubk;
+    ALLEGRO_BITMAP* buttonPlay;
+    ALLEGRO_BITMAP* buttonMap;
+    ALLEGRO_FONT* pFont50;
 
-    int x_rectangle1;
+    int isMenuEnable;
+    int scores[2];
 }GeoData;
 
 
@@ -52,5 +60,10 @@ void Geo_Create(PGAME _pExemple);
 void Geo_Update(PGAME _pExemple);
 void Geo_TimedUpdate(PGAME _pExemple);
 void Geo_Destroy(PGAME _pExemple);
+
+void GameGStateChecker(PGAME _pExemple);
+void MenuG_UpdateEvent(PGAME _pExemple);
+void MenuG_Draw(PGAME _pExemple);
+
 
 #endif //PROJET_GEOMETRYDASH_H
