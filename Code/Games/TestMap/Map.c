@@ -72,6 +72,7 @@ void Map_Create(PGAME _pMap)                               // ECHELLE = 1.25 POU
     pMapData->image[55]= al_load_bitmap("..\\Textures/Map/ecranvictoire.png");
     pMapData->image[56]= al_load_bitmap("..\\Textures/Map/AfficheBonus.png");
     pMapData->image[57]= al_load_bitmap("..\\Textures/Map/barremenu.png");
+    pMapData->image[58]= al_load_bitmap("..\\Textures/Map/AfficheFB.png");
 
     for (int i=1;i<78;i++){
         sprintf(pMapData->animation, "..\\Textures/Animations/Allegro-loading/Animation%d.jpg", i);
@@ -351,6 +352,16 @@ void affichageminimap(PGAME _pMap){
             al_draw_rectangle(1580,845,1535+(pMapData->x)/19,847, al_map_rgb(0,255,228),2);
         }
     }
+    if (pMapData->jeusuivant == GAME_FB){
+        if (pMapData->bonhommex > pMapData->pimages[6].x-pMapData->x+1683 && pMapData->bonhommex < pMapData->pimages[6].x-pMapData->x+1737 && pMapData->bonhommey > pMapData->pimages[6].y-pMapData->y+259 && pMapData->bonhommey < pMapData->pimages[6].y-pMapData->y+327){
+            pMapData->compteurfin=1;
+        }
+        else {
+            al_draw_bitmap(pMapData->image[14],1570,840,0);
+            al_draw_rectangle(1535+(pMapData->x)/19,930+(pMapData->y)/20,1535+(pMapData->x)/19+2,865,al_map_rgb(0,255,228),2);
+            al_draw_rectangle(1580,865,1535+(pMapData->x)/19,867, al_map_rgb(0,255,228),2);
+        }
+    }
     al_draw_bitmap(pMapData->image[13],pMapData->x /20 + 1530,pMapData->y / 20 + 920,0);
 }
 
@@ -614,6 +625,7 @@ void choisirjeusuivant(PGAME _pMap){
     al_show_mouse_cursor(ecran);
     al_draw_bitmap(pMapData->image[49],800,300,0);
     al_draw_filled_rectangle(220,500,1700,700, al_map_rgb(0,0,0));
+    al_draw_filled_rectangle(700,750,947,950, al_map_rgb(0,0,0));
 
     al_draw_bitmap(pMapData->image[50],220,500,0);
     al_draw_bitmap(pMapData->image[51],447,500,0);
@@ -621,6 +633,7 @@ void choisirjeusuivant(PGAME _pMap){
     al_draw_bitmap(pMapData->image[53],941,500,0);
     al_draw_bitmap(pMapData->image[54],1188,500,0);
     al_draw_bitmap(pMapData->image[56],1188+247,500,0);
+    al_draw_bitmap(pMapData->image[58],700,750,0);
 
     if (pMapData->mouse.x >= 220 && pMapData->mouse.x < 447 && pMapData->mouse.y >= 500 && pMapData->mouse.y <= 700 && pMapData->click==1){
         pMapData->jeusuivant=GAME_TDLR;
@@ -644,6 +657,10 @@ void choisirjeusuivant(PGAME _pMap){
     }
     if (pMapData->mouse.x >= 1188+247 && pMapData->mouse.x < 1700 && pMapData->mouse.y >= 500 && pMapData->mouse.y <= 700 && pMapData->click==1){
         pMapData->jeusuivant=GAME_BONUS;
+        pMapData->compteurchoixjeu=1;
+    }
+    if (pMapData->mouse.x >= 700 && pMapData->mouse.x < 947 && pMapData->mouse.y >= 750 && pMapData->mouse.y < 950 && pMapData->click==1){
+        pMapData->jeusuivant=GAME_FB;
         pMapData->compteurchoixjeu=1;
     }
 }
@@ -760,7 +777,7 @@ void Map_Destroy(PGAME _pMap)
 {
     MapData* pMapData = _pMap->gameData;
 
-    for (int i=0;i<58;i++){
+    for (int i=0;i<59;i++){
         al_destroy_bitmap(pMapData->image[i]);
     }
 
