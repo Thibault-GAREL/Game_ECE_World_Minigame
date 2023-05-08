@@ -175,10 +175,37 @@ void PAC_Coordinates_create(PGAME _pPAC){
         gamedata->DuckInfos[i]->vy = rand() % 3+1;
     }
 
-    for (int i = 0; i < 12; ++i) {
+    /*for (int i = 0; i < 12; ++i) {
         gamedata->DuckInfos[i]->x = rand() % 1700 +100;
         gamedata->DuckInfos[i]->y = rand() % 900 + 100;
-    }
+    }*/
+
+    gamedata->DuckInfos[0]->x = 200;
+    gamedata->DuckInfos[0]->y = 200;
+    gamedata->DuckInfos[1]->x = 400;
+    gamedata->DuckInfos[1]->y = 200;
+    gamedata->DuckInfos[2]->x = 600;
+    gamedata->DuckInfos[2]->y = 200;
+    gamedata->DuckInfos[3]->x = 800;
+    gamedata->DuckInfos[3]->y = 200;
+    gamedata->DuckInfos[4]->x = 1000;
+    gamedata->DuckInfos[4]->y = 200;
+    gamedata->DuckInfos[5]->x = 1200;
+    gamedata->DuckInfos[5]->y = 200;
+
+    gamedata->DuckInfos[6]->x = 200;
+    gamedata->DuckInfos[6]->y = 600;
+    gamedata->DuckInfos[7]->x = 400;
+    gamedata->DuckInfos[7]->y = 600;
+    gamedata->DuckInfos[8]->x = 600;
+    gamedata->DuckInfos[8]->y = 600;
+    gamedata->DuckInfos[9]->x = 800;
+    gamedata->DuckInfos[9]->y = 600;
+    gamedata->DuckInfos[10]->x = 1000;
+    gamedata->DuckInfos[10]->y = 600;
+    gamedata->DuckInfos[11]->x = 1200;
+    gamedata->DuckInfos[11]->y = 600;
+
 }
 
 void Check_Duck_Collisions(PGAME _pPAC){
@@ -361,8 +388,7 @@ void PAC_TimedUpdate(PGAME _pPAC)
                 gameData->Player2_Timer++;
                 for (int i = 0; i < 12; ++i) {
                     if (gameData->Fishingstate[i] != 2) {
-                        al_draw_bitmap(gameData->DuckTextures[i], gameData->DuckInfos[i]->x, gameData->DuckInfos[i]->y,
-                                       0);
+                        al_draw_bitmap(gameData->DuckTextures[i], gameData->DuckInfos[i]->x, gameData->DuckInfos[i]->y,0);
                     }
                     /*if (gameData->Fishingstate[i] == 1){
                         al_draw_text(gameData->font, gameData->fontColor, 960, 540, 1, KeyEquivalent[gameData->DuckInfos[i]->KEYCodeDuck]);
@@ -380,8 +406,7 @@ void PAC_TimedUpdate(PGAME _pPAC)
                         //printf("sorti du timer");
                     }
                     sprintf(gameData->RemainingTime, "%d", (int) (3000 - gameData->Player2_Timer) / 100);
-                    al_draw_text(gameData->font, gameData->fontColor, 1920, 10, 2,
-                                 (const char *) (gameData->RemainingTime));
+                    al_draw_text(gameData->font, gameData->fontColor, 1920, 10, 2,(const char *) (gameData->RemainingTime));
                     al_draw_text(gameData->font, gameData->fontColor, 1900, 50, 2, "Player 2");
                     al_draw_text(gameData->font, gameData->fontColor, 10, 50, 0, (const char *) (gameData->Score2));
                     al_draw_text(gameData->font, gameData->fontColor, 10, 10, 0, "Score");
@@ -410,6 +435,18 @@ void PAC_TimedUpdate(PGAME _pPAC)
             Allegro_Stop_Sample((_pPAC->SampleAlManager)->pSampleInstance->PACMenu);
             Allegro_Stop_Sample((_pPAC->SampleAlManager)->pSampleInstance->PACCredits);
             al_destroy_mouse_cursor((_pPAC->SampleAlManager)->pCursors->PACSight);
+
+            if (gameData->score1 > gameData->score2){
+                _pPAC->pPlayers[0]->tickets ++;
+            }
+            else if (gameData->score1 < gameData->score2){
+                _pPAC->pPlayers[1]->tickets ++;
+            }
+            if (gameData->score1 == gameData->score2){
+                _pPAC->pPlayers[1]->tickets ++;
+                _pPAC->pPlayers[0]->tickets ++;
+            }
+
             PAC_Destroy(_pPAC);
             return ;
         }
