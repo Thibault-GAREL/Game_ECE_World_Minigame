@@ -13,6 +13,7 @@
 #include "Menu/Menu.h"
 #include "Games/JeuBonus/JeuBonus.h"
 #include "Games/GeometryDash/GeometryDash.h"
+#include "Games/FlappyBird/FB.h"
 
 #define PLAYER_COUNT 2
 #define MAP_EXEMPLE 6
@@ -37,7 +38,7 @@ int main()
     Players_Init(players, PLAYER_COUNT);
     printf("init des joueurs fait");
 
-    int gamesCount = 9;
+    int gamesCount = 10;
     PGAME pGames[gamesCount];
     //pGames[0] = Game_Init(GAME_EXEMPLE, Exemple_Update, Exemple_TimedUpdate, &currentGameId, &event, PLAYER_COUNT, &players);
     printf("tous les init sauf map faits \n");
@@ -50,6 +51,7 @@ int main()
     pGames[6]= Game_Init(MENU,Menu_Update, Menu_TimedUpdate,&currentGameId,&event,PLAYER_COUNT,&players);
     pGames[7]= Game_Init(GAME_BONUS,Bonus_Update,Bonus_TimedUpdate,&currentGameId,&event,PLAYER_COUNT,&players);
     pGames[8]= Game_Init(GAME_GEO, Geo_Update, Geo_TimedUpdate, &currentGameId, &event,PLAYER_COUNT, &players);
+    pGames[9]= Game_Init(GAME_FB, FB_Update,FB_TimedUpdate,&currentGameId,&event,PLAYER_COUNT,&players);
 
     printf("init sans erreur \n");
 
@@ -109,6 +111,10 @@ int main()
             if (Get_Touch(&event, ALLEGRO_KEY_G, 0, 1, 0, 0))
             {
                 currentGameId = GAME_GEO;
+            }
+            if (Get_Touch(&event, ALLEGRO_KEY_F, 0, 1, 0, 0))
+            {
+                currentGameId = GAME_FB;
             }
         }
 
