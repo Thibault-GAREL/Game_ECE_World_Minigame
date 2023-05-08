@@ -514,7 +514,7 @@ __Colisions :__
 
 # Map 🌍🚪 `11/12`
 
-## Capture d'écran choix des jeux : 
+## Capture d'écran choix des jeux :
 
 ![](images/choixjeu.png)
 
@@ -525,3 +525,55 @@ __Colisions :__
 # Graphe ordre des fonctions :
 
 ![](images/GrapheMAP.png)
+
+---
+
+# Jeu Bonus : Head Jedai ⚽🎮 `1/4`
+
+## Les différentes textures :
+
+- __Les bonhommes__ :
+
+![](images/bonhomme11.png)  ![](images/bonhomme21G.png)
+
+- __La Balle__ :
+
+  ![](images/Ballon.png)
+
+---
+
+# Jeu Bonus : Head Jedai ⚽🎮 `2/4`
+
+- __Les supporters__ :
+
+![](images/supporters.png)  ![bg right 50%](images/tetestrom.png)
+
+---
+
+# Jeu Bonus : Head Jedai ⚽🎮 `3/4`
+
+## Capture d'écran du jeu Head Jedai :
+
+![](images/ScreenHJ.png)
+
+---
+
+# Jeu Bonus : Head Jedai ⚽🎮 `4/4`
+
+# Les fonctionnalitées ➕ :
+
+➖ Les joueurs peuvent avancer, reculer, sauter et donner un coup de pied 🏃
+
+➖ La balle réagit comme une vraie balle (gravité et frottement/frictions) ⚽
+
+➖ Le joueur avec le plus de but en 1 minutes gagne la partie 🕜
+
+➖ Colisions entre joueurs et avec la balle 🚫
+
+➖ Les joueurs peuvent se donner des coups de pied et repousser l'adversaire (+ animation) 🔪
+
+➖ Animation de but quand un joueur marque 🎉
+
+➖ Récap des scores à la fin de partie et attribution tickets 💯
+
+➖ Menu de début et menu de fin de jeu 🏁
