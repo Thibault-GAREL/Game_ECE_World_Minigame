@@ -435,6 +435,8 @@ __Colisions :__
 
 ➖ Le curseur s'affiche seulement si la souris bouge 🐭
 
+➖ Un écran de victoire apparait si un joueur possède 5 tickets 🎫
+
 
 ---
 # Map 🌍🚪 `4/12`

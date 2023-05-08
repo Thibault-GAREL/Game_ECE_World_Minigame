@@ -56,7 +56,14 @@ typedef struct _DP_DATA
     float speed;
     int error;
     int playerCurrent;
-    int scoreP1;
+
+    ALLEGRO_BITMAP* desert;
+    ALLEGRO_BITMAP* menubk;
+    ALLEGRO_BITMAP* buttonPlay;
+    ALLEGRO_BITMAP* buttonMap;
+
+    int isMenuEnable;
+    int scores[2];
 }DP_DATA, *PDP_DATA;
 
 void DarkPiano_Create(PGAME _pExemple);
@@ -75,3 +82,6 @@ int Note_IsTouch(PNOTE* _ppFirstNote, int _isPressed);
 void Note_Update(PNOTE* _ppFirstNote, int* _pError);
 
 void GameStateChecker(PGAME _pGame);
+
+void MenuD_UpdateEvent(PGAME _pExemple);
+void MenuD_Draw(PGAME _pExemple);

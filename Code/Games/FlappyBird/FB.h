@@ -36,6 +36,7 @@ typedef struct _FBGamedata{
 
     
     ALLEGRO_BITMAP *Bird;
+    ALLEGRO_BITMAP *BirdRotated;
     ALLEGRO_BITMAP *Background;
     ALLEGRO_BITMAP *LightSaber;
     ALLEGRO_BITMAP *LightSaberRotated;
@@ -45,6 +46,16 @@ typedef struct _FBGamedata{
     double FontY;
     double FontVy;
     int FontTimer;
+
+    int IntervalTimer;
+
+    int Dead;
+
+    int P1Score;
+    int P2Score;
+
+    char p1Score[100];
+    char p2Score[100];
 }FB_gamedata, *pFB_gamedata;
 
 void FB_Create(PGAME _pFB);
@@ -52,3 +63,4 @@ void FB_Update(PGAME _pFB);
 void FB_TimedUpdate(PGAME _pFB);
 void FB_Destroy(PGAME _pFB);
 void Generate_Pipes(PGAME _pFB);
+bool Check_pipes_collisions(PGAME _pFB);
