@@ -3,6 +3,7 @@
 void DarkPiano_Create(PGAME _pGame)
 {
     PDP_DATA pDpData = (PDP_DATA)calloc(1, sizeof(DP_DATA));
+    _pGame->gameData = pDpData;
 
     pDpData->ui.pBackground = al_load_bitmap("..\\Textures\\DarkPiano\\Bk.png");
     pDpData->ui.pFont50 = al_load_font("..\\Textures\\Fonts\\police.TTF", 50, 0);
@@ -14,7 +15,14 @@ void DarkPiano_Create(PGAME _pGame)
     pDpData->error = 0;
     pDpData->playerCurrent = 0;
 
-    _pGame->gameData = pDpData;
+    pDpData->desert = al_load_bitmap("..\\Textures\\Snake\\Desert.png");
+    pDpData->menubk = al_load_bitmap("..\\Textures\\DarkPiano\\BkMenu.png");
+    pDpData->buttonPlay = al_load_bitmap("..\\Textures\\Snake\\BouttonPlay.png");
+    pDpData->buttonMap = al_load_bitmap("..\\Textures\\Snake\\MapImage.png");
+    pDpData->isMenuEnable = 1;
+
+    pDpData->scores[0] = 0;
+    pDpData->scores[1] = 0;
 }
 
 void DarkPiano_Update(PGAME _pGame)
@@ -25,6 +33,12 @@ void DarkPiano_Update(PGAME _pGame)
     }
 
     PDP_DATA pDpData = (PDP_DATA)_pGame->gameData;
+    
+    if (pDpData->isMenuEnable)
+    {
+        MenuD_UpdateEvent(_pGame);
+        return;
+    }
 
     GameStateChecker(_pGame);
 
@@ -54,7 +68,6 @@ void DarkPiano_Update(PGAME _pGame)
             Note_Add(&pDpData->corde[i]);
         }
         
-        
         if (Note_IsTouch(&pDpData->corde[i], pDpData->cordeInput[i]) == 1)
         {
             pDpData->score++;
@@ -76,6 +89,12 @@ void DarkPiano_TimedUpdate(PGAME _pGame)
     }
 
     PDP_DATA pDpData = (PDP_DATA)_pGame->gameData;
+
+    if (pDpData->isMenuEnable)
+    {
+        MenuD_Draw(_pGame);
+        return;
+    }
 
     if (pDpData->speed < MAX_SPEED)
     {
@@ -329,13 +348,17 @@ void GameStateChecker(PGAME _pGame)
 
     if (pDpData->error >= ERROR_MAX)
     {
+        pDpData->isMenuEnable = 1;
+
+        pDpData->scores[pDpData->playerCurrent] = pDpData->score;
+        
         if (++pDpData->playerCurrent >= _pGame->playersCount)
         {
-            if (pDpData->scoreP1 > pDpData->score)
+            if (pDpData->scores[0] > pDpData->scores[1])
             {
                 _pGame->pPlayers[0]->tickets+=1;
             }
-            else if (pDpData->scoreP1 < pDpData->score)
+            else if (pDpData->scores[0] < pDpData->scores[1])
             {
                 _pGame->pPlayers[1]->tickets+=1;
             }
@@ -346,7 +369,7 @@ void GameStateChecker(PGAME _pGame)
             }
             //printf("P0ticket=%d\n", _pGame->pPlayers[0]->tickets);
             //printf("P1ticket=%d\n", _pGame->pPlayers[1]->tickets);
-            DarkPiano_Destroy(_pGame);
+            //DarkPiano_Destroy(_pGame);
             return;
         }
 
@@ -356,7 +379,6 @@ void GameStateChecker(PGAME _pGame)
             pDpData->corde[i] = 0;
         }
 
-        pDpData->scoreP1 = pDpData->score;
         pDpData->score = 0;
         pDpData->speed = START_SPEED;
         pDpData->error = 0;
@@ -366,9 +388,67 @@ void GameStateChecker(PGAME _pGame)
             pDpData->cordeInput[i] = 0;
         }
         
-
         //printf("Player = %d\n", pDpData->playerCurrent);
         //printf("ticket=%d\n", _pGame->pPlayers[pDpData->playerCurrent]->tickets);
     }
     
+}
+
+void MenuD_UpdateEvent(PGAME _pExemple)
+{
+    PDP_DATA pDpData = (PDP_DATA)_pExemple->gameData;
+    
+    if (_pExemple->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
+    {
+        int boutton_X = 720;
+        int boutton_Y = 450;
+        
+        if (_pExemple->pEvent->mouse.x > boutton_X && _pExemple->pEvent->mouse.x < boutton_X+al_get_bitmap_width(pDpData->buttonPlay) && _pExemple->pEvent->mouse.y > boutton_Y && _pExemple->pEvent->mouse.y < boutton_Y+al_get_bitmap_height(pDpData->buttonPlay))
+        {
+            if (pDpData->playerCurrent <= 1)
+            {
+                pDpData->isMenuEnable = 0;
+            }
+            else
+            {
+                DarkPiano_Destroy(_pExemple);
+                return;
+            }
+        }   
+    }
+}
+
+void MenuD_Draw(PGAME _pExemple)
+{
+    PDP_DATA pDpData = (PDP_DATA)_pExemple->gameData;
+    
+    al_draw_bitmap(pDpData->menubk, 0, 0, 0);
+    
+    int boutton_X = 720;
+    int boutton_Y = 450;
+
+    if (pDpData->playerCurrent <= 1)
+    {    
+        al_draw_bitmap(pDpData->buttonPlay, boutton_X, boutton_Y, 0);
+    }
+    else
+    {
+        al_draw_bitmap(pDpData->buttonMap, boutton_X, boutton_Y, 0);
+    }
+    
+    al_draw_text(pDpData->ui.pFont50, al_map_rgb(0, 255, 0), 200, 200, 0, _pExemple->pPlayers[0]->name);
+    al_draw_text(pDpData->ui.pFont50, al_map_rgb(255, 0, 0), 1650, 200, 0, _pExemple->pPlayers[1]->name);
+
+    char strValue[8] = "0000000";
+    sprintf(strValue, "%d", pDpData->scores[0]);
+    al_draw_text(pDpData->ui.pFont50, al_map_rgb(200, 200, 0), 200, 250, 0, strValue);
+    sprintf(strValue, "%d", pDpData->scores[1]);
+    al_draw_text(pDpData->ui.pFont50, al_map_rgb(200, 200, 0), 1650, 250, 0, strValue);
+
+    sprintf(strValue, "%d", _pExemple->pPlayers[0]->tickets);
+    al_draw_text(pDpData->ui.pFont50, al_map_rgb(200, 200, 0), 200, 300, 0, strValue);
+    sprintf(strValue, "%d", _pExemple->pPlayers[1]->tickets);
+    al_draw_text(pDpData->ui.pFont50, al_map_rgb(200, 200, 0), 1650, 300, 0, strValue);
+
+    //al_draw_rectangle(boutton_X, boutton_Y, boutton_X+al_get_bitmap_width(pDpData->buttonPlay), boutton_Y+al_get_bitmap_height(pDpData->buttonPlay), al_map_rgb(255, 0, 0), 5);
 }
