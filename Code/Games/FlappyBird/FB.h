@@ -4,9 +4,12 @@
 #include <stdlib.h>
 #include "..\\..\\Game.h"
 #include "..\\..\\Utils\\allegroutils.h"
+#include "..\\..\\Utils/Vector.h"
 
 
-#define Distance_btw_2_pipes 1500
+#define Distance_btw_2_pipes 1650
+#define Bird_X 200
+#define FontStartY 200
 
 typedef struct _FBGamedata{
     int Gamemode;
@@ -22,7 +25,7 @@ typedef struct _FBGamedata{
     int PipeRow3_X;
     int PipeRow4_X;
     int PipeRow5_X;
-    int PipeRow6_X;
+
 
 
     int Top_pipe_Y_1;
@@ -30,13 +33,18 @@ typedef struct _FBGamedata{
     int Top_pipe_Y_3;
     int Top_pipe_Y_4;
     int Top_pipe_Y_5;
-    int Top_pipe_Y_6;
+
     
     ALLEGRO_BITMAP *Bird;
     ALLEGRO_BITMAP *Background;
     ALLEGRO_BITMAP *LightSaber;
     ALLEGRO_BITMAP *LightSaberRotated;
 
+    ALLEGRO_FONT *font;
+
+    double FontY;
+    double FontVy;
+    int FontTimer;
 }FB_gamedata, *pFB_gamedata;
 
 void FB_Create(PGAME _pFB);

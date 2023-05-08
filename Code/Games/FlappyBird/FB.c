@@ -2,36 +2,51 @@
 
 void FB_Create(PGAME _pFB)
 {
-    printf("Creation du jeu...\n");
+    //printf("Creation du jeu...\n");
 
     pFB_gamedata gamedata = malloc(sizeof (FB_gamedata));
 
+    srand(time(NULL));
     gamedata->Jump = 0;
     gamedata->JumpTimer = 0;
     gamedata->Background = al_load_bitmap("..\\Textures/Flappy Bird/Background FB (Personnalisé).jpg");
     gamedata->Bird = al_load_bitmap("..\\Textures/Flappy Bird/FB_Character (Personnalisé).png");
     gamedata->LightSaber = al_load_bitmap("..\\Textures/Flappy Bird/Light Saber.png");
     gamedata->LightSaberRotated = al_load_bitmap("..\\Textures/Flappy Bird/Light Saber Rotated.png");
+    gamedata->font = al_load_ttf_font("..\\Textures/Fonts/StarWars Font.TTF", 90, 0);
 
     gamedata->Y_Position = 540;
-    gamedata->vY_Fall = 2;
+    gamedata->vY_Fall = 4;
 
     gamedata->PipeRow1_X = -20;
     gamedata->PipeRow2_X = -20;
+    gamedata->PipeRow3_X = -20;
+    gamedata->PipeRow4_X = -20;
+    gamedata->PipeRow5_X = -20;
+
 
     gamedata->Top_pipe_Y_1 = 0;
     gamedata->Top_pipe_Y_2 = 0;
+    gamedata->Top_pipe_Y_3 = 0;
+    gamedata->Top_pipe_Y_4 = 0;
+    gamedata->Top_pipe_Y_5 = 0;
 
     gamedata->BirdSpeed = 2;
 
+    gamedata->Gamemode = 0;
+
+    gamedata->FontTimer = 0;
+    gamedata->FontVy = 0.01;
+    gamedata->FontY = 200;
+
     _pFB->gameData = gamedata;
 
-    printf("Jeu cree!\n");
+    //printf("Jeu cree!\n");
 }
 
 void FB_Update(PGAME _pFB)
 {
-    printf("pFB de fonction Update...\n");
+    //printf("pFB de fonction Update...\n");
 
     if (_pFB->gameData == NULL)
     {
@@ -43,7 +58,7 @@ void FB_Update(PGAME _pFB)
 
     if (Get_Touch(_pFB->pEvent, ALLEGRO_KEY_W, 0, 0, 1, 0))
     {
-        printf("WIN !!!!\n");
+        //printf("WIN !!!!\n");
 
         FB_Destroy(_pFB);
     }
@@ -52,77 +67,194 @@ void FB_Update(PGAME _pFB)
         gamedata->Jump = 1;
     }
 
-    printf("\n");
+    if (Get_Touch(_pFB->pEvent, ALLEGRO_KEY_ENTER, 0, 0, 1, 0) && gamedata->Gamemode == 0)
+    {
+        gamedata->Gamemode = 1;
+    }
+
+    if(Point_In_Rectangle((Vector2D){Bird_X + al_get_bitmap_width(gamedata->Bird),gamedata->Y_Position}, (Vector2D){gamedata->PipeRow1_X ,gamedata->Top_pipe_Y_1 }, (Vector2D){gamedata->PipeRow1_X + al_get_bitmap_width(gamedata->LightSaber),gamedata->Top_pipe_Y_1 + al_get_bitmap_height(gamedata->LightSaber)})){
+        printf("colision");
+    }   //colisions Top Right
+
+
+    if(Point_In_Rectangle((Vector2D){Bird_X + al_get_bitmap_width(gamedata->Bird),gamedata->Y_Position + al_get_bitmap_height(gamedata->Bird)}, (Vector2D){gamedata->PipeRow1_X ,gamedata->Top_pipe_Y_1 + Distance_btw_2_pipes }, (Vector2D){gamedata->PipeRow1_X + al_get_bitmap_width(gamedata->LightSaberRotated),gamedata->Top_pipe_Y_1 + Distance_btw_2_pipes + al_get_bitmap_height(gamedata->LightSaber)})){
+        printf("colision Bas");
+    }   //Colisions Bottom Right
+
+    //First Row
+
+
+    if(Point_In_Rectangle((Vector2D){Bird_X + al_get_bitmap_width(gamedata->Bird),gamedata->Y_Position}, (Vector2D){gamedata->PipeRow2_X ,gamedata->Top_pipe_Y_2 }, (Vector2D){gamedata->PipeRow2_X + al_get_bitmap_width(gamedata->LightSaber),gamedata->Top_pipe_Y_2 + al_get_bitmap_height(gamedata->LightSaber)})){
+        printf("colision");
+    }   //colisions Top Right
+
+
+    if(Point_In_Rectangle((Vector2D){Bird_X + al_get_bitmap_width(gamedata->Bird),gamedata->Y_Position + al_get_bitmap_height(gamedata->Bird)}, (Vector2D){gamedata->PipeRow2_X ,gamedata->Top_pipe_Y_2 + Distance_btw_2_pipes }, (Vector2D){gamedata->PipeRow2_X + al_get_bitmap_width(gamedata->LightSaberRotated),gamedata->Top_pipe_Y_2 + Distance_btw_2_pipes + al_get_bitmap_height(gamedata->LightSaber)})){
+        printf("colision Bas");
+    }   //Colisions Bottom Right
+
+    //second Row
+
+
+    if(Point_In_Rectangle((Vector2D){Bird_X + al_get_bitmap_width(gamedata->Bird),gamedata->Y_Position}, (Vector2D){gamedata->PipeRow3_X ,gamedata->Top_pipe_Y_3 }, (Vector2D){gamedata->PipeRow3_X + al_get_bitmap_width(gamedata->LightSaber),gamedata->Top_pipe_Y_3 + al_get_bitmap_height(gamedata->LightSaber)})){
+        printf("colision");
+    }   //colisions Top Right
+
+
+    if(Point_In_Rectangle((Vector2D){Bird_X + al_get_bitmap_width(gamedata->Bird),gamedata->Y_Position + al_get_bitmap_height(gamedata->Bird)}, (Vector2D){gamedata->PipeRow3_X ,gamedata->Top_pipe_Y_3 + Distance_btw_2_pipes }, (Vector2D){gamedata->PipeRow3_X + al_get_bitmap_width(gamedata->LightSaberRotated),gamedata->Top_pipe_Y_3 + Distance_btw_2_pipes + al_get_bitmap_height(gamedata->LightSaber)})){
+        printf("colision Bas");
+    }   //Colisions Bottom Right
+
+
+    //Third Row
+
+    if(Point_In_Rectangle((Vector2D){Bird_X + al_get_bitmap_width(gamedata->Bird),gamedata->Y_Position}, (Vector2D){gamedata->PipeRow4_X ,gamedata->Top_pipe_Y_4 }, (Vector2D){gamedata->PipeRow4_X + al_get_bitmap_width(gamedata->LightSaber),gamedata->Top_pipe_Y_4 + al_get_bitmap_height(gamedata->LightSaber)})){
+        printf("colision");
+    }   //colisions Top Right
+
+
+    if(Point_In_Rectangle((Vector2D){Bird_X + al_get_bitmap_width(gamedata->Bird),gamedata->Y_Position + al_get_bitmap_height(gamedata->Bird)}, (Vector2D){gamedata->PipeRow4_X ,gamedata->Top_pipe_Y_4 + Distance_btw_2_pipes }, (Vector2D){gamedata->PipeRow4_X + al_get_bitmap_width(gamedata->LightSaberRotated),gamedata->Top_pipe_Y_4 + Distance_btw_2_pipes + al_get_bitmap_height(gamedata->LightSaber)})){
+        printf("colision Bas");
+    }   //Colisions Bottom Right
+
+    //Fourth Row
+
+
+    if(Point_In_Rectangle((Vector2D){Bird_X + al_get_bitmap_width(gamedata->Bird),gamedata->Y_Position}, (Vector2D){gamedata->PipeRow5_X ,gamedata->Top_pipe_Y_5 }, (Vector2D){gamedata->PipeRow5_X + al_get_bitmap_width(gamedata->LightSaber),gamedata->Top_pipe_Y_5 + al_get_bitmap_height(gamedata->LightSaber)})){
+        printf("colision");
+    }   //colisions Top Right
+
+
+    if(Point_In_Rectangle((Vector2D){Bird_X + al_get_bitmap_width(gamedata->Bird),gamedata->Y_Position + al_get_bitmap_height(gamedata->Bird)}, (Vector2D){gamedata->PipeRow5_X ,gamedata->Top_pipe_Y_5 + Distance_btw_2_pipes }, (Vector2D){gamedata->PipeRow5_X + al_get_bitmap_width(gamedata->LightSaberRotated),gamedata->Top_pipe_Y_5 + Distance_btw_2_pipes + al_get_bitmap_height(gamedata->LightSaber)})){
+        printf("colision Bas");
+    }   //Colisions Bottom Right
+
+    //Fifth Row
+
+
+    if(gamedata->Y_Position < 0 || gamedata->Y_Position >1080){
+        printf("joueur détruit");
+    }
 }
 
 void FB_TimedUpdate(PGAME _pFB)
 {
-    printf("pFB de fonction TimedUpdate...\n");
+    //printf("pFB de fonction TimedUpdate...\n");
 
     pFB_gamedata gamedata = _pFB->gameData;
 
-    Generate_Pipes(_pFB);
 
-    gamedata->BirdSpeed += 0.0001;
+    if (gamedata->Gamemode == 0){
+        al_draw_bitmap(gamedata->Background,0,0,0);
+        al_draw_text(gamedata->font, al_map_rgb(255,255,255), 960,gamedata->FontY,1, "Flappy Bird");
+        al_draw_bitmap(gamedata->Bird, Bird_X, 540,0);
 
-    gamedata->PipeRow1_X -= gamedata->BirdSpeed;
-    gamedata->PipeRow2_X -= gamedata->BirdSpeed;
-
-    if (gamedata->Jump == 1){
-        if (gamedata->JumpTimer < 10){
-            gamedata->JumpTimer ++;
-            gamedata->Y_Position -= 10;
+        if (gamedata->FontTimer %20 == 1){
+            gamedata->FontVy *= -1;
+            gamedata->FontTimer ++;
         }
-        else if(gamedata->JumpTimer == 10){
-            gamedata->Jump = 0;
-            printf("condit 2");
-            gamedata->JumpTimer = 0;
+
+        else{
+            gamedata->FontTimer ++;
+            gamedata->FontY += gamedata->FontVy;
+            gamedata->FontVy --;
         }
     }
-    if (gamedata->Jump == 0){
-        gamedata->Y_Position += gamedata->vY_Fall;
-        gamedata->vY_Fall += 0.00001;
+
+    if (gamedata->Gamemode == 1){
+        Generate_Pipes(_pFB);
+
+        gamedata->BirdSpeed += 0.0001;
+
+        gamedata->PipeRow1_X -= gamedata->BirdSpeed;
+        gamedata->PipeRow2_X -= gamedata->BirdSpeed;
+        gamedata->PipeRow3_X -= gamedata->BirdSpeed;
+        gamedata->PipeRow4_X -= gamedata->BirdSpeed;
+        gamedata->PipeRow5_X -= gamedata->BirdSpeed;
+
+
+
+        if (gamedata->Jump == 1){
+            if (gamedata->JumpTimer < 10){
+                gamedata->JumpTimer ++;
+                gamedata->Y_Position -= 10;
+            }
+            else if(gamedata->JumpTimer == 10){
+                gamedata->Jump = 0;
+                //printf("condit 2");
+                gamedata->JumpTimer = 0;
+            }
+        }
+        if (gamedata->Jump == 0){
+            gamedata->Y_Position += gamedata->vY_Fall;
+            gamedata->vY_Fall += 0.00001;
+        }
+
+        //printf("%d", gamedata->JumpTimer);
+
+        al_draw_bitmap(gamedata->Background,0,0,0);
+        al_draw_bitmap(gamedata->Bird,Bird_X,gamedata->Y_Position,0);
+
+        al_draw_bitmap(gamedata->LightSaber, gamedata->PipeRow1_X, gamedata->Top_pipe_Y_1,0);
+        al_draw_bitmap(gamedata->LightSaberRotated,gamedata->PipeRow1_X,gamedata->Top_pipe_Y_1 + Distance_btw_2_pipes,0);
+
+        al_draw_bitmap(gamedata->LightSaber, gamedata->PipeRow2_X, gamedata->Top_pipe_Y_2,0);
+        al_draw_bitmap(gamedata->LightSaberRotated,gamedata->PipeRow2_X,gamedata->Top_pipe_Y_2 + Distance_btw_2_pipes,0);
+
+        al_draw_bitmap(gamedata->LightSaber, gamedata->PipeRow3_X, gamedata->Top_pipe_Y_3,0);
+        al_draw_bitmap(gamedata->LightSaberRotated,gamedata->PipeRow3_X,gamedata->Top_pipe_Y_3 + Distance_btw_2_pipes,0);
+
+        //printf("%d .. %d \n", gamedata->PipeRow3_X, gamedata->PipeRow3_X );
+
+
+        al_draw_bitmap(gamedata->LightSaber, gamedata->PipeRow4_X, gamedata->Top_pipe_Y_4,0);
+        al_draw_bitmap(gamedata->LightSaberRotated,gamedata->PipeRow4_X,gamedata->Top_pipe_Y_4 + Distance_btw_2_pipes,0);
+
+        al_draw_bitmap(gamedata->LightSaber, gamedata->PipeRow5_X, gamedata->Top_pipe_Y_5,0);
+        al_draw_bitmap(gamedata->LightSaberRotated,gamedata->PipeRow5_X,gamedata->Top_pipe_Y_5 + Distance_btw_2_pipes,0);
+
+        al_draw_text(gamedata->font, al_map_rgb(255,255,255), 960,gamedata->FontY,1, "Flappy Bird");
+        gamedata->FontY -= 5;
     }
-
-    printf("%d", gamedata->JumpTimer);
-
-    al_draw_bitmap(gamedata->Background,0,0,0);
-    al_draw_bitmap(gamedata->Bird,200,gamedata->Y_Position,0);
-
-    al_draw_bitmap(gamedata->LightSaber, gamedata->PipeRow1_X, gamedata->Top_pipe_Y_1,0);
-    al_draw_bitmap(gamedata->LightSaberRotated,gamedata->PipeRow1_X,gamedata->Top_pipe_Y_1 + Distance_btw_2_pipes,0);
-
-
-    al_draw_bitmap(gamedata->LightSaber, gamedata->PipeRow2_X, gamedata->Top_pipe_Y_2,0);
-    al_draw_bitmap(gamedata->LightSaberRotated,gamedata->PipeRow2_X,gamedata->Top_pipe_Y_2 + Distance_btw_2_pipes,0);
-
 }
 
 void Generate_Pipes(PGAME _pFB){
     pFB_gamedata gamedata = _pFB->gameData;
 
     if (gamedata->PipeRow1_X < 0){
-        gamedata->PipeRow1_X = rand()% 500 + 1920;
-        gamedata->Top_pipe_Y_1 = (-1)*(rand()%500+600);
+        gamedata->PipeRow1_X = 1920;
+        gamedata->Top_pipe_Y_1 = (-1)*(rand()%500+600)+200;
     }
     if (gamedata->PipeRow2_X < 0){
-        gamedata->PipeRow2_X = rand()% 500 + 1920;
+        gamedata->PipeRow2_X = gamedata->PipeRow1_X + 350;
         gamedata->Top_pipe_Y_2 = (-1)*(rand()%500+600);
+    }
+    if (gamedata->PipeRow3_X < 0){
+        gamedata->PipeRow3_X = gamedata->PipeRow2_X + 350;
+        gamedata->Top_pipe_Y_3 = (-1)*(rand()%500+600);
+    }
+    if (gamedata->PipeRow4_X < 0){
+        gamedata->PipeRow4_X = gamedata->PipeRow3_X + 350;
+        gamedata->Top_pipe_Y_4 = (-1)*(rand()%500+600);
+    }
+    if (gamedata->PipeRow5_X < 0){
+        gamedata->PipeRow5_X = gamedata->PipeRow4_X + 350;
+        gamedata->Top_pipe_Y_5 = (-1)*(rand()%500+600);
     }
 }
 
 void FB_Destroy(PGAME _pFB)
 {
-    printf("Destruction du jeu...\n");
+    //printf("Destruction du jeu...\n");
 
     pFB_gamedata gamedata = _pFB->gameData;
 
     free(_pFB->gameData);
     _pFB->gameData = NULL;
 
-    printf("Jeu detruit\n");
+    //printf("Jeu detruit\n");
 
-    *_pFB->pCurrentGameId = GAME_NONE;
+    *_pFB->pCurrentGameId = GAME_MAP;
 
-    printf("Etat du jeu actuel mis a GAME_NONE");
+    //printf("Etat du jeu actuel mis a GAME_NONE");
 }

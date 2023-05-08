@@ -206,6 +206,7 @@ void PAC_Coordinates_create(PGAME _pPAC){
     gamedata->DuckInfos[11]->x = 1200;
     gamedata->DuckInfos[11]->y = 600;
 
+
 }
 
 void Check_Duck_Collisions(PGAME _pPAC){
