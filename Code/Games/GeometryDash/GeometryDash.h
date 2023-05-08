@@ -13,9 +13,10 @@
 
 #define CL_PATH ".."
 #define PATH CL_PATH
-#define X_player 150
-#define y_debut_player 800
-
+#define X_player 500
+#define y_debut_player 900
+#define triangle 1
+#define rectangle 2
 
 
 typedef struct GeoData {
@@ -27,17 +28,20 @@ typedef struct GeoData {
     int sol;
     int avancement_fond;
     int x_fond;
+
+    int obstacles [1000];
+    int id_obstacles [1000];
+
     int timer;
     int click;
     Vector2D mouse_position;
 
     int gamemode;
 
-    ALLEGRO_COLOR ColisionRight;
-    ALLEGRO_COLOR ColisionTop;
-    ALLEGRO_COLOR ColisionBottom;
-}GeoData;
+    int x_triangle1;
 
+    int x_rectangle1;
+}GeoData;
 
 /*typedef struct GeoData {
     ALLEGRO_BITMAP* GDTextures[10];

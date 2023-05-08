@@ -10,26 +10,34 @@ void Geo_Create(PGAME _pGeoDash)
     GeoData * pGeoData = (GeoData *) malloc (sizeof (GeoData));
     _pGeoDash->gameData = pGeoData;
 
-    pGeoData->image[0] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\GDa (Personnalisé).png");
-    pGeoData->image[1] = al_load_bitmap(PATH "\\Textures\\TDLR\\boutonplay.png");
-    pGeoData->image[2] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\Fond.png");
-    pGeoData->image[3] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\GD Map (Personnalisé).png");
-    pGeoData->image[4] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\GD obstacles collisions (Personnalisé).png");
+    pGeoData->image [0] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\GDa.png");
+    pGeoData->image [1] = al_load_bitmap(PATH "\\Textures\\TDLR\\boutonplay.png");
+    pGeoData->image [2] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\Fond.png");
+    pGeoData->image [3] = al_load_bitmap(PATH "\\Textures\\GeometryDash\\img.png");
+
 
     pGeoData->ay_player = 1;
     pGeoData->vy_player = 0;
     pGeoData->y_player = y_debut_player;
-    pGeoData->sol = 900;
+    pGeoData->sol = 1000;
+    pGeoData->x = 0;
+    pGeoData->vx = 6;
     pGeoData->x_fond = 0;
-    pGeoData->avancement_fond = -2;
     pGeoData->timer = 0;
 
     pGeoData->gamemode = 0;
     pGeoData->click = 0;
 
-    pGeoData->ColisionRight = al_map_rgb_f(0,0,0);
-    pGeoData->ColisionBottom = al_map_rgb_f(0,0,0);
-    pGeoData->ColisionTop = al_map_rgb_f(0,0,0);
+    pGeoData->x_triangle1 = 700;
+
+    pGeoData->x_rectangle1 = 1000;
+
+    for (int i = 0; i < 1000; ++i) {
+        pGeoData->obstacles [i] = i*200;
+    }
+    for (int i = 0; i < 1000; ++i) {
+        pGeoData->id_obstacles [i] = rand()%2+1;
+    }
 
     /*pGD_Gamedata GameData = malloc(sizeof(GD_Gamedata));
 
@@ -67,14 +75,23 @@ void Geo_Update(PGAME _pGeoDash){
     }
 
     if (Get_Touch(_pGeoDash->pEvent, ALLEGRO_KEY_SPACE, 0, 1, 0, 0) && pGeoData->y_player == y_debut_player){  // attention au gamemode
-        pGeoData->vy_player = -15;
+        //printf("touche espace \n");
+        pGeoData->vy_player = -20;
     }
+
+    /*pGD_Gamedata GameData = _pGeoDash->gameData;
+
+    if (Get_Touch(_pGeoDash->pEvent, ALLEGRO_KEY_SPACE, 0, 1, 0, 0)){  // attention au gamemode
+        GameData->Jump = 1;
+    }
+    if (GameData->JumpDuration == 20){
+        GameData->Jump = -1;
+    }*/
 }
 
 void Geo_TimedUpdate(PGAME _pGeoDash) {
 
     GeoData * pGeoData = (GeoData *) _pGeoDash->gameData;
-
 
     if (pGeoData->gamemode == 0) {
         al_draw_bitmap(pGeoData->image [2], 0, 0, 0);
@@ -83,49 +100,104 @@ void Geo_TimedUpdate(PGAME _pGeoDash) {
             pGeoData->gamemode=1;
             pGeoData->click=0;
         }
-
+        //  tif (Point_In_Rectangle())
         al_draw_bitmap(pGeoData->image [1], 816, 800, 0);
     }
-
     else if (pGeoData->gamemode == 1) {
-
+        //al_clear_to_color(al_map_rgb(200, 0, 0));
         pGeoData->vy_player = pGeoData ->vy_player + pGeoData ->ay_player;
         pGeoData->y_player = pGeoData ->y_player + pGeoData ->vy_player;
+
+        al_draw_bitmap(pGeoData->image [2], pGeoData->x_fond - pGeoData->x, 0, 0);
+
+
+
+
+
+
+        al_draw_filled_triangle(pGeoData->x * (-1) + pGeoData->x_triangle1, y_debut_player + 100, pGeoData->x * (-1) + pGeoData->x_triangle1 + 100, y_debut_player + 100, pGeoData->x* (-1) + pGeoData->x_triangle1 + 50, y_debut_player,
+                                al_map_rgb(255, 0, 0));
+
+        al_draw_filled_rectangle(pGeoData->x* (-1) + pGeoData->x_rectangle1, y_debut_player, pGeoData->x * (-1) + pGeoData->x_rectangle1 + 100, y_debut_player + 100,
+                                 al_map_rgb(0, 0, 255));
+
+        /*if (pGeoData->x_fond == ) {
+            pGeoData->sol = ;
+        }*/
+
+        for (int i = 0; i < 1000; ++i) {
+
+            if (pGeoData->obstacles [i] < pGeoData->x + X_player && pGeoData->x + X_player <= pGeoData->obstacles [i] + 100){
+                if (pGeoData->y_player < pGeoData->sol - 100) {
+                    break;
+                }
+                if (pGeoData->id_obstacles [i] == triangle){
+                    printf("Mort !!!! \n");
+                    break;
+                }
+                else if (pGeoData->id_obstacles [i] == rectangle){
+                    printf("Rectangle\n");
+                    if (y_debut_player < pGeoData->y_player && pGeoData->y_player <= y_debut_player + 10){
+                        pGeoData->sol = pGeoData->sol + 100;
+                    }
+                    break;
+                }
+                break;
+            }
+        }
+
+        for (int i = 0; i < 1000; ++i) {
+            if (pGeoData->obstacles [i] < pGeoData->x -500) {
+                continue;
+            }
+            if (pGeoData->obstacles [i] >= pGeoData->x + 2000) {
+                break;
+            }
+            if (pGeoData->id_obstacles [i] == triangle) {
+                al_draw_filled_triangle(pGeoData->x * (-1) + pGeoData->obstacles [i], y_debut_player + 100, pGeoData->x * (-1) + pGeoData->obstacles [i] + 100, y_debut_player + 100, pGeoData->x* (-1) + pGeoData->obstacles [i] + 50, y_debut_player,
+                                        al_map_rgb(255, 0, 0));
+            }
+            else if (pGeoData->id_obstacles [i] == rectangle) {
+                al_draw_filled_rectangle(pGeoData->x* (-1) + pGeoData->obstacles [i], y_debut_player, pGeoData->x * (-1) + pGeoData->obstacles [i] + 100, y_debut_player + 100,
+                                         al_map_rgb(0, 0, 255));
+            }
+        }
+
+
 
         if (pGeoData->y_player + 100 >= pGeoData->sol) {
             pGeoData->y_player = pGeoData->sol - 100;
         }
 
-        pGeoData->timer ++;
-        if (pGeoData->timer % 20 == 0){
-            if (0.929411 <= al_get_pixel(pGeoData->image [3], ((-1) * pGeoData->x_fond) + X_player, pGeoData->y_player).r && al_get_pixel(pGeoData->image [7], ((-1) * pGeoData->x_fond) + X_player, pGeoData->y_player).r < 0.929413){
-                printf("colision %d\n", pGeoData->timer);
-            }
-        }
-
-
+        al_draw_bitmap(pGeoData ->image [0], X_player, pGeoData ->y_player, 0);
+        pGeoData->x = pGeoData->x + pGeoData->vx;
+        //al_draw_bitmap(pGeoData->image [3], pGeoData->x_fond, -80, 0);
+        //
         // printf("%f", al_map_rgb(237, 28, 36).r);
         //printf(" -- %d\n", pGeoData->x_fond);
-        //printf("%f", al_get_pixel(pGeoData->image [6], pGeoData->x_fond * (-1) - 100, 500).b);      al_get_pixel(pGeoData->image [7], ((-1) * pGeoData->x_fond), pGeoData->y_player).r <= 0.929412
-
-        al_draw_bitmap(pGeoData->image [2], pGeoData->x_fond, 0, 0);
-
-        al_draw_bitmap(pGeoData->image [3], pGeoData->x_fond, -205, 0);             //Texture des obstacles
-
-
-
+        //al_get_pixel(pGeoData->image [7], ((-1) * pGeoData->x_fond), pGeoData->y_player).r <= 0.929412
         //al_draw_filled_rectangle(pGeoData->x_fond  + 800, y_debut_player, pGeoData->x_fond + 1000, y_debut_player + 100 ,al_map_rgb(0, 0, 18));
         //al_draw_bitmap(pGeoData->image[3], pGeoData->x_fond + 50,100,0);
 
-        al_draw_bitmap(pGeoData ->image [0], X_player, pGeoData ->y_player, 0);
-        pGeoData->x_fond = pGeoData->x_fond + pGeoData->avancement_fond;
-        //al_draw_filled_triangle();
 
+        /*pGeoData->timer ++;
+        if (pGeoData->timer % 10 == 0){
+            if (0.9294120 <= al_get_pixel(pGeoData->image [3], ((-1) * pGeoData->x_fond) + X_player, pGeoData->y_player).r && al_get_pixel(pGeoData->image [3], ((-1) * pGeoData->x_fond) + X_player, pGeoData->y_player).r < 0.9294122){
+                printf("colision %d\n", pGeoData->timer);
+            }
+        }
+         * al_draw_filled_rectangle(pGeoData->x_fond * (-1), 300, pGeoData->x_fond * (-1) +10, 90,
+                                 al_map_rgb(0, 0, 0));
+        al_draw_bitmap(pGeoData->image [3], 0, -600, 0);
+        printf("%f\n", al_get_pixel(pGeoData->image [3], pGeoData->x_fond * (-1), 1000).r);*/
     }
     else if (pGeoData->gamemode == 2) {
+
+    }
+    else if (pGeoData->gamemode == 3) {
+
         Geo_Destroy(_pGeoDash);
     }
-
     /*pGD_Gamedata gameData = _pGeoDash->gameData;
 
     gameData->vy += gameData->Gravity;

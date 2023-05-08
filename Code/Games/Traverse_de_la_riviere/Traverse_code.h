@@ -69,7 +69,8 @@ typedef struct GameData {
 
     Vector2D mouse_position;
     int click;
-    int compteur_rectangle;
+    int compteur_rectangle1;
+    int compteur_rectangle2;
 }GameData;
 
 //void ajouterfinLSC (Maillion** p, int numero);
