@@ -456,9 +456,6 @@ void PAC_TimedUpdate(PGAME _pPAC)
         }
     }
     al_draw_bitmap(gameData->Cursor, gameData->mouse.x - 50, gameData->mouse.y - 25,1);
-
-
-
 }
 
 void PAC_Destroy(PGAME _pPAC)
