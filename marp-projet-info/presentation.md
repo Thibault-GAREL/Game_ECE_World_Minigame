@@ -435,6 +435,8 @@ __Colisions :__
 
 ➖ Le curseur s'affiche seulement si la souris bouge 🐭
 
+➖ Un écran de victoire apparait si un joueur possède 5 tickets 🎫
+
 
 ---
 # Map 🌍🚪 `4/12`
@@ -560,7 +562,7 @@ __Colisions :__
 
 # Jeu Bonus : Head Jedai ⚽🎮 `4/4`
 
-# Les fonctionnalitées ➕ :
+# Les fonctionnalités ➕ :
 
 ➖ Les joueurs peuvent avancer, reculer, sauter et donner un coup de pied 🏃
 
@@ -577,3 +579,220 @@ __Colisions :__
 ➖ Récap des scores à la fin de partie et attribution tickets 💯
 
 ➖ Menu de début et menu de fin de jeu 🏁
+
+
+---
+
+# Thibault
+
+- `✅ 100%` __Traversée de la rivière__: __Jeux obligatoire__  (renommé "Traversée du champ de bataille" dans le style de Star Wars   🚀)
+
+
+- `✅ 100%` __Geometry Dash__
+
+
+
+- `✅ 100%` __Flappy Bird__
+
+![bg right](image_TDLR/Fond_d-ecran-Bataille_spatiale.jpg)
+
+
+---
+
+# Matthieu
+
+- `✅ 100%` __Snake__ : __Jeux obligatoire__
+
+
+- `✅ 100%` __Guitare Hero__ (renommé "Dark piano" dans le style de Star Wars   🚀)
+
+
+- `✅ 100%` __Flappy Bird__
+  
+- `✅ 100%` __Geometry Dash__
+
+
+---
+
+# Robin
+
+- `✅ 100%` __Pêche aux canards__ : __Jeux obligatoire__ (renommé "Pêche aux vaisseaux" dans le style de Star Wars   🚀)
+
+- `✅ 100%` __Flapy Bird__
+  
+- `✅ 100%` __Geometry Dash__
+
+
+---
+
+
+# Traversée de la rivière  :airplane:  :milky_way: `1/4`
+
+### Les différentes textures :
+
+- __Les Obstacles__ : (possibilité d'en rajouté)
+  ![](image_TDLR/Chasseur_TIE_droite.png) ![](image_TDLR/X-wing_droite.png)
+
+- __Le personnage__ :
+
+![](image_TDLR/Standtooper.png)
+
+
+---
+
+
+# Traversée de la rivière  :airplane:  :milky_way: `2/4`
+
+### Les différentes textures :
+
+- __Une zone de paix__ :
+
+![](image_TDLR/Zone_de_paix.png)
+
+- __Le fond étoile__
+  
+![](image_TDLR/tempsnip5.png)
+
+---
+# Traversée de la rivière  :airplane:  :milky_way: `3/4`
+
+![](image_TDLR/Capture_jeu.png)
+
+---
+
+# Traversée de la rivière  :airplane:  :milky_way: `4/4`
+
+# Les fonctionnalités ➕ :
+
+➖ Les joueurs peuvent avancer, aller à droite ou gauche pour esquiver les vaisseaux 🏃
+
+➖ Les vaisseaux alléatoire passe de tout les côtés 🚀
+
+➖ Le joueur se fait entrainé par les flots d'étoile 🌊🌠
+
+➖ Système de vie mise en place (en haut à gauche) ❤️ 
+(sortir de l'écran ou touche un vaisseau fait prendre des dégats)
+
+➖Des zones de paix sont présentes pour faire une pause 💤
+
+➖ Système de timer (en haut à droite)🕜
+
+➖Celui qui va le plus loin gagne 🏆
+
+---
+
+
+# Geometry Dash  🏃 🔺 `1/3`
+
+### Les différentes textures :
+
+- __Les Obstacles__ : 
+
+
+- __Le personnage__ :
+
+---
+
+# Geometry Dash  🏃 🔺 `2/3`
+
+
+
+---
+
+# Geometry Dash  🏃 🔺 `3/3`
+
+# Les fonctionnalités ➕ :
+
+➖ Les joueurs peuvent sauter pour aller le plus loin 🏃
+
+➖Des obstacles sont à éviter toute en passant sur les platformes 🔺
+
+➖Celui qui va le plus loin gagne 🏆
+ 
+ ---
+
+
+# Snake  🐍 `1/3`
+
+### Les différentes textures :
+
+- __Les Obstacles__ : 
+
+
+- __Le personnage__ :
+
+---
+
+# Snake  🐍 `2/3`
+
+
+
+---
+
+# Snake  🐍 `3/3`
+
+# Les fonctionnalités ➕ :
+
+➖ Les joueurs peuvent sauter pour aller le plus loin 🏃
+
+➖Des obstacles sont à éviter toute en passant sur les platformes 🔺
+
+➖Celui qui va le plus loin gagne 🏆
+ 
+
+ ---
+
+
+# Flappy Bird 🐦 `1/3`
+
+### Les différentes textures :
+
+- __Les Obstacles__ : 
+
+
+- __Le personnage__ :
+
+---
+
+# Flappy Bird  🐦 `2/3`
+
+
+
+---
+
+# Flappy Bird  🐦 `3/3`
+
+# Les fonctionnalités ➕ :
+
+➖ Les joueurs peuvent sauter pour aller le plus loin 🏃
+
+➖Des obstacles sont à éviter en passant entre les lasers 💥
+
+➖Celui qui va le plus loin gagne 🏆
+ 
+ 
+ ---
+
+ 
+# Dark piano 🎶 🎵 🎹 `1/3`
+
+### Les différentes textures :
+
+- __Les touches__ : 
+
+
+- __Le fonctionnement__ :
+
+---
+
+# Dark piano 🎶 🎵 🎹 `2/3`
+
+
+
+---
+
+# Dark piano 🎶 🎵 🎹 `3/3`
+
+# Les fonctionnalités ➕ :
+
+➖ Les joueurs doivent appuyer sur les touches au bon moment 

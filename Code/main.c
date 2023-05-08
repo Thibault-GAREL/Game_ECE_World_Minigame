@@ -11,7 +11,7 @@
 #include "Games/Exemple/GameExemple.h"
 #include "Games/DarkPiano/DarkPiano.h"
 #include "Menu/Menu.h"
-#include "Games/JeuBonus/JeuBonus.h"
+#include "Games/HeadJedai/JeuBonus.h"
 #include "Games/GeometryDash/GeometryDash.h"
 #include "Games/FlappyBird/FB.h"
 
@@ -32,7 +32,7 @@ int main()
 
     //ChangeCursor(pAlManager, pAlManager->pCursors->Cursor1);
 
-    int currentGameId = GAME_NONE;
+    int currentGameId = MENU;
 
     PPLAYER players[PLAYER_COUNT];
     Players_Init(players, PLAYER_COUNT);
@@ -60,6 +60,8 @@ int main()
     pGames[3]->SampleAlManager = pAlManager;
     pGames[5]->SampleAlManager = pAlManager;
     pGames[6]->SampleAlManager = pAlManager;
+    pGames[7]->SampleAlManager = pAlManager;
+    pGames[9]->SampleAlManager = pAlManager;
 
 
     while (1)
