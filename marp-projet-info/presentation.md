@@ -590,7 +590,7 @@ __Colisions :__
 
 
 
-- `✅ 100%` __Flapy Bird__
+- `✅ 100%` __Flappy Bird__
 
 ![bg right](image_TDLR/Fond_d-ecran-Bataille_spatiale.jpg)
 
@@ -605,7 +605,7 @@ __Colisions :__
 - `✅ 100%` __Guitare Hero__ (renommé "Dark piano" dans le style de Star Wars   🚀)
 
 
-- `✅ 100%` __Flapy Bird__
+- `✅ 100%` __Flappy Bird__
   
 - `✅ 100%` __Geometry Dash__
 
@@ -666,7 +666,7 @@ __Colisions :__
 
 ➖ Les vaisseaux alléatoire passe de tout les côtés 🚀
 
-➖ Le joueur se fait entrainé par les flots d'étoile 🌊
+➖ Le joueur se fait entrainé par les flots d'étoile 🌊🌠
 
 ➖ Système de vie mise en place (en haut à gauche) ❤️ 
 (sortir de l'écran ou touche un vaisseau fait prendre des dégats)
@@ -764,8 +764,33 @@ __Colisions :__
 
 ➖ Les joueurs peuvent sauter pour aller le plus loin 🏃
 
-➖Des obstacles sont à éviter toute en passant sur les platformes 🔺
+➖Des obstacles sont à éviter en passant entre les lasers 💥
 
 ➖Celui qui va le plus loin gagne 🏆
  
  
+ ---
+
+ 
+# Dark piano 🎶 🎵 🎹 `1/3`
+
+### Les différentes textures :
+
+- __Les touches__ : 
+
+
+- __Le fonctionnement__ :
+
+---
+
+# Dark piano 🎶 🎵 🎹 `2/3`
+
+
+
+---
+
+# Dark piano 🎶 🎵 🎹 `3/3`
+
+# Les fonctionnalités ➕ :
+
+➖ Les joueurs doivent appuyer sur les touches au bon moment 
