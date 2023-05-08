@@ -271,7 +271,7 @@ PALLEGRO_CURSOR InitCursors(){
     PALLEGRO_CURSOR pCursor = malloc(sizeof(ALLEGRO_CURSOR));
 
     ALLEGRO_BITMAP *Cursor1 = al_load_bitmap("..\\Textures\\Cursors\\cursor--v1.png");
-    ALLEGRO_BITMAP *PAC = al_load_bitmap("..\\Textures\\Cursors\\PAC Sight (Personnalisé).png");
+    ALLEGRO_BITMAP *PAC = al_load_bitmap("..\\Textures\\Cursors\\PAC.png");
     //ALLEGRO_BITMAP *Cursor3 = al_load_bitmap();
     //ALLEGRO_BITMAP *Cursor4 = al_load_bitmap();
     //ALLEGRO_BITMAP *Cursor5 = al_load_bitmap();
