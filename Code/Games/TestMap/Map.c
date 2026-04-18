@@ -204,8 +204,8 @@ void Map_Update(PGAME _pMap)
         if (pMapData->vetoV==0 && pMapData->deplacementverti==1){
             pMapData->deplacementverti=0;
         }
-        pMapData->deplacementverti=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_F, pMapData->deplacementverti, -pMapData->vetoF, 0, pMapData->deplacementverti);
-        pMapData->deplacementverti=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_V, pMapData->deplacementverti, pMapData->vetoV, 0,pMapData->deplacementverti);
+        pMapData->deplacementverti=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_Z, pMapData->deplacementverti, -pMapData->vetoF, 0, pMapData->deplacementverti);
+        pMapData->deplacementverti=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_S, pMapData->deplacementverti, pMapData->vetoV, 0,pMapData->deplacementverti);
 
         if (pMapData->vetoC==0 && pMapData->deplacementhori==-1){
             pMapData->deplacementhori=0;
@@ -213,31 +213,31 @@ void Map_Update(PGAME _pMap)
         if (pMapData->vetoB==0 && pMapData->deplacementhori==1){
             pMapData->deplacementhori=0;
         }
-        pMapData->deplacementhori=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_C, pMapData->deplacementhori, -pMapData->vetoC, 0, pMapData->deplacementhori);
-        pMapData->deplacementhori=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_B, pMapData->deplacementhori, pMapData->vetoB, 0,pMapData->deplacementhori);
+        pMapData->deplacementhori=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_Q, pMapData->deplacementhori, -pMapData->vetoC, 0, pMapData->deplacementhori);
+        pMapData->deplacementhori=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_D, pMapData->deplacementhori, pMapData->vetoB, 0,pMapData->deplacementhori);
     }
     if (pMapData->compteurvaisseaubon==1){
-        pMapData->deplacementverti=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_F, pMapData->deplacementverti, -1, 0, pMapData->deplacementverti);
-        pMapData->deplacementhori= Get_Touch(_pMap->pEvent,ALLEGRO_KEY_C,pMapData->deplacementhori,-1,0,pMapData->deplacementhori);
-        pMapData->deplacementverti=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_V, pMapData->deplacementverti, 1, 0, pMapData->deplacementverti);
-        pMapData->deplacementhori= Get_Touch(_pMap->pEvent,ALLEGRO_KEY_B,pMapData->deplacementhori,1,0,pMapData->deplacementhori);
+        pMapData->deplacementverti=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_Z, pMapData->deplacementverti, -1, 0, pMapData->deplacementverti);
+        pMapData->deplacementhori= Get_Touch(_pMap->pEvent,ALLEGRO_KEY_Q,pMapData->deplacementhori,-1,0,pMapData->deplacementhori);
+        pMapData->deplacementverti=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_S, pMapData->deplacementverti, 1, 0, pMapData->deplacementverti);
+        pMapData->deplacementhori= Get_Touch(_pMap->pEvent,ALLEGRO_KEY_D,pMapData->deplacementhori,1,0,pMapData->deplacementhori);
     }
 
-    pMapData->a=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_F, pMapData->deplacementverti, -1, 0, pMapData->deplacementverti);
-    pMapData->b= Get_Touch(_pMap->pEvent,ALLEGRO_KEY_C,pMapData->deplacementhori,-1,0,pMapData->deplacementhori);
-    pMapData->c=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_V, pMapData->deplacementverti, 1, 0, pMapData->deplacementverti);
-    pMapData->d= Get_Touch(_pMap->pEvent,ALLEGRO_KEY_B,pMapData->deplacementhori,1,0,pMapData->deplacementhori);
+    pMapData->a=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_Z, pMapData->deplacementverti, -1, 0, pMapData->deplacementverti);
+    pMapData->b= Get_Touch(_pMap->pEvent,ALLEGRO_KEY_Q,pMapData->deplacementhori,-1,0,pMapData->deplacementhori);
+    pMapData->c=Get_Touch(_pMap->pEvent, ALLEGRO_KEY_S, pMapData->deplacementverti, 1, 0, pMapData->deplacementverti);
+    pMapData->d= Get_Touch(_pMap->pEvent,ALLEGRO_KEY_D,pMapData->deplacementhori,1,0,pMapData->deplacementhori);
 
-    if (_pMap->pEvent->keyboard.keycode == ALLEGRO_KEY_F){
+    if (_pMap->pEvent->keyboard.keycode == ALLEGRO_KEY_Z){
         pMapData->sensbonhommey = 0;
     }
-    if (_pMap->pEvent->keyboard.keycode == ALLEGRO_KEY_C){
+    if (_pMap->pEvent->keyboard.keycode == ALLEGRO_KEY_Q){
         pMapData->sensbonhommex = 0;
     }
-    if (_pMap->pEvent->keyboard.keycode == ALLEGRO_KEY_V){
+    if (_pMap->pEvent->keyboard.keycode == ALLEGRO_KEY_S){
         pMapData->sensbonhommey = 1;
     }
-    if (_pMap->pEvent->keyboard.keycode == ALLEGRO_KEY_B){
+    if (_pMap->pEvent->keyboard.keycode == ALLEGRO_KEY_D){
         pMapData->sensbonhommex = 1;
     }
     if (_pMap->pEvent->type == ALLEGRO_EVENT_MOUSE_BUTTON_UP)
@@ -746,6 +746,8 @@ void Map_TimedUpdate(PGAME _pMap)
                 printf("%d\n",pMapData->compteuranim1);
                 al_flip_display();
             }
+            printf("=== Map_Destroy -> launching game id=%d ===\n", pMapData->jeusuivant);
+            fflush(stdout);
             Map_Destroy(_pMap);
             return ;
         }

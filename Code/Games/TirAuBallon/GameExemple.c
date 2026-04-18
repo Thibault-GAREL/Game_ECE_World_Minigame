@@ -2,26 +2,49 @@
 
 void TAB_Create(PGAME _pExemple)                               // ECHELLE = 1.25 POUR LE MOMENT
 {
+    printf("[TAB_Create] begin\n"); fflush(stdout);
     TABGameData* pGameData = malloc(sizeof (TABGameData));
+    printf("[TAB_Create] malloc ok\n"); fflush(stdout);
     pGameData->police[0]= al_load_ttf_font("..\\Textures/Map/police.ttf",150,0);
+    printf("[TAB_Create] police[0] loaded %p\n", (void*)pGameData->police[0]); fflush(stdout);
     pGameData->police[1]= al_load_ttf_font("..\\Textures/Map/police.ttf",100,0);
+    printf("[TAB_Create] police[1] loaded %p\n", (void*)pGameData->police[1]); fflush(stdout);
     pGameData->police[2]= al_load_ttf_font("..\\Textures/Map/police.ttf",30,0);
+    printf("[TAB_Create] police[2] loaded %p\n", (void*)pGameData->police[2]); fflush(stdout);
+    printf("[TAB_Create] before image[0]\n"); fflush(stdout);
     pGameData->image[0]= al_load_bitmap("..\\Textures/Map/fondmenu.jpg");
+    printf("[TAB_Create] image[0] = %p\n", (void*)pGameData->image[0]); fflush(stdout);
     pGameData->image[1]= al_load_bitmap("..\\Textures/Map/sabrelaser.png");
+    printf("[TAB_Create] image[1] = %p\n", (void*)pGameData->image[1]); fflush(stdout);
     pGameData->image[2]= al_load_bitmap("..\\Textures/Map/boutonplay.png");
+    printf("[TAB_Create] image[2] = %p\n", (void*)pGameData->image[2]); fflush(stdout);
     pGameData->image[3]= al_load_bitmap("..\\Textures/Map/batiment1.jpg");
+    printf("[TAB_Create] image[3] = %p\n", (void*)pGameData->image[3]); fflush(stdout);
     pGameData->image[4]= al_load_bitmap("..\\Textures/Map/tete_strom.png");
+    printf("[TAB_Create] image[4] = %p\n", (void*)pGameData->image[4]); fflush(stdout);
     pGameData->image[5]= al_load_bitmap("..\\Textures/Map/tete_yoda.png");
+    printf("[TAB_Create] image[5] = %p\n", (void*)pGameData->image[5]); fflush(stdout);
     pGameData->image[6]= al_load_bitmap("..\\Textures/Map/tete_vador.png");
+    printf("[TAB_Create] image[6] = %p\n", (void*)pGameData->image[6]); fflush(stdout);
     pGameData->image[7]= al_load_bitmap("..\\Textures/Map/armegauche.png");
+    printf("[TAB_Create] image[7] = %p\n", (void*)pGameData->image[7]); fflush(stdout);
     pGameData->image[8]= al_load_bitmap("..\\Textures/Map/armedroite.png");
+    printf("[TAB_Create] image[8] = %p\n", (void*)pGameData->image[8]); fflush(stdout);
     pGameData->image[9]= al_load_bitmap("..\\Textures/Map/vaisseau.png");
+    printf("[TAB_Create] image[9] = %p\n", (void*)pGameData->image[9]); fflush(stdout);
+    printf("[TAB_Create] before image[10]\n"); fflush(stdout);
     pGameData->image[10]= al_load_bitmap("..\\Textures/Map/vaisseaumenu.png");
+    printf("[TAB_Create] image[10] = %p\n", (void*)pGameData->image[10]); fflush(stdout);
     pGameData->image[11]= al_load_bitmap("..\\Textures/Map/vaisseaumenu2.png");
+    printf("[TAB_Create] image[11] = %p\n", (void*)pGameData->image[11]); fflush(stdout);
     pGameData->image[12]= al_load_bitmap("..\\Textures/Map/viseur.png");
+    printf("[TAB_Create] image[12] = %p\n", (void*)pGameData->image[12]); fflush(stdout);
     pGameData->image[13]= al_load_bitmap("..\\Textures/Map/horloge.png");
+    printf("[TAB_Create] image[13] = %p\n", (void*)pGameData->image[13]); fflush(stdout);
     pGameData->image[14]= al_load_bitmap("..\\Textures/Map/ballonscore.png");
+    printf("[TAB_Create] image[14] = %p\n", (void*)pGameData->image[14]); fflush(stdout);
     pGameData->image[15]= al_load_bitmap("..\\Textures/Map/fondtatawin.jpg");
+    printf("[TAB_Create] image[15] = %p\n", (void*)pGameData->image[15]); fflush(stdout);
     pGameData->image[16]= al_load_bitmap("..\\Textures/Map/scorepartie.png");
     pGameData->image[17]= al_load_bitmap("..\\Textures/Map/meilleurscore.png");
     pGameData->image[18]= al_load_bitmap("..\\Textures/Map/ticket.png");
@@ -82,6 +105,16 @@ void TAB_Create(PGAME _pExemple)                               // ECHELLE = 1.25
         pGameData->danse[i]= al_load_bitmap(pGameData->chiffre);
     }
 
+    for (int i=0;i<69;i++){
+        if (!pGameData->image[i]) printf("[TAB_Create] NULL image[%d]\n", i);
+    }
+    for (int i=0;i<60;i++){
+        if (!pGameData->danse[i]) printf("[TAB_Create] NULL danse[%d]\n", i);
+    }
+    for (int i=0;i<3;i++){
+        if (!pGameData->police[i]) printf("[TAB_Create] NULL police[%d]\n", i);
+    }
+    fflush(stdout);
 
     pGameData->soninstance=NULL;
     al_reserve_samples(5);
@@ -102,8 +135,7 @@ void TAB_Create(PGAME _pExemple)                               // ECHELLE = 1.25
     pGameData->vaisseaumenu3y = 900;
     pGameData->vaisseaumenu4x = 2000;
     pGameData->vaisseaumenu4y = 900;
-    Ballon PositionBallon[1000]={0};
-    pGameData->pballon=PositionBallon;
+    pGameData->pballon = calloc(1000, sizeof(Ballon));
     _pExemple->gameData = pGameData;
     pGameData->compteurassignation=0;
     pGameData->compteurdroite=0;
@@ -712,6 +744,7 @@ void TAB_Destroy(PGAME _pExemple)
     }
     al_destroy_sample_instance(pGameData->soninstance);
     al_destroy_sample(pGameData->sons[0]);
+    free(pGameData->pballon);
     free(_pExemple->gameData);
     _pExemple->gameData = NULL;
     *_pExemple->pCurrentGameId = GAME_MAP;

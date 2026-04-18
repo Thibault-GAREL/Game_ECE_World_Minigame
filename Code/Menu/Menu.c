@@ -360,7 +360,7 @@ void Menu_Destroy(PGAME _pMenu)
 
     _pMenu->SampleAlManager->MusicGain = gameData->MusicGain;
     _pMenu->SampleAlManager->SFXGain = gameData->SFXGain;
-    _pMenu->SampleAlManager->ResolutionScale = gameData->ResolutionScale;
+    // ResolutionScale is now computed from actual screen size in AllegroManager_Create — do not overwrite.
 
     Set_New_Sample_Instance(_pMenu->SampleAlManager);
 

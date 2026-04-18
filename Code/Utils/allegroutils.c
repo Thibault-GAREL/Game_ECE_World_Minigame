@@ -1,7 +1,24 @@
 #include "allegroutils.h"
 
+#ifdef _WIN32
+#include <windows.h>
+typedef BOOL (WINAPI *SetProcessDPIAwareFn)(void);
+static void EnableDPIAwareness(void)
+{
+    HMODULE hUser32 = LoadLibraryA("user32.dll");
+    if (hUser32)
+    {
+        SetProcessDPIAwareFn fn = (SetProcessDPIAwareFn)GetProcAddress(hUser32, "SetProcessDPIAware");
+        if (fn) fn();
+    }
+}
+#endif
+
 void Allegro_Init()
 {
+#ifdef _WIN32
+    EnableDPIAwareness();
+#endif
     assert(al_init());
     assert(al_init_primitives_addon());
     assert(al_install_keyboard());
@@ -46,17 +63,33 @@ PALLEGRO_MANAGER AllegroManager_Create(int _dw, int _dh, double _timeSpeed)
 {
     PALLEGRO_MANAGER pAllegroManager = malloc(sizeof(ALLEGRO_MANAGER));
 
-    pAllegroManager->pSample = Allegro_Samples_Create(Audio_Samples_Count);
-
-    pAllegroManager->pSampleInstance = InitSample(pAllegroManager->pSample);
-
-    pAllegroManager->pCursors = InitCursors();
-
     pAllegroManager->MusicGain = 1;
     pAllegroManager->SFXGain = 1;
 
+    al_set_new_display_flags(ALLEGRO_FULLSCREEN_WINDOW);
+    pAllegroManager->pDisplay = al_create_display(_dw, _dh);
+
+    int realW = al_get_display_width(pAllegroManager->pDisplay);
+    int realH = al_get_display_height(pAllegroManager->pDisplay);
+    float scaleX = (float)realW / (float)_dw;
+    float scaleY = (float)realH / (float)_dh;
+    float scale = scaleX < scaleY ? scaleX : scaleY;
+
+    ALLEGRO_TRANSFORM trans;
+    al_identity_transform(&trans);
+    al_scale_transform(&trans, scale, scale);
+    al_translate_transform(&trans,
+        (realW - _dw * scale) * 0.5f,
+        (realH - _dh * scale) * 0.5f);
+    al_use_transform(&trans);
+
+    pAllegroManager->ResolutionScale = 1.0 / scale;
+
+    pAllegroManager->pSample = Allegro_Samples_Create(Audio_Samples_Count);
+    pAllegroManager->pSampleInstance = InitSample(pAllegroManager->pSample);
+    pAllegroManager->pCursors = InitCursors();
     SetSampleInstance(pAllegroManager->pSampleInstance, pAllegroManager);
-    pAllegroManager->pDisplay =  al_create_display(_dw, _dh);
+
     pAllegroManager->pTimer = al_create_timer(_timeSpeed);
     al_start_timer(pAllegroManager->pTimer);
     pAllegroManager->pEventQueue = Init_Event(pAllegroManager->pDisplay, pAllegroManager->pTimer);
