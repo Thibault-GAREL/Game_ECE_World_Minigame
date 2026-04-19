@@ -47,7 +47,7 @@ The arcade contains the following mini-games:
 | Game | Author | Inspiration |
 |------|--------|-------------|
 | 🐍 **Snake** | Matthieu | Classic Snake |
-| 🎈 **Tir au Ballon** (TAB) | Antoine | Balloon shooter / Valorant |
+| 🎈 **Ball shooting** (TAB) | Antoine | Balloon shooter / Valorant |
 | 🦆 **Duck fishing** (PAC) | Robin | Duck fishing |
 | 🌊 **Crossy space** (TDLR) | Thibault | Crossy road |
 | 🎹 **Dark Piano** | Matthieu | Piano Tiles |
@@ -182,9 +182,9 @@ cmake --build .
 Group project at **ECE Paris (2022–2023)** — team of 4:
 
 - 🐍 [**Matthieu GROS**](https://github.com/MatthieuGROS) — Snake + Dark Piano + Flappy Bird
-- 🎈 [**Antoine GOUDEDRANCHE**](https://github.com/Antoine31G) — Tir au Ballon + Head Jedai + Map
-- 🦆 [**Robin KOENIG**](https://github.com/RobinKoenig69) — Pêche aux Canards + Menu
-- 🌊 [**Thibault GAREL**](https://github.com/Thibault-GAREL) — Traversée de la Rivière / Crossy space + Geometry Dash
+- 🎈 [**Antoine GOUDEDRANCHE**](https://github.com/Antoine31G) — Ball shooting + Head Jedai + Map
+- 🦆 [**Robin KOENIG**](https://github.com/RobinKoenig69) — Duck fishing + Menu
+- 🌊 [**Thibault GAREL**](https://github.com/Thibault-GAREL) — Crossy space + Geometry Dash
 
 Theme: space / futuristic / *Star Wars*-inspired amusement park.
 
