@@ -16,15 +16,15 @@
 
 ## 📝 Project Description
 
-**Space Amusement Park** is a 2-player arcade hub written in **C with Allegro 5.0.10**. The player walks around a central space-themed / *Among Us*-inspired map and enters one of **10 mini-games** to score points. Built as a group project at **ECE Paris (2022–2023)** in a team of 4 — each member designed and coded their own games, then plugged them into a shared engine that handles players, input, rendering, and audio.
+**Star Wars Amusement Park** is a 2-player arcade hub written in **C with Allegro 5.0.10**. The player walks around a central space-themed / *Star Wars*-inspired map and enters one of **8 mini-games** to score points. Built as a group project at **ECE Lyon (2022–2023)** in a team of 4 — each member designed and coded their own games, then plugged them into a shared engine that handles players, input, rendering, and audio.
 
-This was my first large-scale C project — the focus was learning modular architecture (one module = one mini-game), function pointers (`Game_Update` / `Game_TimedUpdate`), and how to structure a real graphical engine by hand.
+This was my second large-scale C project — the focus was learning modular architecture (one module = one mini-game), function pointers (`Game_Update` / `Game_TimedUpdate`), and how to structure a real graphical engine by hand.
 
 ---
 
 ## ⚙️ Features
 
-  🎮 **10 mini-games** plugged into a shared engine via function pointers
+  🎮 **8 mini-games** plugged into a shared engine via function pointers
 
   👥 **2-player** local multiplayer with per-player key bindings
 
@@ -47,15 +47,15 @@ The arcade contains the following mini-games:
 | Game | Author | Inspiration |
 |------|--------|-------------|
 | 🐍 **Snake** | Matthieu | Classic Snake |
-| 🎈 **Tir au Ballon** (TAB) | Antoine | Balloon shooter |
-| 🦆 **Pêche aux Canards** (PAC) | Robin | Duck fishing + Space Invaders |
-| 🌊 **Traversée de la Rivière** (TDLR) | Thibault | Frogger + Geometry Dash |
-| 🎹 **Dark Piano** | — | Piano Tiles |
-| 🟦 **Geometry Dash** | — | Geometry Dash |
-| 🐤 **Flappy Bird** | — | Flappy Bird |
-| ⚔️ **Head Jedai** (Bonus) | — | Mini bonus game |
-| 🗺️ **Map** | — | Central hub |
-| 🎛️ **Menu** | — | Main menu + settings |
+| 🎈 **Tir au Ballon** (TAB) | Antoine | Balloon shooter / Valorant |
+| 🦆 **Duck fishing** (PAC) | Robin | Duck fishing |
+| 🌊 **Crossy space** (TDLR) | Thibault | Crossy road |
+| 🎹 **Dark Piano** | Matthieu | Piano Tiles |
+| 🟦 **Geometry Dash** | Thibault | Geometry Dash |
+| 🐤 **Flappy Bird** | Matthieu | Flappy Bird |
+| ⚔️ **Head Jedai** (Bonus) | Antoine | Soccer Heads |
+| 🗺️ **Map** | Antoine | Central hub |
+| 🎛️ **Menu** | Robin | Main menu + settings |
 
 ---
 
@@ -141,8 +141,8 @@ Each game has its own state, textures and update logic but shares the same 2 pla
 ### Clone & compile
 
 ```bash
-git clone https://github.com/Thibault-GAREL/projet-2022-2023-ece-world.git
-cd projet-2022-2023-ece-world/Code
+git clone https://github.com/Thibault-GAREL/Game_ECE_World_Minigame.git
+cd Code
 ```
 
 ### Option 1 — Direct GCC (recommended on Windows / PowerShell)
@@ -181,14 +181,12 @@ cmake --build .
 
 Group project at **ECE Paris (2022–2023)** — team of 4:
 
-- 🐍 [**Matthieu GROS**](https://github.com/MatthieuGROS) — Snake
-- 🎈 [**Antoine**](https://github.com/Antoine31G) — Tir au Ballon
-- 🦆 [**Robin KOENIG**](https://github.com/RobinKoenig69) — Pêche aux Canards (+ Space Invaders touch)
-- 🌊 [**Thibault GAREL**](https://github.com/Thibault-GAREL) — Traversée de la Rivière (+ Geometry Dash touch), engine architecture, menu, map
+- 🐍 [**Matthieu GROS**](https://github.com/MatthieuGROS) — Snake + Dark Piano + Flappy Bird
+- 🎈 [**Antoine**](https://github.com/Antoine31G) — Tir au Ballon + Head Jedai + Map
+- 🦆 [**Robin KOENIG**](https://github.com/RobinKoenig69) — Pêche aux Canards + Menu
+- 🌊 [**Thibault GAREL**](https://github.com/Thibault-GAREL) — Traversée de la Rivière / Crossy space + Geometry Dash
 
-Theme: space / futuristic / *Among Us*-inspired amusement park.
-
-Mini-games inspired by: **Snake**, **Frogger**, **Flappy Bird**, **Geometry Dash**, **Piano Tiles**, **Space Invaders**.
+Theme: space / futuristic / *Star Wars*-inspired amusement park.
 
 This was also my second big C project — alongside the [🏛️ Asterix & Obelix Maze game](https://github.com/Thibault-GAREL/Game_maze_Asterix-Obelix) (same school year, same Allegro 5.0.10 stack).
 
