@@ -182,7 +182,7 @@ cmake --build .
 Group project at **ECE Paris (2022–2023)** — team of 4:
 
 - 🐍 [**Matthieu GROS**](https://github.com/MatthieuGROS) — Snake + Dark Piano + Flappy Bird
-- 🎈 [**Antoine**](https://github.com/Antoine31G) — Tir au Ballon + Head Jedai + Map
+- 🎈 [**Antoine GOUDEDRANCHE**](https://github.com/Antoine31G) — Tir au Ballon + Head Jedai + Map
 - 🦆 [**Robin KOENIG**](https://github.com/RobinKoenig69) — Pêche aux Canards + Menu
 - 🌊 [**Thibault GAREL**](https://github.com/Thibault-GAREL) — Traversée de la Rivière / Crossy space + Geometry Dash
 
