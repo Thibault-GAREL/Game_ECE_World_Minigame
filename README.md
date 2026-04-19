@@ -179,7 +179,7 @@ cmake --build .
 
 ## 📖 Inspiration / Sources
 
-Group project at **ECE Paris (2022–2023)** — team of 4:
+Group project at **ECE Lyon (2022–2023)** — team of 4:
 
 - 🐍 [**Matthieu GROS**](https://github.com/MatthieuGROS) — Snake + Dark Piano + Flappy Bird
 - 🎈 [**Antoine GOUDEDRANCHE**](https://github.com/Antoine31G) — Ball shooting + Head Jedai + Map
