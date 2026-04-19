@@ -9,7 +9,7 @@
 ![Contributions](https://img.shields.io/badge/contributions-welcome-orange.svg)
 
 <p align="center">
-  <img src="Textures/Menu/Menu.jpg" alt="main menu" width="600">
+  <img src="img/Menu.png" alt="main menu" width="600">
 </p>
 
 ---
@@ -56,6 +56,61 @@ The arcade contains the following mini-games:
 | ⚔️ **Head Jedai** (Bonus) | Antoine | Soccer Heads |
 | 🗺️ **Map** | Antoine | Central hub |
 | 🎛️ **Menu** | Robin | Main menu + settings |
+
+### 📸 Screenshots
+
+🗺️ **The central hub / open world map** — walk around and step on a zone to enter a game:
+
+<p align="center">
+  <img src="img/Open_world.png" alt="open world hub map" width="600">
+</p>
+
+🎮 **Game selection screen** from the central hub:
+
+<p align="center">
+  <img src="img/Select_a_game.png" alt="game selection screen" width="600">
+</p>
+
+🌊 **Crossy space** (TDLR) — my own mini-game, inspired by Crossy Road:
+
+<p align="center">
+  <img src="img/Crossy_space_game.png" alt="Crossy space gameplay" width="600">
+</p>
+
+<details>
+<summary>📸 See more screenshots (settings, credits, players selection...)</summary>
+
+⚙️ **Settings menu** — rebind keys for Player 1 / Player 2:
+
+<p align="center">
+  <img src="img/Settings.png" alt="settings menu" width="600">
+</p>
+
+👥 **Players selection** screen:
+
+<p align="center">
+  <img src="img/Selection_players.png" alt="players selection" width="600">
+</p>
+
+🌊 **Crossy space** — menu of the mini-game:
+
+<p align="center">
+  <img src="img/Crossy_space.png" alt="Crossy space menu" width="600">
+</p>
+
+⏳ **Loading screen** animation:
+
+<p align="center">
+  <img src="img/Gif_chargment_time.png" alt="loading screen" width="600">
+</p>
+
+🏆 **Credits** screen:
+
+<p align="center">
+  <img src="img/Credit.png" alt="credits screen" width="600">
+</p>
+
+</details>
 
 ---
 
